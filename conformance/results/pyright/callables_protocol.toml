@@ -32,11 +32,10 @@ callables_protocol.py:70:7 - error: Type "(**b: str) -> None" is not assignable 
   Type "(**b: str) -> None" is not assignable to type "(*vals: bytes, **kwargs: str) -> None"
     Parameter "*vals" has no corresponding parameter (reportAssignmentType)
 callables_protocol.py:97:16 - error: Type "(x: int) -> None" is not assignable to declared type "Proto4"
-  "function" is incompatible with protocol "Proto4"
-    "other_attribute" is not present
-    "__call__" is not present (reportAssignmentType)
+  "FunctionType" is incompatible with protocol "Proto4"
+    "other_attribute" is not present (reportAssignmentType)
 callables_protocol.py:121:18 - error: Type "(*vals: bytes, max_len: int | None = None) -> list[bytes]" is not assignable to declared type "NotProto6"
-  "function" is not assignable to "NotProto6" (reportAssignmentType)
+  "FunctionType" is not assignable to "NotProto6" (reportAssignmentType)
 callables_protocol.py:169:7 - error: Type "(x: int) -> Any" is not assignable to declared type "Proto8"
   One or more overloads of "__call__" is not assignable
     Type "(x: int) -> Any" is not assignable to type "(x: str) -> str"

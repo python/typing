@@ -82,26 +82,13 @@ A typical directory structure would look like:
 
 .. code-block:: text
 
-   setup.py
+   pyproject.toml
    my_great_package/
       __init__.py
       stuff.py
       py.typed
 
-It's important to ensure that the ``py.typed`` marker file is included in the
-distributed package. If using ``setuptools``, this can be achieved like so:
-
-.. code-block:: python
-
-   from setuptools import setup
-
-   setup(
-      name="my_great_distribution",
-      version="0.1",
-      package_data={"my_great_package": ["py.typed"]},
-      packages=["my_great_package"],
-   )
-
+Note the py.typed should be located inside the package, along with ``__init__.py``.
 
 Type stub files included in the package
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -113,26 +100,12 @@ directory structure would look like:
 
 .. code-block:: text
 
-   setup.py
+   pyproject.toml
    my_great_package/
       __init__.py
       stuff.py
       stuff.pyi
       py.typed
-
-If using ``setuptools``, we can ensure the ``.pyi`` and ``py.typed`` files are
-included like so:
-
-.. code-block:: python
-
-   from setuptools import setup
-
-   setup(
-      name="my_great_distribution",
-      version="0.1",
-      package_data={"my_great_package": ["py.typed", "stuff.pyi"]},
-      packages=["my_great_package"],
-   )
 
 The presence of ``.pyi`` files does not affect the Python interpreter at runtime
 in any way. However, static type checkers will only look at the ``.pyi`` file and
@@ -150,40 +123,24 @@ For example:
 
 .. code-block:: text
 
-   setup.py
+   pyproject.toml
    my_great_package-stubs/
       __init__.pyi
       stuff.pyi
 
+.. code-block:: toml
 
-.. code-block:: python
+   [project]
+   name = "my-great-package-stubs"
+   version = "0.1.0"
+   requires-python = ">=3.10"
 
-   from setuptools import setup
-
-   setup(
-      name="my_great_package-stubs",
-      version="0.1",
-      package_data={"my_great_package-stubs": ["__init__.pyi", "stuff.pyi"]},
-      packages=["my_great_package-stubs"]
-   )
-
+   [build-system]
+   requires = ["uv_build>=0.9.18,<0.10.0"]
+   build-backend = "uv_build"
 
 Users are then able to install the stubs-only package separately to provide
 types for the original library.
-
-Inclusion in sdist
-^^^^^^^^^^^^^^^^^^
-
-Note that to ensure inclusion of ``.pyi`` and ``py.typed`` files in an sdist
-(.tar.gz archive), you may also need to modify the inclusion rules in your
-``MANIFEST.in`` (see the
-`packaging guide <https://packaging.python.org/en/latest/guides/using-manifest-in/>`__
-for more details on ``MANIFEST.in``). For example:
-
-.. code-block:: text
-
-   global-include *.pyi
-   global-include py.typed
 
 .. _type_completeness:
 
@@ -232,15 +189,15 @@ is obvious from the context:
    assigned only once and is either annotated with ``Final`` or is named
    in all-caps. A constant that is not assigned a simple literal value
    requires explicit annotations, preferably with a ``Final`` annotation
-   (e.g. ``WOODWINDS: Final[List[str]] = ['Oboe', 'Bassoon']``).
+   (e.g. ``WOODWINDS: Final[list[str]] = ['Oboe', 'Bassoon']``).
 -  Enum values within an Enum class do not require annotations because
    they take on the type of the Enum class.
 -  Type aliases do not require annotations. A type alias is a symbol
    that is defined at a module level with a single assignment where the
    assigned value is an instantiable type, as opposed to a class
    instance
-   (e.g. ``Foo = Callable[[Literal["a", "b"]], Union[int, str]]`` or
-   ``Bar = Optional[MyGenericClass[int]]``).
+   (e.g. ``Foo = Callable[[Literal["a", "b"]], int | str]`` or
+   ``Bar = MyGenericClass[int] | None``).
 -  The “self” parameter in an instance method and the “cls” parameter in
    a class method do not require an explicit annotation.
 -  The return type for an ``__init__`` method does not need to be
@@ -262,21 +219,21 @@ Examples of known and unknown types
    a = [3, 4, 5]
 
    # Variable with known type
-   a: List[int] = [3, 4, 5]
+   a: list[int] = [3, 4, 5]
 
    # Type alias with partially unknown type (because type
    # arguments are missing for list and dict)
-   DictOrList = Union[list, dict]
+   DictOrList = list | dict
 
    # Type alias with known type
-   DictOrList = Union[List[Any], Dict[str, Any]]
+   DictOrList = list[Any] | dict[str, Any]
 
    # Generic type alias with known type
    _T = TypeVar("_T")
-   DictOrList = Union[List[_T], Dict[str, _T]]
+   DictOrList = list[_T] | dict[str, _T]
 
    # Function with known type
-   def func(a: Optional[int], b: Dict[str, float] = {}) -> None:
+   def func(a: int | None, b: dict[str, float] = {}) -> None:
        pass
 
    # Function with partially unknown type (because type annotations
@@ -291,7 +248,7 @@ Examples of known and unknown types
 
    # Function with partially unknown type (because return type
    # annotation is missing)
-   def func(a: int, b: Dict[str, float]):
+   def func(a: int, b: dict[str, float]):
        pass
 
    # Decorator with partially unknown type (because type annotations
@@ -366,7 +323,7 @@ Wide vs. Narrow Types
 In type theory, when comparing two types that are related to each other,
 the “wider” type is the one that is more general, and the “narrower”
 type is more specific. For example, ``Sequence[str]`` is a wider type
-than ``List[str]`` because all ``List`` objects are also ``Sequence``
+than ``list[str]`` because all ``list`` objects are also ``Sequence``
 objects, but the converse is not true. A subclass is narrower than a
 class it derives from. A union of types is wider than the individual
 types that comprise the union.
@@ -375,7 +332,7 @@ In general, a function input parameter should be annotated with the
 widest possible type supported by the implementation. For example, if
 the implementation requires the caller to provide an iterable collection
 of strings, the parameter should be annotated as ``Iterable[str]``, not
-as ``List[str]``. The latter type is narrower than necessary, so if a
+as ``list[str]``. The latter type is narrower than necessary, so if a
 user attempts to pass a tuple of strings (which is supported by the
 implementation), a type checker will complain about a type
 incompatibility.
@@ -383,21 +340,21 @@ incompatibility.
 As a specific application of the “use the widest type possible” rule,
 libraries should generally use immutable forms of container types
 instead of mutable forms (unless the function needs to modify the
-container). Use ``Sequence`` rather than ``List``, ``Mapping`` rather
-than ``Dict``, etc. Immutable containers allow for more flexibility
+container). Use ``Sequence`` rather than ``list``, ``Mapping`` rather
+than ``dict``, etc. Immutable containers allow for more flexibility
 because their type parameters are covariant rather than invariant. A
-parameter that is typed as ``Sequence[Union[str, int]]`` can accept a
-``List[int]``, ``Sequence[str]``, and a ``Sequence[int]``. But a
-parameter typed as ``List[Union[str, int]]`` is much more restrictive
-and accepts only a ``List[Union[str, int]]``.
+parameter that is typed as ``Sequence[str | int]`` can accept a
+``list[int]``, ``Sequence[str]``, and a ``Sequence[int]``. But a
+parameter typed as ``list[str | int]`` is much more restrictive
+and accepts only a ``list[str | int]``.
 
 Overloads
 ---------
 
 If a function or method can return multiple different types and those
 types can be determined based on the presence or types of certain
-parameters, use the ``@overload`` mechanism defined in `PEP
-484 <https://www.python.org/dev/peps/pep-0484/#id45>`__. When overloads
+parameters, use the ``@overload`` mechanism described in the
+:py:data:`typing.overload` documentation. When overloads
 are used within a “.py” file, they must appear prior to the function
 implementation, which should not have an ``@overload`` decorator.
 
@@ -409,8 +366,10 @@ specified only by name, use the keyword-only separator (``*``).
 
 .. code:: python
 
-   def create_user(age: int, *, dob: Optional[date] = None):
+   def create_user(age: int, *, dob: date | None = None):
        ...
+
+.. _annotating-decorators:
 
 Annotating Decorators
 ---------------------
@@ -448,12 +407,72 @@ original signature, thus blinding type checkers and other tools that
 provide signature assistance. As such, library authors are discouraged
 from creating decorators that mutate function signatures in this manner.
 
+.. _aliasing-decorators:
+
+Aliasing Decorators
+-------------------
+
+When writing a library with a couple of decorator factories
+(i.e. functions returning decorators, like ``complex_decorator`` from the
+:ref:`annotating-decorators` section) it may be tempting to create a shortcut
+for a decorator.
+
+Different type checkers handle :data:`TypeAlias <typing.TypeAlias>` involving
+:class:`Callable <collections.abc.Callable>` in a
+different manner, so the most portable and easy way to create a shortcut
+is to define a callable :class:`Protocol <typing.Protocol>` as described in the
+:ref:`callback-protocols` section of the Typing Specification.
+
+There is already a :class:`Protocol <typing.Protocol>` called
+``IdentityFunction`` defined in
+`_typeshed <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_:
+
+.. code:: python
+
+   from typing import TYPE_CHECKING
+
+   if TYPE_CHECKING:
+       from _typeshed import IdentityFunction
+
+   def decorator_factory(*, mode: str) -> "IdentityFunction":
+      """
+       Decorator factory is invoked with arguments like this:
+         @decorator_factory(mode="easy")
+         def my_function(): ...
+      """
+        ...
+
+For non-trivial decorators with custom logic, it is still possible
+to define a custom protocol using :class:`ParamSpec <typing.ParamSpec>`
+and :data:`Concatenate <typing.Concatenate>` mechanisms:
+
+.. code:: python
+
+   class Client: ...
+
+   P = ParamSpec("P")
+   R = TypeVar("R")
+
+   class PClientInjector(Protocol):
+       def __call__(self, _: Callable[Concatenate[Client, P], R], /) -> Callable[P, R]:
+           ...
+
+   def inject_client(service: str) -> PClientInjector:
+      """
+       Decorator factory is invoked with arguments like this:
+         @inject_client("testing")
+         def my_function(client: Client, value: int): ...
+
+         my_function then takes only value
+      """
+
+
 Generic Classes and Functions
 -----------------------------
 
 Classes and functions that can operate in a generic manner on various
-types should declare themselves as generic using the mechanisms
-described in :pep:`484`.
+types should declare themselves as generic using standard typing
+mechanisms such as ``TypeVar``.
 This includes the use of ``TypeVar`` symbols. Typically, a ``TypeVar``
 should be private to the file that declares it, and should therefore
 begin with an underscore.
@@ -472,16 +491,16 @@ annotation.
 .. code:: python
 
    # Simple type alias
-   FamilyPet = Union[Cat, Dog, GoldFish]
+   FamilyPet = Cat | Dog | GoldFish
 
    # Generic type alias
-   ListOrTuple = Union[List[_T], Tuple[_T, ...]]
+   ListOrTuple = list[_T] | tuple[_T, ...]
 
    # Recursive type alias
-   TreeNode = Union[LeafNode, List["TreeNode"]]
+   TreeNode = LeafNode | list["TreeNode"]
 
-   # Explicit type alias using PEP 613 syntax
-   StrOrInt: TypeAlias = Union[str, int]
+   # Explicit type alias using TypeAlias
+   StrOrInt: TypeAlias = str | int
 
 Abstract Classes and Methods
 ----------------------------
@@ -547,14 +566,14 @@ type annotation would be redundant.
 
    # All-caps constant with explicit type
    COLOR_FORMAT_RGB: Literal["rgb"] = "rgb"
-   LATEST_VERSION: Tuple[int, int] = (4, 5)
+   LATEST_VERSION: tuple[int, int] = (4, 5)
 
    # Final variable with inferred type
    ColorFormatRgb: Final = "rgb"
 
    # Final variable with explicit type
    ColorFormatRgb: Final[Literal["rgb"]] = "rgb"
-   LATEST_VERSION: Final[Tuple[int, int]] = (4, 5)
+   LATEST_VERSION: Final[tuple[int, int]] = (4, 5)
 
 Typed Dictionaries, Data Classes, and Named Tuples
 --------------------------------------------------

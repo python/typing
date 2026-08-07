@@ -7,6 +7,7 @@ Tests basic handling of the dataclass factory.
 
 from dataclasses import InitVar, dataclass, field
 from typing import Any, Callable, ClassVar, Generic, Protocol, TypeVar, assert_type
+import sys
 
 T = TypeVar("T")
 
@@ -57,19 +58,19 @@ v4 = InventoryItem("name", 3.1, 3, 4)  # E: too many arguments
 # > single class, or as a result of class inheritance.
 @dataclass  # E[DC1]
 class DC1:
-    a: int = 0
+    a: int = 0 # E[DC1]: field with default should follow a field with no default.
     b: int  # E[DC1]: field with no default cannot follow field with default.
 
 
 @dataclass  # E[DC2]
 class DC2:
-    a: int = field(default=1)
+    a: int = field(default=1) # E[DC2]: field with default should follow a field with no default.
     b: int  # E[DC2]: field with no default cannot follow field with default.
 
 
 @dataclass  # E[DC3]
 class DC3:
-    a: InitVar[int] = 0
+    a: InitVar[int] = 0 # E[DC3]: field with default should follow a field with no default.
     b: int  # E[DC3]: field with no default cannot follow field with default.
 
 
@@ -226,3 +227,20 @@ class DC18:
     # This may generate a type checker error because an unannotated field
     # will result in a runtime exception.
     y = field()  # E?
+
+
+# > Dataclass fields may be conditional, via checks of the same
+# > statically-known conditions that a type-checker understands elsewhere,
+# > such as Python version:
+
+@dataclass
+class DC19:
+    x: int
+    if sys.version_info >= (3, 12):
+        y: int
+    if sys.version_info >= (4, 0):
+        z: int
+
+# The conformance suite runs type checkers configured to Python 3.12 or later:
+DC19(1, 2)
+DC19(1, 2, 3)  # E

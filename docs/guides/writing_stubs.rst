@@ -5,7 +5,8 @@ Writing and Maintaining Stub Files
 **********************************
 
 Stub files are a means of providing type information for Python modules.
-For a full reference, refer to :ref:`stub-files`.
+For a quick introduction, see :ref:`external_libraries`. For a full reference,
+refer to :ref:`distributing-type`.
 
 Maintaining stubs can be a little cumbersome because they are separated from the
 implementation. This page lists some tools that make writing and maintaining
@@ -93,6 +94,9 @@ Liskov substitutability or detecting problematic overloads.
 It may be instructive to examine `typeshed <https://github.com/python/typeshed/>`__'s
 `setup for testing stubs <https://github.com/python/typeshed/blob/main/tests/README.md>`__.
 
+To suppress type errors in stubs, use ``# type: ignore`` comments. Refer to the :ref:`type-checker-error-suppression` section of the style guide for
+error suppression formats specific to individual typecheckers.
+
 ..
    TODO: consider adding examples and configurations for specific type checkers
 
@@ -113,18 +117,6 @@ Stub Content
 This section documents best practices on what elements to include or
 leave out of stub files.
 
-Modules excluded fom stubs
---------------------------
-
-Not all modules should be included in stubs.
-
-It is recommended to exclude:
-
-1. Implementation details, with `multiprocessing/popen_spawn_win32.py <https://github.com/python/cpython/blob/main/Lib/multiprocessing/popen_spawn_win32.py>`_ as a notable example
-2. Modules that are not supposed to be imported, such as ``__main__.py``
-3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added (see :ref:`undocumented-objects` section below)
-4. Tests
-
 Public Interface
 ----------------
 
@@ -138,7 +130,17 @@ The following should always be included:
 * All objects included in ``__all__`` (if present).
 
 Other objects may be included if they are not prefixed with an underscore
-or if they are being used in practice. (See the next section.)
+or if they are being used in practice.
+
+Modules excluded from stubs
+---------------------------
+
+The following should not be included in stubs:
+
+1. Implementation details, with `multiprocessing/popen_spawn_win32.py <https://github.com/python/cpython/blob/main/Lib/multiprocessing/popen_spawn_win32.py>`_ as a notable example
+2. Modules that are not supposed to be imported, such as ``__main__.py``
+3. Protected modules that start with a single ``_`` char. However, when needed protected modules can still be added (see :ref:`undocumented-objects` section below)
+4. Tests
 
 .. _undocumented-objects:
 
@@ -190,7 +192,7 @@ No::
 
 Sometimes, it is desirable to make a stub-only class available
 to a stub's users — for example, to allow them to type the return value of a
-public method for which a library does not provided a usable runtime type. Use
+public method for which a library does not provide a usable runtime type. Use
 the ``typing.type_check_only`` decorator to mark such objects::
 
   from typing import Protocol, type_check_only
@@ -212,6 +214,20 @@ to use them freely to describe simple structural types.
 Incomplete Stubs
 ----------------
 
+When writing new stubs, it is not necessary to fully annotate all arguments,
+return types, and fields. Some items may be left unannotated or
+annotated with ``_typeshed.Incomplete`` (`documentation <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_)::
+
+    from _typeshed import Incomplete
+
+    field: Incomplete  # unannotated
+
+    def foo(x): ...  # unannotated argument and return type
+
+``_typeshed.Incomplete`` can also be used for partially known types::
+
+    def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+
 Partial stubs can be useful, especially for larger packages, but they should
 follow the following guidelines:
 
@@ -219,16 +235,7 @@ follow the following guidelines:
   can be left unannotated.
 * Do not use ``Any`` to mark unannotated or partially annotated values. Leave
   function parameters and return values unannotated. In all other cases, use
-  ``_typeshed.Incomplete``
-  (`documentation <https://github.com/python/typeshed/blob/main/stdlib/_typeshed/README.md>`_)::
-
-    from _typeshed import Incomplete
-
-    field1: Incomplete
-    field2: dict[str, Incomplete]
-
-    def foo(x): ...
-
+  ``_typeshed.Incomplete``.
 * Partial classes should include a ``__getattr__()`` method marked with
   ``_typeshed.Incomplete`` (see example below).
 * Partial modules (i.e. modules that are missing some or all classes,
@@ -253,12 +260,23 @@ annotated function ``bar()``::
 
     def bar(x: str, y, *, z=...): ...
 
+``Any`` vs. ``Incomplete``
+--------------------------
+
+While ``Incomplete`` is a type alias of ``Any``, they serve different purposes:
+``Incomplete`` is a placeholder where a proper type might be substituted.
+It's a "to do" item and should be replaced if possible.
+
+``Any`` is used when it's not possible to accurately type an item using the current
+type system. It should be used sparingly, as described in the :ref:`using-any`
+section of the style guide.
+
 Attribute Access
 ----------------
 
 Python has several methods for customizing attribute access: ``__getattr__``,
 ``__getattribute__``, ``__setattr__``, and ``__delattr__``. Of these,
-``__getattr__`` and ``__setattr___`` should sometimes be included in stubs.
+``__getattr__`` and ``__setattr__`` should sometimes be included in stubs.
 
 In addition to marking incomplete definitions, ``__getattr__`` should be
 included when a class or module allows any name to be accessed. For example, consider
@@ -298,7 +316,7 @@ In this case, the stub should list the attributes individually::
       def imag(self) -> float: ...
       def __init__(self, n: complex) -> None: ...
 
-``__setattr___`` should be included when a class allows any name to be set and
+``__setattr__`` should be included when a class allows any name to be set and
 restricts the type. For example::
 
   class IntHolder:
@@ -405,6 +423,64 @@ common mistakes like unintentionally passing in ``None``.
 
 If in doubt, consider asking the library maintainers about their intent.
 
+Common Patterns
+===============
+
+.. _stub-patterns:
+
+This section documents common patterns that are useful in stub files.
+
+Overloads and Flags
+-------------------
+
+.. _overloads-and-flags:
+
+Sometimes a function or method has a flag argument that changes the return type
+or other accepted argument types. For example, take the following function::
+
+  def open(name: str, mode: Literal["r", "w"] = "r") -> Reader | Writer:
+      ...
+
+We can express this case easily with two overloads::
+
+  @overload
+  def open(name: str, mode: Literal["r"] = "r") -> Reader: ...
+  @overload
+  def open(name: str, mode: Literal["w"]) -> Writer: ...
+
+The first overload is picked when the mode is ``"r"`` or not given, and the
+second overload is picked when the mode is ``"w"``. But what if the first
+argument is optional?
+
+::
+
+  def open(name: str | None = None, mode: Literal["r", "w"] = "r") -> Reader | Writer:
+      ...
+
+Ideally we would be able to use the following overloads::
+
+  @overload
+  def open(name: str | None = None, mode: Literal["r"] = "r") -> Reader: ...
+  @overload
+  def open(name: str | None = None, mode: Literal["w"]) -> Writer: ...
+
+And while the first overload is fine, the second is a syntax error in Python,
+because non-default arguments cannot follow default arguments. To work around
+this, we need an extra overload::
+
+  @overload
+  def open(name: str | None = None, mode: Literal["r"] = "r") -> Reader: ...
+  @overload
+  def open(name: str | None, mode: Literal["w"]) -> Writer: ...
+  @overload
+  def open(*, mode: Literal["w"]) -> Writer: ...
+
+As before, the first overload is picked when the mode is ``"r"`` or not given.
+Otherwise, the second overload is used when ``open`` is called with an explicit
+``name``, e.g. ``open("file.txt", "w")`` or ``open(None, "w")``. The third
+overload is used when ``open`` is called without a name, e.g.
+``open(mode="w")``.
+
 Style Guide
 ===========
 
@@ -416,6 +492,28 @@ Stub files should generally follow the Style Guide for Python Code (:pep:`8`)
 and the :ref:`best-practices`. There are a few exceptions, outlined below, that take the
 different structure of stub files into account and aim to create
 more concise files.
+
+Syntax Example
+--------------
+
+The below is an excerpt from the types for the ``datetime`` module::
+
+  MAXYEAR: int
+  MINYEAR: int
+
+  class date:
+      def __new__(cls, year: SupportsIndex, month: SupportsIndex, day: SupportsIndex) -> Self: ...
+      @classmethod
+      def fromtimestamp(cls, timestamp: float, /) -> Self: ...
+      @classmethod
+      def today(cls) -> Self: ...
+      @classmethod
+      def fromordinal(cls, n: int, /) -> Self: ...
+      @property
+      def year(self) -> int: ...
+      def replace(self, year: SupportsIndex = ..., month: SupportsIndex = ..., day: SupportsIndex = ...) -> Self: ...
+      def ctime(self) -> str: ...
+      def weekday(self) -> int: ...
 
 Maximum Line Length
 -------------------
@@ -448,7 +546,7 @@ No::
 
     def time_func() -> None: ...
 
-    def date_func() -> None: ...  # do no leave unnecessary empty lines
+    def date_func() -> None: ...  # do not leave unnecessary empty lines
 
     def ip_func() -> None: ...
 
@@ -505,7 +603,7 @@ Yes::
 
     class Color(Enum):
         # An assignment with no type annotation is a convention used to indicate
-	# an enum member.
+        # an enum member.
         RED = 1
 
 No::
@@ -575,6 +673,13 @@ No::
         ...
     def to_int3(x: str) -> int: pass
 
+Avoid invariant collection types (``list``, ``dict``) for function parameters,
+in favor of covariant types like ``Mapping`` or ``Sequence``.
+
+Avoid union return types. See https://github.com/python/mypy/issues/1693
+
+Use ``float`` instead of ``int | float`` for parameter annotations. See :pep:`484` for more details.
+
 Language Features
 -----------------
 
@@ -604,6 +709,14 @@ No::
 
     class OtherClass: ...
 
+Use variable annotations instead of type comments, even for stubs that target
+older versions of Python.
+
+Platform-dependent APIs
+-----------------------
+
+Use :ref:`platform checks<version-and-platform-checks>` like ``if sys.platform == 'win32'`` to denote platform-dependent APIs.
+
 NamedTuple and TypedDict
 ------------------------
 
@@ -631,7 +744,7 @@ No::
 Built-in Generics
 -----------------
 
-:pep:`585` built-in generics are supported and should be used instead
+:pep:`585` built-in generics (such as ``list``, ``dict``, ``tuple``, ``set``) are supported and should be used instead
 of the corresponding types from ``typing``::
 
     from collections import defaultdict
@@ -649,8 +762,123 @@ generally possible and recommended::
 Unions
 ------
 
-Declaring unions with the shorthand `|` syntax is recommended and supported by
+Declaring unions with the shorthand ``|`` syntax is recommended and supported by
 all type checkers::
 
   def foo(x: int | str) -> int | None: ...  # recommended
   def foo(x: Union[int, str]) -> Optional[int]: ...  # ok
+
+.. _using-any:
+
+Using ``Any`` and ``object``
+----------------------------
+
+When adding type hints, avoid using the :ref:`Any` type when possible. Reserve
+the use of :ref:`Any` for when:
+
+* the correct type cannot be expressed in the current type system; and
+* to avoid union returns (see above).
+
+Note that :ref:`Any` is not the correct type to use if you want to indicate
+that some function can accept literally anything: in those cases use
+:class:`object` instead.
+
+When using :ref:`Any`, document the reason for using it in a comment, unless the
+reason is obvious. Ideally, document what types could be used. Obvious
+reasons can include:
+
+* Using :ref:`Any` as a type argument for a generic with invariant type variables
+  to say "any object of this type is allowed", e.g. ``Future[Any]``.
+* Using ``dict[str, Any]`` or ``Mapping[str, Any]`` when the value types
+  depend on the keys. But consider using :ref:`TypedDict` or
+  ``dict[str, Incomplete]`` (temporarily) when the keys of the dictionary are
+  fixed.
+
+The ``Any`` Trick
+-----------------
+
+In cases where a function or method can return ``None``, but where forcing the
+user to explicitly check for ``None`` can be detrimental, use
+``_typeshed.MaybeNone`` (an alias to ``Any``), instead of ``None``.
+
+Consider the following (simplified) signature of ``re.Match[str].group``::
+
+    class Match:
+        def group(self, group: str | int, /) -> str | MaybeNone: ...
+
+This avoids forcing the user to check for ``None``::
+
+    match = re.fullmatch(r"\d+_(.*)", some_string)
+    assert match is not None
+    name_group = match.group(1)  # The user knows that this will never be None
+    name_group.uper()  # This typo will be flagged by the type checker
+
+In this case, the user of ``match.group()`` must be prepared to handle a ``str``,
+but type checkers are happy with ``if name_group is None`` checks, because we're
+saying it can also be something other than a ``str``.
+
+This is sometimes called "the Any trick".
+
+Context Managers
+----------------
+
+When adding type annotations for context manager classes, annotate
+the return type of ``__exit__`` as bool only if the context manager
+sometimes suppresses exceptions -- if it sometimes returns ``True``
+at runtime. If the context manager never suppresses exceptions,
+have the return type be either ``None`` or ``bool | None``. If you
+are not sure whether exceptions are suppressed or not or if the
+context manager is meant to be subclassed, pick ``bool | None``.
+See https://github.com/python/mypy/issues/7214 for more details.
+
+``__enter__`` methods and other methods that return ``self`` or ``cls(...)``
+should be annotated with ``typing.Self``
+(`example <https://github.com/python/typeshed/blob/3581846/stdlib/contextlib.pyi#L151>`_).
+
+Naming
+------
+
+Type variables and aliases you introduce purely for legibility reasons
+should be prefixed with an underscore to make it obvious to the reader
+they are not part of the stubbed API.
+
+A few guidelines for protocol names below. In cases that don't fall
+into any of those categories, use your best judgement.
+
+* Use plain names for protocols that represent a clear concept
+  (e.g. ``Iterator``, ``Container``).
+* Use ``SupportsX`` for protocols that provide callable methods (e.g.
+  ``SupportsInt``, ``SupportsRead``, ``SupportsReadSeek``).
+* Use ``HasX`` for protocols that have readable and/or writable attributes
+  or getter/setter methods (e.g. ``HasItems``, ``HasFileno``).
+
+.. _type-checker-error-suppression:
+
+Type Checker Error Suppression Formats
+--------------------------------------
+
+* Use mypy error codes for mypy-specific ``# type: ignore`` annotations, e.g. ``# type: ignore[override]`` for Liskov Substitution Principle violations.
+* Use pyright error codes for pyright-specific suppressions, e.g. ``# pyright: ignore[reportGeneralTypeIssues]``.
+* If you need both on the same line, mypy's annotation needs to go first, e.g. ``# type: ignore[override]  # pyright: ignore[reportGeneralTypeIssues]``.
+
+
+``@deprecated``
+---------------
+
+The ``@typing_extensions.deprecated`` decorator (``@warnings.deprecated``
+since Python 3.13) can be used to mark deprecated functionality; see
+:pep:`702`.
+
+Keep the deprecation message concise, but try to mention the projected
+version when the functionality is to be removed, and a suggested
+replacement.
+
+Docstrings
+----------
+
+There are several tradeoffs around including docstrings in type stubs. Consider the intended purpose
+of your stubs when deciding whether to include docstrings in your project's stubs.
+
+* They do not affect type checking results and will be ignored by type checkers.
+* Docstrings can improve certain IDE functionality, such as hover info.
+* Duplicating docstrings between source code and stubs requires extra work to keep them in sync.

@@ -2,7 +2,7 @@
 
 ## Motivation
 
-[PEP 729](https://peps.python.org/pep-0729/) provides a structured and documented way to specify and evolve the Python type system. In support of this effort, an official [Python typing spec](https://github.com/python/typing/tree/main/docs/spec) has been drafted. This spec consolidates details from various historical typing-related PEPs. The spec will be modified over time to clarify unspecified and under-specified parts of the type system. It will also be extended to cover new features of the type system.
+[PEP 729](https://peps.python.org/pep-0729/) provides a structured and documented way to specify and evolve the Python type system. In support of this effort, an official [Python typing spec](https://typing.python.org/en/latest/spec/) has been drafted. This spec consolidates details from various historical typing-related PEPs. The spec will be modified over time to clarify unspecified and under-specified parts of the type system. It will also be extended to cover new features of the type system.
 
 Accompanying the typing specification is this conformance test suite which validates the behavior of static type checkers against the specification.
 
@@ -10,26 +10,27 @@ Accompanying the typing specification is this conformance test suite which valid
 
 This project contains test cases for behaviors defined in the Python typing spec. Tests are structured and grouped in accordance with the specification's chapter headings.
 
-* [concepts](https://typing.readthedocs.io/en/latest/spec/concepts.html)
-* [annotations](https://typing.readthedocs.io/en/latest/spec/annotations.html)
-* [specialtypes](https://typing.readthedocs.io/en/latest/spec/special-types.html)
-* [generics](https://typing.readthedocs.io/en/latest/spec/generics.html)
-* [qualifiers](https://typing.readthedocs.io/en/latest/spec/qualifiers.html)
-* [classes](https://typing.readthedocs.io/en/latest/spec/class-compat.html)
-* [aliases](https://typing.readthedocs.io/en/latest/spec/aliases.html)
-* [literals](https://typing.readthedocs.io/en/latest/spec/literal.html)
-* [protocols](https://typing.readthedocs.io/en/latest/spec/protocol.html)
-* [callables](https://typing.readthedocs.io/en/latest/spec/callables.html)
-* [constructors](https://typing.readthedocs.io/en/latest/spec/constructors.html)
-* [overloads](https://typing.readthedocs.io/en/latest/spec/overload.html)
-* [dataclasses](https://typing.readthedocs.io/en/latest/spec/dataclasses.html)
-* [typeddicts](https://typing.readthedocs.io/en/latest/spec/typeddict.html)
-* [tuples](https://typing.readthedocs.io/en/latest/spec/tuples.html)
-* [namedtuples](https://typing.readthedocs.io/en/latest/spec/namedtuples.html)
-* [narrowing](https://typing.readthedocs.io/en/latest/spec/narrowing.html)
-* [directives](https://typing.readthedocs.io/en/latest/spec/directives.html)
-* [distribution](https://typing.readthedocs.io/en/latest/spec/distributing.html)
-* [historical](https://typing.readthedocs.io/en/latest/spec/historical.html)
+* [concepts](https://typing.python.org/en/latest/spec/concepts.html)
+* [annotations](https://typing.python.org/en/latest/spec/annotations.html)
+* [typeforms](https://typing.python.org/en/latest/spec/type-forms.html)
+* [specialtypes](https://typing.python.org/en/latest/spec/special-types.html)
+* [generics](https://typing.python.org/en/latest/spec/generics.html)
+* [qualifiers](https://typing.python.org/en/latest/spec/qualifiers.html)
+* [classes](https://typing.python.org/en/latest/spec/class-compat.html)
+* [aliases](https://typing.python.org/en/latest/spec/aliases.html)
+* [literals](https://typing.python.org/en/latest/spec/literal.html)
+* [protocols](https://typing.python.org/en/latest/spec/protocol.html)
+* [callables](https://typing.python.org/en/latest/spec/callables.html)
+* [constructors](https://typing.python.org/en/latest/spec/constructors.html)
+* [overloads](https://typing.python.org/en/latest/spec/overload.html)
+* [dataclasses](https://typing.python.org/en/latest/spec/dataclasses.html)
+* [typeddicts](https://typing.python.org/en/latest/spec/typeddict.html)
+* [tuples](https://typing.python.org/en/latest/spec/tuples.html)
+* [namedtuples](https://typing.python.org/en/latest/spec/namedtuples.html)
+* [narrowing](https://typing.python.org/en/latest/spec/narrowing.html)
+* [directives](https://typing.python.org/en/latest/spec/directives.html)
+* [distribution](https://typing.python.org/en/latest/spec/distributing.html)
+* [historical](https://typing.python.org/en/latest/spec/historical.html)
 
 A test file is a ".py" file. The file name should start with one of the above names followed by a description of the test (with words separated by underscores). For example, `generics_paramspec_basic_usage.py` would contain the basic usage tests for `ParamSpec`. Each test file can contain multiple individual unit tests, but these tests should be related to each other. If the number of unit tests in a single test file exceeds ten, it may be desirable to split it into separate test files. This will help maintain a consistent level of granularity across tests.
 
@@ -46,27 +47,41 @@ Test cases use the following conventions:
 * Lines that are expected to produce a type checker error should have a comment starting with # E",
   either by itself or followed by an explanation after a colon (e.g., "# E: int is not a subtype
   of str"). Such explanatory comments are purely for human understanding, but type checkers are not
-  expected to use their exact wording.
+  expected to use their exact wording. There are several syntactic variations; see "Test Case Syntax"
+  below.
 * Lines that may produce an error (e.g., because the spec allows multiple behaviors) should be
   marked with "# E?" instead of "# E".
 * If a test case tests conformance with a specific passage in the spec, that passage should be
   quoted in a comment prefixed with "# > ".
 
+## Test Case Syntax
+
+Test cases support the following special comments for declaring where errors should be raised:
+
+* `# E`: an error must be raised on this line
+* `# E?`: an error may be raised on this line
+* `# E[tag]`, where `tag` is an arbitrary string: must appear multiple times in a file with the same tag.
+  Exactly one line with this tag must raise an error.
+* `# E[tag+]`: like `# E[tag]`, but errors may be raised on multiple lines.
+
+Each comment may be followed by a colon plus an explanation of the error; the explanation is ignored
+by the scoring system.
+
 ## Running the Conformance Test Tool
 
 To run the conformance test suite:
 * Clone the https://github.com/python/typing repo.
-* Create and activate a Python 3.12 virtual environment.
-* Switch to the `conformance` subdirectory and install all dependencies (`pip install -r requirements.txt`).
-* Switch to the `src` subdirectory and run `python main.py`.
+* Install [uv](https://docs.astral.sh/uv/) and ensure Python 3.12 is available.
+* Switch to the `conformance` subdirectory and install locked dependencies (`uv sync --python 3.12 --frozen`).
+* Run the conformance tool (`uv run --python 3.12 --frozen python src/main.py`).
 
-Note that some type checkers may not run on some platforms. For example, pytype cannot be installed on Windows. If a type checker fails to install, tests will be skipped for that type checker.
+Note that some type checkers may not run on some platforms. If a type checker fails to install, tests will be skipped for that type checker.
 
 ## Reporting Conformance Results
 
 Different type checkers report errors in different ways (with different wording in error messages and different line numbers or character ranges for errors). This variation makes it difficult to fully automate test validation given that tests will want to check for both false positive and false negative type errors. Some level of manual inspection will therefore be needed to determine whether a type checker is fully conformant with all tests in any given test file. This "scoring" process is required only when the output of a test changes — e.g. when a new version of that type checker is released and the tests are rerun. We assume that the output of a type checker will be the same from one run to the next unless/until a new version is released that fixes or introduces a bug. In this case, the output will need to be manually inspected and the conformance results re-scored for those tests whose output has changed.
 
-Conformance results are reported and summarized for each supported type checker. Currently, results are reported for mypy, pyre, pyright, and pytype. It is the goal and desire to add additional type checkers over time.
+[Conformance results](https://htmlpreview.github.io/?https://github.com/python/typing/blob/main/conformance/results/results.html) are reported and summarized for each supported type checker. Currently, results are reported for mypy, pyrefly, pyright, zuban, ty, and pycroscope. It is the goal and desire to add additional type checkers over time.
 
 ## Adding a New Test Case
 
@@ -78,7 +93,22 @@ If a test is updated (augmented or fixed), the process is similar to when adding
 
 ## Updating a Type Checker
 
-If a new version of a type checker is released, re-run the test tool with the new version. If the type checker output has changed for any test cases, the tool will supply the old and new outputs. Examine these to determine whether the conformance status has changed. Once the conformance status has been updated, re-run the test tool again to regenerate the summary report.
+Type checker versions are locked in `uv.lock`.
+
+To bump all supported checkers to their latest released versions:
+
+```bash
+python scripts/bump_type_checkers.py
+```
+
+After bumping, install the new lockfile and rerun conformance:
+
+```bash
+uv sync --python 3.12 --frozen
+uv run --python 3.12 --frozen python src/main.py
+```
+
+If checker output changes for any test cases, examine those deltas to determine whether the conformance status has changed. Once the conformance status has been updated, rerun the tool to regenerate the summary report.
 
 ## Automated Conformance Checking
 

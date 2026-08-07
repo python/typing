@@ -152,8 +152,7 @@ would be::
 However using ``type[]`` and a type variable with an upper bound we
 can do much better::
 
-  U = TypeVar('U', bound=User)
-  def new_user(user_class: type[U]) -> U:
+  def new_user[U: User](user_class: type[U]) -> U:
       ...
 
 Now when we call ``new_user()`` with a specific subclass of ``User`` a
@@ -189,8 +188,8 @@ concrete class object, e.g. in the above example::
 ``type[T]`` where ``T`` is a type variable is allowed when annotating the
 first argument of a class method (see the relevant section).
 
-Any other special constructs like ``tuple`` or ``Callable`` are not allowed
-as an argument to ``type``.
+Any other :term:`special forms <special form>` like ``Callable`` are not
+allowed as an argument to ``type``.
 
 There are some concerns with this feature: for example when
 ``new_user()`` calls ``user_class()`` this implies that all subclasses

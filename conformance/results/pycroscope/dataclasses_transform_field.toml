@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./dataclasses_transform_field.py:64:0: Got an unexpected keyword argument 'id' [incompatible_call]
+./dataclasses_transform_field.py:75:0: Missing required argument 'name' [incompatible_call]
+"""

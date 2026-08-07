@@ -1,0 +1,18 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly_inheritance.py:36: error: ReadOnly TypedDict key "name" TypedDict is mutated  [typeddict-readonly-mutated]
+typeddicts_readonly_inheritance.py:50: error: Overwriting TypedDict field "alt" while extending  [misc]
+typeddicts_readonly_inheritance.py:65: error: Missing key "name" for TypedDict "RequiredName"  [typeddict-item]
+typeddicts_readonly_inheritance.py:82: error: Value of "ident" has incompatible type "int"; expected "str"  [typeddict-item]
+typeddicts_readonly_inheritance.py:83: error: Incompatible types (expression has type "int", TypedDict item "ident" has type "str")  [typeddict-item]
+typeddicts_readonly_inheritance.py:84: error: Missing key "ident" for TypedDict "User"  [typeddict-item]
+typeddicts_readonly_inheritance.py:94: error: Overwriting TypedDict field "a" while extending  [misc]
+typeddicts_readonly_inheritance.py:98: error: Overwriting TypedDict field "a" while extending  [misc]
+typeddicts_readonly_inheritance.py:106: error: Overwriting TypedDict field "c" while extending  [misc]
+typeddicts_readonly_inheritance.py:119: error: Overwriting TypedDict field "x" while merging  [misc]
+typeddicts_readonly_inheritance.py:119: error: Overwriting TypedDict field "y" while merging  [misc]
+typeddicts_readonly_inheritance.py:132: error: Overwriting TypedDict field "x" while merging  [misc]
+typeddicts_readonly_inheritance.py:132: error: Overwriting TypedDict field "y" while merging  [misc]
+"""

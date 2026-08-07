@@ -63,7 +63,7 @@ For example::
             print(f"{x} is not a cardinal direction")
 
 A ``TypeGuard`` function looks similar and is used in the same way, but the
-type narrowing behavior is different, as dicussed in :ref:`the section below <guide-type-narrowing-typeis-typeguard>`.
+type narrowing behavior is different, as discussed in :ref:`the section below <guide-type-narrowing-typeis-typeguard>`.
 
 Depending on the version of Python you are running, you will be able to
 import ``TypeIs`` and ``TypeGuard`` either from the standard library :py:mod:`typing`
@@ -143,7 +143,7 @@ Here is an example of a correct ``TypeIs`` function for a more complicated type:
 :py:data:`typing.TypeIs` and :py:data:`typing.TypeGuard` are both tools for narrowing the type of a variable
 based on a user-defined function. Both can be used to annotate functions that take an
 argument and return a boolean depending on whether the input argument is compatible with
-the narrowed type. These function can then be used in ``if`` checks to narrow the type
+the narrowed type. These functions can then be used in ``if`` checks to narrow the type
 of a variable.
 
 ``TypeIs`` usually has the more intuitive behavior, but it

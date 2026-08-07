@@ -1,0 +1,24 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR generics_syntax_infer_variance.py:15:36-55: Contradictory variance specifications [invalid-type-var]
+ERROR generics_syntax_infer_variance.py:17:40-59: Contradictory variance specifications [invalid-type-var]
+ERROR generics_syntax_infer_variance.py:29:35-62: `ShouldBeCovariant1[float]` is not assignable to `ShouldBeCovariant1[int]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:47:35-62: `ShouldBeCovariant2[float]` is not assignable to `ShouldBeCovariant2[int]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:56:35-62: `ShouldBeCovariant3[float]` is not assignable to `ShouldBeCovariant3[int]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:85:34-64: `ShouldBeCovariant5[float]` is not assignable to `ShouldBeCovariant5[int]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:96:34-64: `ShouldBeCovariant6[float]` is not assignable to `ShouldBeCovariant6[int]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:112:38-64: `ShouldBeInvariant1[int]` is not assignable to `ShouldBeInvariant1[float]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:113:36-66: `ShouldBeInvariant1[float]` is not assignable to `ShouldBeInvariant1[int]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:127:38-64: `ShouldBeInvariant2[int]` is not assignable to `ShouldBeInvariant2[float]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:128:36-66: `ShouldBeInvariant2[float]` is not assignable to `ShouldBeInvariant2[int]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:135:43-73: `ShouldBeInvariant3[int, str]` is not assignable to `ShouldBeInvariant3[float, str]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:136:41-73: `ShouldBeInvariant3[float, str]` is not assignable to `ShouldBeInvariant3[int, str]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:137:43-73: `ShouldBeInvariant3[str, int]` is not assignable to `ShouldBeInvariant3[str, float]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:138:41-73: `ShouldBeInvariant3[str, float]` is not assignable to `ShouldBeInvariant3[str, int]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:146:38-64: `ShouldBeInvariant4[int]` is not assignable to `ShouldBeInvariant4[float]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:154:38-64: `ShouldBeInvariant5[int]` is not assignable to `ShouldBeInvariant5[float]` [bad-assignment]
+ERROR generics_syntax_infer_variance.py:165:45-75: `ShouldBeContravariant1[int]` is not assignable to `ShouldBeContravariant1[float]` [bad-assignment]
+"""

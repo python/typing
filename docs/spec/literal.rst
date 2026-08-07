@@ -98,18 +98,23 @@ expressions, and nothing else.
 Legal parameters for ``Literal`` at type check time
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
-``Literal`` may be parameterized with literal ints, byte and unicode strings,
-bools, Enum values and ``None``. So for example, all of
+``Literal`` may be parameterized with literal ``int``, ``str``, ``bytes``,
+and ``bool`` objects, instances of ``enum.Enum`` subclasses, and ``None``. So for example, all of
 the following would be legal::
 
    Literal[26]
-   Literal[0x1A]  # Exactly equivalent to Literal[26]
+   Literal[0x1A]  # Equivalent to Literal[26]
    Literal[-4]
    Literal["hello world"]
+   Literal[u"hello world"]  # Equivalent to Literal["hello world"]
    Literal[b"hello world"]
-   Literal[u"hello world"]
    Literal[True]
-   Literal[Color.RED]  # Assuming Color is some enum
+
+   class Color(enum.Enum):
+       RED = 1
+       GREEN = 2
+
+   Literal[Color.RED]
    Literal[None]
 
 **Note:** Since the type ``None`` is inhabited by just a single
@@ -142,17 +147,6 @@ This should be exactly equivalent to the following type::
 ...and also to the following type::
 
     Literal[1, 2, 3, "foo", 5] | None
-
-**Note:** String literal types like ``Literal["foo"]`` should subtype either
-bytes or unicode in the same way regular string literals do at runtime.
-
-For example, in Python 3, the type ``Literal["foo"]`` is equivalent to
-``Literal[u"foo"]``, since ``"foo"`` is equivalent to ``u"foo"`` in Python 3.
-
-Similarly, in Python 2, the type ``Literal["foo"]`` is equivalent to
-``Literal[b"foo"]`` -- unless the file includes a
-``from __future__ import unicode_literals`` import, in which case it would be
-equivalent to ``Literal[u"foo"]``.
 
 Illegal parameters for ``Literal`` at type check time
 """""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -315,7 +309,7 @@ Literal types. For example::
 
 **Note:** If the user wants their API to support accepting both literals
 *and* the original type -- perhaps for legacy purposes -- they should
-implement a fallback overload. See :ref:`literalstring-overloads`.
+implement a fallback overload.
 
 Interactions with other types and features
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -403,14 +397,10 @@ Literal types are types, and can be used anywhere a type is expected.
 For example, it is legal to parameterize generic functions or
 classes using Literal types::
 
-   A = TypeVar('A', bound=int)
-   B = TypeVar('B', bound=int)
-   C = TypeVar('C', bound=int)
-
    # A simplified definition for Matrix[row, column]
-   class Matrix(Generic[A, B]):
+   class Matrix[A: int, B: int]:
        def __add__(self, other: Matrix[A, B]) -> Matrix[A, B]: ...
-       def __matmul__(self, other: Matrix[B, C]) -> Matrix[A, C]: ...
+       def __matmul__[C: int](self, other: Matrix[B, C]) -> Matrix[A, C]: ...
        def transpose(self) -> Matrix[B, A]: ...
 
    foo: Matrix[Literal[2], Literal[3]] = Matrix(...)
@@ -419,11 +409,14 @@ classes using Literal types::
    baz = foo @ bar
    reveal_type(baz)  # Revealed type is 'Matrix[Literal[2], Literal[7]]'
 
-Similarly, it is legal to construct TypeVars with value restrictions
+Similarly, it is legal to use type variables with value restrictions
 or bounds involving Literal types::
 
-   T = TypeVar('T', Literal["a"], Literal["b"], Literal["c"])
-   S = TypeVar('S', bound=Literal["foo"])
+   def takes_letter[T: (Literal["a"], Literal["b"], Literal["c"])](value: T) -> T:
+       return value
+
+   def takes_foo[S: Literal["foo"]](value: S) -> S:
+       return value
 
 ...although it is unclear when it would ever be useful to construct a
 TypeVar with a Literal upper bound. For example, the ``S`` TypeVar in
@@ -568,7 +561,8 @@ Valid locations for ``LiteralString``
 
     type_argument: List[LiteralString]
 
-    T = TypeVar("T", bound=LiteralString)
+    def enforce_literal[T: LiteralString](value: T) -> T:
+        return value
 
 It cannot be nested within unions of ``Literal`` types:
 
@@ -739,18 +733,16 @@ Conditional statements and expressions work as expected:
         return result  # OK
 
 
-Interaction with TypeVars and Generics
-""""""""""""""""""""""""""""""""""""""
+Interaction with Type Variables and Generics
+""""""""""""""""""""""""""""""""""""""""""""
 
-TypeVars can be bound to ``LiteralString``:
+Type variables can use ``LiteralString`` as an upper bound:
 
 ::
 
-    from typing import Literal, LiteralString, TypeVar
+    from typing import Literal, LiteralString
 
-    TLiteral = TypeVar("TLiteral", bound=LiteralString)
-
-    def literal_identity(s: TLiteral) -> TLiteral:
+    def literal_identity[T: LiteralString](s: T) -> T:
         return s
 
     hello: Literal["hello"] = "hello"
@@ -763,14 +755,14 @@ TypeVars can be bound to ``LiteralString``:
 
     s_error: str
     literal_identity(s_error)
-    # Error: Expected TLiteral (bound to LiteralString), got str.
+    # Error: Expected T (bound to LiteralString), got str.
 
 
 ``LiteralString`` can be used as a type argument for generic classes:
 
 ::
 
-    class Container(Generic[T]):
+    class Container[T]:
         def __init__(self, value: T) -> None:
             self.value = value
 
@@ -785,28 +777,3 @@ Standard containers like ``List`` work as expected:
 ::
 
     xs: List[LiteralString] = ["foo", "bar", "baz"]
-
-
-.. _literalstring-overloads:
-
-Interactions with Overloads
-"""""""""""""""""""""""""""
-
-Literal strings and overloads do not need to interact in a special
-way: the existing rules work fine. ``LiteralString`` can be used as a
-fallback overload where a specific ``Literal["foo"]`` type does not
-match:
-
-::
-
-    @overload
-    def foo(x: Literal["foo"]) -> int: ...
-    @overload
-    def foo(x: LiteralString) -> bool: ...
-    @overload
-    def foo(x: str) -> str: ...
-
-    x1: int = foo("foo")  # First overload.
-    x2: bool = foo("bar")  # Second overload.
-    s: str
-    x3: str = foo(s)  # Third overload.

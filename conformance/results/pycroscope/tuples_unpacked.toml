@@ -1,0 +1,10 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./tuples_unpacked.py:40:4: Only one unbounded tuple can be used inside a tuple type [invalid_annotation]
+./tuples_unpacked.py:41:4: Only one unbounded tuple can be used inside a tuple type [invalid_annotation]
+./tuples_unpacked.py:51:8: Only one unbounded tuple can be used inside a tuple type [invalid_annotation]
+./tuples_unpacked.py:59:5: Only one unbounded tuple can be used inside a tuple type [invalid_annotation]
+./tuples_unpacked.py:60:5: Only one unbounded tuple can be used inside a tuple type [invalid_annotation]
+"""

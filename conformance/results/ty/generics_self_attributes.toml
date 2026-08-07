@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_self_attributes.py:26:33: error[invalid-argument-type] Argument is incorrect: Expected `OrdinalLinkedList | None`, found `LinkedList[int]`
+generics_self_attributes.py:32:5: error[invalid-assignment] Object of type `LinkedList[int]` is not assignable to attribute `next` of type `OrdinalLinkedList | None`
+"""

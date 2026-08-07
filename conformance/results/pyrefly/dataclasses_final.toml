@@ -1,0 +1,11 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR dataclasses_final.py:27:1-17: Cannot set field `final_classvar` [read-only]
+ERROR dataclasses_final.py:35:1-19: Cannot set field `final_no_default` [read-only]
+ERROR dataclasses_final.py:36:1-21: Cannot set field `final_with_default` [read-only]
+ERROR dataclasses_final.py:37:1-19: Cannot set field `final_no_default` [read-only]
+ERROR dataclasses_final.py:38:1-21: Cannot set field `final_with_default` [read-only]
+"""

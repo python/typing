@@ -9,7 +9,8 @@ Type checker directives
 -----------------
 
 The function ``typing.assert_type(val, typ)`` allows users to
-ask a static type checker to confirm that *val* has an inferred type of *typ*.
+ask a static type checker to confirm that the inferred type of *val*
+is :term:`equivalent` to *typ*.
 
 When a type checker encounters a call to ``assert_type()``, it
 should emit an error if the value is not of the specified type::
@@ -17,6 +18,17 @@ should emit an error if the value is not of the specified type::
     def greet(name: str) -> None:
         assert_type(name, str)  # OK, inferred type of `name` is `str`
         assert_type(name, int)  # type checker error
+
+If the two types are :term:`equivalent` but syntactically different,
+the type checker may reject the ``assert_type()`` call::
+
+  from typing import assert_type, Literal
+
+  def greet(name: str) -> None:
+      assert_type(name, str | Literal["spam"])  # type checker may error
+
+Type checkers should aim to minimize cases where they reject
+``assert_type()`` calls that use equivalent types.
 
 The second argument must be a valid :term:`type expression`.
 
@@ -60,6 +72,15 @@ line as a type comment. In these cases, the type comment should be before
 other comments and linting markers:
 
   # type: ignore # <comment or other marker>
+
+The form ``# type: ignore[...]`` may be used to suppress only type errors with a
+given error code, though support for this is optional and may vary by type checker:
+
+- Given ``# type: ignore[my_code1]``, a type checker may ignore the error code
+  ``my_code1`` and choose to treat this form as equivalent to ``# type: ignore``.
+- Alternatively, given ``# type: ignore[my_code1]`` a type checker may suppress the
+  error only if the error cause matches the error code ``my_code1``.
+- A bare ``# type: ignore`` must always suppress all type errors.
 
 .. _`cast`:
 
@@ -170,7 +191,8 @@ The decorator takes the following arguments:
 
 * A required positional-only argument representing the deprecation message.
 * Two keyword-only arguments, ``category`` and ``stacklevel``, controlling
-  runtime behavior (see under "Runtime behavior" below).
+  runtime behavior. These are not relevant to type checker behavior so they are
+  not further described in this specification.
 
 The positional-only argument is of type ``str`` and contains a message that should
 be shown by the type checker when it encounters a usage of the decorated object.
@@ -281,3 +303,77 @@ deprecated functionality in their CI pipeline. Therefore, it is recommended
 that type checkers provide configuration options that cover both use cases.
 As with any other type checker error, it is also possible to ignore deprecations
 using ``# type: ignore`` comments.
+
+.. _`disjoint-base`:
+
+``@disjoint_base``
+------------------
+
+(Originally specified in :pep:`800`.)
+
+The ``@typing.disjoint_base`` decorator may be used to mark a nominal class as
+a disjoint base. It may only be used on nominal classes, including ``NamedTuple``
+definitions; it is a type checker error to use the decorator on a function,
+``TypedDict`` definition, or ``Protocol`` definition.
+
+We define two properties on (nominal) classes: a class may or may not *be* a
+disjoint base, and every class must *have* a valid disjoint base.
+
+A nominal class is a disjoint base if it is decorated with ``@typing.disjoint_base``,
+or if it contains a non-empty ``__slots__`` definition.
+This includes classes that have ``__slots__`` because of the ``@dataclass(slots=True)`` decorator or
+because of the use of the ``dataclass_transform`` mechanism to add slots.
+The universal base class, ``object``, is also a disjoint base.
+
+To determine a class's disjoint base, we look at all of its base classes to
+determine a set of candidate disjoint bases. For each base
+that is itself a disjoint base, the candidate is the base itself; otherwise,
+it is the base's disjoint base. If the candidate set contains
+a single disjoint base, that is the class's disjoint base. If there are multiple
+candidates, but one of them is a subclass of all other candidates,
+that class is the disjoint base. If no such candidate exists, the class does not
+have a valid disjoint base, and therefore cannot exist.
+
+Type checkers must check for a valid disjoint base when checking class definitions,
+and emit a diagnostic if they encounter a class
+definition that lacks a valid disjoint base. Type checkers may also use the disjoint
+base mechanism to determine whether types are disjoint,
+for example when checking whether a type narrowing construct like ``isinstance()``
+results in an unreachable branch.
+
+Example::
+
+    from typing import disjoint_base, assert_never
+
+    @disjoint_base
+    class Disjoint1:
+        pass
+
+    @disjoint_base
+    class Disjoint2:
+        pass
+
+    @disjoint_base
+    class DisjointChild(Disjoint1):
+        pass
+
+    class C1:  # disjoint base is `object`
+        pass
+
+    # OK: candidate disjoint bases are `Disjoint1` and `object`, and `Disjoint1` is a subclass of `object`.
+    class C2(Disjoint1, C1):  # disjoint base is `Disjoint1`
+        pass
+
+    # OK: candidate disjoint bases are `DisjointChild` and `Disjoint1`, and `DisjointChild` is a subclass of `Disjoint1`.
+    class C3(DisjointChild, Disjoint1):  # disjoint base is `DisjointChild`
+        pass
+
+    # error: candidate disjoint bases are `Disjoint1` and `Disjoint2`, but neither is a subclass of the other
+    class C4(Disjoint1, Disjoint2):
+        pass
+
+    def narrower(obj: Disjoint1) -> None:
+        if isinstance(obj, Disjoint2):
+            assert_never(obj)  # OK: child class of `Disjoint1` and `Disjoint2` cannot exist
+        if isinstance(obj, C1):
+            reveal_type(obj)  # Shows a non-empty type, e.g. `Disjoint1 & C1`

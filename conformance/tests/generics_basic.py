@@ -7,7 +7,7 @@ Tests for basic usage of generics.
 from __future__ import annotations
 
 from collections.abc import Sequence
-from typing import Any, Generic, TypeVar, assert_type
+from typing import Any, Generic, Protocol, TypeVar, assert_type
 
 T = TypeVar("T")
 
@@ -157,6 +157,23 @@ def test_my_map(m1: MyMap1[str, int], m2: MyMap2[int, str]):
     m1[0]  # E
     m2[0]  # E
 
+# > All arguments to ``Generic`` or ``Protocol`` must be type variables.
+
+class Bad1(Generic[int]): ...  # E
+class Bad2(Protocol[int]): ...  # E
+
+# > All type parameters for the class must appear within the ``Generic`` or
+# > ``Protocol`` type argument list.
+
+T_co = TypeVar("T_co", covariant=True)
+S_co = TypeVar("S_co", covariant=True)
+
+class Bad3(Iterable[T_co], Generic[S_co]): ...  # E
+class Bad4(Iterable[T_co], Protocol[S_co]): ...  # E
+
+# > The above rule does not apply to a bare ``Protocol`` base class.
+
+class MyIterator(Iterator[T_co], Protocol): ...  # OK
 
 # > You can use multiple inheritance with ``Generic``
 
@@ -190,3 +207,45 @@ class GenericMeta(type, Generic[T]): ...
 
 class GenericMetaInstance(metaclass=GenericMeta[T]):  # E
     ...
+
+
+# When a typevar appears in multiple parameters, we can (but are not required
+# to) infer a "combined" specialization that satisfies all of the corresponding
+# arguments. This is especially interesting for list literals, since `list` is
+# invariant in its typevar. We can use the surrounding context of the generic
+# function call to infer a wider type for the list literals that allows the call
+# to succeed.
+
+def takes_two_lists(x: list[T], y: list[T]) -> T:
+    return x[0]
+
+
+takes_two_lists([1], "not a list")  # E: no assignment of T makes the second argument valid
+takes_two_lists([""], [""])  # T = str or T = Literal[""]
+takes_two_lists([1], [""])  # E?: T = int | str is a potential solution
+
+def test_specific_lists() -> None:
+    x: list[int] = [1]
+    y: list[int] = [1]
+    z: list[str] = [""]
+    assert_type(takes_two_lists(x, y), int)
+    takes_two_lists(x, z)  # E: because lists are invariant, no assignment of T makes both arguments valid
+
+
+T_int = TypeVar("T_int", bound=int)
+
+def takes_two_int_lists(x: list[T_int], y: list[T_int]) -> T_int:
+    return x[0]
+
+takes_two_int_lists([1], "not a list")  # E: no assignment of T_int makes the second argument valid
+takes_two_int_lists([1], [""])  # E: no assignment of T_int makes the second argument valid
+takes_two_int_lists([1], [1])  # T = int or T = Literal[1]
+takes_two_int_lists([True], [True])  # T = bool or T = Literal[True]
+takes_two_int_lists([1], [True])  # E?: T = int | bool = int is a potential solution
+
+def test_specific_int_lists() -> None:
+    x: list[int] = [1]
+    y: list[int] = [1]
+    z: list[bool] = [True]
+    assert_type(takes_two_int_lists(x, y), int)
+    takes_two_int_lists(x, z)  # E: because lists are invariant, no assignment of T makes both arguments valid

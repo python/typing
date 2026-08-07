@@ -6,7 +6,7 @@ generics_syntax_declarations.py:32:11 - error: Cannot access attribute "is_integ
   Attribute "is_integer" is unknown (reportAttributeAccessIssue)
 generics_syntax_declarations.py:44:21 - error: TypeVar constraint type cannot be generic (reportGeneralTypeIssues)
 generics_syntax_declarations.py:48:17 - error: List expression not allowed in type expression
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
 generics_syntax_declarations.py:48:17 - error: Expected class but received "list[Unknown]" (reportGeneralTypeIssues)
 generics_syntax_declarations.py:60:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)
 generics_syntax_declarations.py:64:17 - error: TypeVar must have at least two constrained types (reportGeneralTypeIssues)

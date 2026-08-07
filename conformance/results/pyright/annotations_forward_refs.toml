@@ -6,19 +6,19 @@ annotations_forward_refs.py:24:7 - error: Union syntax cannot be used with strin
 annotations_forward_refs.py:25:13 - error: Union syntax cannot be used with string operand; use quotes around entire expression (reportGeneralTypeIssues)
 annotations_forward_refs.py:41:10 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 annotations_forward_refs.py:42:10 - error: List expression not allowed in type expression
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
 annotations_forward_refs.py:42:10 - error: Expected class but received "list[Unknown]" (reportGeneralTypeIssues)
 annotations_forward_refs.py:43:10 - error: Tuple expression not allowed in type expression
-  Use tuple[T1, ..., Tn] to indicate a tuple type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+  Use tuple[T1, ..., Tn] to indicate a tuple type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
 annotations_forward_refs.py:44:10 - error: List expression not allowed in type expression
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
 annotations_forward_refs.py:44:10 - error: Expected class but received "list[type[int]]" (reportGeneralTypeIssues)
 annotations_forward_refs.py:45:10 - error: Dictionary expression not allowed in type expression
-  Use Dict[T1, T2] to indicate a dictionary type (reportInvalidTypeForm)
+  Use dict[T1, T2] to indicate a dictionary type (reportInvalidTypeForm)
 annotations_forward_refs.py:45:10 - error: Expected class but received "dict[Unknown, Unknown]" (reportGeneralTypeIssues)
 annotations_forward_refs.py:46:10 - error: Call expression not allowed in type expression (reportInvalidTypeForm)
 annotations_forward_refs.py:47:10 - error: List expression not allowed in type expression
-  Use List[T] to indicate a list type or Union[T1, T2] to indicate a union type (reportInvalidTypeForm)
+  Use list[T] to indicate a list type or T1 | T2 to indicate a union type (reportInvalidTypeForm)
 annotations_forward_refs.py:47:10 - error: Expected class but received "list[type[int]]" (reportGeneralTypeIssues)
 annotations_forward_refs.py:47:16 - error: Expected class but received "Literal[0]" (reportGeneralTypeIssues)
 annotations_forward_refs.py:48:10 - error: Ternary expression not allowed in type expression (reportInvalidTypeForm)

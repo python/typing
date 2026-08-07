@@ -1,7 +1,7 @@
 conformant = "Pass"
 output = """
 specialtypes_none.py:21:7 - error: Argument of type "type[None]" cannot be assigned to parameter "val1" of type "None" in function "func1"
-  "type[type]" is not assignable to "type[None]" (reportArgumentType)
+  Type is not assignable to "None" (reportArgumentType)
 specialtypes_none.py:27:19 - error: Type "None" is not assignable to declared type "Iterable[Unknown]"
   "None" is incompatible with protocol "Iterable[Unknown]"
     "__iter__" is not present (reportAssignmentType)

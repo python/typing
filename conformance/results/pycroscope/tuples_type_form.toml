@@ -1,0 +1,16 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./tuples_type_form.py:12:0: Incompatible assignment: expected tuple[int], got Literal[(1, 2)] [incompatible_assignment]
+./tuples_type_form.py:14:0: Incompatible assignment: expected tuple[int, int], got Literal[(1,)] [incompatible_assignment]
+./tuples_type_form.py:15:0: Incompatible assignment: expected tuple[int, int], got Literal[(1, '')] [incompatible_assignment]
+./tuples_type_form.py:25:0: Incompatible assignment: expected tuple[()], got Literal[(1,)] [incompatible_assignment]
+./tuples_type_form.py:36:0: Incompatible assignment: expected tuple[int, ...], got Literal[(1, 2, 3, '')] [incompatible_assignment]
+./tuples_type_form.py:40:5: Ellipsis can be used only in tuple[T, ...] [invalid_annotation]
+./tuples_type_form.py:41:5: Ellipsis can be used only in tuple[T, ...] [invalid_annotation]
+./tuples_type_form.py:42:5: Ellipsis can be used only in tuple[T, ...] [invalid_annotation]
+./tuples_type_form.py:43:5: Ellipsis can be used only in tuple[T, ...] [invalid_annotation]
+./tuples_type_form.py:44:5: Ellipsis can be used only in tuple[T, ...] [invalid_annotation]
+./tuples_type_form.py:45:5: Ellipsis can be used only in tuple[T, ...] [invalid_annotation]
+"""

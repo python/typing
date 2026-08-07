@@ -1,0 +1,22 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+callables_protocol.py:35:7: error[invalid-assignment] Object of type `def cb1_bad1(*vals: bytes, *, max_items: int | None) -> list[bytes]` is not assignable to `Proto1`
+callables_protocol.py:36:7: error[invalid-assignment] Object of type `def cb1_bad2(*vals: bytes) -> list[bytes]` is not assignable to `Proto1`
+callables_protocol.py:37:7: error[invalid-assignment] Object of type `def cb1_bad3(*vals: bytes, *, max_len: str | None) -> list[bytes]` is not assignable to `Proto1`
+callables_protocol.py:67:7: error[invalid-assignment] Object of type `def cb2_bad1(*a: bytes) -> Unknown` is not assignable to `Proto2`
+callables_protocol.py:68:7: error[invalid-assignment] Object of type `def cb2_bad2(*a: str, **b: str) -> Unknown` is not assignable to `Proto2`
+callables_protocol.py:69:7: error[invalid-assignment] Object of type `def cb2_bad3(*a: bytes, **b: bytes) -> Unknown` is not assignable to `Proto2`
+callables_protocol.py:70:7: error[invalid-assignment] Object of type `def cb2_bad4(**b: str) -> Unknown` is not assignable to `Proto2`
+callables_protocol.py:97:16: error[invalid-assignment] Object of type `def cb4_bad1(x: int) -> None` is not assignable to `Proto4`
+callables_protocol.py:121:18: error[invalid-assignment] Object of type `def cb6_bad1(*vals: bytes, *, max_len: int | None = None) -> list[bytes]` is not assignable to `NotProto6`
+callables_protocol.py:169:7: error[invalid-assignment] Object of type `def cb8_bad1(x: int) -> Any` is not assignable to `Proto8`
+callables_protocol.py:186:5: error[invalid-assignment] Object of type `Literal["str"]` is not assignable to attribute `other_attribute` of type `int`
+callables_protocol.py:187:5: error[unresolved-attribute] Unresolved attribute `xxx` on type `Proto9[P@decorator1, R@decorator1]`
+callables_protocol.py:197:7: error[unresolved-attribute] Object of type `Proto9[(x: int), str]` has no attribute `other_attribute2`
+callables_protocol.py:238:8: error[invalid-assignment] Object of type `def cb11_bad1(x: int, y: str, /) -> Any` is not assignable to `Proto11`
+callables_protocol.py:260:8: error[invalid-assignment] Object of type `def cb12_bad1(*args: Any, *, kwarg0: Any) -> None` is not assignable to `Proto12`
+callables_protocol.py:284:27: error[invalid-assignment] Object of type `def cb13_no_default(path: str) -> str` is not assignable to `Proto13_Default`
+callables_protocol.py:311:27: error[invalid-assignment] Object of type `def cb14_no_default(*, path: str) -> str` is not assignable to `Proto14_Default`
+"""

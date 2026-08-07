@@ -91,7 +91,7 @@ Type Compatibility Rules
 ------------------------
 
 Because tuple contents are immutable, the element types of a tuple are covariant.
-For example, ``tuple[int, int]`` is a subtype of ``tuple[float, complex]``.
+For example, ``tuple[bool, int]`` is a subtype of ``tuple[int, object]``.
 
 As discussed above, a homogeneous tuple of arbitrary length is equivalent
 to a union of tuples of different lengths. That means ``tuple[()]``,

@@ -72,12 +72,10 @@ Decorator function example
 
 .. code-block:: python
 
-  _T = TypeVar("_T")
-
   # The ``create_model`` decorator is defined by a library.
   # This could be in a type stub or inline.
   @typing.dataclass_transform()
-  def create_model(cls: Type[_T]) -> Type[_T]:
+  def create_model[T](cls: type[T]) -> type[T]:
       cls.__init__ = ...
       cls.__eq__ = ...
       cls.__ne__ = ...
@@ -124,6 +122,19 @@ Metaclass example
       id: int
       name: str
 
+Conditional fields
+""""""""""""""""""
+
+Dataclass fields may be conditional, via checks of the same
+:ref:`statically-known conditions<version-and-platform-checks>`
+that a type-checker understands elsewhere, such as Python version::
+
+    @dataclass
+    class Person:
+        name: str
+        if sys.version_info >= (3, 14):
+            age: int
+
 Decorator function and class/metaclass parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -148,7 +159,9 @@ customization of default behaviors:
 
 .. code-block:: python
 
-  _T = TypeVar("_T")
+  class _IdentityCallable(Protocol):
+      def __call__[T](self, arg: T, /) -> T:
+          ...
 
   def dataclass_transform(
       *,
@@ -158,7 +171,7 @@ customization of default behaviors:
       frozen_default: bool = False,
       field_specifiers: tuple[type | Callable[..., Any], ...] = (),
       **kwargs: Any,
-  ) -> Callable[[_T], _T]: ...
+  ) -> _IdentityCallable: ...
 
 * ``eq_default`` indicates whether the ``eq`` parameter is assumed to
   be True or False if it is omitted by the caller. If not specified,
@@ -191,11 +204,6 @@ customization of default behaviors:
   support experimental parameters without needing to wait for changes
   in ``typing.py``. Type checkers should report errors for any
   unrecognized parameters.
-
-In the future, we may add additional parameters to
-``dataclass_transform`` as needed to support common behaviors in user
-code. These additions will be made after reaching consensus on
-typing-sig rather than via additional PEPs.
 
 The following sections provide additional examples showing how these
 parameters are used.

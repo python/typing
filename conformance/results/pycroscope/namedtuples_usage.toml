@@ -1,0 +1,13 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./namedtuples_usage.py:34:6: Tuple index out of range: Literal[3] [incompatible_call]
+./namedtuples_usage.py:35:6: Tuple index out of range: Literal[-4] [incompatible_call]
+./namedtuples_usage.py:40:0: Cannot assign to read-only attribute 'x' [incompatible_assignment]
+./namedtuples_usage.py:41:0: Object of type tuple[int, int, str] does not support '__setitem__' [unsupported_operation]
+./namedtuples_usage.py:42:4: Cannot delete read-only attribute 'x' [incompatible_assignment]
+./namedtuples_usage.py:43:4: Object of type tuple[int, int, str] does not support '__delitem__' [unsupported_operation]
+./namedtuples_usage.py:52:0: Cannot unpack ./namedtuples_usage.py.Point [bad_unpack]
+./namedtuples_usage.py:53:0: Cannot unpack ./namedtuples_usage.py.Point [bad_unpack]
+"""

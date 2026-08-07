@@ -3,11 +3,12 @@ Reads a template file that describes groups of tests in the
 conformance test suite.
 """
 
+import tomllib
+
 from dataclasses import dataclass
+from itertools import chain
 from pathlib import Path
 from typing import Mapping, Sequence
-
-import tomli
 
 
 @dataclass
@@ -21,7 +22,7 @@ def get_test_groups(root_dir: Path) -> Mapping[str, TestGroup]:
     # group has a name that associated test cases must start with.
     test_group_file = root_dir / "src" / "test_groups.toml"
     with open(test_group_file, "rb") as f:
-        test_groups = tomli.load(f)
+        test_groups = tomllib.load(f)
 
     return {
         k: TestGroup(v.get("name", "unknown"), v.get("href", ""))
@@ -39,7 +40,7 @@ def get_test_cases(
     # files that support one or more tests.
     test_cases = [
         p
-        for p in Path(tests_dir).glob("*.py")
+        for p in chain(tests_dir.glob("*.py"), tests_dir.glob("*.pyi"))
         if p.name.split("_")[0] in test_group_names
     ]
 

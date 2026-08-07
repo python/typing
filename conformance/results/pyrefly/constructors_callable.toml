@@ -1,0 +1,23 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR constructors_callable.py:38:3-5: Missing argument `x` [missing-argument]
+ERROR constructors_callable.py:39:3-8: Missing argument `x` [missing-argument]
+ERROR constructors_callable.py:39:4-5: Unexpected keyword argument `y` [unexpected-keyword]
+ERROR constructors_callable.py:51:4-5: Expected 0 positional arguments, got 1 [bad-argument-count]
+ERROR constructors_callable.py:66:3-5: Missing argument `x` [missing-argument]
+ERROR constructors_callable.py:67:3-8: Missing argument `x` [missing-argument]
+ERROR constructors_callable.py:67:4-5: Unexpected keyword argument `y` [unexpected-keyword]
+ERROR constructors_callable.py:68:7-8: Expected 1 positional argument, got 2 [bad-argument-count]
+ERROR constructors_callable.py:81:3-5: Missing argument `x` [missing-argument]
+ERROR constructors_callable.py:82:3-8: Missing argument `x` [missing-argument]
+ERROR constructors_callable.py:82:4-5: Unexpected keyword argument `y` [unexpected-keyword]
+ERROR constructors_callable.py:129:4-5: Expected 0 positional arguments, got 1 [bad-argument-count]
+ERROR constructors_callable.py:146:8-9: Expected 0 positional arguments, got 1 [bad-argument-count]
+ERROR constructors_callable.py:185:10-22: Argument `Literal['not a list']` is not assignable to parameter `y` with type `list[str]` [bad-argument-type]
+ERROR constructors_callable.py:187:9-13: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` [bad-argument-type]
+ERROR constructors_callable.py:197:10-22: Argument `Literal['not a list']` is not assignable to parameter `y` with type `list[str]` [bad-argument-type]
+ERROR constructors_callable.py:199:9-13: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` [bad-argument-type]
+"""

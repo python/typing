@@ -1,0 +1,19 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+overloads_evaluation.py:38: error: All overload variants of "example1_1" require at least one argument  [call-overload]
+overloads_evaluation.py:38: note: Possible overload variants:
+overloads_evaluation.py:38: note:     def example1_1(x: int, y: str) -> int
+overloads_evaluation.py:38: note:     def example1_1(x: str) -> str
+overloads_evaluation.py:46: error: No overload variant of "example1_1" matches argument types "int", "int"  [call-overload]
+overloads_evaluation.py:46: note: Possible overload variants:
+overloads_evaluation.py:46: note:     def example1_1(x: int, y: str) -> int
+overloads_evaluation.py:46: note:     def example1_1(x: str) -> str
+overloads_evaluation.py:51: error: No overload variant of "example1_1" matches argument type "int"  [call-overload]
+overloads_evaluation.py:51: note: Possible overload variants:
+overloads_evaluation.py:51: note:     def example1_1(x: int, y: str) -> int
+overloads_evaluation.py:51: note:     def example1_1(x: str) -> str
+overloads_evaluation.py:116: error: Argument 1 to "example2" has incompatible type "int | str"; expected "int"  [arg-type]
+overloads_evaluation.py:116: error: Argument 2 to "example2" has incompatible type "int | str"; expected "str"  [arg-type]
+"""

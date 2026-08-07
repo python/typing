@@ -67,10 +67,12 @@ callables_subtyping.py:119:23 - error: Type "StrArgs4" is not assignable to decl
   "StrArgs4" is incompatible with protocol "IntStrArgs4"
     "__call__" is an incompatible type
       Type "(a: int, /, *args: str) -> None" is not assignable to type "(*args: int | str) -> None"
+        Parameter 1: type "int | str" is incompatible with type "int"
+          Type "int | str" is not assignable to type "int"
         Parameter 2: type "int | str" is incompatible with type "str"
           Type "int | str" is not assignable to type "str"
         Parameter 1: type "*tuple[int | str, ...]" is incompatible with type "*tuple[str, ...]"
-          "*tuple[int | str, ...]" is not assignable to "*tuple[str, ...]" (reportAssignmentType)
+  ... (reportAssignmentType)
 callables_subtyping.py:120:23 - error: Type "IntArgs4" is not assignable to declared type "IntStrArgs4"
   "IntArgs4" is incompatible with protocol "IntStrArgs4"
     "__call__" is an incompatible type

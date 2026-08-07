@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly.py:24: error: ReadOnly TypedDict key "members" TypedDict is mutated  [typeddict-readonly-mutated]
+typeddicts_readonly.py:36: error: ReadOnly TypedDict key "members" TypedDict is mutated  [typeddict-readonly-mutated]
+typeddicts_readonly.py:50: error: ReadOnly TypedDict key "title" TypedDict is mutated  [typeddict-readonly-mutated]
+typeddicts_readonly.py:51: error: ReadOnly TypedDict key "year" TypedDict is mutated  [typeddict-readonly-mutated]
+typeddicts_readonly.py:60: error: ReadOnly TypedDict key "title" TypedDict is mutated  [typeddict-readonly-mutated]
+typeddicts_readonly.py:61: error: ReadOnly TypedDict key "year" TypedDict is mutated  [typeddict-readonly-mutated]
+"""

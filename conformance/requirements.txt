@@ -1,8 +1,0 @@
-tomli
-tomlkit
-tqdm
-pyright
-mypy
-pip
-pyre-check
-pytype; platform_system != "Windows"
