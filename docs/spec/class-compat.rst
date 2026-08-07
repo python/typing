@@ -101,11 +101,8 @@ For example, annotating the discussed class::
 As a matter of convenience (and convention), instance variables can be
 annotated in ``__init__`` or other methods, rather than in the class::
 
-  from typing import Generic, TypeVar
-  T = TypeVar('T')
-
-  class Box(Generic[T]):
-      def __init__(self, content):
+  class Box[T]:
+      def __init__(self, content: T):
           self.content: T = content
 
 ``ClassVar`` cannot be used as a qualifier for a :ref:`TypedDict <typeddict>`

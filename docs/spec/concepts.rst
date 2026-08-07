@@ -69,7 +69,7 @@ attributes and/or methods.
 
 If an object ``v`` is a member of the set of objects denoted by a fully static
 type ``T``, we can say that ``v`` is a "member of" the type ``T``, or ``v``
-"inhabits" ``T``.
+":term:`inhabits <inhabit>`" ``T``.
 
 Gradual types
 ~~~~~~~~~~~~~
@@ -298,9 +298,9 @@ visualize this analogy in the following table:
    * - ``B`` is :term:`equivalent` to ``A``
      - ``B`` is :term:`consistent` with ``A``
 
-We can also define an **equivalence** relation on gradual types: the gradual 
-types ``A`` and ``B`` are equivalent (that is, the same gradual type, not 
-merely consistent with one another) if and only if all materializations of 
+We can also define an **equivalence** relation on gradual types: the gradual
+types ``A`` and ``B`` are equivalent (that is, the same gradual type, not
+merely consistent with one another) if and only if all materializations of
 ``A`` are also materializations of ``B``, and all materializations of ``B``
 are also materializations of ``A``.
 

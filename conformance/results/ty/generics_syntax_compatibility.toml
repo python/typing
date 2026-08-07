@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_syntax_compatibility.py:14:1: error[invalid-generic-class] Legacy type variable `K` cannot be used in a PEP 695 class base
+generics_syntax_compatibility.py:26:35: error[unbound-type-variable] Legacy type variable `K` cannot be used in a function with PEP 695 type parameters
+"""

@@ -1,0 +1,33 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+qualifiers_final_annotation.py:16:1: error[final-without-value] `Final` symbol `BAD1` is not assigned a value
+qualifiers_final_annotation.py:18:7: error[invalid-type-form] Type qualifier `typing.Final` expected exactly 1 argument, got 2
+qualifiers_final_annotation.py:34:5: error[final-without-value] `Final` symbol `ID2` is not assigned a value
+qualifiers_final_annotation.py:38:5: error[final-without-value] `Final` symbol `ID3` is not assigned a value
+qualifiers_final_annotation.py:54:9: error[invalid-assignment] Invalid assignment to final attribute: `ID5` already has a value in the class body
+qualifiers_final_annotation.py:62:9: error[invalid-assignment] Cannot assign to final attribute `id3` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:63:9: error[invalid-assignment] Cannot assign to final attribute `id4` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:65:9: error[invalid-assignment] Cannot assign to final attribute `ID7` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:67:9: error[invalid-assignment] Cannot assign to final attribute `ID7` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:71:1: error[invalid-assignment] Reassignment of `Final` symbol `RATE` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:81:1: error[invalid-assignment] Cannot assign to final attribute `DEFAULT_ID` on type `<class 'ClassB'>`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:94:5: error[override-of-final-variable] Cannot override final variable `BORDER_WIDTH` from superclass `ClassC`
+qualifiers_final_annotation.py:107:13: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
+qualifiers_final_annotation.py:108:13: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
+qualifiers_final_annotation.py:118:9: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in type expressions (only in annotation expressions)
+qualifiers_final_annotation.py:121:14: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in parameter annotations
+qualifiers_final_annotation.py:134:1: error[missing-argument] No arguments provided for required parameters `x`, `y`
+qualifiers_final_annotation.py:134:3: error[unknown-argument] Argument `a` does not match any known parameter
+qualifiers_final_annotation.py:135:3: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
+qualifiers_final_annotation.py:135:9: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
+qualifiers_final_annotation.py:141:5: error[invalid-assignment] Reassignment of `Final` symbol `ID1` is not allowed: Reassignment of `Final` symbol
+qualifiers_final_annotation.py:145:5: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:147:10: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:149:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:152:30: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:155:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:166:1: error[invalid-assignment] Reassignment of `Final` symbol `TEN` is not allowed: Reassignment of `Final` symbol
+qualifiers_final_annotation.py:170:1: error[invalid-assignment] Reassignment of `Final` symbol `PI` is not allowed: Reassignment of `Final` symbol
+"""

@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+directives_type_ignore_file1.py:11:7: warning[unused-type-ignore-comment] Unused blanket `type: ignore` directive
+directives_type_ignore_file1.py:14:17: warning[unused-type-ignore-comment] Unused blanket `type: ignore` directive
+"""

@@ -1,0 +1,19 @@
+[project]
+name = "typing-conformance"
+version = "0.1.0"
+requires-python = "==3.12.*"
+dependencies = [
+    "jinja2",
+    "markdown",
+    "mypy",
+    "pycroscope",
+    "pyrefly==1.3.0.dev1",
+    "pyright",
+    "tomlkit",
+    "ty",
+    "types-markdown",
+    "zuban",
+]
+
+[tool.uv]
+package = false

@@ -1,0 +1,20 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+callables_kwargs.py:46:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`
+callables_kwargs.py:52:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`
+callables_kwargs.py:52:11: error[too-many-positional-arguments] Too many positional arguments to function `func1`: expected 0, got 3
+callables_kwargs.py:58:11: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `int`, found `str`
+callables_kwargs.py:61:11: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `str`, found `int | str`
+callables_kwargs.py:63:17: error[parameter-already-assigned] Multiple values provided for parameter `v1` of function `func1`
+callables_kwargs.py:64:11: error[invalid-argument-type] Argument to function `func2` is incorrect: Expected `str`, found `Literal[1]`
+callables_kwargs.py:64:14: error[parameter-already-assigned] Multiple values provided for parameter `v3` of function `func2`
+callables_kwargs.py:65:17: error[parameter-already-assigned] Multiple values provided for parameter `v1` of function `func2`
+callables_kwargs.py:101:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol3`
+callables_kwargs.py:102:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol4`
+callables_kwargs.py:103:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol5`
+callables_kwargs.py:111:20: error[invalid-type-form] Parameter `v1` overlaps with unpacked TypedDict key in `**kwargs` annotation
+callables_kwargs.py:122:21: error[invalid-type-form] Unpacked value for `**kwargs` must be a TypedDict, not `T@func6`
+callables_kwargs.py:134:19: error[invalid-assignment] Object of type `def func7(*, v1: int, v3: str, v2: str = "") -> None` is not assignable to `TDProtocol6`
+"""

@@ -180,23 +180,60 @@ generated. For example::
                                                             # so **kwargs can contain
                                                             # a "name" keyword.
 
-Required and non-required keys
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Required and non-required items
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-By default all keys in a ``TypedDict`` are required. This behavior can be
-overridden by setting the dictionary's ``total`` parameter as ``False``.
-Moreover, :pep:`655` introduced new type qualifiers - ``typing.Required`` and
-``typing.NotRequired`` - that enable specifying whether a particular key is
-required or not::
-
-    class Movie(TypedDict):
-        title: str
-        year: NotRequired[int]
-
+Items in a TypedDict may be either :term:`required` or :term:`non-required`.
 When using a ``TypedDict`` to type ``**kwargs`` all of the required and
 non-required keys should correspond to required and non-required function
-keyword parameters. Therefore, if a required key is not supported by the
+keyword parameters. Therefore, if a required key is not provided by the
 caller, then an error must be reported by type checkers.
+
+Read-only items
+^^^^^^^^^^^^^^^
+
+TypedDict items may also be :term:`read-only`. Marking one or more of the items of a TypedDict
+used to type ``**kwargs`` as read-only will have no effect on the type signature of the method.
+However, it *will* prevent the item from being modified in the body of the function::
+
+    class Args(TypedDict):
+        key1: int
+        key2: str
+
+    class ReadOnlyArgs(TypedDict):
+        key1: ReadOnly[int]
+        key2: ReadOnly[str]
+
+    class Function(Protocol):
+        def __call__(self, **kwargs: Unpack[Args]) -> None: ...
+
+    def impl(**kwargs: Unpack[ReadOnlyArgs]) -> None:
+        kwargs["key1"] = 3  # Type check error: key1 is readonly
+
+    fn: Function = impl  # Accepted by type checker: function signatures are identical
+
+Extra items
+^^^^^^^^^^^
+
+If the TypedDict used for annotating ``**kwargs`` is defined to allow
+:term:`extra items`, arbitrary additional keyword arguments of the right
+type may be passed to the function::
+
+    class MovieNoExtra(TypedDict):
+        name: str
+
+    class MovieExtra(TypedDict, extra_items=int):
+        name: str
+
+    def f(**kwargs: Unpack[MovieNoExtra]) -> None: ...
+    def g(**kwargs: Unpack[MovieExtra]) -> None: ...
+
+    # Should be equivalent to:
+    def f(*, name: str) -> None: ...
+    def g(*, name: str, **kwargs: int) -> None: ...
+
+    f(name="No Country for Old Men", year=2007) # Not OK. Unrecognized item
+    g(name="No Country for Old Men", year=2007) # OK
 
 Assignment
 ^^^^^^^^^^
@@ -416,8 +453,8 @@ a function within a type expression. The syntax is
 
 Parameters specified using ``Callable`` are assumed to be positional-only.
 The ``Callable`` form provides no way to specify keyword-only parameters,
-variadic parameters, or default argument values. For these use cases, see
-the section on `Callback protocols`_.
+or default argument values. For these use cases, see the section on
+`Callback protocols`_.
 
 Meaning of ``...`` in ``Callable``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -497,6 +534,15 @@ to be :term:`consistent` with any input parameters::
         f2: Callable[Concatenate[str, ...], str] = cb # Error
         f3: CallbackWithInt[...] = cb  # OK
         f4: CallbackWithStr[...] = cb  # Error
+
+
+Variadic positional parameter types can be defined with an unpacked tuple
+of the form ``*tuple[int, ...]`` in the parameter list. The first argument
+specifies the type of the variadic parameters.
+For example, the following defines a callable that accepts any number of integer
+arguments::
+
+    type VarCallback = Callable[[*tuple[int, ...]], None]
 
 .. _`callback-protocols`:
 

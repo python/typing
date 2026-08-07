@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR dataclasses_inheritance.py:62:5-6: ClassVar `DC7.x` overrides instance variable of the same name in parent class `DC6` [bad-override]
+ERROR dataclasses_inheritance.py:66:5-6: Instance variable `DC7.y` overrides ClassVar of the same name in parent class `DC6` [bad-override]
+"""

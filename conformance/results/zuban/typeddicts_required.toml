@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_required.py:12: error: Required[] can be only used in a TypedDict definition  [valid-type]
+typeddicts_required.py:16: error: NotRequired[] can be only used in a TypedDict definition  [valid-type]
+typeddicts_required.py:59: error: "Required[]" type cannot be nested  [misc]
+typeddicts_required.py:60: error: "NotRequired[]" type cannot be nested  [misc]
+"""

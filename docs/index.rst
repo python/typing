@@ -2,21 +2,47 @@
 Static Typing with Python
 *************************
 
+Tutorials
+=========
+
+..
+   Keep in sync with tutorials/index.rst.
+
+.. toctree::
+   :maxdepth: 1
+
+   tutorials/external_libraries
+
 Guides
 ======
 
-.. toctree::
-   :maxdepth: 2
+..
+   Keep in sync with docs/guides/index.rst.
 
-   guides/index
+.. toctree::
+   :maxdepth: 1
+
+   guides/libraries
+   guides/writing_stubs
+   guides/modernizing
+   guides/unreachable
+   guides/type_narrowing
+   guides/typing_anti_pitch
 
 Reference
 =========
 
-.. toctree::
-   :maxdepth: 2
+..
+   Keep in sync with docs/reference/index.rst.
 
-   reference/index
+.. toctree::
+   :maxdepth: 1
+
+   reference/generics
+   reference/protocols
+   reference/best_practices
+   reference/quality
+   typing Module Documentation <https://docs.python.org/3/library/typing.html>
 
 .. seealso::
 
@@ -30,6 +56,15 @@ Specification
    :maxdepth: 2
 
    spec/index
+
+
+Typing PEPs
+-----------
+
+Significant changes to the Python Type System Specification are proposed and
+discussed in Python Enhancement Proposals (PEPs). See
+https://peps.python.org/topic/typing for a list of all current and historical
+typing-related PEPs.
 
 Indices and tables
 ==================
@@ -53,14 +88,15 @@ Typing-related Tools
 Type Checkers
 -------------
 
-* `mypy <http://mypy-lang.org/>`_, the reference implementation for type
-  checkers.
-* `pyre <https://pyre-check.org/>`_, a type checker written in OCaml and
-  optimized for performance.
-* `pyright <https://github.com/microsoft/pyright>`_, a type checker that
-  emphasizes speed.
-* `pytype <https://google.github.io/pytype/>`_, a type checker that
-  checks and infers types for unannotated code.
+* `mypy <http://mypy-lang.org/>`_
+* `pyrefly <https://pyrefly.org/>`_
+* `pyright <https://github.com/microsoft/pyright>`_
+* `ty <https://docs.astral.sh/ty/>`_
+* `Zuban <https://docs.zubanls.com/en/latest/>`_
+
+The extent to which these adhere to the specification is monitored by a
+`conformance test suite <https://github.com/python/typing/tree/main/conformance>`_
+(`results <https://htmlpreview.github.io/?https://github.com/python/typing/blob/main/conformance/results/results.html>`_).
 
 Development Environments
 ------------------------
@@ -93,8 +129,3 @@ Type-Hint and Stub Integration
   a thin wrapper around ``ApplyTypeAnnotationsVisitor`` from
   `libCST <https://libcst.readthedocs.io/en/latest/>`_ that integrates .pyi
   signatures as inline type-hints in Python source code.
-
-Typing PEPs
-===========
-
-See https://peps.python.org/topic/typing for a list of all typing-related PEPs.

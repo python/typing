@@ -292,11 +292,8 @@ Here are the specific details of the syntax:
 * ``Annotated`` can be used in definition of nested and generic aliases,
   but only if it wraps a :term:`type expression`::
 
-    T = TypeVar("T")
-    Vec = Annotated[list[tuple[T, T]], MaxLen(10)]
-    V = Vec[int]
-
-    V == Annotated[list[tuple[int, int]], MaxLen(10)]
+    type Vec[T] = Annotated[list[tuple[T, T]], MaxLen(10)]
+    type V = Vec[int] # Annotated[list[tuple[int, int]], MaxLen(10)]
 
 * As with most :term:`special forms <special form>`, ``Annotated`` is not assignable to
   ``type`` or ``type[T]``::

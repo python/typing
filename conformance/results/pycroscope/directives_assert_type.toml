@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./directives_assert_type.py:27:16:   int | str is not equivalent to int
+./directives_assert_type.py:28:16:   int | str is not equivalent to Any[explicit]
+./directives_assert_type.py:29:16:   Any[explicit] is not equivalent to int
+./directives_assert_type.py:30:16:   Literal[4] is not equivalent to int
+./directives_assert_type.py:32:4: In call to typing.assert_type: Missing required positional argument 'val' [incompatible_call]
+./directives_assert_type.py:33:16:   Literal[''] is not equivalent to int
+./directives_assert_type.py:34:4: In call to typing.assert_type: Takes 2 positional arguments but 3 were given [incompatible_call]
+"""

@@ -1,0 +1,26 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./protocols_definition.py:30:10: Incompatible argument type for things: expected collections.abc.Iterable[./protocols_definition.py.SupportsClose] but got Literal[[1]] [incompatible_argument]
+./protocols_definition.py:67:8: Protocol members cannot be defined via assignment to self [invalid_protocol]
+./protocols_definition.py:114:0: Incompatible assignment: expected ./protocols_definition.py.Template2, got ./protocols_definition.py.Concrete2_Bad1 [incompatible_assignment]
+./protocols_definition.py:115:0: Incompatible assignment: expected ./protocols_definition.py.Template2, got ./protocols_definition.py.Concrete2_Bad2 [incompatible_assignment]
+./protocols_definition.py:116:0: Incompatible assignment: expected ./protocols_definition.py.Template2, got ./protocols_definition.py.Concrete2_Bad3 [incompatible_assignment]
+./protocols_definition.py:117:0: Incompatible assignment: expected ./protocols_definition.py.Template2, got ./protocols_definition.py.Concrete2_Bad4 [incompatible_assignment]
+./protocols_definition.py:156:0: Incompatible assignment: expected ./protocols_definition.py.Template3, got ./protocols_definition.py.Concrete3_Bad1 [incompatible_assignment]
+./protocols_definition.py:157:0: Incompatible assignment: expected ./protocols_definition.py.Template3, got ./protocols_definition.py.Concrete3_Bad2 [incompatible_assignment]
+./protocols_definition.py:158:0: Incompatible assignment: expected ./protocols_definition.py.Template3, got ./protocols_definition.py.Concrete3_Bad3 [incompatible_assignment]
+./protocols_definition.py:159:0: Incompatible assignment: expected ./protocols_definition.py.Template3, got ./protocols_definition.py.Concrete3_Bad4 [incompatible_assignment]
+./protocols_definition.py:160:0: Incompatible assignment: expected ./protocols_definition.py.Template3, got ./protocols_definition.py.Concrete3_Bad5 [incompatible_assignment]
+./protocols_definition.py:218:0: Incompatible assignment: expected ./protocols_definition.py.Template4, got ./protocols_definition.py.Concrete4_Bad1 [incompatible_assignment]
+./protocols_definition.py:219:0: Incompatible assignment: expected ./protocols_definition.py.Template4, got ./protocols_definition.py.Concrete4_Bad2 [incompatible_assignment]
+./protocols_definition.py:285:0: Incompatible assignment: expected ./protocols_definition.py.Template5, got ./protocols_definition.py.Concrete5_Bad1 [incompatible_assignment]
+./protocols_definition.py:286:0: Incompatible assignment: expected ./protocols_definition.py.Template5, got ./protocols_definition.py.Concrete5_Bad2 [incompatible_assignment]
+./protocols_definition.py:287:0: Incompatible assignment: expected ./protocols_definition.py.Template5, got ./protocols_definition.py.Concrete5_Bad3 [incompatible_assignment]
+./protocols_definition.py:288:0: Incompatible assignment: expected ./protocols_definition.py.Template5, got ./protocols_definition.py.Concrete5_Bad4 [incompatible_assignment]
+./protocols_definition.py:289:0: Incompatible assignment: expected ./protocols_definition.py.Template5, got ./protocols_definition.py.Concrete5_Bad5 [incompatible_assignment]
+./protocols_definition.py:339:0: Incompatible assignment: expected ./protocols_definition.py.Template6, got ./protocols_definition.py.Concrete6_Bad1 [incompatible_assignment]
+./protocols_definition.py:340:0: Incompatible assignment: expected ./protocols_definition.py.Template6, got ./protocols_definition.py.Concrete6_Bad2 [incompatible_assignment]
+./protocols_definition.py:341:0: Incompatible assignment: expected ./protocols_definition.py.Template6, got ./protocols_definition.py.Concrete6_Bad3 [incompatible_assignment]
+"""

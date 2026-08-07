@@ -1,0 +1,13 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR typeddicts_readonly_consistency.py:37:14-15: `A1` is not assignable to `B1` [bad-assignment]
+ERROR typeddicts_readonly_consistency.py:38:14-15: `C1` is not assignable to `B1` [bad-assignment]
+ERROR typeddicts_readonly_consistency.py:40:14-15: `A1` is not assignable to `C1` [bad-assignment]
+ERROR typeddicts_readonly_consistency.py:81:14-15: `A2` is not assignable to `B2` [bad-assignment]
+ERROR typeddicts_readonly_consistency.py:82:14-15: `C2` is not assignable to `B2` [bad-assignment]
+ERROR typeddicts_readonly_consistency.py:84:14-15: `A2` is not assignable to `C2` [bad-assignment]
+ERROR typeddicts_readonly_consistency.py:85:14-15: `B2` is not assignable to `C2` [bad-assignment]
+"""

@@ -32,14 +32,10 @@ functions with no annotations, but this behavior is not required.
 It is recommended but not required that checked functions have
 annotations for all arguments and the return type.  For a checked
 function, the default annotation for arguments and for the return type
-is ``Any``.  An exception is the first argument of instance and
-class methods. If it is not annotated, then it is assumed to have the
-type of the containing class for instance methods, and a type object
-type corresponding to the containing class object for class methods.
-For example, in class ``A`` the first argument of an instance method
-has the implicit type ``A``. In a class method, the precise type of
-the first argument cannot be represented using the available type
-notation.
+is ``Any``. An exception to the above is the first argument of
+instance and class methods (conventionally named ``self`` or ``cls``),
+which type checkers should assume to have an appropriate type, as per
+:ref:`annotating-methods`.
 
 (Note that the return type of ``__init__`` ought to be annotated with
 ``-> None``.  The reason for this is subtle.  If ``__init__`` assumed
@@ -79,12 +75,16 @@ places. Specifically, type expressions are used in the following locations:
 * The second argument to :ref:`assert_type() <assert-type>`
 * The bounds and constraints of a ``TypeVar`` (whether created through the
   old syntax or the native syntax in Python 3.12)
+* The default of a ``TypeVar``, ``ParamSpec``, or ``TypeVarTuple`` (whether
+  created through the old syntax or the native syntax in Python 3.12)
 * The definition of a type alias (whether created through the ``type`` statement,
   the old assignment syntax, or the ``TypeAliasType`` constructor)
 * The type arguments of a generic class (which may appear in a base class
   or in a constructor call)
 * The definitions of fields in the functional forms for creating
   :ref:`TypedDict <typeddict>` and :ref:`NamedTuple <namedtuple>` types
+* The value passed to the ``extra_items`` argument in the :ref:`TypedDict <typeddict>`
+  constructor
 * The base type in the definition of a :ref:`NewType <newtype>`
 
 .. _`annotation-expression`:
@@ -170,6 +170,7 @@ The following grammar describes the allowed elements of type and annotation expr
                    :       (valid only in some contexts)
                    : | <TypeIs> '[' `type_expression` ']'
                    :       (valid only in some contexts)
+                   : | <TypeForm> ('[' `type_expression` ']')?
                    : | `string_annotation`
                    :       (must evaluate to a valid `type_expression`)
     maybe_unpacked: `type_expression` | `unpacked`
@@ -358,17 +359,20 @@ types cannot be specified::
 Annotating instance and class methods
 -------------------------------------
 
-In most cases the first argument of class and instance methods
-does not need to be annotated, and it is assumed to have the
-type of the containing class for instance methods, and a type object
-type corresponding to the containing class object for class methods.
+In most cases the first argument of instance and class methods
+(conventionally named ``self`` or ``cls``) does not need to be annotated.
+
+If the argument is not annotated, then for instance methods it may be
+inferred to have either the type of the containing class, or the type :ref:`Self
+<self>`. For class methods it may be inferred to have either the type object
+type corresponding to the containing class object, or ``type[Self]``.
+
 In addition, the first argument in an instance method can be annotated
 with a type variable. In this case the return type may use the same
 type variable, thus making that method a generic function. For example::
 
-  T = TypeVar('T', bound='Copyable')
   class Copyable:
-      def copy(self: T) -> T:
+      def copy[T: Copyable](self: T) -> T:
           # return a copy of self
 
   class C(Copyable): ...
@@ -378,10 +382,9 @@ type variable, thus making that method a generic function. For example::
 The same applies to class methods using ``type[]`` in an annotation
 of the first argument::
 
-  T = TypeVar('T', bound='C')
   class C:
       @classmethod
-      def factory(cls: type[T]) -> T:
+      def factory[T: C](cls: type[T]) -> T:
           # make a new instance of cls
 
   class D(C): ...

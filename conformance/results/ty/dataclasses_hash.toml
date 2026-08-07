@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_hash.py:17:1: error[call-non-callable] Object of type `None` is not callable
+dataclasses_hash.py:18:16: error[invalid-assignment] Object of type `DC1` is not assignable to `Hashable`
+dataclasses_hash.py:39:1: error[call-non-callable] Object of type `None` is not callable
+dataclasses_hash.py:40:16: error[invalid-assignment] Object of type `DC3` is not assignable to `Hashable`
+"""

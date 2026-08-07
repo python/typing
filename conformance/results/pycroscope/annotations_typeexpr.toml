@@ -1,0 +1,24 @@
+conformant = "Partial"
+notes = """
+Fails to reject various weird annotations
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 88: Expected 1 errors
+Line 93: Expected 1 errors
+Line 94: Expected 1 errors
+Line 95: Expected 1 errors
+Line 100: Expected 1 errors
+Line 101: Expected 1 errors
+"""
+output = """
+./annotations_typeexpr.py:89:8: Invalid type annotation [<class 'int'>, <class 'str'>] [invalid_annotation]
+./annotations_typeexpr.py:90:8: Invalid type annotation (<class 'int'>, <class 'str'>) [invalid_annotation]
+./annotations_typeexpr.py:91:8: Unrecognized annotation <list containing [type 'int']> [invalid_annotation]
+./annotations_typeexpr.py:92:8: Invalid type annotation {} [invalid_annotation]
+./annotations_typeexpr.py:96:8: Invalid type annotation 3 [invalid_annotation]
+./annotations_typeexpr.py:97:9: Invalid type annotation True [invalid_annotation]
+./annotations_typeexpr.py:98:9: Invalid type annotation 1 [invalid_annotation]
+./annotations_typeexpr.py:99:9: Invalid type annotation -1 [invalid_annotation]
+./annotations_typeexpr.py:102:9: Invalid type annotation <module 'types'> [invalid_annotation]
+"""

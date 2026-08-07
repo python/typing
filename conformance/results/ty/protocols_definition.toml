@@ -1,0 +1,32 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Reports an implicit instance attribute in a `Protocol` method only as a warning.
+Incorrectly considers an instance attribute on a concrete class as satisfying a `ClassVar` protocol member.
+"""
+errors_diff = """
+Line 67: Expected 1 errors
+Line 117: Expected 1 errors
+"""
+output = """
+protocols_definition.py:30:11: error[invalid-argument-type] Argument to function `close_all` is incorrect: Expected `Iterable[SupportsClose]`, found `list[int]`
+protocols_definition.py:67:9: warning[ambiguous-protocol-member] Cannot assign to an undeclared attribute in a protocol method: `temp` is not declared as a protocol member
+protocols_definition.py:114:22: error[invalid-assignment] Object of type `Concrete2_Bad1` is not assignable to `Template2`
+protocols_definition.py:115:22: error[invalid-assignment] Object of type `Concrete2_Bad2` is not assignable to `Template2`
+protocols_definition.py:116:22: error[invalid-assignment] Object of type `Concrete2_Bad3` is not assignable to `Template2`
+protocols_definition.py:156:22: error[invalid-assignment] Object of type `Concrete3_Bad1` is not assignable to `Template3`
+protocols_definition.py:157:22: error[invalid-assignment] Object of type `Concrete3_Bad2` is not assignable to `Template3`
+protocols_definition.py:158:22: error[invalid-assignment] Object of type `Concrete3_Bad3` is not assignable to `Template3`
+protocols_definition.py:159:22: error[invalid-assignment] Object of type `Concrete3_Bad4` is not assignable to `Template3`
+protocols_definition.py:160:22: error[invalid-assignment] Object of type `Concrete3_Bad5` is not assignable to `Template3`
+protocols_definition.py:218:22: error[invalid-assignment] Object of type `Concrete4_Bad1` is not assignable to `Template4`
+protocols_definition.py:219:22: error[invalid-assignment] Object of type `Concrete4_Bad2` is not assignable to `Template4`
+protocols_definition.py:285:22: error[invalid-assignment] Object of type `Concrete5_Bad1` is not assignable to `Template5`
+protocols_definition.py:286:22: error[invalid-assignment] Object of type `Concrete5_Bad2` is not assignable to `Template5`
+protocols_definition.py:287:22: error[invalid-assignment] Object of type `Concrete5_Bad3` is not assignable to `Template5`
+protocols_definition.py:288:22: error[invalid-assignment] Object of type `Concrete5_Bad4` is not assignable to `Template5`
+protocols_definition.py:289:22: error[invalid-assignment] Object of type `Concrete5_Bad5` is not assignable to `Template5`
+protocols_definition.py:339:22: error[invalid-assignment] Object of type `Concrete6_Bad1` is not assignable to `Template6`
+protocols_definition.py:340:22: error[invalid-assignment] Object of type `Concrete6_Bad2` is not assignable to `Template6`
+protocols_definition.py:341:22: error[invalid-assignment] Object of type `Concrete6_Bad3` is not assignable to `Template6`
+"""

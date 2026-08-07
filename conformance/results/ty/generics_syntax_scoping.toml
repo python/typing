@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_syntax_scoping.py:14:20: error[invalid-type-variable-bound] TypeVar upper bound cannot be generic
+generics_syntax_scoping.py:18:17: error[invalid-type-variable-bound] TypeVar upper bound cannot be generic
+generics_syntax_scoping.py:35:7: error[unresolved-reference] Name `T` used when not defined
+generics_syntax_scoping.py:44:17: error[unresolved-reference] Name `T` used when not defined
+generics_syntax_scoping.py:92:9: error[shadowed-type-variable] Generic function `method1` uses type variable `T` already bound by an enclosing scope
+generics_syntax_scoping.py:95:9: error[shadowed-type-variable] Generic function `method2` uses type variable `T` already bound by an enclosing scope
+generics_syntax_scoping.py:98:9: error[shadowed-type-variable] Generic function `method3` uses type variable `T` already bound by an enclosing scope
+"""

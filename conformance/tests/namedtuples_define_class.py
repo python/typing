@@ -7,6 +7,7 @@ Tests NamedTuple definitions using the class syntax.
 # > Type checkers should support the class syntax
 
 from typing import Generic, NamedTuple, TypeVar, assert_type
+import sys
 
 
 class Point(NamedTuple):
@@ -49,6 +50,33 @@ p9 = Point(1, 2, "", "")  # E
 p10 = Point(1, 2, "", other="")  # E
 
 
+# > Fields must be annotated attributes - methods and un-annotated attributes are not
+# > considered fields.
+
+
+class Point2(NamedTuple):
+    x: int
+    y: int
+    units = "meters"  # Not a field
+
+    def is_origin(self) -> int:  # Not a field
+        return self.x == 0 and self.y == 0
+
+
+p11 = Point2(1, 2)
+assert_type(p11, Point2)
+x, y = p11
+
+p12 = Point2(1, 2, "")  # E
+
+
+# > Field names may not start with an underscore.
+
+class Point3(NamedTuple):
+    x: int
+    _y: int  # E: illegal field name
+
+
 # > The runtime implementation of ``NamedTuple`` enforces that fields with default
 # > values must come after fields without default values. Type checkers should
 # > likewise enforce this restriction::
@@ -77,6 +105,20 @@ assert_type(pn1.name, str)
 class BadPointWithName(Point):
     name: str = ""  # OK
     x: int = 0  # E
+
+# > Namedtuple fields may be conditional, via checks of the same statically-known
+# > conditions that a type-checker understands elsewhere, such as Python version::
+
+class ConditionalField(NamedTuple):
+    x: int
+    if sys.version_info >= (3, 12):
+        y: int
+    if sys.version_info >= (4, 0):
+        z: int
+
+# The conformance suite runs type checkers configured to Python 3.12 or later:
+ConditionalField(1, 2)
+ConditionalField(1, 2, 3)  # E
 
 
 # > In Python 3.11 and newer, the class syntax supports generic named tuple classes.

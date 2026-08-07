@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./constructors_call_metaclass.py:54:0: Missing required argument 'x' [incompatible_call]
+./constructors_call_metaclass.py:68:0: Missing required argument 'x' [incompatible_call]
+"""

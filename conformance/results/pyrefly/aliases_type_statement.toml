@@ -1,0 +1,34 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR aliases_type_statement.py:17:1-21: Object of class `TypeAliasType` has no attribute `bit_count` [missing-attribute]
+ERROR aliases_type_statement.py:19:1-11: Expected a callable, got `TypeAlias[GoodAlias1, type[int]]` [not-callable]
+ERROR aliases_type_statement.py:23:7-30: Object of class `TypeAliasType` has no attribute `other_attrib` [missing-attribute]
+ERROR aliases_type_statement.py:26:18-28: Cannot use scoped type alias `GoodAlias1` as a base class. Use a legacy type alias instead: `GoodAlias1: TypeAlias = type[int]` [invalid-inheritance]
+ERROR aliases_type_statement.py:31:22-32: Expected class object, got `TypeAliasType` [invalid-argument]
+ERROR aliases_type_statement.py:37:22-62: Function call cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:38:22-32: List literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:39:22-35: Tuple literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:40:22-45: List comprehension cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:41:22-32: Dict literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:41:24-25: Could not find name `a` [unknown-name]
+ERROR aliases_type_statement.py:41:29-30: Could not find name `b` [unknown-name]
+ERROR aliases_type_statement.py:42:22-37: Function call cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:43:22-30: Invalid subscript expression cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:44:22-43: If expression cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:45:22-26: Expected `BadTypeAlias9` to be a type alias, got `Literal[1]` [invalid-type-alias]
+ERROR aliases_type_statement.py:46:23-27: Bool literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:47:23-24: Number literal cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:48:23-34: Boolean operation cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:49:23-33: F-string cannot be used in annotations [invalid-annotation]
+ERROR aliases_type_statement.py:53:15-25: Type parameters used in `TA1` but not declared [invalid-type-var]
+ERROR aliases_type_statement.py:58:12-20: Type parameters used in `TA2` but not declared [invalid-type-var]
+ERROR aliases_type_statement.py:68:7-41: `str` is not assignable to upper bound `int` of type variable `S` [bad-specialization]
+ERROR aliases_type_statement.py:70:7-41: `int` is not assignable to upper bound `str` of type variable `T` [bad-specialization]
+ERROR aliases_type_statement.py:73:28-47: Found cyclic self-reference in `RecursiveTypeAlias3` [invalid-type-alias]
+ERROR aliases_type_statement.py:75:31-59: Found cyclic self-reference in `RecursiveTypeAlias4` [invalid-type-alias]
+ERROR aliases_type_statement.py:79:28-47: Found cyclic self-reference in `RecursiveTypeAlias6` [invalid-type-alias]
+ERROR aliases_type_statement.py:80:28-47: Found cyclic self-reference in `RecursiveTypeAlias7` [invalid-type-alias]
+"""

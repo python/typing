@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR overloads_consistency.py:25:5-16: Overload return type `str` is not assignable to implementation return type `int` [inconsistent-overload]
+ERROR overloads_consistency.py:41:5-19: Implementation signature `(x: int) -> int | str` does not accept all arguments that overload signature `(x: str) -> str` accepts [inconsistent-overload]
+"""

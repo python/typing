@@ -1,5 +1,10 @@
 conformant = "Pass"
 output = """
+directives_version_platform.py:33:19 - error: "val3" is not defined (reportUndefinedVariable)
+directives_version_platform.py:50:19 - error: "val6" is not defined (reportUndefinedVariable)
+directives_version_platform.py:59:19 - error: "val9" is not defined (reportUndefinedVariable)
+directives_version_platform.py:66:19 - error: "val10" is not defined (reportUndefinedVariable)
+directives_version_platform.py:75:19 - error: "val13" is not defined (reportUndefinedVariable)
 """
 conformance_automated = "Pass"
 errors_diff = """

@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_match_args.py:42:1: error[unresolved-attribute] Class `DC4` has no attribute `__match_args__`
+"""
