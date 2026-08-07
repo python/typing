@@ -366,67 +366,6 @@ traditionally typed ``**kwargs`` aren't checked for keyword names.
 To summarize, function parameters should behave contravariantly and function
 return types should behave covariantly.
 
-Passing kwargs inside a function to another function
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-:ref:`A previous point <PEP 692 assignment dest no kwargs>`
-mentions the problem of possibly passing additional keyword arguments by
-assigning a subclass instance to a variable that has a base class type. Let's
-consider the following example::
-
-    class Animal(TypedDict):
-        name: str
-
-    class Dog(Animal):
-        breed: str
-
-    def takes_name(name: str): ...
-
-    dog: Dog = {"name": "Daisy", "breed": "Labrador"}
-    animal: Animal = dog
-
-    def foo(**kwargs: Unpack[Animal]):
-        print(kwargs["name"].capitalize())
-
-    def bar(**kwargs: Unpack[Animal]):
-        takes_name(**kwargs)
-
-    def baz(animal: Animal):
-        takes_name(**animal)
-
-    def spam(**kwargs: Unpack[Animal]):
-        baz(kwargs)
-
-    foo(**animal)   # OK! foo only expects and uses keywords of 'Animal'.
-
-    bar(**animal)   # WRONG! This will fail at runtime because 'breed' keyword
-                    # will be passed to 'takes_name' as well.
-
-    spam(**animal)  # WRONG! Again, 'breed' keyword will be eventually passed
-                    # to 'takes_name'.
-
-In the example above, the call to ``foo`` will not cause any issues at
-runtime. Even though ``foo`` expects ``kwargs`` of type ``Animal`` it doesn't
-matter if it receives additional arguments because it only reads and uses what
-it needs completely ignoring any additional values.
-
-The calls to ``bar`` and ``spam`` will fail because an unexpected keyword
-argument will be passed to the ``takes_name`` function.
-
-Therefore, ``kwargs`` hinted with an unpacked ``TypedDict`` can only be passed
-to another function if the function to which unpacked kwargs are being passed
-to has ``**kwargs`` in its signature as well, because then additional keywords
-would not cause errors at runtime during function invocation. Otherwise, the
-type checker should generate an error.
-
-In cases similar to the ``bar`` function above the problem could be worked
-around by explicitly dereferencing desired fields and using them as arguments
-to perform the function call::
-
-    def bar(**kwargs: Unpack[Animal]):
-        name = kwargs["name"]
-        takes_name(name)
-
 Using ``Unpack`` with types other than ``TypedDict``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
