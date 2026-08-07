@@ -1,0 +1,29 @@
+conformant = "Partial"
+conformance_automated = "Fail"
+notes = """
+Does not error when a ParamSpec is used in a position that violates its explicit variance.
+"""
+errors_diff = """
+Line 72: Expected 1 errors
+Line 83: Expected 1 errors
+"""
+output = """
+generics_typevartuple_variance.py:14:45: error[invalid-assignment] Object of type `InvariantTypeVarTuple[int]` is not assignable to `InvariantTypeVarTuple[object]`
+generics_typevartuple_variance.py:15:42: error[invalid-assignment] Object of type `InvariantTypeVarTuple[object]` is not assignable to `InvariantTypeVarTuple[int]`
+generics_typevartuple_variance.py:17:64: error[invalid-assignment] Object of type `InvariantTypeVarTuple[*tuple[object, ...]]` is not assignable to `InvariantTypeVarTuple[*tuple[int, ...]]`
+generics_typevartuple_variance.py:18:70: error[invalid-assignment] Object of type `InvariantTypeVarTuple[*tuple[int, ...]]` is not assignable to `InvariantTypeVarTuple[*tuple[object, ...]]`
+generics_typevartuple_variance.py:26:53: error[invalid-assignment] Object of type `ContravariantTypeVarTuple[object, int]` is not assignable to `ContravariantTypeVarTuple[object, object]`
+generics_typevartuple_variance.py:29:70: error[invalid-assignment] Object of type `ContravariantTypeVarTuple[*tuple[int, ...]]` is not assignable to `ContravariantTypeVarTuple[*tuple[object, ...]]`
+generics_typevartuple_variance.py:38:39: error[invalid-assignment] Object of type `CovariantTypeVarTuple[object]` is not assignable to `CovariantTypeVarTuple[int]`
+generics_typevartuple_variance.py:41:50: error[invalid-assignment] Object of type `CovariantTypeVarTuple[bool, object]` is not assignable to `CovariantTypeVarTuple[int, int]`
+generics_typevartuple_variance.py:42:50: error[invalid-assignment] Object of type `CovariantTypeVarTuple[object, bool]` is not assignable to `CovariantTypeVarTuple[int, int]`
+generics_typevartuple_variance.py:43:50: error[invalid-assignment] Object of type `CovariantTypeVarTuple[object, object]` is not assignable to `CovariantTypeVarTuple[int, int]`
+generics_typevartuple_variance.py:44:61: error[invalid-assignment] Object of type `CovariantTypeVarTuple[*tuple[object, ...]]` is not assignable to `CovariantTypeVarTuple[*tuple[int, ...]]`
+generics_typevartuple_variance.py:49:10: error[invalid-legacy-type-variable] A `TypeVarTuple` cannot be both covariant and contravariant
+generics_typevartuple_variance.py:50:10: error[invalid-legacy-type-variable] A `TypeVarTuple` cannot specify variance when `infer_variance=True`
+generics_typevartuple_variance.py:51:10: error[invalid-legacy-type-variable] A `TypeVarTuple` cannot specify variance when `infer_variance=True`
+generics_typevartuple_variance.py:61:45: error[invalid-assignment] Object of type `InvariantTypeVarTupleOld[int]` is not assignable to `InvariantTypeVarTupleOld[object]`
+generics_typevartuple_variance.py:62:42: error[invalid-assignment] Object of type `InvariantTypeVarTupleOld[object]` is not assignable to `InvariantTypeVarTupleOld[int]`
+generics_typevartuple_variance.py:76:52: error[invalid-assignment] Object of type `ContravariantTypeVarTupleOld[int]` is not assignable to `ContravariantTypeVarTupleOld[object]`
+generics_typevartuple_variance.py:90:46: error[invalid-assignment] Object of type `CovariantTypeVarTupleOld[object]` is not assignable to `CovariantTypeVarTupleOld[int]`
+"""

@@ -1,0 +1,24 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 17: Unexpected errors ['generics_mixed_variance_inference.py:17:27 - error: Type "Mixed[int, bool, ()]" is not assignable to declared type "Mixed[int, int, ()]"']
+Line 20: Unexpected errors ['generics_mixed_variance_inference.py:20:25 - error: Type "Mixed[int, (object)]" is not assignable to declared type "Mixed[int, (int)]"']
+"""
+output = """
+generics_mixed_variance_inference.py:13:22 - error: Type "Mixed[bool, ()]" is not assignable to declared type "Mixed[int, ()]"
+  "Mixed[bool, ()]" is not assignable to "Mixed[int, ()]"
+    Type parameter "T@Mixed" is contravariant, but "bool" is not a supertype of "int"
+      "int" is not assignable to "bool" (reportAssignmentType)
+generics_mixed_variance_inference.py:16:27 - error: Type "Mixed[int, object, ()]" is not assignable to declared type "Mixed[int, int, ()]"
+  "Mixed[int, object, ()]" is not assignable to "Mixed[int, int, ()]"
+    Type parameter "Ts@Mixed" is invariant, but "*tuple[object]" is not the same as "*tuple[int]" (reportAssignmentType)
+generics_mixed_variance_inference.py:17:27 - error: Type "Mixed[int, bool, ()]" is not assignable to declared type "Mixed[int, int, ()]"
+  "Mixed[int, bool, ()]" is not assignable to "Mixed[int, int, ()]"
+    Type parameter "Ts@Mixed" is invariant, but "*tuple[bool]" is not the same as "*tuple[int]" (reportAssignmentType)
+generics_mixed_variance_inference.py:20:25 - error: Type "Mixed[int, (object)]" is not assignable to declared type "Mixed[int, (int)]"
+  "Mixed[int, (object)]" is not assignable to "Mixed[int, (int)]"
+    Type parameter "P@Mixed" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_mixed_variance_inference.py:21:25 - error: Type "Mixed[int, (bool)]" is not assignable to declared type "Mixed[int, (int)]"
+  "Mixed[int, (bool)]" is not assignable to "Mixed[int, (int)]"
+    Type parameter "P@Mixed" is invariant, but "(bool)" is not the same as "(int)" (reportAssignmentType)
+"""

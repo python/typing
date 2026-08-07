@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_mixed_variance_inference.py:13:22: error[invalid-assignment] Object of type `Mixed[bool, ()]` is not assignable to `Mixed[int, ()]`
+generics_mixed_variance_inference.py:16:27: error[invalid-assignment] Object of type `Mixed[int, object, ()]` is not assignable to `Mixed[int, int, ()]`
+generics_mixed_variance_inference.py:21:25: error[invalid-assignment] Object of type `Mixed[int, (bool, /)]` is not assignable to `Mixed[int, (int, /)]`
+"""

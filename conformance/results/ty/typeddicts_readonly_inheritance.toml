@@ -12,3 +12,5 @@ typeddicts_readonly_inheritance.py:106:5: error[invalid-typed-dict-field] Cannot
 typeddicts_readonly_inheritance.py:119:7: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `x` while merging base classes: Inherited mutable field type `int | float` is incompatible with `int`
 typeddicts_readonly_inheritance.py:132:7: error[invalid-typed-dict-field] Cannot overwrite TypedDict field `x` while merging base classes: Required inherited fields cannot be redeclared as `NotRequired`
 """
+errors_diff = """
+"""
