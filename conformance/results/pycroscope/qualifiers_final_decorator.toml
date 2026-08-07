@@ -1,15 +1,22 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Reports an internal traceback for a valid `@final` property declaration.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 58: Unexpected errors ['./qualifiers_final_decorator.py:58:4: Traceback (most recent call last):']
 """
 output = """
 ./qualifiers_final_decorator.py:21:15: Cannot inherit from final class [invalid_base]
-./qualifiers_final_decorator.py:56:4: Cannot override final attribute method1 [incompatible_override]
-./qualifiers_final_decorator.py:60:4: Cannot override final attribute method2 [incompatible_override]
-./qualifiers_final_decorator.py:64:4: Cannot override final attribute method3 [incompatible_override]
-./qualifiers_final_decorator.py:75:4: Cannot override final attribute method4 [incompatible_override]
-./qualifiers_final_decorator.py:86:4: @final should be applied only to the overload implementation [invalid_final]
-./qualifiers_final_decorator.py:89:4: Cannot override final attribute method [incompatible_override]
-./qualifiers_final_decorator.py:102:4: Cannot override final attribute method [incompatible_override]
-./qualifiers_final_decorator.py:118:4: Cannot override final attribute method [incompatible_override]
-./qualifiers_final_decorator.py:126:0: @final is not allowed on non-method functions [invalid_final]
+./qualifiers_final_decorator.py:58:4: Traceback (most recent call last):
+./qualifiers_final_decorator.py:63:4: Cannot override final attribute method1 [incompatible_override]
+./qualifiers_final_decorator.py:67:4: Cannot override final attribute method2 [incompatible_override]
+./qualifiers_final_decorator.py:71:4: Cannot override final attribute method3 [incompatible_override]
+./qualifiers_final_decorator.py:82:4: Cannot override final attribute method4 [incompatible_override]
+./qualifiers_final_decorator.py:86:4: Cannot override final attribute method5 [incompatible_override]
+./qualifiers_final_decorator.py:97:4: @final should be applied only to the overload implementation [invalid_final]
+./qualifiers_final_decorator.py:100:4: Cannot override final attribute method [incompatible_override]
+./qualifiers_final_decorator.py:113:4: Cannot override final attribute method [incompatible_override]
+./qualifiers_final_decorator.py:129:4: Cannot override final attribute method [incompatible_override]
+./qualifiers_final_decorator.py:137:0: @final is not allowed on non-method functions [invalid_final]
 """
