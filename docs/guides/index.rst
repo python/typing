@@ -12,6 +12,7 @@ Type System Guides
    :caption: Contents:
 
    libraries
+   lambda
    writing_stubs
    modernizing
    unreachable
