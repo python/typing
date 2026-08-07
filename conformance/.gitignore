@@ -32,8 +32,6 @@ MANIFEST
 
 # Tools
 .mypy_cache
-.pyre_configuration
-.pyre
 .coverage
 htmlcov
 

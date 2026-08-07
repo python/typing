@@ -1,0 +1,38 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR callables_subtyping.py:26:36-39: `(int) -> int` is not assignable to `(float) -> float` [bad-assignment]
+ERROR callables_subtyping.py:29:32-35: `(float) -> float` is not assignable to `(int) -> int` [bad-assignment]
+ERROR callables_subtyping.py:51:21-29: `PosOnly2` is not assignable to `Standard2` [bad-assignment]
+ERROR callables_subtyping.py:52:21-28: `KwOnly2` is not assignable to `Standard2` [bad-assignment]
+ERROR callables_subtyping.py:55:20-27: `KwOnly2` is not assignable to `PosOnly2` [bad-assignment]
+ERROR callables_subtyping.py:58:19-27: `PosOnly2` is not assignable to `KwOnly2` [bad-assignment]
+ERROR callables_subtyping.py:82:20-27: `NoArgs3` is not assignable to `IntArgs3` [bad-assignment]
+ERROR callables_subtyping.py:85:22-29: `NoArgs3` is not assignable to `FloatArgs3` [bad-assignment]
+ERROR callables_subtyping.py:86:22-30: `IntArgs3` is not assignable to `FloatArgs3` [bad-assignment]
+ERROR callables_subtyping.py:116:20-28: `IntArgs4` is not assignable to `PosOnly4` [bad-assignment]
+ERROR callables_subtyping.py:119:23-31: `StrArgs4` is not assignable to `IntStrArgs4` [bad-assignment]
+ERROR callables_subtyping.py:120:23-31: `IntArgs4` is not assignable to `IntStrArgs4` [bad-assignment]
+ERROR callables_subtyping.py:122:20-28: `IntArgs4` is not assignable to `StrArgs4` [bad-assignment]
+ERROR callables_subtyping.py:124:20-28: `StrArgs4` is not assignable to `IntArgs4` [bad-assignment]
+ERROR callables_subtyping.py:125:22-34: `IntStrArgs4` is not assignable to `Standard4` [bad-assignment]
+ERROR callables_subtyping.py:126:22-30: `StrArgs4` is not assignable to `Standard4` [bad-assignment]
+ERROR callables_subtyping.py:151:22-31: `NoKwargs5` is not assignable to `IntKwargs5` [bad-assignment]
+ERROR callables_subtyping.py:154:24-33: `NoKwargs5` is not assignable to `FloatKwargs5` [bad-assignment]
+ERROR callables_subtyping.py:155:24-34: `IntKwargs5` is not assignable to `FloatKwargs5` [bad-assignment]
+ERROR callables_subtyping.py:187:19-29: `IntKwargs6` is not assignable to `KwOnly6` [bad-assignment]
+ERROR callables_subtyping.py:190:25-35: `StrKwargs6` is not assignable to `IntStrKwargs6` [bad-assignment]
+ERROR callables_subtyping.py:191:25-35: `IntKwargs6` is not assignable to `IntStrKwargs6` [bad-assignment]
+ERROR callables_subtyping.py:193:22-32: `IntKwargs6` is not assignable to `StrKwargs6` [bad-assignment]
+ERROR callables_subtyping.py:195:22-32: `StrKwargs6` is not assignable to `IntKwargs6` [bad-assignment]
+ERROR callables_subtyping.py:196:22-36: `IntStrKwargs6` is not assignable to `Standard6` [bad-assignment]
+ERROR callables_subtyping.py:197:22-32: `StrKwargs6` is not assignable to `Standard6` [bad-assignment]
+ERROR callables_subtyping.py:236:23-37: `NoDefaultArg8` is not assignable to `DefaultArg8` [bad-assignment]
+ERROR callables_subtyping.py:237:23-27: `NoX8` is not assignable to `DefaultArg8` [bad-assignment]
+ERROR callables_subtyping.py:240:25-29: `NoX8` is not assignable to `NoDefaultArg8` [bad-assignment]
+ERROR callables_subtyping.py:243:16-30: `NoDefaultArg8` is not assignable to `NoX8` [bad-assignment]
+ERROR callables_subtyping.py:273:21-31: `Overloaded9` is not assignable to `FloatArg9` [bad-assignment]
+ERROR callables_subtyping.py:297:24-31: `StrArg10` is not assignable to `Overloaded10` [bad-assignment]
+"""

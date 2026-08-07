@@ -1,0 +1,14 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./specialtypes_type.py:56:6: Incompatible argument type for user_class: expected type[./specialtypes_type.py.BasicUser] | type[./specialtypes_type.py.ProUser] but got <class 'TeamUser'> [incompatible_argument]
+./specialtypes_type.py:70:6: Incompatible argument type for x: expected type[~T@./specialtypes_type.py.func5.<locals>.func5] but got Literal[typing.Callable] [incompatible_argument]
+./specialtypes_type.py:76:11: Type[] requires a single argument [invalid_annotation]
+./specialtypes_type.py:117:4: type[object] has no attribute 'unknown' [undefined_attribute]
+./specialtypes_type.py:120:4: type[object] has no attribute 'unknown' [undefined_attribute]
+./specialtypes_type.py:143:0: Literal[typing.Type] has no attribute 'unknown' [undefined_attribute]
+./specialtypes_type.py:144:0: Literal[typing.Type[typing.Any]] has no attribute 'unknown' [undefined_attribute]
+./specialtypes_type.py:145:0: type 'type' has no attribute 'unknown' [undefined_attribute]
+./specialtypes_type.py:146:0: Literal[type[typing.Any]] has no attribute 'unknown' [undefined_attribute]
+"""

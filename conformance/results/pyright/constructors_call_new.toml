@@ -4,7 +4,7 @@ errors_diff = """
 output = """
 constructors_call_new.py:21:13 - error: Argument of type "float" cannot be assigned to parameter "x" of type "int" in function "__new__"
   "float" is not assignable to "int" (reportArgumentType)
-constructors_call_new.py:145:1 - error: 
+constructors_call_new.py:148:1 - error: 
   Could not bind method "__new__" because "type[Class11[str]]" is not assignable to parameter "cls"
     "type[Class11[str]]" is not assignable to "type[Class11[int]]"
     Type "type[Class11[str]]" is not assignable to type "type[Class11[int]]"

@@ -1,0 +1,19 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_scoping.py:15:12:   Literal[1] is not equivalent to int
+./generics_scoping.py:19:12:   Literal['a'] is not equivalent to str
+./generics_scoping.py:34:9: Incompatible argument type for x: expected int but got Literal['a'] [incompatible_argument]
+./generics_scoping.py:49:12:   Literal['abc'] is not equivalent to str
+./generics_scoping.py:53:12:   Literal[b'abc'] is not equivalent to bytes
+./generics_scoping.py:61:12: Type parameter is not valid in this annotation context [invalid_annotation]
+./generics_scoping.py:65:18: Type parameter is not valid in this annotation context [invalid_annotation]
+./generics_scoping.py:76:28: Type parameter is not valid in this annotation context [invalid_annotation]
+./generics_scoping.py:86:23: Type parameter is not valid in this annotation context [invalid_annotation]
+./generics_scoping.py:89:16: Type parameter is not valid in this annotation context [invalid_annotation]
+./generics_scoping.py:98:28: Type parameter is not valid in this annotation context [invalid_annotation]
+./generics_scoping.py:105:13: Type parameter is not valid in this annotation context [invalid_annotation]
+./generics_scoping.py:106:18: Type parameter is not valid in this annotation context [invalid_annotation]
+./generics_scoping.py:107:5: Type parameter is not valid in this annotation context [invalid_annotation]
+"""

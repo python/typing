@@ -32,9 +32,10 @@ class Foo(Generic[DefaultStrT, T2]):
     def __init__(self, a: DefaultStrT, b: T2) -> None: ...
 
 
-assert_type(Foo(1, ""), Foo[int, str])
-Foo[int](1, "")  # E: Foo[int, str] cannot be assigned to self: Foo[int, int] in Foo.__init__
-Foo[int]("", 1)  # E: Foo[str, int] cannot be assigned to self: Foo[int, int] in Foo.__init__
+def func1(i: int, s: str) -> None:
+    assert_type(Foo(i, s), Foo[int, str])
+    Foo[int](i, s)  # E: Foo[int, str] cannot be assigned to self: Foo[int, int] in Foo.__init__
+    Foo[int](s, i)  # E: Foo[str, int] cannot be assigned to self: Foo[int, int] in Foo.__init__
 
 
 # > ``T1`` must be used before ``T2`` in the parameter list of the generic.
@@ -63,19 +64,19 @@ class Foo3(Generic[S1]):
 # > ``T1``'s bound must be a subtype of ``T2``'s bound.
 
 X1 = TypeVar("X1", bound=int)
-TypeVar("Ok1", default=X1, bound=float)  # OK
-TypeVar("AlsoOk1", default=X1, bound=int)  # OK
-TypeVar("Invalid1", default=X1, bound=str)  # E: int is not a subtype of str
+Ok1 = TypeVar("Ok1", default=X1, bound=float)  # OK
+AlsoOk1 = TypeVar("AlsoOk1", default=X1, bound=int)  # OK
+Invalid1 = TypeVar("Invalid1", default=X1, bound=str)  # E: int is not a subtype of str
 
 
 # > The constraints of ``T2`` must be a superset of the constraints of ``T1``.
 
 Y1 = TypeVar("Y1", bound=int)
-TypeVar("Invalid2", float, str, default=Y1)  # E: upper bound int is incompatible with constraints float or str
+Invalid2 = TypeVar("Invalid2", float, str, default=Y1)  # E: upper bound int is incompatible with constraints float or str
 
 Y2 = TypeVar("Y2", int, str)
-TypeVar("AlsoOk2", int, str, bool, default=Y2)  # OK
-TypeVar("AlsoInvalid2", bool, complex, default=Y2)  # E: {bool, complex} is not a superset of {int, str}
+AlsoOk2 = TypeVar("AlsoOk2", int, str, bool, default=Y2)  # OK
+AlsoInvalid2 = TypeVar("AlsoInvalid2", bool, complex, default=Y2)  # E: {bool, complex} is not a superset of {int, str}
 
 
 # > Type parameters are valid as parameters to generics inside of a
@@ -88,11 +89,18 @@ ListDefaultT = TypeVar("ListDefaultT", default=list[Z1])  # OK
 
 
 class Bar(Generic[Z1, ListDefaultT]):  # OK
+    x: Z1
+    y: ListDefaultT
     def __init__(self, x: Z1, y: ListDefaultT): ...
 
 
-assert_type(Bar, type[Bar[Any, list[Any]]])
-assert_type(Bar[int], type[Bar[int, list[int]]])
+def f(b1: Bar, b2: Bar[int]):
+    assert_type(b1.x, Any)
+    assert_type(b1.y, list[Any])
+    assert_type(b2.x, int)
+    assert_type(b2.y, list[int])
+
+
 assert_type(Bar[int](0, []), Bar[int, list[int]])
 assert_type(Bar[int, list[str]](0, []), Bar[int, list[str]])
 assert_type(Bar[int, str](0, ""), Bar[int, str])

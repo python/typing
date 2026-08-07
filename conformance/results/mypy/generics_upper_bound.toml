@@ -4,8 +4,8 @@ Does not reject use of type variable within an upper bound.
 """
 output = """
 generics_upper_bound.py:43: error: Expression is of type "Collection[int]", not "list[int] | set[int]"  [assert-type]
-generics_upper_bound.py:51: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
-generics_upper_bound.py:56: error: TypeVar cannot have both values and an upper bound  [misc]
+generics_upper_bound.py:52: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
+generics_upper_bound.py:57: error: TypeVar cannot have both values and an upper bound  [misc]
 """
 conformance_automated = "Fail"
 errors_diff = """

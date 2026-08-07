@@ -1,0 +1,14 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./literals_literalstring.py:36:11: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got typing.LiteralString [invalid_literal]
+./literals_literalstring.py:37:13: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got typing.LiteralString [invalid_literal]
+./literals_literalstring.py:43:4: Incompatible assignment: expected Literal[''], got Literal['two'] [incompatible_assignment]
+./literals_literalstring.py:65:4: Incompatible assignment: expected LiteralString, got str [incompatible_assignment]
+./literals_literalstring.py:73:4: Incompatible assignment: expected LiteralString, got Literal[3] [incompatible_assignment]
+./literals_literalstring.py:74:4: Incompatible assignment: expected LiteralString, got Literal[b'test'] [incompatible_assignment]
+./literals_literalstring.py:119:21: Incompatible argument type for s: expected ~TLiteral but got str [incompatible_argument]
+./literals_literalstring.py:133:50: Incompatible argument type for value: expected ~T@literals_literalstring.Container but got str [incompatible_argument]
+./literals_literalstring.py:171:4: Incompatible assignment: expected list[str], got list[LiteralString] [incompatible_assignment]
+"""

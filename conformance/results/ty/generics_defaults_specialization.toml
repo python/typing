@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_defaults_specialization.py:30:15: error[invalid-type-arguments] Too many type arguments: expected between 0 and 1, got 2
+generics_defaults_specialization.py:46:22: error[invalid-assignment] Object of type `<class 'Bar'>` is not assignable to `type[Bar[int]]`
+generics_defaults_specialization.py:56:1: error[not-subscriptable] Cannot specialize non-generic class `Foo`
+"""

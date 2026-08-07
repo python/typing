@@ -73,7 +73,7 @@ class Derived2(Base2):
         pass
 
     @overload  # E[method4]
-    def method4(self, x: int) -> int:
+    def method4(self, x: int) -> int:  # E[method4]
         ...
 
     @overload
@@ -83,14 +83,14 @@ class Derived2(Base2):
     def method4(self, x: int | str) -> int | str:  # E[method4]
         return 0
 
-    @property # E[method5]
-    def method5(self) -> bool: # E[method5]
+    @property  # E[method5]
+    def method5(self) -> bool:  # E[method5]
         return True
 
 
 class Derived3(Base3):
     @overload  # E[Derived3]
-    def method(self, x: int) -> int:
+    def method(self, x: int) -> int:  # E[Derived3]
         ...
 
     @overload  # E[Derived3-2]
@@ -104,7 +104,7 @@ class Derived3(Base3):
 
 class Derived4(Base4):
     @overload  # E[Derived4]
-    def method(self, x: int) -> int:
+    def method(self, x: int) -> int:  # E[Derived4]
         ...
 
     @overload

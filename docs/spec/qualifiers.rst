@@ -223,6 +223,34 @@ following should be allowed::
 item or a :ref:`NamedTuple <namedtuple>` field. Such usage also generates
 an error at runtime.
 
+
+Importing ``Final`` Variables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If a module declares a ``Final`` variable and another module imports that
+variable in an import statement by name or wildcard, the imported symbol
+inherits the ``Final`` type qualifier. Any attempt to assign a different value
+to this symbol should be flagged as an error by a type checker::
+
+    # lib/submodule.py
+    from typing import Final
+    PI: Final = 3.14
+
+    # lib/__init__.py
+    from .submodule import PI  # PI is Final
+
+    # test1.py
+    from lib import PI
+    PI = 0  # Error: Can't assign to Final value
+
+    from lib import PI as PI2
+    PI2 = 0  # Error: Can't assign to Final value
+
+    # test2.py
+    from lib import *
+    PI = 0  # Error: Can't assign to Final value
+
+
 .. _`annotated`:
 
 ``Annotated``
@@ -280,11 +308,8 @@ Here are the specific details of the syntax:
 * ``Annotated`` can be used in definition of nested and generic aliases,
   but only if it wraps a :term:`type expression`::
 
-    T = TypeVar("T")
-    Vec = Annotated[list[tuple[T, T]], MaxLen(10)]
-    V = Vec[int]
-
-    V == Annotated[list[tuple[int, int]], MaxLen(10)]
+    type Vec[T] = Annotated[list[tuple[T, T]], MaxLen(10)]
+    type V = Vec[int] # Annotated[list[tuple[int, int]], MaxLen(10)]
 
 * As with most :term:`special forms <special form>`, ``Annotated`` is not assignable to
   ``type`` or ``type[T]``::

@@ -1,0 +1,11 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR classes_override.py:53:9-16: Class member `ChildA.method3` is marked as an override, but no parent class has a matching attribute [bad-override]
+ERROR classes_override.py:57:9-16: Class member `ChildA.method4` is marked as an override, but no parent class has a matching attribute [bad-override]
+ERROR classes_override.py:79:9-23: Class member `ChildA.static_method1` is marked as an override, but no parent class has a matching attribute [bad-override]
+ERROR classes_override.py:84:9-22: Class member `ChildA.class_method1` is marked as an override, but no parent class has a matching attribute [bad-override]
+ERROR classes_override.py:89:9-18: Class member `ChildA.property1` is marked as an override, but no parent class has a matching attribute [bad-override]
+"""

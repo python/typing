@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+enums_expansion.py:56:9: error[type-assertion-failure] Type `CustomFlags & ~Literal[CustomFlags.FLAG1] & ~Literal[CustomFlags.FLAG2]` does not match asserted type `Literal[CustomFlags.FLAG3]`
+"""

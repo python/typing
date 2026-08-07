@@ -54,7 +54,8 @@ r2(1)  # E
 class Class3:
     """__new__ and __init__"""
 
-    def __new__(cls, *args, **kwargs) -> Self: ...
+    def __new__(cls, *args, **kwargs) -> Self:
+        raise NotImplementedError
 
     def __init__(self, x: int) -> None: ...
 
@@ -70,7 +71,8 @@ r3(1, 2)  # E
 class Class4:
     """__new__ but no __init__"""
 
-    def __new__(cls, x: int) -> int: ...
+    def __new__(cls, x: int) -> int:
+        raise NotImplementedError
 
 
 r4 = accepts_callable(Class4)
@@ -179,9 +181,10 @@ class Class8(Generic[T]):
 
 
 r8 = accepts_callable(Class8)
-reveal_type(r8)  # `def [T] (x: T, y: list[T]) -> Class8[T]`
+reveal_type(r8)  # `def [T] (x: list[T], y: list[T]) -> Class8[T]`
+r8([""], "not a list")  # E: no assignment of T makes the second argument valid
 assert_type(r8([""], [""]), Class8[str])
-r8([1], [""])  # E
+r8([1], [""])  # E?: T = int | str is a potential solution
 
 
 class Class9:
@@ -191,5 +194,6 @@ class Class9:
 
 r9 = accepts_callable(Class9)
 reveal_type(r9)  # `def [T] (x: list[T], y: list[T]) -> Class9`
+r9([""], "not a list")  # E: no assignment of T makes the second argument valid
 assert_type(r9([""], [""]), Class9)
-r9([1], [""])  # E
+r9([1], [""])  # E?: T = int | str is a potential solution

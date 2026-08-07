@@ -12,5 +12,4 @@ enums_member_values.py:26: error: Expression is of type "Any", not "Literal[1, 3
 enums_member_values.py:54: error: Expression is of type "tuple[int, float, float]", not "Literal[1]"  [assert-type]
 enums_member_values.py:68: error: Expression is of type "int", not "Literal[1]"  [assert-type]
 enums_member_values.py:85: error: Incompatible types in assignment (expression has type "int", variable has type "str")  [assignment]
-enums_member_values.py:96: error: Expression is of type "EllipsisType", not "int"  [assert-type]
 """

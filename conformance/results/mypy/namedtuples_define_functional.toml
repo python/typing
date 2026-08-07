@@ -11,7 +11,8 @@ namedtuples_define_functional.py:43: error: Argument "x" to "Point6" has incompa
 namedtuples_define_functional.py:52: error: "namedtuple()" has duplicate field name "a"  [misc]
 namedtuples_define_functional.py:53: error: "namedtuple()" field name "def" is a keyword  [misc]
 namedtuples_define_functional.py:54: error: "namedtuple()" field name "def" is a keyword  [misc]
-namedtuples_define_functional.py:66: error: Missing positional argument "a" in call to "NT5"  [call-arg]
+namedtuples_define_functional.py:55: error: "namedtuple()" field name "_d" starts with an underscore  [misc]
+namedtuples_define_functional.py:69: error: Missing positional argument "a" in call to "NT7"  [call-arg]
 """
 conformance_automated = "Pass"
 errors_diff = """

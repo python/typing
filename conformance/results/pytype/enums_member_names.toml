@@ -1,7 +1,0 @@
-conformant = "Pass"
-conformance_automated = "Pass"
-errors_diff = """
-"""
-output = """
-
-"""

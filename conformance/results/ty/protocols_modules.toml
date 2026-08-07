@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_modules.py:26:17: error[invalid-assignment] Object of type `<module '_protocols_modules1'>` is not assignable to `Options2`
+protocols_modules.py:48:18: error[invalid-assignment] Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter2`
+protocols_modules.py:49:18: error[invalid-assignment] Object of type `<module '_protocols_modules2'>` is not assignable to `Reporter3`
+"""

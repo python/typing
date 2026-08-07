@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR specialtypes_never.py:19:22-30: Function declared to return `NoReturn` but is missing an explicit `return` [bad-return]
+ERROR specialtypes_never.py:85:21-22: `list[Never]` is not assignable to `list[int]` [bad-assignment]
+ERROR specialtypes_never.py:104:12-27: Returned type `ClassC[Never]` is not assignable to declared return type `ClassC[U]` [bad-return]
+"""

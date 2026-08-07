@@ -1,0 +1,13 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./constructors_call_type.py:30:4: In call to constructors_call_type.Meta1.__call__: Missing required argument 'x' [incompatible_call]
+./constructors_call_type.py:40:4: In call to constructors_call_type.Class2: Missing required argument 'x' [incompatible_call]
+./constructors_call_type.py:50:4: In call to constructors_call_type.Class3: Missing required argument 'x' [incompatible_call]
+./constructors_call_type.py:59:4: In call to constructors_call_type.Class4: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_call_type.py:64:4: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_call_type.py:72:4: In call to constructors_call_type.Meta1.__call__: Missing required argument 'x' [incompatible_call]
+./constructors_call_type.py:81:4: In call to constructors_call_type.Class2: Missing required argument 'y' [incompatible_call]
+./constructors_call_type.py:82:11: Incompatible argument type for y: expected str but got Literal[2] [incompatible_argument]
+"""

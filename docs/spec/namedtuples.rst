@@ -20,6 +20,14 @@ Type checkers should support the class syntax::
         y: int
         units: str = "meters"
 
+Fields must be annotated attributes - methods and un-annotated attributes are not
+considered fields. Field names may not start with an underscore::
+
+    class MyTuple(NamedTuple):
+        x1 = 1  # Not a field
+        def x2() -> None: pass  # Not a field
+        _x3: int  # Type error: illegal field name
+
 Regardless of whether the class syntax or factory function call is used to define
 a named tuple, type checkers should synthesize a ``__new__`` method based on
 the named tuple fields. This mirrors the runtime behavior. In the example
@@ -45,6 +53,15 @@ in the base class::
     class PointWithName(Point):
         name: str  # OK
         x: int  # Type error (invalid override of named tuple field)
+
+Namedtuple fields may be conditional, via checks of the same
+:ref:`statically-known conditions<version-and-platform-checks>`
+that a type-checker understands elsewhere, such as Python version::
+
+    class ConditionalField(NamedTuple):
+        x: int
+        if sys.version_info >= (3, 14):
+            y: str
 
 In Python 3.11 and newer, the class syntax supports generic named tuple classes.
 Type checkers should support this::
@@ -79,17 +96,21 @@ A type checker may support the factory function call in its various forms::
     Point5 = NamedTuple('Point5', [('x', int), ('y', int)])
     Point6 = NamedTuple('Point6', (('x', int), ('y', int)))
 
-At runtime, the ``namedtuple`` function disallows field names that are
-illegal Python identifiers and either raises an exception or replaces these
-fields with a parameter name of the form ``_N``. The behavior depends on
-the value of the ``rename`` argument. Type checkers may replicate this
-behavior statically::
+At runtime, the ``namedtuple`` function disallows field names that begin with
+an underscore or are illegal Python identifiers, and either raises an exception
+or replaces these fields with a parameter name of the form ``_N``. The behavior
+depends on the value of the ``rename`` argument. Type checkers may replicate
+this behavior statically::
 
     NT1 = namedtuple("NT1", ["a", "a"])  # Type error (duplicate field name)
     NT2 = namedtuple("NT2", ["abc", "def"], rename=False)  # Type error (illegal field name)
+    NT3 = namedtuple("NT3", ["abc", "_d"], rename=False)  # Type error (illegal field name)
 
-    NT3 = namedtuple("NT3", ["abc", "def"], rename=True)  # OK
-    NT3(abc="", _1="")  # OK
+    NT4 = namedtuple("NT4", ["abc", "def"], rename=True)  # OK
+    NT4(abc="", _1="")  # OK
+
+    NT5 = namedtuple("NT5", ["abc", "_d"], rename=True)  # OK
+    NT5(abc="", _1="")  # OK
 
 The ``namedtuple`` function also supports a ``defaults`` keyword argument that
 specifies default values for the fields. Type checkers may support this::

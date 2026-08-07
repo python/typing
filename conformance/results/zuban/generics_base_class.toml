@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_base_class.py:26: error: Argument 1 to "takes_dict_incorrect" has incompatible type "SymbolTable"; expected "dict[str, list[object]]"  [arg-type]
+generics_base_class.py:29: error: Invalid type  [valid-type]
+generics_base_class.py:30: error: Invalid type  [valid-type]
+generics_base_class.py:49: error: "LinkedList" expects 1 type argument, but 2 given  [type-arg]
+generics_base_class.py:61: error: "MyDict" expects 1 type argument, but 2 given  [type-arg]
+generics_base_class.py:68: error: Duplicate type variables in Generic[...] or Protocol[...]  [misc]
+generics_base_class.py:98: error: Cannot determine consistent method resolution order (MRO) for "BadChild"  [misc]
+"""

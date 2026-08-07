@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+literals_interactions.py:14:5: error[index-out-of-bounds] Index 5 is out of bounds for tuple `tuple[int, str, list[bool]]` with length 3
+literals_interactions.py:15:5: error[index-out-of-bounds] Index -5 is out of bounds for tuple `tuple[int, str, list[bool]]` with length 3
+literals_interactions.py:16:5: error[index-out-of-bounds] Index 4 is out of bounds for tuple `tuple[int, str, list[bool]]` with length 3
+literals_interactions.py:17:5: error[index-out-of-bounds] Index -4 is out of bounds for tuple `tuple[int, str, list[bool]]` with length 3
+"""

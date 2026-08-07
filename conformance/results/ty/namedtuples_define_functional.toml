@@ -1,0 +1,19 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+namedtuples_define_functional.py:16:8: error[missing-argument] No argument provided for required parameter `y`
+namedtuples_define_functional.py:21:8: error[missing-argument] No arguments provided for required parameters `x`, `y`
+namedtuples_define_functional.py:26:21: error[too-many-positional-arguments] Too many positional arguments: expected 3, got 4
+namedtuples_define_functional.py:31:8: error[missing-argument] No argument provided for required parameter `y`
+namedtuples_define_functional.py:31:18: error[unknown-argument] Argument `z` does not match any known parameter
+namedtuples_define_functional.py:36:18: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["1"]`
+namedtuples_define_functional.py:37:21: error[too-many-positional-arguments] Too many positional arguments: expected 3, got 4
+namedtuples_define_functional.py:42:18: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["1"]`
+namedtuples_define_functional.py:43:15: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `float`
+namedtuples_define_functional.py:52:25: error[invalid-named-tuple] Duplicate field name `a` in `namedtuple()`: Field `a` already defined; will raise `ValueError` at runtime
+namedtuples_define_functional.py:53:25: error[invalid-named-tuple] Field name `def` in `namedtuple()` cannot be a Python keyword: Will raise `ValueError` at runtime
+namedtuples_define_functional.py:54:25: error[invalid-named-tuple] Field name `def` in `namedtuple()` cannot be a Python keyword: Will raise `ValueError` at runtime
+namedtuples_define_functional.py:55:25: error[invalid-named-tuple] Field name `_d` in `namedtuple()` cannot start with an underscore: Will raise `ValueError` at runtime
+namedtuples_define_functional.py:69:1: error[missing-argument] No argument provided for required parameter `a`
+"""

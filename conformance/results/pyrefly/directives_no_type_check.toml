@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR directives_no_type_check.py:15:14-16: `Literal['']` is not assignable to `int` [bad-assignment]
+ERROR directives_no_type_check.py:32:6-8: Missing argument `a` in function `func1` [missing-argument]
+ERROR directives_no_type_check.py:32:6-8: Missing argument `b` in function `func1` [missing-argument]
+"""

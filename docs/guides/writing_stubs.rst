@@ -5,7 +5,8 @@ Writing and Maintaining Stub Files
 **********************************
 
 Stub files are a means of providing type information for Python modules.
-For a full reference, refer to :ref:`stub-files`.
+For a quick introduction, see :ref:`external_libraries`. For a full reference,
+refer to :ref:`distributing-type`.
 
 Maintaining stubs can be a little cumbersome because they are separated from the
 implementation. This page lists some tools that make writing and maintaining
@@ -191,7 +192,7 @@ No::
 
 Sometimes, it is desirable to make a stub-only class available
 to a stub's users — for example, to allow them to type the return value of a
-public method for which a library does not provided a usable runtime type. Use
+public method for which a library does not provide a usable runtime type. Use
 the ``typing.type_check_only`` decorator to mark such objects::
 
   from typing import Protocol, type_check_only
@@ -275,7 +276,7 @@ Attribute Access
 
 Python has several methods for customizing attribute access: ``__getattr__``,
 ``__getattribute__``, ``__setattr__``, and ``__delattr__``. Of these,
-``__getattr__`` and ``__setattr___`` should sometimes be included in stubs.
+``__getattr__`` and ``__setattr__`` should sometimes be included in stubs.
 
 In addition to marking incomplete definitions, ``__getattr__`` should be
 included when a class or module allows any name to be accessed. For example, consider
@@ -315,7 +316,7 @@ In this case, the stub should list the attributes individually::
       def imag(self) -> float: ...
       def __init__(self, n: complex) -> None: ...
 
-``__setattr___`` should be included when a class allows any name to be set and
+``__setattr__`` should be included when a class allows any name to be set and
 restricts the type. For example::
 
   class IntHolder:
@@ -477,7 +478,7 @@ this, we need an extra overload::
 As before, the first overload is picked when the mode is ``"r"`` or not given.
 Otherwise, the second overload is used when ``open`` is called with an explicit
 ``name``, e.g. ``open("file.txt", "w")`` or ``open(None, "w")``. The third
-overload is used when ``open`` is called without a name , e.g.
+overload is used when ``open`` is called without a name, e.g.
 ``open(mode="w")``.
 
 Style Guide
@@ -495,7 +496,7 @@ more concise files.
 Syntax Example
 --------------
 
-The below is an excerpt from the types for the ``datetime`` module.
+The below is an excerpt from the types for the ``datetime`` module::
 
   MAXYEAR: int
   MINYEAR: int
@@ -772,18 +773,26 @@ all type checkers::
 Using ``Any`` and ``object``
 ----------------------------
 
-When adding type hints, avoid using the ``Any`` type when possible. Reserve
-the use of ``Any`` for when:
+When adding type hints, avoid using the :ref:`Any` type when possible. Reserve
+the use of :ref:`Any` for when:
 
 * the correct type cannot be expressed in the current type system; and
 * to avoid union returns (see above).
 
-Note that ``Any`` is not the correct type to use if you want to indicate
+Note that :ref:`Any` is not the correct type to use if you want to indicate
 that some function can accept literally anything: in those cases use
-``object`` instead.
+:class:`object` instead.
 
-When using ``Any``, document the reason for using it in a comment. Ideally,
-document what types could be used.
+When using :ref:`Any`, document the reason for using it in a comment, unless the
+reason is obvious. Ideally, document what types could be used. Obvious
+reasons can include:
+
+* Using :ref:`Any` as a type argument for a generic with invariant type variables
+  to say "any object of this type is allowed", e.g. ``Future[Any]``.
+* Using ``dict[str, Any]`` or ``Mapping[str, Any]`` when the value types
+  depend on the keys. But consider using :ref:`TypedDict` or
+  ``dict[str, Incomplete]`` (temporarily) when the keys of the dictionary are
+  fixed.
 
 The ``Any`` Trick
 -----------------
@@ -797,16 +806,16 @@ Consider the following (simplified) signature of ``re.Match[str].group``::
     class Match:
         def group(self, group: str | int, /) -> str | MaybeNone: ...
 
-This avoid forcing the user to check for ``None``::
+This avoids forcing the user to check for ``None``::
 
     match = re.fullmatch(r"\d+_(.*)", some_string)
     assert match is not None
     name_group = match.group(1)  # The user knows that this will never be None
-    return name_group.uper()  # This typo will be flagged by the type checker
+    name_group.uper()  # This typo will be flagged by the type checker
 
 In this case, the user of ``match.group()`` must be prepared to handle a ``str``,
 but type checkers are happy with ``if name_group is None`` checks, because we're
-saying it can also be something else than an ``str``.
+saying it can also be something other than a ``str``.
 
 This is sometimes called "the Any trick".
 

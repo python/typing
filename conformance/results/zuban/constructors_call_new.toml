@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_call_new.py:21: error: Argument 1 to "Class1" has incompatible type "float"; expected "int"  [arg-type]
+constructors_call_new.py:148: error: Invalid self argument "type[Class11[str]]" to attribute function "__new__" with type "type[Class11[int]]"  [misc]
+"""

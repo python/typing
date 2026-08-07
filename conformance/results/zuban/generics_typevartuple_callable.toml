@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_callable.py:26: error: Argument "args" to "Process" has incompatible type "tuple[str, int]"; expected "tuple[int, str]"  [arg-type]
+"""

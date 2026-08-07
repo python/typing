@@ -1,0 +1,21 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeforms_typeform.py:23:30: error[invalid-assignment] Object of type `TypeForm[str | int]` is not assignable to `TypeForm[str | None]`
+typeforms_typeform.py:24:30: error[invalid-assignment] Object of type `TypeForm[list[str | None]]` is not assignable to `TypeForm[str | None]`
+typeforms_typeform.py:59:14: error[invalid-syntax-in-forward-annotation] Syntax error in forward annotation: Unexpected token at the end of an expression
+typeforms_typeform.py:67:18: error[invalid-type-form] Function calls are not allowed in type expressions
+typeforms_typeform.py:68:18: error[invalid-type-form] Tuple literals are not allowed in this context in a type expression
+typeforms_typeform.py:69:18: error[invalid-type-form] Int literals are not allowed in this context in a type expression: Did you mean `typing.Literal[1]`?
+typeforms_typeform.py:70:18: error[invalid-type-form] Variable of type `<special-form 'typing.Self'>` is not allowed in a type expression
+typeforms_typeform.py:71:18: error[invalid-type-form] Type qualifier `typing.ClassVar` is not allowed in type expressions (only in annotation expressions)
+typeforms_typeform.py:72:18: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in type expressions (only in annotation expressions)
+typeforms_typeform.py:73:18: error[invalid-type-form] `Unpack` is not allowed in type expressions
+typeforms_typeform.py:74:18: error[invalid-type-form] `typing.Optional` requires exactly one argument when used in a type expression
+typeforms_typeform.py:75:19: error[invalid-type-form] Invalid binary operator `+` in type annotation
+typeforms_typeform.py:86:16: error[invalid-type-form] Function calls are not allowed in type expressions
+typeforms_typeform.py:88:15: error[invalid-type-form] Function calls are not allowed in type expressions
+typeforms_typeform.py:98:21: error[invalid-assignment] Object of type `TypeForm[int]` is not assignable to `TypeForm[str]`
+typeforms_typeform.py:108:21: error[invalid-assignment] Object of type `type[int]` is not assignable to `TypeForm[str]`
+"""

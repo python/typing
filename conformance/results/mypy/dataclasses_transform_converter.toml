@@ -13,7 +13,7 @@ Line 121: Unexpected errors ['dataclasses_transform_converter.py:121: error: Arg
 """
 output = """
 dataclasses_transform_converter.py:48: error: Argument "converter" to "model_field" has incompatible type "Callable[[], int]"; expected "Callable[[Never], int]"  [arg-type]
-dataclasses_transform_converter.py:49: error: Argument "converter" to "model_field" has incompatible type "Callable[[NamedArg(int, 'x')], int]"; expected "Callable[[Never], int]"  [arg-type]
+dataclasses_transform_converter.py:49: error: Argument "converter" to "model_field" has incompatible type "def bad_converter2(*, x: int) -> int"; expected "Callable[[Never], int]"  [arg-type]
 dataclasses_transform_converter.py:107: error: Argument 2 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
 dataclasses_transform_converter.py:107: error: Argument 3 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
 dataclasses_transform_converter.py:107: error: Argument 4 to "DC2" has incompatible type "bytes"; expected "ConverterClass"  [arg-type]
@@ -44,5 +44,5 @@ dataclasses_transform_converter.py:121: error: Argument 4 to "DC2" has incompati
 dataclasses_transform_converter.py:121: error: Argument 5 to "DC2" has incompatible type "str"; expected "int"  [arg-type]
 dataclasses_transform_converter.py:121: error: Argument 6 to "DC2" has incompatible type "tuple[tuple[str, str], tuple[str, str]]"; expected "dict[str, str]"  [arg-type]
 dataclasses_transform_converter.py:130: error: Argument "converter" to "model_field" has incompatible type "Callable[[str], int]"; expected "Callable[[int], int]"  [arg-type]
-dataclasses_transform_converter.py:133: error: Cannot infer type argument 1 of "model_field"  [misc]
+dataclasses_transform_converter.py:133: error: Cannot infer value of type parameter "S" of "model_field"  [misc]
 """

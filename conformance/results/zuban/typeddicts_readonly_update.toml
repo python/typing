@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+typeddicts_readonly_update.py:23: error: TypedDict member "x" is read-only  [misc]
+"""

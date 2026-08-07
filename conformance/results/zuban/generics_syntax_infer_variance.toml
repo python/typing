@@ -1,0 +1,23 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_syntax_infer_variance.py:15: error: Cannot use covariant with infer_variance  [misc]
+generics_syntax_infer_variance.py:17: error: Cannot use contravariant with infer_variance  [misc]
+generics_syntax_infer_variance.py:29: error: Incompatible types in assignment (expression has type "ShouldBeCovariant1[float]", variable has type "ShouldBeCovariant1[int]")  [assignment]
+generics_syntax_infer_variance.py:47: error: Incompatible types in assignment (expression has type "ShouldBeCovariant2[float]", variable has type "ShouldBeCovariant2[int]")  [assignment]
+generics_syntax_infer_variance.py:56: error: Incompatible types in assignment (expression has type "ShouldBeCovariant3[float]", variable has type "ShouldBeCovariant3[int]")  [assignment]
+generics_syntax_infer_variance.py:85: error: Incompatible types in assignment (expression has type "ShouldBeCovariant5[float]", variable has type "ShouldBeCovariant5[int]")  [assignment]
+generics_syntax_infer_variance.py:96: error: Incompatible types in assignment (expression has type "ShouldBeCovariant6[float]", variable has type "ShouldBeCovariant6[int]")  [assignment]
+generics_syntax_infer_variance.py:112: error: Incompatible types in assignment (expression has type "ShouldBeInvariant1[int]", variable has type "ShouldBeInvariant1[float]")  [assignment]
+generics_syntax_infer_variance.py:113: error: Incompatible types in assignment (expression has type "ShouldBeInvariant1[float]", variable has type "ShouldBeInvariant1[int]")  [assignment]
+generics_syntax_infer_variance.py:127: error: Incompatible types in assignment (expression has type "ShouldBeInvariant2[int]", variable has type "ShouldBeInvariant2[float]")  [assignment]
+generics_syntax_infer_variance.py:128: error: Incompatible types in assignment (expression has type "ShouldBeInvariant2[float]", variable has type "ShouldBeInvariant2[int]")  [assignment]
+generics_syntax_infer_variance.py:135: error: Incompatible types in assignment (expression has type "ShouldBeInvariant3[int, str]", variable has type "ShouldBeInvariant3[float, str]")  [assignment]
+generics_syntax_infer_variance.py:136: error: Incompatible types in assignment (expression has type "ShouldBeInvariant3[float, str]", variable has type "ShouldBeInvariant3[int, str]")  [assignment]
+generics_syntax_infer_variance.py:137: error: Incompatible types in assignment (expression has type "ShouldBeInvariant3[str, int]", variable has type "ShouldBeInvariant3[str, float]")  [assignment]
+generics_syntax_infer_variance.py:138: error: Incompatible types in assignment (expression has type "ShouldBeInvariant3[str, float]", variable has type "ShouldBeInvariant3[str, int]")  [assignment]
+generics_syntax_infer_variance.py:146: error: Incompatible types in assignment (expression has type "ShouldBeInvariant4[int]", variable has type "ShouldBeInvariant4[float]")  [assignment]
+generics_syntax_infer_variance.py:154: error: Incompatible types in assignment (expression has type "ShouldBeInvariant5[int]", variable has type "ShouldBeInvariant5[float]")  [assignment]
+generics_syntax_infer_variance.py:165: error: Incompatible types in assignment (expression has type "ShouldBeContravariant1[int]", variable has type "ShouldBeContravariant1[float]")  [assignment]
+"""
