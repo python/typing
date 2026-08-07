@@ -51,8 +51,7 @@ class Base2:
     def method4(self, x: int | str) -> int | str:
         return 0
 
-    # > @final may be chained with decorators that return a non-function, like a
-    # property descriptor.
+    # > The @final decorator can be combined with previous decorators, like @property.
 
     @final
     @property
