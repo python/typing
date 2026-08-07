@@ -1,6 +1,6 @@
 conformant = "Pass"
 notes = """
-Constraint solver doesn't find common type for two signatures captured by a single ParamSpec (allowed).
+Constraint solver doesn't find common type for two signatures captured by a single `ParamSpec` (allowed).
 """
 output = """
 generics_paramspec_semantics.py:26:6 - error: Expected 2 more positional arguments (reportCallIssue)

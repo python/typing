@@ -1,5 +1,28 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not allow enum members to be conditional on version/platform checks.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 91: Unexpected errors ['./enums_definition.py:91:12:   ./enums_definition.py.Color12 is not equivalent to Any[unannotated]']
 """
 output = """
+./enums_definition.py:34:12: enum.Enum has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:34:32: enum.Enum has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:35:12: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:35:32: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:36:12: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:36:32: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:37:12: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:37:32: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:38:12: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:38:32: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:39:12: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:39:32: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:40:12: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:40:32: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:41:12: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:41:32: type[enum.Enum] has no attribute 'RED' [undefined_attribute]
+./enums_definition.py:91:12:   ./enums_definition.py.Color12 is not equivalent to Any[unannotated]
+./enums_definition.py:92:0: <class 'Color12'> has no attribute 'BLUE' [undefined_attribute]
 """

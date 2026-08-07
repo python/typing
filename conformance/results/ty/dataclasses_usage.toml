@@ -2,15 +2,16 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-dataclasses_usage.py:50:6: error[missing-argument] No argument provided for required parameter `unit_price`
-dataclasses_usage.py:51:28: error[invalid-argument-type] Argument is incorrect: Expected `int | float`, found `Literal["price"]`
-dataclasses_usage.py:52:36: error[too-many-positional-arguments] Too many positional arguments: expected 3, got 4
-dataclasses_usage.py:61:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
-dataclasses_usage.py:67:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
-dataclasses_usage.py:73:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
-dataclasses_usage.py:83:13: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
-dataclasses_usage.py:88:14: error[invalid-assignment] Object of type `dataclasses.Field[str]` is not assignable to `int`
-dataclasses_usage.py:127:8: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
-dataclasses_usage.py:130:1: error[missing-argument] No argument provided for required parameter `y` of `DC8.__init__`
-dataclasses_usage.py:179:6: error[too-many-positional-arguments] Too many positional arguments to `object.__init__`: expected 1, got 2
+dataclasses_usage.py:51:6: error[missing-argument] No argument provided for required parameter `unit_price`
+dataclasses_usage.py:52:28: error[invalid-argument-type] Argument is incorrect: Expected `int | float`, found `Literal["price"]`
+dataclasses_usage.py:53:36: error[too-many-positional-arguments] Too many positional arguments: expected 3, got 4
+dataclasses_usage.py:62:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
+dataclasses_usage.py:68:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
+dataclasses_usage.py:74:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
+dataclasses_usage.py:84:13: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
+dataclasses_usage.py:89:14: error[invalid-assignment] Object of type `dataclasses.Field[str]` is not assignable to `int`
+dataclasses_usage.py:128:8: error[too-many-positional-arguments] Too many positional arguments: expected 1, got 2
+dataclasses_usage.py:131:1: error[missing-argument] No argument provided for required parameter `y` of `DC8.__init__`
+dataclasses_usage.py:180:6: error[too-many-positional-arguments] Too many positional arguments to `object.__init__`: expected 1, got 2
+dataclasses_usage.py:246:12: error[too-many-positional-arguments] Too many positional arguments: expected 2, got 3
 """

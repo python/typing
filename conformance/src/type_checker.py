@@ -235,7 +235,7 @@ class TyTypeChecker(TypeChecker):
             "--config-file=./ty.toml",
         ]
         proc = run(command, stdout=PIPE, text=True, encoding="utf-8")
-        results_dict = {}
+        results_dict: dict[str, str] = {}
         for line in proc.stdout.splitlines():
             if not line.strip():
                 continue
@@ -339,7 +339,14 @@ class PyreflyTypeChecker(TypeChecker):
 
     def run_tests(self, test_files: Sequence[str]) -> dict[str, str]:
         proc = run(
-            ["pyrefly", "check", "--output-format", "min-text", "--summary=none", "--min-severity=warn"],
+            [
+                "pyrefly",
+                "check",
+                "--output-format",
+                "min-text",
+                "--summary=none",
+                "--min-severity=warn",
+            ],
             stdout=PIPE,
             text=True,
             encoding="utf-8",

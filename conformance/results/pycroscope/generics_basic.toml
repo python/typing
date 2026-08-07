@@ -15,4 +15,10 @@ output = """
 ./generics_basic.py:171:27: All type parameters for the class must appear within Generic or Protocol [invalid_base]
 ./generics_basic.py:172:27: All type parameters for the class must appear within Generic or Protocol [invalid_base]
 ./generics_basic.py:208:36: Cannot determine metaclass [invalid_metaclass]
+./generics_basic.py:223:21: Incompatible argument type for y: expected list[~T@./generics_basic.py.takes_two_lists.<locals>.takes_two_lists] but got Literal['not a list'] [incompatible_argument]
+./generics_basic.py:225:0: Cannot resolve type variables [incompatible_call]
+./generics_basic.py:232:4: Cannot resolve type variables [incompatible_call]
+./generics_basic.py:240:25: Incompatible argument type for y: expected list[~T_int@./generics_basic.py.takes_two_int_lists.<locals>.takes_two_int_lists] but got Literal['not a list'] [incompatible_argument]
+./generics_basic.py:241:25: Incompatible argument type for y: expected list[~T_int@./generics_basic.py.takes_two_int_lists.<locals>.takes_two_int_lists] but got Literal[['']] [incompatible_argument]
+./generics_basic.py:251:4: Cannot resolve type variables [incompatible_call]
 """

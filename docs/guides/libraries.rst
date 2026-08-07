@@ -353,8 +353,8 @@ Overloads
 
 If a function or method can return multiple different types and those
 types can be determined based on the presence or types of certain
-parameters, use the ``@overload`` mechanism defined in `PEP
-484 <https://www.python.org/dev/peps/pep-0484/#id45>`__. When overloads
+parameters, use the ``@overload`` mechanism described in the
+:py:data:`typing.overload` documentation. When overloads
 are used within a “.py” file, they must appear prior to the function
 implementation, which should not have an ``@overload`` decorator.
 
@@ -471,8 +471,8 @@ Generic Classes and Functions
 -----------------------------
 
 Classes and functions that can operate in a generic manner on various
-types should declare themselves as generic using the mechanisms
-described in :pep:`484`.
+types should declare themselves as generic using standard typing
+mechanisms such as ``TypeVar``.
 This includes the use of ``TypeVar`` symbols. Typically, a ``TypeVar``
 should be private to the file that declares it, and should therefore
 begin with an underscore.
@@ -499,7 +499,7 @@ annotation.
    # Recursive type alias
    TreeNode = LeafNode | list["TreeNode"]
 
-   # Explicit type alias using PEP 613 syntax
+   # Explicit type alias using TypeAlias
    StrOrInt: TypeAlias = str | int
 
 Abstract Classes and Methods

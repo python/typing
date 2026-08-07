@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not support assigning Union and GenericAlias objects to their runtime types.
+Does not support assigning `Union` and `GenericAlias` objects to their runtime types.
 """
 conformance_automated = "Fail"
 errors_diff = """

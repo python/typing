@@ -276,7 +276,7 @@ Attribute Access
 
 Python has several methods for customizing attribute access: ``__getattr__``,
 ``__getattribute__``, ``__setattr__``, and ``__delattr__``. Of these,
-``__getattr__`` and ``__setattr___`` should sometimes be included in stubs.
+``__getattr__`` and ``__setattr__`` should sometimes be included in stubs.
 
 In addition to marking incomplete definitions, ``__getattr__`` should be
 included when a class or module allows any name to be accessed. For example, consider
@@ -316,7 +316,7 @@ In this case, the stub should list the attributes individually::
       def imag(self) -> float: ...
       def __init__(self, n: complex) -> None: ...
 
-``__setattr___`` should be included when a class allows any name to be set and
+``__setattr__`` should be included when a class allows any name to be set and
 restricts the type. For example::
 
   class IntHolder:
@@ -478,7 +478,7 @@ this, we need an extra overload::
 As before, the first overload is picked when the mode is ``"r"`` or not given.
 Otherwise, the second overload is used when ``open`` is called with an explicit
 ``name``, e.g. ``open("file.txt", "w")`` or ``open(None, "w")``. The third
-overload is used when ``open`` is called without a name , e.g.
+overload is used when ``open`` is called without a name, e.g.
 ``open(mode="w")``.
 
 Style Guide
@@ -790,7 +790,7 @@ reasons can include:
 * Using :ref:`Any` as a type argument for a generic with invariant type variables
   to say "any object of this type is allowed", e.g. ``Future[Any]``.
 * Using ``dict[str, Any]`` or ``Mapping[str, Any]`` when the value types
-  depends on the keys. But consider using :ref:`TypedDict` or
+  depend on the keys. But consider using :ref:`TypedDict` or
   ``dict[str, Incomplete]`` (temporarily) when the keys of the dictionary are
   fixed.
 
@@ -806,7 +806,7 @@ Consider the following (simplified) signature of ``re.Match[str].group``::
     class Match:
         def group(self, group: str | int, /) -> str | MaybeNone: ...
 
-This avoid forcing the user to check for ``None``::
+This avoids forcing the user to check for ``None``::
 
     match = re.fullmatch(r"\d+_(.*)", some_string)
     assert match is not None
@@ -815,7 +815,7 @@ This avoid forcing the user to check for ``None``::
 
 In this case, the user of ``match.group()`` must be prepared to handle a ``str``,
 but type checkers are happy with ``if name_group is None`` checks, because we're
-saying it can also be something else than an ``str``.
+saying it can also be something other than a ``str``.
 
 This is sometimes called "the Any trick".
 

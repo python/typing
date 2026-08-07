@@ -1,7 +1,6 @@
-conformance_automated = "Fail"
-conformant = "Unsupported"
+conformance_automated = "Pass"
 errors_diff = """
-Line 30: Expected 1 errors
 """
 output = """
+generics_typevartuple_unpack.py:30:28: error[invalid-argument-type] Argument to function `process_batch_channels` is incorrect: Expected `Array[*tuple[Batch, *tuple[Any, ...], Channels]]`, found `Array[Batch]`
 """

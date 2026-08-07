@@ -1,23 +1,29 @@
-conformant = "Unsupported"
+conformant = "Partial"
+notes = """
+Requires the string passed to `Sentinel` to match the assigned variable name.
+This causes valid sentinel types and narrowing operations to be rejected.
+"""
 conformance_automated = "Fail"
 errors_diff = """
+Line 14: Expected 1 errors
 Line 36: Expected 1 errors
 Line 39: Expected 1 errors
-Line 20: Unexpected errors ['specialtypes_sentinels.py:20:20 - error: Variable not allowed in type expression (reportInvalidTypeForm)', 'specialtypes_sentinels.py:20:30 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 22: Unexpected errors ['specialtypes_sentinels.py:22:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)', 'specialtypes_sentinels.py:22:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
-Line 24: Unexpected errors ['specialtypes_sentinels.py:24:30 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
+Line 7: Unexpected errors ['specialtypes_sentinels.py:7:1 - error: Sentinel must be assigned to a variable with the same name (reportGeneralTypeIssues)']
+Line 11: Unexpected errors ['specialtypes_sentinels.py:11:5 - error: Sentinel must be assigned to a variable with the same name (reportGeneralTypeIssues)']
+Line 20: Unexpected errors ['specialtypes_sentinels.py:20:20 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
+Line 22: Unexpected errors ['specialtypes_sentinels.py:22:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown | SPECIAL" (reportAssertTypeFailure)', 'specialtypes_sentinels.py:22:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
+Line 24: Unexpected errors ['specialtypes_sentinels.py:24:21 - error: "assert_type" mismatch: expected "int | SPECIAL" but received "int | Unknown | SPECIAL" (reportAssertTypeFailure)']
 Line 26: Unexpected errors ['specialtypes_sentinels.py:26:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
 Line 28: Unexpected errors ['specialtypes_sentinels.py:28:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)', 'specialtypes_sentinels.py:28:28 - error: Variable not allowed in type expression (reportInvalidTypeForm)']
 Line 30: Unexpected errors ['specialtypes_sentinels.py:30:21 - error: "assert_type" mismatch: expected "int" but received "int | Unknown" (reportAssertTypeFailure)']
 """
 output = """
-specialtypes_sentinels.py:14:20 - error: Expression of type "Sentinel" cannot be assigned to parameter of type "int"
-  "Sentinel" is not assignable to "int" (reportArgumentType)
+specialtypes_sentinels.py:7:1 - error: Sentinel must be assigned to a variable with the same name (reportGeneralTypeIssues)
+specialtypes_sentinels.py:11:5 - error: Sentinel must be assigned to a variable with the same name (reportGeneralTypeIssues)
 specialtypes_sentinels.py:20:20 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-specialtypes_sentinels.py:20:30 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-specialtypes_sentinels.py:22:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)
+specialtypes_sentinels.py:22:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown | SPECIAL" (reportAssertTypeFailure)
 specialtypes_sentinels.py:22:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-specialtypes_sentinels.py:24:30 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+specialtypes_sentinels.py:24:21 - error: "assert_type" mismatch: expected "int | SPECIAL" but received "int | Unknown | SPECIAL" (reportAssertTypeFailure)
 specialtypes_sentinels.py:26:24 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 specialtypes_sentinels.py:28:21 - error: "assert_type" mismatch: expected "Unknown" but received "int | Unknown" (reportAssertTypeFailure)
 specialtypes_sentinels.py:28:28 - error: Variable not allowed in type expression (reportInvalidTypeForm)

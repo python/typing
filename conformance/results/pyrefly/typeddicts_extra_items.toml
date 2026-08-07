@@ -3,9 +3,9 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR typeddicts_extra_items.py:15:45-49: `Literal[1982]` is not assignable to TypedDict key with type `bool` [bad-typed-dict-key]
-ERROR typeddicts_extra_items.py:22:55-59: `Literal[1982]` is not assignable to TypedDict key with type `bool` [bad-typed-dict-key]
-ERROR typeddicts_extra_items.py:39:54-58: `None` is not assignable to TypedDict key `year` with type `int` [bad-typed-dict-key]
+ERROR typeddicts_extra_items.py:15:45-49: `Literal[1982]` is not assignable to TypedDict key with type `bool` [bad-assignment]
+ERROR typeddicts_extra_items.py:22:55-59: `Literal[1982]` is not assignable to TypedDict key with type `bool` [bad-assignment]
+ERROR typeddicts_extra_items.py:39:54-58: `None` is not assignable to TypedDict key `year` with type `int` [bad-assignment]
 ERROR typeddicts_extra_items.py:49:7-16: Expected literal True or False for keyword `closed`, got instance of `bool` [bad-typed-dict]
 ERROR typeddicts_extra_items.py:67:7-20: Non-closed TypedDict cannot inherit from closed TypedDict `ClosedBase` [bad-typed-dict]
 ERROR typeddicts_extra_items.py:73:7-20: Non-closed TypedDict cannot inherit from TypedDict `ExtraItemsBase` with extra items [bad-typed-dict]

@@ -12,6 +12,7 @@ ERROR annotations_typeexpr.py:93:9-24: Function call cannot be used in annotatio
 ERROR annotations_typeexpr.py:94:9-17: Invalid subscript expression cannot be used in annotations [invalid-annotation]
 ERROR annotations_typeexpr.py:95:9-30: If expression cannot be used in annotations [invalid-annotation]
 ERROR annotations_typeexpr.py:96:9-13: Expected a type form, got instance of `Literal[3]` [not-a-type]
+ERROR annotations_typeexpr.py:96:9-13: `var1` is not a valid type alias: Number literal cannot be used in annotations [invalid-annotation]
 ERROR annotations_typeexpr.py:97:10-14: Bool literal cannot be used in annotations [invalid-annotation]
 ERROR annotations_typeexpr.py:98:10-11: Number literal cannot be used in annotations [invalid-annotation]
 ERROR annotations_typeexpr.py:99:10-12: Unary operation cannot be used in annotations [invalid-annotation]

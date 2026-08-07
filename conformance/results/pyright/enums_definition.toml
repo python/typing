@@ -2,5 +2,7 @@ conformant = "Pass"
 errors_diff = """
 """
 output = """
+enums_definition.py:92:9 - error: Cannot access attribute "BLUE" for class "type[Color12]"
+  Attribute "BLUE" is unknown (reportAttributeAccessIssue)
 """
 conformance_automated = "Pass"

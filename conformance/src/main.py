@@ -2,14 +2,14 @@
 Type system conformance test for static type checkers.
 """
 
-import os
-from pathlib import Path
+import contextlib
 import re
 import sys
+import tomllib
+from pathlib import Path
 from time import time
 from typing import Sequence
 
-import tomli
 import tomlkit
 
 from options import parse_options
@@ -182,11 +182,11 @@ def update_output_for_test(
     # Read the existing results file if present.
     try:
         with open(results_file, "rb") as f:
-            existing_results = tomli.load(f)
+            existing_results = tomllib.load(f)
     except FileNotFoundError:
         should_write = True
         existing_results = {}
-    except tomli.TOMLDecodeError:
+    except tomllib.TOMLDecodeError:
         print(f"Error decoding {results_file}")
         existing_results = {}
 
@@ -244,10 +244,10 @@ def update_type_checker_info(type_checker: TypeChecker, root_dir: Path):
     # Read the existing version file if present.
     try:
         with open(version_file, "rb") as f:
-            existing_info = tomli.load(f)
+            existing_info = tomllib.load(f)
     except FileNotFoundError:
         existing_info = {}
-    except tomli.TOMLDecodeError:
+    except tomllib.TOMLDecodeError:
         print(f"Error decoding {version_file}")
         existing_info = {}
 
@@ -275,16 +275,16 @@ def main():
         test_cases = get_test_cases(test_groups, tests_dir)
 
         # Switch to the tests directory.
-        os.chdir(tests_dir)
+        with contextlib.chdir(tests_dir):
 
-        # Run each test case with each type checker.
-        for type_checker in TYPE_CHECKERS:
-            if options.only_run and options.only_run != type_checker.name:
-                continue
-            if not type_checker.install():
-                print(f"Skipping tests for {type_checker.name}")
-            else:
-                run_tests(root_dir, type_checker, test_cases, verbose=options.verbose)
+            # Run each test case with each type checker.
+            for type_checker in TYPE_CHECKERS:
+                if options.only_run and options.only_run != type_checker.name:
+                    continue
+                if not type_checker.install():
+                    print(f"Skipping tests for {type_checker.name}")
+                else:
+                    run_tests(root_dir, type_checker, test_cases, verbose=options.verbose)
 
     # Generate a summary report.
     generate_summary(root_dir)

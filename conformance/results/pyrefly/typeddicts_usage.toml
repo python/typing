@@ -4,7 +4,7 @@ errors_diff = """
 """
 output = """
 ERROR typeddicts_usage.py:23:7-17: TypedDict `Movie` does not have key `director` [bad-typed-dict-key]
-ERROR typeddicts_usage.py:24:17-23: `Literal['1982']` is not assignable to TypedDict key `year` with type `int` [bad-typed-dict-key]
+ERROR typeddicts_usage.py:24:17-23: `Literal['1982']` is not assignable to TypedDict key `year` with type `int` [bad-assignment]
 ERROR typeddicts_usage.py:28:17-56: Missing required key `name` for TypedDict `Movie` [bad-typed-dict-key]
 ERROR typeddicts_usage.py:28:18-25: Key `title` is not defined in TypedDict `Movie` [bad-typed-dict-key]
 ERROR typeddicts_usage.py:35:22-27: TypedDict `Movie` not allowed as second argument to isinstance() [invalid-argument]

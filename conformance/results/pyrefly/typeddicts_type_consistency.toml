@@ -11,5 +11,5 @@ ERROR typeddicts_type_consistency.py:76:22-24: `B3` is not assignable to `dict[s
 ERROR typeddicts_type_consistency.py:77:25-27: `B3` is not assignable to `dict[str, object]` [bad-assignment]
 ERROR typeddicts_type_consistency.py:78:22-24: `B3` is not assignable to `dict[Any, Any]` [bad-assignment]
 ERROR typeddicts_type_consistency.py:82:25-27: `B3` is not assignable to `Mapping[str, int]` [bad-assignment]
-ERROR typeddicts_type_consistency.py:126:56-57: `Literal[1]` is not assignable to TypedDict key `inner_key` with type `str` [bad-typed-dict-key]
+ERROR typeddicts_type_consistency.py:126:56-57: `Literal[1]` is not assignable to TypedDict key `inner_key` with type `str` [bad-assignment]
 """

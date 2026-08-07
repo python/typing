@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not reject use of class-scoped TypeVar used in a base class when variance is incompatible.
+Does not reject use of class-scoped `TypeVar` used in a base class when variance is incompatible.
 """
 output = """
 generics_variance.py:14: error: TypeVar cannot be both covariant and contravariant  [misc]

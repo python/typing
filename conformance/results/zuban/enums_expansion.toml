@@ -1,7 +1,15 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not treat a complete union of all literal members as equivalent to the enum type.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 85: Unexpected errors ['enums_expansion.py:85: error: Incompatible types in assignment (expression has type "Answer", variable has type "Literal[Answer.Yes, Answer.No]")  [assignment]']
+Line 86: Unexpected errors ['enums_expansion.py:86: error: Expression is of type "Answer", not "Literal[Answer.Yes, Answer.No]"  [misc]']
 """
 output = """
-enums_expansion.py:35: error: Statement is unreachable  [unreachable]
-enums_expansion.py:53: error: Expression is of type "CustomFlags", not "Literal[CustomFlags.FLAG3]"  [misc]
+enums_expansion.py:38: error: Statement is unreachable  [unreachable]
+enums_expansion.py:56: error: Expression is of type "CustomFlags", not "Literal[CustomFlags.FLAG3]"  [misc]
+enums_expansion.py:85: error: Incompatible types in assignment (expression has type "Answer", variable has type "Literal[Answer.Yes, Answer.No]")  [assignment]
+enums_expansion.py:86: error: Expression is of type "Answer", not "Literal[Answer.Yes, Answer.No]"  [misc]
 """

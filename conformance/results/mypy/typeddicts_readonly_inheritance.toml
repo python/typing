@@ -1,8 +1,8 @@
 conformant = "Partial"
 notes = """
-Incorrectly rejects non-ReadOnly override of ReadOnly item.
-Incorrectly rejects override of ReadOnly item with another ReadOnly item with narrower type.
-Incorrectly rejects override of NotRequired ReadOnly item with a Required ReadOnly item.
+Incorrectly rejects non-`ReadOnly` override of `ReadOnly` item.
+Incorrectly rejects override of `ReadOnly` item with another `ReadOnly` item with narrower type.
+Incorrectly rejects override of `NotRequired ReadOnly` item with a `Required ReadOnly` item.
 """
 output = """
 typeddicts_readonly_inheritance.py:19: error: Overwriting TypedDict field "name" while extending  [misc]
