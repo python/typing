@@ -1,13 +1,13 @@
 conformance_automated = "Fail"
 conformant = "Unsupported"
 errors_diff = """
-Line 21: Expected 1 errors
-Line 40: Expected 1 errors
-Line 56: Expected 1 errors
-Line 66: Expected 1 errors
-Line 104: Expected 1 errors
-Lines 61, 62: Expected error (tag 'covariant_in_input')
-Lines 71, 72: Expected error (tag 'contravariant_in_output')
+Line 22: Expected 1 errors
+Line 41: Expected 1 errors
+Line 57: Expected 1 errors
+Line 67: Expected 1 errors
+Line 105: Expected 1 errors
+Lines 62, 63: Expected error (tag 'covariant_in_input')
+Lines 72, 73: Expected error (tag 'contravariant_in_output')
 """
 output = """
 """

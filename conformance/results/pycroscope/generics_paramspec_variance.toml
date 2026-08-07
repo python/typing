@@ -1,13 +1,19 @@
 conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
-Line 40: Expected 1 errors
-Line 51: Expected 1 errors
+Line 64: Expected 1 errors
+Line 110: Expected 1 errors
+Line 121: Expected 1 errors
 Line 19: Unexpected errors ['./generics_paramspec_variance.py:19:23: Traceback (most recent call last):', './generics_paramspec_variance.py:19:4: Traceback (most recent call last):']
 Line 22: Unexpected errors ['./generics_paramspec_variance.py:22:38: Traceback (most recent call last):']
 Line 31: Unexpected errors ['./generics_paramspec_variance.py:31:38: Traceback (most recent call last):']
-Line 45: Unexpected errors ['./generics_paramspec_variance.py:45:45: Traceback (most recent call last):']
-Line 58: Unexpected errors ['./generics_paramspec_variance.py:58:45: Traceback (most recent call last):']
+Line 58: Unexpected errors ["./generics_paramspec_variance.py:58:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP~[(*, a: int) -> Any[unannotated]] [incompatible_assignment]"]
+Line 60: Unexpected errors ["./generics_paramspec_variance.py:60:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP~[(a: int, /) -> Any[unannotated]] [incompatible_assignment]"]
+Line 83: Unexpected errors ['./generics_paramspec_variance.py:83:3: Traceback (most recent call last):', './generics_paramspec_variance.py:83:0: _ already declared [already_declared]']
+Line 91: Unexpected errors ["./generics_paramspec_variance.py:91:14: ParamSpec named 'InP' must be assigned to a variable with the same name [must_have_same_name]"]
+Line 102: Unexpected errors ['./generics_paramspec_variance.py:102:13: Traceback (most recent call last):']
+Line 115: Unexpected errors ['./generics_paramspec_variance.py:115:45: Traceback (most recent call last):']
+Line 128: Unexpected errors ['./generics_paramspec_variance.py:128:45: Traceback (most recent call last):']
 """
 output = """
 ./generics_paramspec_variance.py:14:41: Traceback (most recent call last):
@@ -18,8 +24,26 @@ output = """
 ./generics_paramspec_variance.py:22:38: Traceback (most recent call last):
 ./generics_paramspec_variance.py:30:35: Traceback (most recent call last):
 ./generics_paramspec_variance.py:31:38: Traceback (most recent call last):
-./generics_paramspec_variance.py:44:48: Traceback (most recent call last):
-./generics_paramspec_variance.py:45:45: Traceback (most recent call last):
-./generics_paramspec_variance.py:57:42: Traceback (most recent call last):
-./generics_paramspec_variance.py:58:45: Traceback (most recent call last):
+./generics_paramspec_variance.py:58:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP~[(*, a: int) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:60:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP~[(a: int, /) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:62:3: Traceback (most recent call last):
+./generics_paramspec_variance.py:66:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP~[(a: int, b: str) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:79:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP~[(*, a: int) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:81:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP~[(a: int, /) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:83:3: Traceback (most recent call last):
+./generics_paramspec_variance.py:83:0: _ already declared [already_declared]
+./generics_paramspec_variance.py:87:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP~[(a: int, b: str) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:91:14: ParamSpec named 'InP' must be assigned to a variable with the same name [must_have_same_name]
+./generics_paramspec_variance.py:93:8: Error calling (name: str, /, *, bound: object = no argument given, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False], default: object = no argument given) -> typing.ParamSpec (with impl): Bivariant types are not supported. [incompatible_call]
+./generics_paramspec_variance.py:94:8: Error calling (name: str, /, *, bound: object = no argument given, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False], default: object = no argument given) -> typing.ParamSpec (with impl): Variance cannot be specified with infer_variance. [incompatible_call]
+./generics_paramspec_variance.py:94:18: ParamSpec named 'InvP1' must be assigned to a variable with the same name [must_have_same_name]
+./generics_paramspec_variance.py:95:8: Error calling (name: str, /, *, bound: object = no argument given, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False], default: object = no argument given) -> typing.ParamSpec (with impl): Variance cannot be specified with infer_variance. [incompatible_call]
+./generics_paramspec_variance.py:95:18: ParamSpec named 'InvP1' must be assigned to a variable with the same name [must_have_same_name]
+./generics_paramspec_variance.py:102:13: Traceback (most recent call last):
+./generics_paramspec_variance.py:103:13: Traceback (most recent call last):
+./generics_paramspec_variance.py:104:13: Traceback (most recent call last):
+./generics_paramspec_variance.py:114:48: Traceback (most recent call last):
+./generics_paramspec_variance.py:115:45: Traceback (most recent call last):
+./generics_paramspec_variance.py:127:42: Traceback (most recent call last):
+./generics_paramspec_variance.py:128:45: Traceback (most recent call last):
 """

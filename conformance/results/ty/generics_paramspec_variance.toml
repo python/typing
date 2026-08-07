@@ -4,14 +4,37 @@ Does not error when a ParamSpec is used in a position that violates its explicit
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 40: Expected 1 errors
-Line 51: Expected 1 errors
+Line 64: Expected 1 errors
+Line 79: Expected 1 errors
+Line 81: Expected 1 errors
+Line 110: Expected 1 errors
+Line 121: Expected 1 errors
+Line 58: Unexpected errors ['generics_paramspec_variance.py:58:1: error[invalid-assignment] Object of type `InitP[(*, a: int)]` is not assignable to attribute `t` of type `InitP[(a: int)]`']
+Line 60: Unexpected errors ['generics_paramspec_variance.py:60:1: error[invalid-assignment] Object of type `InitP[(a: int, /)]` is not assignable to attribute `t` of type `InitP[(a: int)]`']
+Line 83: Unexpected errors ['generics_paramspec_variance.py:83:4: error[invalid-type-form] Function calls are not allowed in type expressions', 'generics_paramspec_variance.py:83:4: error[missing-argument] No argument provided for required parameter `fn` of `OutitP.__init__`']
+Line 85: Unexpected errors ['generics_paramspec_variance.py:85:1: error[invalid-assignment] Object of type `OutitP[(a: int = 1)]` is not assignable to attribute `t` of type `OutitP[(a: int)]`']
+Line 91: Unexpected errors ['generics_paramspec_variance.py:91:15: error[mismatched-type-name] The name passed to `ParamSpec` must match the variable it is assigned to: Expected "P", got "InP"']
 """
 output = """
 generics_paramspec_variance.py:14:42: error[invalid-assignment] Object of type `InvariantParamSpec[(int, /)]` is not assignable to `InvariantParamSpec[(object, /)]`
 generics_paramspec_variance.py:15:39: error[invalid-assignment] Object of type `InvariantParamSpec[(object, /)]` is not assignable to `InvariantParamSpec[(int, /)]`
 generics_paramspec_variance.py:21:42: error[invalid-assignment] Object of type `ContravariantParamSpec[(int, /)]` is not assignable to `ContravariantParamSpec[(object, /)]`
 generics_paramspec_variance.py:30:36: error[invalid-assignment] Object of type `CovariantParamSpec[(object, /)]` is not assignable to `CovariantParamSpec[(int, /)]`
-generics_paramspec_variance.py:44:49: error[invalid-assignment] Object of type `ContravariantParamSpecOld[(int, /)]` is not assignable to `ContravariantParamSpecOld[(object, /)]`
-generics_paramspec_variance.py:57:43: error[invalid-assignment] Object of type `CovariantParamSpecOld[(object, /)]` is not assignable to `CovariantParamSpecOld[(int, /)]`
+generics_paramspec_variance.py:58:1: error[invalid-assignment] Object of type `InitP[(*, a: int)]` is not assignable to attribute `t` of type `InitP[(a: int)]`
+generics_paramspec_variance.py:60:1: error[invalid-assignment] Object of type `InitP[(a: int, /)]` is not assignable to attribute `t` of type `InitP[(a: int)]`
+generics_paramspec_variance.py:62:4: error[invalid-type-form] Function calls are not allowed in type expressions
+generics_paramspec_variance.py:62:4: error[missing-argument] No argument provided for required parameter `fn` of `InitP.__init__`
+generics_paramspec_variance.py:66:1: error[invalid-assignment] Object of type `InitP[(a: int, b: str)]` is not assignable to attribute `t` of type `InitP[(a: int)]`
+generics_paramspec_variance.py:83:4: error[invalid-type-form] Function calls are not allowed in type expressions
+generics_paramspec_variance.py:83:4: error[missing-argument] No argument provided for required parameter `fn` of `OutitP.__init__`
+generics_paramspec_variance.py:85:1: error[invalid-assignment] Object of type `OutitP[(a: int = 1)]` is not assignable to attribute `t` of type `OutitP[(a: int)]`
+generics_paramspec_variance.py:87:1: error[invalid-assignment] Object of type `OutitP[(a: int, b: str)]` is not assignable to attribute `t` of type `OutitP[(a: int)]`
+generics_paramspec_variance.py:91:15: error[mismatched-type-name] The name passed to `ParamSpec` must match the variable it is assigned to: Expected "P", got "InP"
+generics_paramspec_variance.py:93:9: error[invalid-paramspec] A `ParamSpec` cannot be both covariant and contravariant
+generics_paramspec_variance.py:94:9: error[invalid-paramspec] A `ParamSpec` cannot specify variance when `infer_variance=True`
+generics_paramspec_variance.py:95:9: error[invalid-paramspec] A `ParamSpec` cannot specify variance when `infer_variance=True`
+generics_paramspec_variance.py:103:14: error[invalid-assignment] Object of type `InvariantParamSpecOld[(bool, /)]` is not assignable to `InvariantParamSpecOld[(int, /)]`
+generics_paramspec_variance.py:104:14: error[invalid-assignment] Object of type `InvariantParamSpecOld[(object, /)]` is not assignable to `InvariantParamSpecOld[(int, /)]`
+generics_paramspec_variance.py:114:49: error[invalid-assignment] Object of type `ContravariantParamSpecOld[(int, /)]` is not assignable to `ContravariantParamSpecOld[(object, /)]`
+generics_paramspec_variance.py:127:43: error[invalid-assignment] Object of type `CovariantParamSpecOld[(object, /)]` is not assignable to `CovariantParamSpecOld[(int, /)]`
 """

@@ -1,5 +1,8 @@
-conformant = "Unsupported"
+conformant = "Partial"
 conformance_automated = "Fail"
+notes = """
+doesn't error when there are multiple type var tuples in a definition
+"""
 errors_diff = """
 Line 111: Expected 1 errors
 """

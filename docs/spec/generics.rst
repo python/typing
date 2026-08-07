@@ -2782,8 +2782,9 @@ Since ``lower`` is assignable to ``upper``, ``T3`` is covariant.
 Auto Variance For TypeVar
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The existing ``TypeVar`` class constructor accepts keyword parameters named
-``covariant`` and ``contravariant``. If both of these are ``False``, the
+The existing ``TypeVar``, ``TypeVarTuple`` and ``ParamSpec`` class constructors
+accepts keyword parameters named ``covariant`` and ``contravariant``.
+If both of these are ``False``, the
 type variable is assumed to be invariant. PEP 695 adds another keyword
 parameter named ``infer_variance`` indicating that a type checker should use
 inference to determine whether the type variable is invariant, covariant or

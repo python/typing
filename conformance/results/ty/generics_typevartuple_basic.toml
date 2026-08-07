@@ -1,5 +1,5 @@
 conformance_automated = "Pass"
-conformant = "Partial"
+conformant = "Pass"
 errors_diff = """
 """
 output = """

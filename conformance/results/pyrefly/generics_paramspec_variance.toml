@@ -4,23 +4,43 @@ errors_diff = """
 Line 14: Expected 1 errors
 Line 21: Expected 1 errors
 Line 30: Expected 1 errors
-Line 40: Expected 1 errors
-Line 51: Expected 1 errors
+Line 110: Expected 1 errors
+Line 121: Expected 1 errors
 Line 22: Unexpected errors ['`ContravariantParamSpec[[object]]` is not assignable to `ContravariantParamSpec[[int]]` [bad-assignment]']
 Line 31: Unexpected errors ['`CovariantParamSpec[[int]]` is not assignable to `CovariantParamSpec[[object]]` [bad-assignment]']
-Line 33: Unexpected errors ['Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]']
-Line 45: Unexpected errors ['`ContravariantParamSpecOld[[object]]` is not assignable to `ContravariantParamSpecOld[[int]]` [bad-assignment]']
-Line 47: Unexpected errors ['Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]']
-Line 58: Unexpected errors ['`CovariantParamSpecOld[[int]]` is not assignable to `CovariantParamSpecOld[[object]]` [bad-assignment]']
+Line 83: Unexpected errors ['Function call cannot be used in annotations [invalid-annotation]']
+Line 91: Unexpected errors ['ParamSpec must be assigned to a variable named `InP` [invalid-param-spec]']
+Line 92: Unexpected errors ['Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]']
+Line 115: Unexpected errors ['`ContravariantParamSpecOld[[object]]` is not assignable to `ContravariantParamSpecOld[[int]]` [bad-assignment]']
+Line 117: Unexpected errors ['Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]']
+Line 128: Unexpected errors ['`CovariantParamSpecOld[[int]]` is not assignable to `CovariantParamSpecOld[[object]]` [bad-assignment]']
 """
 output = """
 ERROR generics_paramspec_variance.py:15:39-67: `InvariantParamSpec[[object]]` is not assignable to `InvariantParamSpec[[int]]` [bad-assignment]
 ERROR generics_paramspec_variance.py:22:39-71: `ContravariantParamSpec[[object]]` is not assignable to `ContravariantParamSpec[[int]]` [bad-assignment]
 ERROR generics_paramspec_variance.py:31:39-64: `CovariantParamSpec[[int]]` is not assignable to `CovariantParamSpec[[object]]` [bad-assignment]
-ERROR generics_paramspec_variance.py:33:24-42: Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:44:49-81: `ContravariantParamSpecOld[[int]]` is not assignable to `ContravariantParamSpecOld[[object]]` [bad-assignment]
-ERROR generics_paramspec_variance.py:45:46-81: `ContravariantParamSpecOld[[object]]` is not assignable to `ContravariantParamSpecOld[[int]]` [bad-assignment]
-ERROR generics_paramspec_variance.py:47:26-40: Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:57:43-74: `CovariantParamSpecOld[[object]]` is not assignable to `CovariantParamSpecOld[[int]]` [bad-assignment]
-ERROR generics_paramspec_variance.py:58:46-74: `CovariantParamSpecOld[[int]]` is not assignable to `CovariantParamSpecOld[[object]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:62:4-16: Function call cannot be used in annotations [invalid-annotation]
+ERROR generics_paramspec_variance.py:64:9-18: `InitP[[a: int = 1]]` is not assignable to attribute `t` with type `InitP[[a: int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:66:9-16: `InitP[[a: int, b: str]]` is not assignable to attribute `t` with type `InitP[[a: int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:79:9-13: `OutitP[[*, a: int]]` is not assignable to attribute `t` with type `OutitP[[a: int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:81:9-14: `OutitP[[a: int, /]]` is not assignable to attribute `t` with type `OutitP[[a: int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:83:4-17: Function call cannot be used in annotations [invalid-annotation]
+ERROR generics_paramspec_variance.py:87:9-16: `OutitP[[a: int, b: str]]` is not assignable to attribute `t` with type `OutitP[[a: int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:91:5-21: ParamSpec must be assigned to a variable named `InP` [invalid-param-spec]
+ERROR generics_paramspec_variance.py:92:24-42: Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]
+ERROR generics_paramspec_variance.py:93:28-42: Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]
+ERROR generics_paramspec_variance.py:93:44-62: Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]
+ERROR generics_paramspec_variance.py:94:9-64: ParamSpec must be assigned to a variable named `InvP1` [invalid-param-spec]
+ERROR generics_paramspec_variance.py:94:28-42: Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]
+ERROR generics_paramspec_variance.py:94:44-63: Unexpected keyword argument `infer_variance` to ParamSpec [invalid-param-spec]
+ERROR generics_paramspec_variance.py:95:9-68: ParamSpec must be assigned to a variable named `InvP1` [invalid-param-spec]
+ERROR generics_paramspec_variance.py:95:28-46: Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]
+ERROR generics_paramspec_variance.py:95:48-67: Unexpected keyword argument `infer_variance` to ParamSpec [invalid-param-spec]
+ERROR generics_paramspec_variance.py:103:14-43: `InvariantParamSpecOld[[bool]]` is not assignable to variable `in_out_old` with type `InvariantParamSpecOld[[int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:104:14-45: `InvariantParamSpecOld[[object]]` is not assignable to variable `in_out_old` with type `InvariantParamSpecOld[[int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:114:49-81: `ContravariantParamSpecOld[[int]]` is not assignable to `ContravariantParamSpecOld[[object]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:115:46-81: `ContravariantParamSpecOld[[object]]` is not assignable to `ContravariantParamSpecOld[[int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:117:26-40: Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]
+ERROR generics_paramspec_variance.py:127:43-74: `CovariantParamSpecOld[[object]]` is not assignable to `CovariantParamSpecOld[[int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:128:46-74: `CovariantParamSpecOld[[int]]` is not assignable to `CovariantParamSpecOld[[object]]` [bad-assignment]
 """

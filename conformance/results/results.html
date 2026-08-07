@@ -611,6 +611,15 @@
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
+                        <th scope="row">generics_mixed_variance_inference</th>
+                        <td class="conformant">Pass</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="conformant">Pass</td>
+                        <td class="not-conformant">Unsupported</td>
+                    </tr>
+                    <tr>
                         <th scope="row">generics_paramspec_basic</th>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -650,6 +659,20 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">generics_paramspec_variance</th>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not error when a ParamSpec is used in a position that violates its explicit variance.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant">Unsupported</td>
                     </tr>
                     <tr>
                         <th scope="row">generics_scoping</th>
@@ -827,7 +850,12 @@
                                 <li>Does not enforce that tuples captured by <code>TypeVarTuple</code> are same length.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>doesn't error when there are multiple type var tuples in a definition</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
                             Partial
@@ -895,6 +923,20 @@
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
+                        <th scope="row">generics_typevartuple_variance</th>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not error when a ParamSpec is used in a position that violates its explicit variance.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant">Unsupported</td>
+                    </tr>
+                    <tr>
                         <th scope="row">generics_upper_bound</th>
                         <td class="partially-conformant tooltip">
                             Partial
@@ -933,12 +975,12 @@
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>23 / 30 • 76.7%</td>
-                        <td>28.5 / 30 • 95.0%</td>
-                        <td>30 / 30 • 100.0%</td>
-                        <td>28.5 / 30 • 95.0%</td>
-                        <td>27 / 30 • 90.0%</td>
-                        <td>30 / 30 • 100.0%</td>
+                        <td>24 / 33 • 72.7%</td>
+                        <td>28 / 33 • 84.8%</td>
+                        <td>30 / 33 • 90.9%</td>
+                        <td>28.5 / 33 • 86.4%</td>
+                        <td>29 / 33 • 87.9%</td>
+                        <td>30 / 33 • 90.9%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -1416,21 +1458,41 @@
                     </tr>
                     <tr>
                         <th scope="row">protocols_variance</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>False report of ParamSpec variance keywords.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Doesn't support variance keywords to ParamSpec</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Doesn't support keyword arguments to ParamSpec</li>
+                            </ul>
+                        </td>
                         <td class="not-conformant">Unsupported</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Doesn't support keyword arguments to ParamSpec.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr class="summary">
                         <td></td>
+                        <td>9.5 / 11 • 86.4%</td>
                         <td>10 / 11 • 90.9%</td>
-                        <td>10 / 11 • 90.9%</td>
-                        <td>11 / 11 • 100.0%</td>
-                        <td>11 / 11 • 100.0%</td>
+                        <td>10.5 / 11 • 95.5%</td>
+                        <td>10.5 / 11 • 95.5%</td>
                         <td>6 / 11 • 54.5%</td>
-                        <td>11 / 11 • 100.0%</td>
+                        <td>10.5 / 11 • 95.5%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2602,12 +2664,12 @@
                 <tfoot>
                     <tr>
                         <td></td>
-                        <td>109 / 142 • 76.8%</td>
-                        <td>131 / 142 • 92.3%</td>
-                        <td>141 / 142 • 99.3%</td>
-                        <td>136.5 / 142 • 96.1%</td>
-                        <td>126 / 142 • 88.7%</td>
-                        <td>141 / 142 • 99.3%</td>
+                        <td>109.5 / 145 • 75.5%</td>
+                        <td>130.5 / 145 • 90.0%</td>
+                        <td>140.5 / 145 • 96.9%</td>
+                        <td>136 / 145 • 93.8%</td>
+                        <td>128 / 145 • 88.3%</td>
+                        <td>140.5 / 145 • 96.9%</td>
                     </tr>
                 </tfoot>
             </table>

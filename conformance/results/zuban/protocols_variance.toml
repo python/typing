@@ -1,14 +1,20 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+conformance_automated = "Fail"
+notes = """
+Doesn't support keyword arguments to ParamSpec.
+"""
 errors_diff = """
+Line 15: Unexpected errors ['protocols_variance.py:15: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]']
 """
 output = """
-protocols_variance.py:21: error: Invariant type variable "T1" used in protocol where Covariant one is expected  [misc]
-protocols_variance.py:40: error: Invariant type variable "T3" used in protocol where Contravariant one is expected  [misc]
-protocols_variance.py:56: error: Invariant type variable "T1" used in protocol where Contravariant one is expected  [misc]
-protocols_variance.py:61: error: Covariant type variable "T1_co" used in protocol where Contravariant one is expected  [misc]
-protocols_variance.py:62: error: Cannot use a covariant type variable as a parameter  [type-var]
-protocols_variance.py:66: error: Invariant type variable "T1" used in protocol where Covariant one is expected  [misc]
-protocols_variance.py:71: error: Contravariant type variable "T1_contra" used in protocol where Covariant one is expected  [misc]
-protocols_variance.py:72: error: Cannot use a contravariant type variable as return type  [type-var]
-protocols_variance.py:104: error: Invariant type variable "T1" used in protocol where Covariant one is expected  [misc]
+protocols_variance.py:15: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+protocols_variance.py:22: error: Invariant type variable "T1" used in protocol where Covariant one is expected  [misc]
+protocols_variance.py:41: error: Invariant type variable "T3" used in protocol where Contravariant one is expected  [misc]
+protocols_variance.py:57: error: Invariant type variable "T1" used in protocol where Contravariant one is expected  [misc]
+protocols_variance.py:62: error: Covariant type variable "T1_co" used in protocol where Contravariant one is expected  [misc]
+protocols_variance.py:63: error: Cannot use a covariant type variable as a parameter  [type-var]
+protocols_variance.py:67: error: Invariant type variable "T1" used in protocol where Covariant one is expected  [misc]
+protocols_variance.py:72: error: Contravariant type variable "T1_contra" used in protocol where Covariant one is expected  [misc]
+protocols_variance.py:73: error: Cannot use a contravariant type variable as return type  [type-var]
+protocols_variance.py:105: error: Invariant type variable "T1" used in protocol where Covariant one is expected  [misc]
 """
