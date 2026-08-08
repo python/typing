@@ -227,7 +227,9 @@ Pyrefly coverage
 ----------------
 
 Pyrefly offers a sub-command for measuring and checking type coverage.
+
 - ``pyrefly coverage check`` fails when coverage is below a threshold, useful as a CI gate.
 - ``pyrefly coverage report`` emits a JSON report with per-module statistics.
+
 See `the Pyrefly docs on measuring type coverage
 <https://pyrefly.org/en/docs/report/>`_ for details.
