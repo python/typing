@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
 Fails to reject various weird annotations.
-False positive on lambda in Annotated.
+False positive on lambda in `Annotated`.
 """
 conformance_automated = "Fail"
 errors_diff = """

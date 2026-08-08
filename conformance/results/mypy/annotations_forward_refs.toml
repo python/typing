@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
 Does not report error for a forward reference that is not enclosed in quotes.
-Does not report error for use of quoted type with "|" operator (runtime error).
+Does not report error for use of quoted type with `|` operator (runtime error).
 Incorrectly generates error for quoted type defined in class scope.
 """
 output = """

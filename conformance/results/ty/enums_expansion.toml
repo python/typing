@@ -1,10 +1,6 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """Does not support `enum.Flag`."""
+conformance_automated = "Pass"
 errors_diff = """
-Line 53: Expected 1 errors
-Line 52: Unexpected errors ['enums_expansion.py:52:9: error[type-assertion-failure] Type `Literal[CustomFlags.FLAG3]` does not match asserted type `CustomFlags`']
 """
 output = """
-enums_expansion.py:52:9: error[type-assertion-failure] Type `Literal[CustomFlags.FLAG3]` does not match asserted type `CustomFlags`
+enums_expansion.py:56:9: error[type-assertion-failure] Type `CustomFlags & ~Literal[CustomFlags.FLAG1] & ~Literal[CustomFlags.FLAG2]` does not match asserted type `Literal[CustomFlags.FLAG3]`
 """

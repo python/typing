@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
-Incorrectly treats "*args: T, **kwargs: T" as "..." when T is specialized to Any.
-Does not treat "*args: Any, **kargs: Any" as "..." when separated by keyword parameter.
+Incorrectly treats `*args: T, **kwargs: T` as `...` when `T` is specialized to `Any`.
+Does not treat `*args: Any, **kargs: Any` as `...` when separated by keyword parameter.
 """
 output = """
 callables_annotation.py:25: error: Too few arguments  [call-arg]

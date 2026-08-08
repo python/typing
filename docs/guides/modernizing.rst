@@ -249,18 +249,14 @@ return types. For example, replace::
     from typing import NoReturn
 
     def f(x: int, y: NoReturn) -> None: ...
+    def g() -> NoReturn: ...
 
 with::
 
     from typing import Never  # or typing_extensions.Never
 
     def f(x: int, y: Never) -> None: ...
-
-But keep ``NoReturn`` for return types::
-
-    from typing import NoReturn
-
-    def f(x: int) -> NoReturn: ...
+    def g() -> Never: ...
 
 .. _modernizing-type-aliases:
 

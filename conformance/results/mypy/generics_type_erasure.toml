@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
-Infers Node[Never] instead of Node[Any] when argument is not provided.
-False negative on instance attribute access on type(node).
+Infers `Node[Never]` instead of `Node[Any]` when argument is not provided.
+False negative on instance attribute access on `type(node)`.
 """
 output = """
 generics_type_erasure.py:19: error: Expression is of type "Node[Never]", not "Node[Any]"  [assert-type]

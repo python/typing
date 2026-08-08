@@ -1,7 +1,7 @@
 conformant = "Pass"
 notes = """
-Does not understand three-element form of sys.version checks.
-Does not understand os.name checks.
+Does not understand three-element form of `sys.version` checks.
+Does not understand `os.name` checks.
 """
 output = """
 directives_version_platform.py:26: error: Expression is of type "int | str", not "int"  [assert-type]

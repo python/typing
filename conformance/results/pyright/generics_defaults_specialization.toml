@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Allows incorrect assignment to type[].
+Allows incorrect assignment to `type[]`.
 """
 output = """
 generics_defaults_specialization.py:30:15 - error: Too many type arguments provided for "MyAlias[DefaultStrT@MyAlias]"; expected 1 but received 2 (reportInvalidTypeForm)

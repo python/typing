@@ -2,7 +2,7 @@ conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
 Does not reject `list[T]()` in the global scope, where `T` is an unbound type variable.
-Does nto reject `alias: TypeAlias = list[T]` in the body scope of a class generic over a type variable `T`.
+Does not reject `alias: TypeAlias = list[T]` in the body scope of a class generic over a type variable `T`.
 """
 errors_diff = """
 Line 98: Expected 1 errors

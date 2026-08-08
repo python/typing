@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Considers TypedDicts to be assignable to plain dict types.
+Considers `TypedDict`s to be assignable to plain `dict` types.
 """
 conformance_automated = "Fail"
 errors_diff = """
