@@ -221,3 +221,15 @@ Mypy reports
 Mypy offers several options for generating reports on its analysis.
 See `the mypy documentation on report generation
 <https://mypy.readthedocs.io/en/stable/command_line.html#report-generation>`_ for details.
+
+
+Pyrefly coverage
+----------------
+
+Pyrefly offers a sub-command for measuring and checking type coverage.
+
+- ``pyrefly coverage check`` fails when coverage is below a threshold, useful as a CI gate.
+- ``pyrefly coverage report`` emits a JSON report with per-module statistics.
+
+See `the Pyrefly docs on measuring type coverage
+<https://pyrefly.org/en/docs/report/>`_ for details.
