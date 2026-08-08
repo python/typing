@@ -400,7 +400,6 @@ class instance that does not have an instance attribute with the same name::
   Node[int].x      # Error
   Node.x = 1       # Error
   Node.x           # Error
-  type(p).x        # Error
   p.x              # Ok (evaluates to int)
   Node[int]().x    # Ok (evaluates to int)
   p.x = 1          # Ok, but assigning to instance attribute
