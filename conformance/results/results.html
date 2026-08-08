@@ -924,21 +924,35 @@
                     </tr>
                     <tr>
                         <th scope="row">generics_variance_inference</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>polymorphic functions with bound self type influence variance inference,</li>
+                                <li>which is not part of the variance inference algorithm as described in the spec.</li>
+                                <li>See gh-2281 for details.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>polymorphic functions with bound self type influence variance inference,</li>
+                                <li>which is not part of the variance inference algorithm as described in the spec.</li>
+                                <li>See gh-2281 for details.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>23 / 30 • 76.7%</td>
+                        <td>22.5 / 30 • 75.0%</td>
                         <td>28.5 / 30 • 95.0%</td>
                         <td>30 / 30 • 100.0%</td>
                         <td>28.5 / 30 • 95.0%</td>
                         <td>27 / 30 • 90.0%</td>
-                        <td>30 / 30 • 100.0%</td>
+                        <td>29.5 / 30 • 98.3%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2632,12 +2646,12 @@
                 <tfoot>
                     <tr>
                         <td></td>
-                        <td>108.5 / 142 • 76.4%</td>
+                        <td>108 / 142 • 76.1%</td>
                         <td>130.5 / 142 • 91.9%</td>
                         <td>141 / 142 • 99.3%</td>
                         <td>136 / 142 • 95.8%</td>
                         <td>125.5 / 142 • 88.4%</td>
-                        <td>140.5 / 142 • 98.9%</td>
+                        <td>140 / 142 • 98.6%</td>
                     </tr>
                 </tfoot>
             </table>

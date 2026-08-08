@@ -79,6 +79,10 @@ generics_variance_inference.py:194:37 - error: Type "ShouldBeContravariant2[int]
   "ShouldBeContravariant2[int]" is not assignable to "ShouldBeContravariant2[float]"
     Type parameter "T@ShouldBeContravariant2" is contravariant, but "int" is not a supertype of "float"
       "float" is not assignable to "int" (reportAssignmentType)
+generics_variance_inference.py:205:31 - error: Type "ShouldBeCovariant7[object]" is not assignable to declared type "ShouldBeCovariant7[int]"
+  "ShouldBeCovariant7[object]" is not assignable to "ShouldBeCovariant7[int]"
+    Type parameter "T@ShouldBeCovariant7" is covariant, but "object" is not a subtype of "int"
+      "object" is not assignable to "int" (reportAssignmentType)
 """
 conformance_automated = "Pass"
 errors_diff = """
