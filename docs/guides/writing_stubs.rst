@@ -40,6 +40,17 @@ stubs serve more as a starting point.
 
 For more details, see `pyright docs <https://github.com/microsoft/pyright/blob/main/docs/type-stubs.md#generating-type-stubs-from-command-line>`__.
 
+pyrefly
+-------
+
+Pyrefly also contains a tool to generate stubs. Unlike stubgen and pyright, this tool will aggressively infer types for un-annotated code, including function parameters, resulting in stubs that contain more non-``Any`` annotations.
+
+.. code-block:: console
+
+    pyrefly stubgen path/to/directory/
+
+For more details, see `pyrefly docs <https://pyrefly.org/en/docs/stubgen/>`__.
+
 monkeytype
 ----------
 

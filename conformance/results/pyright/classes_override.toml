@@ -1,4 +1,8 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Does not honor `@override` compatibility checks for `__init__` and `__new__`:
+the incompatible constructor overrides in `ChildC2` are not flagged.
+"""
 output = """
 classes_override.py:53:9 - error: Method "method3" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
 classes_override.py:65:9 - error: Method "method4" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
@@ -6,6 +10,8 @@ classes_override.py:79:9 - error: Method "static_method1" is marked as override,
 classes_override.py:84:9 - error: Method "class_method1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
 classes_override.py:89:9 - error: Method "property1" is marked as override, but no base method of same name is present (reportGeneralTypeIssues)
 """
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Lines 134, 135: Expected error (tag 'init')
+Lines 137, 138: Expected error (tag 'new')
 """

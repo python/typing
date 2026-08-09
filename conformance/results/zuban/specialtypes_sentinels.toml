@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_sentinels.py:14: error: Incompatible default for parameter "x" (default has type "Sentinel('<MISSING>')", parameter has type "int")  [assignment]
+specialtypes_sentinels.py:36: error: Argument 1 to "func2" has incompatible type "Sentinel('Cls.IN_CLASS')"; expected "int | Sentinel('<MISSING>') | Sentinel('SPECIAL')"  [arg-type]
+specialtypes_sentinels.py:39: error: Argument 1 to "func3" has incompatible type "Sentinel('<MISSING>')"; expected "int | Sentinel('Cls.IN_CLASS')"  [arg-type]
+"""
