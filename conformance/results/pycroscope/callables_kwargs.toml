@@ -1,19 +1,28 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not reject passing unpacked kwargs typed with a non-closed TypedDict to a callable that has no `**kwargs`.
+Does not reject passing unpacked kwargs typed with a TypedDict that has `extra_items` to a callable that has no `**kwargs`.
+Does not check the `extra_items` type of unpacked kwargs against the target callable's `**kwargs` annotation.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 167: Expected 1 errors
+Line 185: Expected 1 errors
+Line 186: Expected 1 errors
 """
 output = """
-./callables_kwargs.py:46:4: In call to callables_kwargs.func1: Missing required argument 'v1' [incompatible_call]
-./callables_kwargs.py:51:4: In call to callables_kwargs.func1: Got an unexpected keyword argument 'v4' [incompatible_call]
-./callables_kwargs.py:52:4: In call to callables_kwargs.func1: Missing required argument 'v1' [incompatible_call]
-./callables_kwargs.py:58:4: Incompatible argument type for v1: expected int but got str [incompatible_argument]
-./callables_kwargs.py:61:4: In call to callables_kwargs.func1: Got an unexpected keyword argument 'v4' [incompatible_call]
-./callables_kwargs.py:63:4: Multiple values provided for argument 'v1' [incompatible_call]
-./callables_kwargs.py:64:4: In call to callables_kwargs.func2: Parameter 'v3' provided as both a positional and a keyword argument [incompatible_call]
-./callables_kwargs.py:65:4: Multiple values provided for argument 'v1' [incompatible_call]
-./callables_kwargs.py:101:0: Incompatible assignment: expected callables_kwargs.TDProtocol3, got function 'callables_kwargs.func1' [incompatible_assignment]
-./callables_kwargs.py:102:0: Incompatible assignment: expected callables_kwargs.TDProtocol4, got function 'callables_kwargs.func1' [incompatible_assignment]
-./callables_kwargs.py:103:0: Incompatible assignment: expected callables_kwargs.TDProtocol5, got function 'callables_kwargs.func1' [incompatible_assignment]
-./callables_kwargs.py:111:21: Parameter v1 overlaps with TypedDict key in **kwargs [invalid_annotation]
-./callables_kwargs.py:122:12: Expected TypedDict type inside Unpack[] for **kwargs [invalid_annotation]
-./callables_kwargs.py:134:0: Incompatible assignment: expected callables_kwargs.TDProtocol6, got function 'callables_kwargs.func7' [incompatible_assignment]
+./callables_kwargs.py:47:4: In call to callables_kwargs.func1: Missing required argument 'v1' [incompatible_call]
+./callables_kwargs.py:52:4: In call to callables_kwargs.func1: Got an unexpected keyword argument 'v4' [incompatible_call]
+./callables_kwargs.py:53:4: In call to callables_kwargs.func1: Missing required argument 'v1' [incompatible_call]
+./callables_kwargs.py:59:4: Incompatible argument type for v1: expected int but got str [incompatible_argument]
+./callables_kwargs.py:62:4: In call to callables_kwargs.func1: Got an unexpected keyword argument 'v4' [incompatible_call]
+./callables_kwargs.py:64:4: Multiple values provided for argument 'v1' [incompatible_call]
+./callables_kwargs.py:65:4: In call to callables_kwargs.func2: Parameter 'v3' provided as both a positional and a keyword argument [incompatible_call]
+./callables_kwargs.py:66:4: Multiple values provided for argument 'v1' [incompatible_call]
+./callables_kwargs.py:102:0: Incompatible assignment: expected callables_kwargs.TDProtocol3, got function 'callables_kwargs.func1' [incompatible_assignment]
+./callables_kwargs.py:103:0: Incompatible assignment: expected callables_kwargs.TDProtocol4, got function 'callables_kwargs.func1' [incompatible_assignment]
+./callables_kwargs.py:104:0: Incompatible assignment: expected callables_kwargs.TDProtocol5, got function 'callables_kwargs.func1' [incompatible_assignment]
+./callables_kwargs.py:112:21: Parameter v1 overlaps with TypedDict key in **kwargs [invalid_annotation]
+./callables_kwargs.py:123:12: Expected TypedDict type inside Unpack[] for **kwargs [invalid_annotation]
+./callables_kwargs.py:135:0: Incompatible assignment: expected callables_kwargs.TDProtocol6, got function 'callables_kwargs.func7' [incompatible_assignment]
 """
