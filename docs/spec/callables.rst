@@ -413,15 +413,15 @@ it needs completely ignoring any additional values.
 The calls to ``bar`` and ``spam`` will fail because an unexpected keyword
 argument will be passed to the ``takes_name`` function.
 
-Therefore, ``kwargs`` hinted with an unpacked ``TypedDict`` can only be passed
+Therefore, ``kwargs`` hinted with an unpacked, non-closed ``TypedDict`` can only be passed
 to another function if the function to which unpacked kwargs are being passed
 to has ``**kwargs`` in its signature as well, because then additional keywords
 would not cause errors at runtime during function invocation. Otherwise, the
 type checker should generate an error.
 
 In cases similar to the ``bar`` function above the problem could be worked
-around by explicitly dereferencing desired fields and using them as arguments
-to perform the function call::
+around by marking ``Animal`` with ``closed=True``, or by explicitly dereferencing desired
+fields and using them as arguments to perform the function call::
 
     def bar(**kwargs: Unpack[Animal]):
         name = kwargs["name"]

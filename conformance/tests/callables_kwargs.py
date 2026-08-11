@@ -7,7 +7,8 @@ Tests the use of an unpacked TypedDict for annotating **kwargs.
 # This sample tests the handling of Unpack[TypedDict] when used with
 # a **kwargs parameter in a function signature.
 
-from typing import Protocol, TypeVar, TypedDict, NotRequired, Required, Unpack, assert_type
+from typing import Protocol, TypeVar, NotRequired, Required, Unpack, assert_type
+from typing_extensions import TypedDict  # for the `closed` and `extra_items` arguments
 
 
 class TD1(TypedDict):
@@ -132,3 +133,55 @@ def func7(*, v1: int, v3: str, v2: str = "") -> None:
 
 
 v7: TDProtocol6 = func7  # E: source does not have kwargs
+
+
+# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#passing-kwargs-inside-a-function-to-another-function
+
+
+class TD3(TypedDict):
+    name: str
+
+
+class TD4(TypedDict, closed=True):
+    name: str
+
+
+class TD5(TypedDict, extra_items=int):
+    name: str
+
+
+def takes_name(name: str) -> None:
+    ...
+
+
+def takes_name_kwargs(name: str, **kwargs) -> None:
+    ...
+
+
+# > ``kwargs`` hinted with an unpacked, non-closed ``TypedDict`` can only
+# > be passed to another function if the function to which unpacked kwargs are being
+# > passed to has ``**kwargs`` in its signature as well, because then additional
+# > keywords would not cause errors at runtime during function invocation.
+
+def func8(**kwargs: Unpack[TD3]) -> None:
+    takes_name(**kwargs)  # E: a subtype may contain unknown keys
+    takes_name_kwargs(**kwargs)
+
+
+def func9(**kwargs: Unpack[TD4]) -> None:
+    takes_name(**kwargs)
+    takes_name_kwargs(**kwargs)
+
+
+def takes_name_str_kwargs(name: str, **kwargs: str) -> None:
+    ...
+
+
+def takes_name_int_kwargs(name: str, **kwargs: int) -> None:
+    ...
+
+
+def func10(**kwargs: Unpack[TD5]) -> None:
+    takes_name(**kwargs)  # E: extra items may be present
+    takes_name_str_kwargs(**kwargs)  # E: extra items type is not compatible
+    takes_name_int_kwargs(**kwargs)

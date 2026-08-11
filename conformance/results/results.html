@@ -1509,13 +1509,48 @@
                             Partial
                             <ul class="notes">
                                 <li>Allows callable without kwargs to be assigned to callable with unpacked kwargs.</li>
+                                <li>Does not support the <code>closed</code> and <code>extra_items</code> TypedDict class arguments.</li>
+                                <li>Does not reject passing unpacked kwargs typed with a non-closed TypedDict to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject passing unpacked kwargs typed with a TypedDict that has <code>extra_items</code> to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not check the <code>extra_items</code> type of unpacked kwargs against the target callable's <code>**kwargs</code> annotation.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject passing unpacked kwargs typed with a non-closed TypedDict to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject passing unpacked kwargs typed with a TypedDict that has <code>extra_items</code> to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not check the <code>extra_items</code> type of unpacked kwargs against the target callable's <code>**kwargs</code> annotation.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject passing unpacked kwargs typed with a non-closed TypedDict to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject passing unpacked kwargs typed with a TypedDict that has <code>extra_items</code> to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not check the <code>extra_items</code> type of unpacked kwargs against the target callable's <code>**kwargs</code> annotation.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject passing unpacked kwargs typed with a non-closed TypedDict to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject passing unpacked kwargs typed with a TypedDict that has <code>extra_items</code> to a callable that has no <code>**kwargs</code>.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject passing unpacked kwargs typed with an open TypedDict to a callable that has no <code>**kwargs</code>.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject passing unpacked kwargs typed with a non-closed TypedDict to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject passing unpacked kwargs typed with a TypedDict that has <code>extra_items</code> to a callable that has no <code>**kwargs</code>.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">callables_protocol</th>
@@ -1538,11 +1573,11 @@
                     <tr class="summary">
                         <td></td>
                         <td>3 / 4 • 75.0%</td>
-                        <td>4 / 4 • 100.0%</td>
-                        <td>4 / 4 • 100.0%</td>
-                        <td>4 / 4 • 100.0%</td>
-                        <td>4 / 4 • 100.0%</td>
-                        <td>4 / 4 • 100.0%</td>
+                        <td>3.5 / 4 • 87.5%</td>
+                        <td>3.5 / 4 • 87.5%</td>
+                        <td>3.5 / 4 • 87.5%</td>
+                        <td>3.5 / 4 • 87.5%</td>
+                        <td>3.5 / 4 • 87.5%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2652,11 +2687,11 @@
                     <tr>
                         <td></td>
                         <td>108 / 142 • 76.1%</td>
-                        <td>130 / 142 • 91.5%</td>
-                        <td>141 / 142 • 99.3%</td>
-                        <td>136 / 142 • 95.8%</td>
-                        <td>125.5 / 142 • 88.4%</td>
-                        <td>140 / 142 • 98.6%</td>
+                        <td>129.5 / 142 • 91.2%</td>
+                        <td>140.5 / 142 • 98.9%</td>
+                        <td>135.5 / 142 • 95.4%</td>
+                        <td>125 / 142 • 88.0%</td>
+                        <td>139.5 / 142 • 98.2%</td>
                     </tr>
                 </tfoot>
             </table>
