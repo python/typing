@@ -1,14 +1,11 @@
-conformance_automated = "Fail"
-conformant = "Partial"
+conformance_automated = "Pass"
 notes = """
-Reports an implicit instance attribute in a `Protocol` method only as a warning.
 """
 errors_diff = """
-Line 67: Expected 1 errors
 """
 output = """
 protocols_definition.py:30:11: error[invalid-argument-type] Argument to function `close_all` is incorrect: Expected `Iterable[SupportsClose]`, found `list[int]`
-protocols_definition.py:67:9: warning[ambiguous-protocol-member] Cannot assign to an undeclared attribute in a protocol method: `temp` is not declared as a protocol member
+protocols_definition.py:67:9: error[ambiguous-protocol-member] Cannot assign to an undeclared attribute in a protocol method: `temp` is not declared as a protocol member
 protocols_definition.py:114:22: error[invalid-assignment] Object of type `Concrete2_Bad1` is not assignable to `Template2`
 protocols_definition.py:115:22: error[invalid-assignment] Object of type `Concrete2_Bad2` is not assignable to `Template2`
 protocols_definition.py:116:22: error[invalid-assignment] Object of type `Concrete2_Bad3` is not assignable to `Template2`
