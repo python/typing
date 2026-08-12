@@ -34,11 +34,13 @@ callables_kwargs.py:123:21 - error: Expected TypedDict type argument for Unpack 
 callables_kwargs.py:135:19 - error: Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to declared type "TDProtocol6"
   Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to type "(**kwargs: **TD2) -> None"
     Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
-callables_kwargs.py:186:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:180:5 - error: Function declaration "func10" is obscured by a declaration of the same name (reportRedeclaration)
+callables_kwargs.py:195:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "int" is not assignable to "str" (reportArgumentType)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 167: Expected 1 errors
-Line 185: Expected 1 errors
+Line 176: Expected 1 errors
+Line 194: Expected 1 errors
+Line 180: Unexpected errors ['callables_kwargs.py:180:5 - error: Function declaration "func10" is obscured by a declaration of the same name (reportRedeclaration)']
 """
