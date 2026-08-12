@@ -6,9 +6,9 @@ Does not check the `extra_items` type of unpacked kwargs against the target call
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 167: Expected 1 errors
-Line 185: Expected 1 errors
-Line 186: Expected 1 errors
+Line 176: Expected 1 errors
+Line 194: Expected 1 errors
+Line 195: Expected 1 errors
 """
 output = """
 ERROR callables_kwargs.py:47:10-12: Missing argument `v1` in function `func1` [missing-argument]
