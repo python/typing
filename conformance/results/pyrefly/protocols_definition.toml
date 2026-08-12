@@ -24,4 +24,6 @@ ERROR protocols_definition.py:289:22-38: `Concrete5_Bad5` is not assignable to `
 ERROR protocols_definition.py:339:22-38: `Concrete6_Bad1` is not assignable to `Template6` [bad-assignment]
 ERROR protocols_definition.py:340:22-38: `Concrete6_Bad2` is not assignable to `Template6` [bad-assignment]
 ERROR protocols_definition.py:341:22-38: `Concrete6_Bad3` is not assignable to `Template6` [bad-assignment]
+ERROR protocols_definition.py:369:22-38: `Concrete7_Bad1` is not assignable to `Template7` [bad-assignment]
+ERROR protocols_definition.py:370:22-38: `Concrete7_Bad2` is not assignable to `Template7` [bad-assignment]
 """
