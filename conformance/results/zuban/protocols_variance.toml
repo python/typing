@@ -1,7 +1,7 @@
 conformant = "Partial"
 conformance_automated = "Fail"
 notes = """
-Doesn't support keyword arguments to ParamSpec.
+False report of ParamSpec variance keywords.
 """
 errors_diff = """
 Line 15: Unexpected errors ['protocols_variance.py:15: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]']

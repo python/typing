@@ -261,6 +261,7 @@ dependencies = [
     { name = "tomlkit" },
     { name = "ty" },
     { name = "types-markdown" },
+    { name = "typing-extensions" },
     { name = "zuban" },
 ]
 
@@ -275,6 +276,7 @@ requires-dist = [
     { name = "tomlkit" },
     { name = "ty" },
     { name = "types-markdown" },
+    { name = "typing-extensions", specifier = ">=4.16.0" },
     { name = "zuban" },
 ]
 

@@ -2719,9 +2719,19 @@ constructor call. No further inference is needed.
 
 2. Create two specialized versions of the class. We'll refer to these as
 ``upper`` and ``lower`` specializations. In both of these specializations,
-replace all type parameters other than the one being inferred by a dummy type
-instance (a concrete anonymous class that is assumed to meet the bounds or
-constraints of the type parameter). In the ``upper`` specialized class,
+replace all type parameters other than the one being inferred by a dummy
+argument of the appropriate kind:
+
+- for a type variable, a dummy type instance (a concrete anonymous class that
+  is assumed to meet the bounds or constraints of the type parameter)
+- for a type variable tuple, a fixed-length pack containing a single dummy type
+  instance
+- for a parameter specification, a signature taking a single positional-only
+  parameter of a dummy type
+
+Any dummy argument will do, as long as it is fixed across both specializations;
+its only purpose is to make the class fully specialized so that the target type
+parameter can be varied on its own. In the ``upper`` specialized class,
 specialize the target type parameter with:
 
 - an ``object`` instance for a type variable
@@ -2779,19 +2789,17 @@ To determine the variance of ``T3``, we specialize ``ClassA`` as follows:
 Since ``lower`` is assignable to ``upper``, ``T3`` is covariant.
 
 
-Auto Variance For TypeVar
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Auto Variance For Traditional Type Variables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The existing ``TypeVar``, ``TypeVarTuple`` and ``ParamSpec`` class constructors
-accepts keyword parameters named ``covariant`` and ``contravariant``.
+accept keyword parameters named ``covariant`` and ``contravariant``.
 If both of these are ``False``, the
 type variable is assumed to be invariant. PEP 695 adds another keyword
 parameter named ``infer_variance`` indicating that a type checker should use
 inference to determine whether the type variable is invariant, covariant or
-contravariant. A corresponding instance variable ``__infer_variance__`` can be
-accessed at runtime to determine whether the variance is inferred. Type
-variables that are implicitly allocated using the new syntax will always
-have ``__infer_variance__`` set to ``True``.
+contravariant. Type parameters that are implicitly allocated using the new
+syntax always have inferred variance.
 
 A generic class that uses the traditional syntax may include combinations of
 type variables with explicit and inferred variance.

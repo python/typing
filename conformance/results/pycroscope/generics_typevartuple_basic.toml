@@ -1,7 +1,7 @@
 conformant = "Partial"
 conformance_automated = "Fail"
 notes = """
-doesn't error when there are multiple type var tuples in a definition
+Doesn't error when multiple type variable tuples appear in a PEP 695 type parameter list; only detects the `Generic[...]` form.
 """
 errors_diff = """
 Line 111: Expected 1 errors

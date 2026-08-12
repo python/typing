@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Doesn't support keyword arguments to ParamSpec
+Doesn't support variance keyword arguments to ParamSpec.
 """
 output = """
 protocols_variance.py:15:20 - error: "contravariant" is unknown parameter to ParamSpec (reportGeneralTypeIssues)

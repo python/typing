@@ -40,6 +40,7 @@ class Box[T]:
 def f(a: int): ...
 def kw(*, a: int): ...
 def pos(a: int, /): ...
+def names(b: int): ...
 def default(a: int = 1): ...
 def arity(a: int, b: str): ...
 
@@ -52,18 +53,20 @@ class InitP[**P]:  # contravariant
         raise NotImplementedError
 
 
-box = Box(InitP(f))
+# `InitP` produces a `Callable[P, None]`, so a replacement is only safe if it
+# accepts every call form that `InitP[(a: int)]` accepts.
+in_box = Box(InitP(f))
 
-kw_p = InitP(kw)
-box.t = kw_p  # OK
-pos_p = InitP(pos)
-box.t = pos_p  # OK
-names_p = InitP(f)
-_: InitP[int]() = names_p  # E
-default_p = InitP(default)
-box.t = default_p  # E
-arity_p = InitP(arity)
-box.t = arity_p  # E
+in_kw_p = InitP(kw)
+in_box.t = in_kw_p  # E
+in_pos_p = InitP(pos)
+in_box.t = in_pos_p  # E
+in_names_p = InitP(names)
+in_box.t = in_names_p  # E
+in_default_p = InitP(default)
+in_box.t = in_default_p  # OK
+in_arity_p = InitP(arity)
+in_box.t = in_arity_p  # E
 
 
 class OutitP[**P]:  # covariant
@@ -73,29 +76,33 @@ class OutitP[**P]:  # covariant
         """infer covariance"""
 
 
-box = Box(OutitP(f))
+# `OutitP` consumes a `Callable[P, None]`, so the safe direction is reversed: a
+# replacement is only safe if `Callable[(a: int), None]` can be passed to it.
+out_box = Box(OutitP(f))
 
-kw_p = OutitP(kw)
-box.t = kw_p  # E
-pos_p = OutitP(pos)
-box.t = pos_p  # E
-names_p = OutitP(f)
-_: OutitP[int]() = names_p  # OK
-default_p = OutitP(default)
-box.t = default_p  # OK
-arity_p = OutitP(arity)
-box.t = arity_p  # E
+out_kw_p = OutitP(kw)
+out_box.t = out_kw_p  # OK
+out_pos_p = OutitP(pos)
+out_box.t = out_pos_p  # OK
+out_names_p = OutitP(names)
+out_box.t = out_names_p  # E
+out_default_p = OutitP(default)
+out_box.t = out_default_p  # E
+out_arity_p = OutitP(arity)
+out_box.t = out_arity_p  # E
 
 
 # old style
-P = ParamSpec("InP")  # OK
+P = ParamSpec("P")  # OK
 InP = ParamSpec("InP", contravariant=True)  # OK
+OutP = ParamSpec("OutP", covariant=True)  # OK
+InferP = ParamSpec("InferP", infer_variance=True)  # OK
 InvP1 = ParamSpec("InvP1", covariant=True, contravariant=True)  # E
-InvP2 = ParamSpec("InvP1", covariant=True, infer_variance=True)  # E
-InvP3 = ParamSpec("InvP1", contravariant=True, infer_variance=True)  # E
+InvP2 = ParamSpec("InvP2", covariant=True, infer_variance=True)  # E
+InvP3 = ParamSpec("InvP3", contravariant=True, infer_variance=True)  # E
 
 class InvariantParamSpecOld(Generic[P]):
-    def f(self, fn: Callable[InP, None]) -> Callable[InP, None]:  # OK
+    def f(self, fn: Callable[P, None]) -> Callable[P, None]:  # OK
         raise NotImplementedError
 
 in_out_old: InvariantParamSpecOld[int]
@@ -114,8 +121,6 @@ class ContravariantParamSpecOld(Generic[InP]):
 in_obj_old: ContravariantParamSpecOld[object] = ContravariantParamSpecOld[int]()  # E
 in_int_old: ContravariantParamSpecOld[int] = ContravariantParamSpecOld[object]()  # OK
 
-OutP = ParamSpec("OutP", covariant=True)
-
 
 class CovariantParamSpecOld(Generic[OutP]):
     def in_f(self) -> Callable[OutP, None]:  # E
@@ -126,3 +131,22 @@ class CovariantParamSpecOld(Generic[OutP]):
 
 out_int_old: CovariantParamSpecOld[int] = CovariantParamSpecOld[object]()  # E
 out_obj_old: CovariantParamSpecOld[object] = CovariantParamSpecOld[int]()  # OK
+
+
+# `infer_variance=True` on a traditional `ParamSpec`
+class InferredContravariantParamSpecOld(Generic[InferP]):
+    def in_f(self) -> Callable[InferP, None]:  # OK
+        raise NotImplementedError
+
+
+infer_in_obj_old: InferredContravariantParamSpecOld[object] = InferredContravariantParamSpecOld[int]()  # E
+infer_in_int_old: InferredContravariantParamSpecOld[int] = InferredContravariantParamSpecOld[object]()  # OK
+
+
+class InferredCovariantParamSpecOld(Generic[InferP]):
+    def out_f(self, fn: Callable[InferP, None]) -> None:  # OK
+        raise NotImplementedError
+
+
+infer_out_int_old: InferredCovariantParamSpecOld[int] = InferredCovariantParamSpecOld[object]()  # E
+infer_out_obj_old: InferredCovariantParamSpecOld[object] = InferredCovariantParamSpecOld[int]()  # OK

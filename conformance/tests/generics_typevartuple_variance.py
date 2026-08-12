@@ -17,6 +17,8 @@ in_out_int = InvariantTypeVarTuple[int]()
 in_out_variadic_int: InvariantTypeVarTuple[*tuple[int, ...]] = InvariantTypeVarTuple[*tuple[object, ...]]()  # E
 in_out_variadic_object: InvariantTypeVarTuple[*tuple[object, ...]] = InvariantTypeVarTuple[*tuple[int, ...]]()  # E
 in_out_empty: InvariantTypeVarTuple[()] = InvariantTypeVarTuple[()]()  # OK
+in_out_fixed_from_variadic: InvariantTypeVarTuple[int] = InvariantTypeVarTuple[*tuple[int, ...]]()  # E
+in_out_variadic_from_fixed: InvariantTypeVarTuple[*tuple[int, ...]] = InvariantTypeVarTuple[int]()  # E
 
 
 class ContravariantTypeVarTuple[*InTs]:
@@ -28,6 +30,8 @@ in_int: ContravariantTypeVarTuple[int] = ContravariantTypeVarTuple[object]()  # 
 in_variadic_int: ContravariantTypeVarTuple[*tuple[int, ...]] = ContravariantTypeVarTuple[*tuple[object, ...]]()  # OK
 in_variadic_object: ContravariantTypeVarTuple[*tuple[object, ...]] = ContravariantTypeVarTuple[*tuple[int, ...]]()  # E
 in_empty: ContravariantTypeVarTuple[()] = ContravariantTypeVarTuple[()]()  # OK
+in_fixed_from_variadic: ContravariantTypeVarTuple[int] = ContravariantTypeVarTuple[*tuple[int, ...]]()  # OK
+in_variadic_from_fixed: ContravariantTypeVarTuple[*tuple[int, ...]] = ContravariantTypeVarTuple[int]()  # E
 
 
 class CovariantTypeVarTuple[*OutTs]:
@@ -44,11 +48,14 @@ out_multiple4: CovariantTypeVarTuple[int, int] = CovariantTypeVarTuple[object,  
 out_variadic_int: CovariantTypeVarTuple[*tuple[int, ...]] = CovariantTypeVarTuple[*tuple[object, ...]]()  # E
 out_variadic_object: CovariantTypeVarTuple[*tuple[object, ...]] = CovariantTypeVarTuple[*tuple[int, ...]]()  # OK
 out_empty: CovariantTypeVarTuple[()] = CovariantTypeVarTuple[()]()  # OK
+out_fixed_from_variadic: CovariantTypeVarTuple[int] = CovariantTypeVarTuple[*tuple[int, ...]]()  # E
+out_variadic_from_fixed: CovariantTypeVarTuple[*tuple[int, ...]] = CovariantTypeVarTuple[int]()  # OK
 
 Ts = TypeVarTuple("Ts")  # OK
+InferTs = TypeVarTuple("InferTs", infer_variance=True)  # OK
 InvTs1 = TypeVarTuple("InvTs1", covariant=True, contravariant=True)  # E
 InvTs2 = TypeVarTuple("InvTs2", covariant=True, infer_variance=True)  # E
-InvTs3 = TypeVarTuple("InvTs3", covariant=True, infer_variance=True)  # E
+InvTs3 = TypeVarTuple("InvTs3", contravariant=True, infer_variance=True)  # E
 
 class InvariantTypeVarTupleOld(Generic[*Ts]):
     def in_f(self, *args: *Ts) -> None:  # OK
@@ -89,3 +96,22 @@ class CovariantTypeVarTupleOld(Generic[*OutTs]):
 
 out_int_old: CovariantTypeVarTupleOld[int] = CovariantTypeVarTupleOld[object]()  # E
 out_obj_old: CovariantTypeVarTupleOld[object] = CovariantTypeVarTupleOld[int]()  # OK
+
+
+# `infer_variance=True` on a traditional `TypeVarTuple`
+class InferredContravariantTypeVarTupleOld(Generic[*InferTs]):
+    def in_f(self, *args: *InferTs) -> None:  # OK
+        raise NotImplementedError
+
+
+infer_in_obj_old: InferredContravariantTypeVarTupleOld[object] = InferredContravariantTypeVarTupleOld[int]()  # E
+infer_in_int_old: InferredContravariantTypeVarTupleOld[int] = InferredContravariantTypeVarTupleOld[object]()  # OK
+
+
+class InferredCovariantTypeVarTupleOld(Generic[*InferTs]):
+    def out_f(self) -> tuple[*InferTs]:  # OK
+        raise NotImplementedError
+
+
+infer_out_int_old: InferredCovariantTypeVarTupleOld[int] = InferredCovariantTypeVarTupleOld[object]()  # E
+infer_out_obj_old: InferredCovariantTypeVarTupleOld[object] = InferredCovariantTypeVarTupleOld[int]()  # OK
