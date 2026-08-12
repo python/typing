@@ -3,7 +3,7 @@ errors_diff = """
 """
 output = """
 dataclasses_usage.py:51:6: error[missing-argument] No argument provided for required parameter `unit_price`
-dataclasses_usage.py:52:28: error[invalid-argument-type] Argument is incorrect: Expected `int | float`, found `Literal["price"]`
+dataclasses_usage.py:52:28: error[invalid-argument-type] Argument is incorrect: Expected `float`, found `Literal["price"]`
 dataclasses_usage.py:53:36: error[too-many-positional-arguments] Too many positional arguments: expected 3, got 4
 dataclasses_usage.py:62:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
 dataclasses_usage.py:68:5: error[dataclass-field-order] Required field `b` cannot be defined after fields with default values
