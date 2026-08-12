@@ -8,11 +8,11 @@ errors_diff = """
 Line 29: Expected 1 errors
 Line 34: Expected 1 errors
 Line 107: Expected 1 errors
-Line 108: Expected 1 errors
 """
 output = """
 protocols_class_objects.py:58:16: error[invalid-assignment] Object of type `<class 'ConcreteA'>` is not assignable to `ProtoA1`
 protocols_class_objects.py:74:16: error[invalid-assignment] Object of type `<class 'ConcreteB'>` is not assignable to `ProtoB1`
 protocols_class_objects.py:104:16: error[invalid-assignment] Object of type `<class 'ConcreteC1'>` is not assignable to `ProtoC1`
 protocols_class_objects.py:106:16: error[invalid-assignment] Object of type `<class 'ConcreteC2'>` is not assignable to `ProtoC1`
+protocols_class_objects.py:108:16: error[invalid-assignment] Object of type `<class 'ConcreteC3'>` is not assignable to `ProtoC1`
 """

@@ -10,7 +10,7 @@ Line 188: Expected 1 errors
 Line 144: Unexpected errors ['generics_defaults.py:144:61: error[invalid-type-form] `Unpack` can only unpack a tuple type or `TypeVarTuple`']
 Line 203: Unexpected errors ['generics_defaults.py:203:28: error[invalid-type-arguments] Type argument for `ParamSpec` must be either a list of types, `ParamSpec`, `Concatenate`, or `...`']
 Line 204: Unexpected errors ['generics_defaults.py:204:5: error[type-assertion-failure] Type `tuple[int]` does not match asserted type `tuple[int, str]`']
-Line 205: Unexpected errors ['generics_defaults.py:205:5: error[type-assertion-failure] Type `(...) -> None` does not match asserted type `(int | float, bool, /) -> None`']
+Line 205: Unexpected errors ['generics_defaults.py:205:5: error[type-assertion-failure] Type `(...) -> None` does not match asserted type `(float, bool, /) -> None`']
 """
 output = """
 generics_defaults.py:24:40: error[invalid-generic-class] Type parameter `T` without a default cannot follow earlier parameter `DefaultStrT` with a default
@@ -21,5 +21,5 @@ generics_defaults.py:159:52: error[invalid-type-variable-default] TypeVar defaul
 generics_defaults.py:177:1: error[type-assertion-failure] Type `int` does not match asserted type `Any`
 generics_defaults.py:203:28: error[invalid-type-arguments] Type argument for `ParamSpec` must be either a list of types, `ParamSpec`, `Concatenate`, or `...`
 generics_defaults.py:204:5: error[type-assertion-failure] Type `tuple[int]` does not match asserted type `tuple[int, str]`
-generics_defaults.py:205:5: error[type-assertion-failure] Type `(...) -> None` does not match asserted type `(int | float, bool, /) -> None`
+generics_defaults.py:205:5: error[type-assertion-failure] Type `(...) -> None` does not match asserted type `(float, bool, /) -> None`
 """
