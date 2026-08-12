@@ -1,6 +1,4 @@
 conformance_automated = "Pass"
-notes = """
-"""
 errors_diff = """
 """
 output = """
