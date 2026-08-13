@@ -1,4 +1,7 @@
-conformant = "Unsupported"
+conformant = "Partial"
+notes = """
+Does not infer covariance for a TypeVarTuple in a class with mixed type parameters.
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 17: Unexpected errors ['generics_mixed_variance_inference.py:17: error: Incompatible types in assignment (expression has type "Mixed[int, bool, []]", variable has type "Mixed[int, int, []]")  [assignment]']

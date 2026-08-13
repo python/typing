@@ -617,7 +617,12 @@
                         <td class="not-conformant">Unsupported</td>
                         <td class="not-conformant">Unsupported</td>
                         <td class="conformant">Pass</td>
-                        <td class="not-conformant">Unsupported</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not infer covariance for a TypeVarTuple in a class with mixed type parameters.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">generics_paramspec_basic</th>
@@ -994,7 +999,7 @@
                         <td>30 / 33 • 90.9%</td>
                         <td>28.5 / 33 • 86.4%</td>
                         <td>29 / 33 • 87.9%</td>
-                        <td>29.5 / 33 • 89.4%</td>
+                        <td>30 / 33 • 90.9%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2727,7 +2732,7 @@
                         <td>140.5 / 145 • 96.9%</td>
                         <td>135.5 / 145 • 93.4%</td>
                         <td>128 / 145 • 88.3%</td>
-                        <td>139.5 / 145 • 96.2%</td>
+                        <td>140 / 145 • 96.6%</td>
                     </tr>
                 </tfoot>
             </table>
