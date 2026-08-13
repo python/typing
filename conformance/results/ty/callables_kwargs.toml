@@ -1,10 +1,6 @@
-conformant = "Partial"
-notes = """
-Does not reject passing unpacked kwargs typed with an open TypedDict to a callable that has no `**kwargs`.
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 176: Expected 1 errors
 """
 output = """
 callables_kwargs.py:47:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`
@@ -22,6 +18,6 @@ callables_kwargs.py:104:19: error[invalid-assignment] Object of type `def func1(
 callables_kwargs.py:112:20: error[invalid-type-form] Parameter `v1` overlaps with unpacked TypedDict key in `**kwargs` annotation
 callables_kwargs.py:123:21: error[invalid-type-form] Unpacked value for `**kwargs` must be a TypedDict, not `T@func6`
 callables_kwargs.py:135:19: error[invalid-assignment] Object of type `def func7(*, v1: int, v3: str, v2: str = "") -> None` is not assignable to `TDProtocol6`
-callables_kwargs.py:194:16: error[unknown-argument] Unpacked argument may contain keyword arguments that do not match any known parameter of function `takes_name`
-callables_kwargs.py:195:27: error[invalid-argument-type] Argument to function `takes_name_str_kwargs` is incorrect: Expected `str`, found `int`
+callables_kwargs.py:184:16: error[unknown-argument] Unpacked argument may contain keyword arguments that do not match any known parameter of function `takes_name`
+callables_kwargs.py:185:27: error[invalid-argument-type] Argument to function `takes_name_str_kwargs` is incorrect: Expected `str`, found `int`
 """

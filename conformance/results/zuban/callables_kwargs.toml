@@ -5,9 +5,7 @@ Does not reject passing unpacked kwargs typed with a TypedDict that has `extra_i
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 176: Expected 1 errors
-Line 194: Expected 1 errors
-Line 193: Unexpected errors ['callables_kwargs.py:193: error: Name "func10" already defined on line 180  [no-redef]']
+Line 184: Expected 1 errors
 """
 output = """
 callables_kwargs.py:47: error: Missing named argument "v1" for "func1"  [call-arg]
@@ -30,6 +28,5 @@ callables_kwargs.py:104: error: Incompatible types in assignment (expression has
 callables_kwargs.py:112: error: Overlap between parameter names and ** TypedDict items: "v1"  [misc]
 callables_kwargs.py:123: error: Unpack item in ** parameter must be a TypedDict  [misc]
 callables_kwargs.py:135: error: Incompatible types in assignment (expression has type "def func7(*, v1: int, v3: str, v2: str = ...) -> None", variable has type "TDProtocol6")  [assignment]
-callables_kwargs.py:193: error: Name "func10" already defined on line 180  [no-redef]
-callables_kwargs.py:195: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TD6"; expected "str"  [arg-type]
+callables_kwargs.py:185: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TD5"; expected "str"  [arg-type]
 """
