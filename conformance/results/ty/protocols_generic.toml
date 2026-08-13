@@ -9,10 +9,10 @@ Line 144: Unexpected errors ['protocols_generic.py:144:25: error[invalid-assignm
 output = """
 protocols_generic.py:40:24: error[invalid-assignment] Object of type `Concrete1` is not assignable to `Proto1[int, str]`
 protocols_generic.py:44:14: error[invalid-generic-class] Cannot both inherit from subscripted `Protocol` and subscripted `Generic`
-protocols_generic.py:56:20: error[invalid-assignment] Object of type `Box[int | float]` is not assignable to `Box[int]`
-protocols_generic.py:66:25: error[invalid-assignment] Object of type `Sender[int]` is not assignable to `Sender[int | float]`
-protocols_generic.py:74:28: error[invalid-assignment] Object of type `AttrProto[int]` is not assignable to `AttrProto[int | float]`
-protocols_generic.py:75:26: error[invalid-assignment] Object of type `AttrProto[int | float]` is not assignable to `AttrProto[int]`
+protocols_generic.py:56:20: error[invalid-assignment] Object of type `Box[float]` is not assignable to `Box[int]`
+protocols_generic.py:66:25: error[invalid-assignment] Object of type `Sender[int]` is not assignable to `Sender[float]`
+protocols_generic.py:74:28: error[invalid-assignment] Object of type `AttrProto[int]` is not assignable to `AttrProto[float]`
+protocols_generic.py:75:26: error[invalid-assignment] Object of type `AttrProto[float]` is not assignable to `AttrProto[int]`
 protocols_generic.py:144:25: error[invalid-assignment] Object of type `ConcreteHasProperty1` is not assignable to `HasPropertyProto`
 protocols_generic.py:145:25: error[invalid-assignment] Object of type `ConcreteHasProperty2` is not assignable to `HasPropertyProto`
 protocols_generic.py:146:25: error[invalid-assignment] Object of type `ConcreteHasProperty3` is not assignable to `HasPropertyProto`

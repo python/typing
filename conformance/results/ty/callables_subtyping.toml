@@ -2,8 +2,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-callables_subtyping.py:26:36: error[invalid-assignment] Object of type `(int, /) -> int` is not assignable to `(int | float, /) -> int | float`
-callables_subtyping.py:29:32: error[invalid-assignment] Object of type `(int | float, /) -> int | float` is not assignable to `(int, /) -> int`
+callables_subtyping.py:26:36: error[invalid-assignment] Object of type `(int, /) -> int` is not assignable to `(float, /) -> float`
+callables_subtyping.py:29:32: error[invalid-assignment] Object of type `(float, /) -> float` is not assignable to `(int, /) -> int`
 callables_subtyping.py:51:21: error[invalid-assignment] Object of type `PosOnly2` is not assignable to `Standard2`
 callables_subtyping.py:52:21: error[invalid-assignment] Object of type `KwOnly2` is not assignable to `Standard2`
 callables_subtyping.py:55:20: error[invalid-assignment] Object of type `KwOnly2` is not assignable to `PosOnly2`

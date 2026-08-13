@@ -1,5 +1,10 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not support callback protocols with PEP 695 ParamSpec type parameters.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 179: Unexpected errors ['./callables_protocol.py:179:30: Traceback (most recent call last):', './callables_protocol.py:179:4: Traceback (most recent call last):']
 """
 output = """
 ./callables_protocol.py:35:0: Incompatible assignment: expected ./callables_protocol.py.Proto1, got (*vals: tuple[bytes, ...], max_items: int | None) -> list[bytes] [incompatible_assignment]
@@ -12,6 +17,8 @@ output = """
 ./callables_protocol.py:97:0: Incompatible assignment: expected ./callables_protocol.py.Proto4, got (x: int) -> None [incompatible_assignment]
 ./callables_protocol.py:121:0: Incompatible assignment: expected ./callables_protocol.py.NotProto6, got (*vals: tuple[bytes, ...], max_len: int | None = None) -> list[bytes] [incompatible_assignment]
 ./callables_protocol.py:169:0: Incompatible assignment: expected ./callables_protocol.py.Proto8, got (x: int) -> Any[explicit] [incompatible_assignment]
+./callables_protocol.py:179:30: Traceback (most recent call last):
+./callables_protocol.py:179:4: Traceback (most recent call last):
 ./callables_protocol.py:186:4: Incompatible types in assignment to attribute 'other_attribute': expected int, got Literal['str'] [incompatible_assignment]
 ./callables_protocol.py:187:4: ./callables_protocol.py.Proto9[**P@./callables_protocol.py.decorator1.<locals>.decorator1, +R@./callables_protocol.py.decorator1.<locals>.decorator1] has no attribute 'xxx' [undefined_attribute]
 ./callables_protocol.py:197:6: ./callables_protocol.py.Proto9[(x: int) -> Any[unannotated], str] has no attribute 'other_attribute2' [undefined_attribute]

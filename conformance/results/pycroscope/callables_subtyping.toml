@@ -1,5 +1,11 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not support callback protocols with PEP 695 ParamSpec type parameters.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 205: Unexpected errors ['./callables_subtyping.py:205:30: Traceback (most recent call last):', './callables_subtyping.py:205:4: Traceback (most recent call last):']
+Line 214: Unexpected errors ['./callables_subtyping.py:214:4: Incompatible assignment: expected callables_subtyping.ProtocolWithP[**P@callables_subtyping.func7.<locals>.func7], got callables_subtyping.TypeAliasWithP[**P@callables_subtyping.func7.<locals>.func7] = (**__P: **P) -> None [incompatible_assignment]']
 """
 output = """
 ./callables_subtyping.py:26:4: Incompatible assignment: expected (float | int, /) -> float | int, got (int, /) -> int [incompatible_assignment]
@@ -28,6 +34,9 @@ output = """
 ./callables_subtyping.py:195:4: Incompatible assignment: expected callables_subtyping.IntKwargs6, got callables_subtyping.StrKwargs6 [incompatible_assignment]
 ./callables_subtyping.py:196:4: Incompatible assignment: expected callables_subtyping.Standard6, got callables_subtyping.IntStrKwargs6 [incompatible_assignment]
 ./callables_subtyping.py:197:4: Incompatible assignment: expected callables_subtyping.Standard6, got callables_subtyping.StrKwargs6 [incompatible_assignment]
+./callables_subtyping.py:205:30: Traceback (most recent call last):
+./callables_subtyping.py:205:4: Traceback (most recent call last):
+./callables_subtyping.py:214:4: Incompatible assignment: expected callables_subtyping.ProtocolWithP[**P@callables_subtyping.func7.<locals>.func7], got callables_subtyping.TypeAliasWithP[**P@callables_subtyping.func7.<locals>.func7] = (**__P: **P) -> None [incompatible_assignment]
 ./callables_subtyping.py:236:4: Incompatible assignment: expected callables_subtyping.DefaultArg8, got callables_subtyping.NoDefaultArg8 [incompatible_assignment]
 ./callables_subtyping.py:237:4: Incompatible assignment: expected callables_subtyping.DefaultArg8, got callables_subtyping.NoX8 [incompatible_assignment]
 ./callables_subtyping.py:240:4: Incompatible assignment: expected callables_subtyping.NoDefaultArg8, got callables_subtyping.NoX8 [incompatible_assignment]

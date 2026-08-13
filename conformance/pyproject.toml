@@ -12,6 +12,7 @@ dependencies = [
     "tomlkit",
     "ty",
     "types-markdown",
+    "typing-extensions>=4.16.0",
     "zuban",
 ]
 
