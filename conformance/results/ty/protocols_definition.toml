@@ -23,4 +23,6 @@ protocols_definition.py:289:22: error[invalid-assignment] Object of type `Concre
 protocols_definition.py:339:22: error[invalid-assignment] Object of type `Concrete6_Bad1` is not assignable to `Template6`
 protocols_definition.py:340:22: error[invalid-assignment] Object of type `Concrete6_Bad2` is not assignable to `Template6`
 protocols_definition.py:341:22: error[invalid-assignment] Object of type `Concrete6_Bad3` is not assignable to `Template6`
+protocols_definition.py:369:22: error[invalid-assignment] Object of type `Concrete7_Bad1` is not assignable to `Template7`
+protocols_definition.py:370:22: error[invalid-assignment] Object of type `Concrete7_Bad2` is not assignable to `Template7`
 """
