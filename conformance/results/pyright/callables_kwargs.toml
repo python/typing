@@ -1,43 +1,53 @@
 conformant = "Partial"
 notes = """
-Does not reject passing unpacked kwargs typed with a non-closed TypedDict to a callable that has no `**kwargs`.
 Does not reject passing unpacked kwargs typed with a TypedDict that has `extra_items` to a callable that has no `**kwargs`.
 """
 output = """
-callables_kwargs.py:29:5 - error: Could not access item in TypedDict
+callables_kwargs.py:37:5 - error: Could not access item in TypedDict
   "v2" is not a required key in "TD2", so access may result in runtime exception (reportTypedDictNotRequiredAccess)
-callables_kwargs.py:47:5 - error: Arguments missing for parameters "v1", "v3" (reportCallIssue)
-callables_kwargs.py:52:32 - error: No parameter named "v4" (reportCallIssue)
-callables_kwargs.py:53:11 - error: Expected 0 positional arguments (reportCallIssue)
-callables_kwargs.py:59:13 - error: Argument of type "str" cannot be assigned to parameter "v1" of type "int" in function "func1"
+callables_kwargs.py:55:5 - error: Arguments missing for parameters "v1", "v3" (reportCallIssue)
+callables_kwargs.py:60:32 - error: No parameter named "v4" (reportCallIssue)
+callables_kwargs.py:61:11 - error: Expected 0 positional arguments (reportCallIssue)
+callables_kwargs.py:67:13 - error: Argument of type "str" cannot be assigned to parameter "v1" of type "int" in function "func1"
   "str" is not assignable to "int" (reportArgumentType)
-callables_kwargs.py:64:19 - error: Unable to match unpacked TypedDict argument to parameters
+callables_kwargs.py:72:19 - error: Unable to match unpacked TypedDict argument to parameters
   Parameter "v1" is already assigned (reportCallIssue)
-callables_kwargs.py:65:16 - error: Unable to match unpacked TypedDict argument to parameters
+callables_kwargs.py:73:16 - error: Unable to match unpacked TypedDict argument to parameters
   Parameter "v3" is already assigned (reportCallIssue)
-callables_kwargs.py:66:19 - error: Unable to match unpacked TypedDict argument to parameters
+callables_kwargs.py:74:19 - error: Unable to match unpacked TypedDict argument to parameters
   Parameter "v1" is already assigned (reportCallIssue)
-callables_kwargs.py:102:19 - error: Type "(**kwargs: **TD2) -> None" is not assignable to declared type "TDProtocol3"
+callables_kwargs.py:121:19 - error: Type "(**kwargs: **TD2) -> None" is not assignable to declared type "TDProtocol3"
   Type "(**kwargs: **TD2) -> None" is not assignable to type "(*, v1: int, v2: int, v3: str) -> None"
     Keyword parameter "v2" of type "int" is incompatible with type "str"
       "int" is not assignable to "str" (reportAssignmentType)
-callables_kwargs.py:103:19 - error: Type "(**kwargs: **TD2) -> None" is not assignable to declared type "TDProtocol4"
+callables_kwargs.py:122:19 - error: Type "(**kwargs: **TD2) -> None" is not assignable to declared type "TDProtocol4"
   Type "(**kwargs: **TD2) -> None" is not assignable to type "(*, v1: int) -> None"
     Extra parameter "v3" (reportAssignmentType)
-callables_kwargs.py:104:19 - error: Type "(**kwargs: **TD2) -> None" is not assignable to declared type "TDProtocol5"
+callables_kwargs.py:123:19 - error: Type "(**kwargs: **TD2) -> None" is not assignable to declared type "TDProtocol5"
   Type "(**kwargs: **TD2) -> None" is not assignable to type "(v1: int, v3: str) -> None"
     Function accepts too many positional parameters; expected 0 but received 2
       Extra parameter "v1"
       Extra parameter "v3" (reportAssignmentType)
-callables_kwargs.py:112:30 - error: Typed dictionary overlaps with keyword parameter: v1 (reportGeneralTypeIssues)
-callables_kwargs.py:123:21 - error: Expected TypedDict type argument for Unpack (reportGeneralTypeIssues)
-callables_kwargs.py:135:19 - error: Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to declared type "TDProtocol6"
+callables_kwargs.py:131:30 - error: Typed dictionary overlaps with keyword parameter: v1 (reportGeneralTypeIssues)
+callables_kwargs.py:142:21 - error: Expected TypedDict type argument for Unpack (reportGeneralTypeIssues)
+callables_kwargs.py:154:19 - error: Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to declared type "TDProtocol6"
   Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to type "(**kwargs: **TD2) -> None"
     Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
-callables_kwargs.py:185:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:206:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+  "object" is not assignable to "str" (reportArgumentType)
+callables_kwargs.py:209:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+  "object" is not assignable to "str" (reportArgumentType)
+callables_kwargs.py:215:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+  "object" is not assignable to "str" (reportArgumentType)
+callables_kwargs.py:218:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+  "object" is not assignable to "str" (reportArgumentType)
+callables_kwargs.py:232:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+  "int" is not assignable to "str" (reportArgumentType)
+callables_kwargs.py:235:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "int" is not assignable to "str" (reportArgumentType)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 184: Expected 1 errors
+Line 231: Expected 1 errors
+Line 234: Expected 1 errors
 """
