@@ -1,0 +1,47 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 15: Expected 1 errors
+Line 30: Expected 1 errors
+Line 90: Expected 1 errors
+Line 111: Expected 1 errors
+Line 117: Expected 1 errors
+Line 126: Expected 1 errors
+Line 132: Expected 1 errors
+Line 151: Expected 1 errors
+Line 31: Unexpected errors ['generics_paramspec_variance.py:31: error: Incompatible types in assignment (expression has type "CovariantParamSpec[[int]]", variable has type "CovariantParamSpec[[object]]")  [assignment]']
+Line 84: Unexpected errors ['generics_paramspec_variance.py:84: error: Incompatible types in assignment (expression has type "OutitP[[*, a: int]]", variable has type "OutitP[[a: int]]")  [assignment]']
+Line 86: Unexpected errors ['generics_paramspec_variance.py:86: error: Incompatible types in assignment (expression has type "OutitP[[int]]", variable has type "OutitP[[a: int]]")  [assignment]']
+Line 97: Unexpected errors ['generics_paramspec_variance.py:97: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]']
+Line 98: Unexpected errors ['generics_paramspec_variance.py:98: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]']
+Line 99: Unexpected errors ['generics_paramspec_variance.py:99: error: Unexpected argument to "ParamSpec()"  [misc]']
+Line 133: Unexpected errors ['generics_paramspec_variance.py:133: error: Incompatible types in assignment (expression has type "CovariantParamSpecOld[[int]]", variable has type "CovariantParamSpecOld[[object]]")  [assignment]']
+Line 152: Unexpected errors ['generics_paramspec_variance.py:152: error: Incompatible types in assignment (expression has type "InferredCovariantParamSpecOld[[int]]", variable has type "InferredCovariantParamSpecOld[[object]]")  [assignment]']
+"""
+output = """
+generics_paramspec_variance.py:14: error: Incompatible types in assignment (expression has type "InvariantParamSpec[[int]]", variable has type "InvariantParamSpec[[object]]")  [assignment]
+generics_paramspec_variance.py:21: error: Incompatible types in assignment (expression has type "ContravariantParamSpec[[int]]", variable has type "ContravariantParamSpec[[object]]")  [assignment]
+generics_paramspec_variance.py:31: error: Incompatible types in assignment (expression has type "CovariantParamSpec[[int]]", variable has type "CovariantParamSpec[[object]]")  [assignment]
+generics_paramspec_variance.py:61: error: Incompatible types in assignment (expression has type "InitP[[*, a: int]]", variable has type "InitP[[a: int]]")  [assignment]
+generics_paramspec_variance.py:63: error: Incompatible types in assignment (expression has type "InitP[[int]]", variable has type "InitP[[a: int]]")  [assignment]
+generics_paramspec_variance.py:65: error: Incompatible types in assignment (expression has type "InitP[[b: int]]", variable has type "InitP[[a: int]]")  [assignment]
+generics_paramspec_variance.py:69: error: Incompatible types in assignment (expression has type "InitP[[a: int, b: str]]", variable has type "InitP[[a: int]]")  [assignment]
+generics_paramspec_variance.py:84: error: Incompatible types in assignment (expression has type "OutitP[[*, a: int]]", variable has type "OutitP[[a: int]]")  [assignment]
+generics_paramspec_variance.py:86: error: Incompatible types in assignment (expression has type "OutitP[[int]]", variable has type "OutitP[[a: int]]")  [assignment]
+generics_paramspec_variance.py:88: error: Incompatible types in assignment (expression has type "OutitP[[b: int]]", variable has type "OutitP[[a: int]]")  [assignment]
+generics_paramspec_variance.py:92: error: Incompatible types in assignment (expression has type "OutitP[[a: int, b: str]]", variable has type "OutitP[[a: int]]")  [assignment]
+generics_paramspec_variance.py:97: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_variance.py:98: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_variance.py:99: error: Unexpected argument to "ParamSpec()"  [misc]
+generics_paramspec_variance.py:100: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_variance.py:100: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_variance.py:101: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_variance.py:101: error: Unexpected argument to "ParamSpec()"  [misc]
+generics_paramspec_variance.py:102: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
+generics_paramspec_variance.py:102: error: Unexpected argument to "ParamSpec()"  [misc]
+generics_paramspec_variance.py:110: error: Incompatible types in assignment (expression has type "InvariantParamSpecOld[[bool]]", variable has type "InvariantParamSpecOld[[int]]")  [assignment]
+generics_paramspec_variance.py:121: error: Incompatible types in assignment (expression has type "ContravariantParamSpecOld[[int]]", variable has type "ContravariantParamSpecOld[[object]]")  [assignment]
+generics_paramspec_variance.py:133: error: Incompatible types in assignment (expression has type "CovariantParamSpecOld[[int]]", variable has type "CovariantParamSpecOld[[object]]")  [assignment]
+generics_paramspec_variance.py:142: error: Incompatible types in assignment (expression has type "InferredContravariantParamSpecOld[[int]]", variable has type "InferredContravariantParamSpecOld[[object]]")  [assignment]
+generics_paramspec_variance.py:152: error: Incompatible types in assignment (expression has type "InferredCovariantParamSpecOld[[int]]", variable has type "InferredCovariantParamSpecOld[[object]]")  [assignment]
+"""

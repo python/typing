@@ -1,0 +1,101 @@
+conformant = "Unsupported"
+conformance_automated = "Fail"
+errors_diff = """
+Line 90: Expected 1 errors
+Line 117: Expected 1 errors
+Line 126: Expected 1 errors
+Line 22: Unexpected errors ['generics_paramspec_variance.py:22:39 - error: Type "ContravariantParamSpec[(object)]" is not assignable to declared type "ContravariantParamSpec[(int)]"']
+Line 31: Unexpected errors ['generics_paramspec_variance.py:31:39 - error: Type "CovariantParamSpec[(int)]" is not assignable to declared type "CovariantParamSpec[(object)]"']
+Line 84: Unexpected errors ['generics_paramspec_variance.py:84:13 - error: Cannot assign to attribute "t" for class "Box[OutitP[(a: int)]]"']
+Line 86: Unexpected errors ['generics_paramspec_variance.py:86:13 - error: Cannot assign to attribute "t" for class "Box[OutitP[(a: int)]]"']
+Line 97: Unexpected errors ['generics_paramspec_variance.py:97:24 - error: "contravariant" is unknown parameter to ParamSpec (reportGeneralTypeIssues)']
+Line 98: Unexpected errors ['generics_paramspec_variance.py:98:26 - error: "covariant" is unknown parameter to ParamSpec (reportGeneralTypeIssues)']
+Line 99: Unexpected errors ['generics_paramspec_variance.py:99:30 - error: "infer_variance" is unknown parameter to ParamSpec (reportGeneralTypeIssues)']
+Line 122: Unexpected errors ['generics_paramspec_variance.py:122:46 - error: Type "ContravariantParamSpecOld[(object)]" is not assignable to declared type "ContravariantParamSpecOld[(int)]"']
+Line 133: Unexpected errors ['generics_paramspec_variance.py:133:46 - error: Type "CovariantParamSpecOld[(int)]" is not assignable to declared type "CovariantParamSpecOld[(object)]"']
+Line 143: Unexpected errors ['generics_paramspec_variance.py:143:60 - error: Type "InferredContravariantParamSpecOld[(object)]" is not assignable to declared type "InferredContravariantParamSpecOld[(int)]"']
+Line 152: Unexpected errors ['generics_paramspec_variance.py:152:60 - error: Type "InferredCovariantParamSpecOld[(int)]" is not assignable to declared type "InferredCovariantParamSpecOld[(object)]"']
+"""
+output = """
+generics_paramspec_variance.py:14:42 - error: Type "InvariantParamSpec[(int)]" is not assignable to declared type "InvariantParamSpec[(object)]"
+  "InvariantParamSpec[(int)]" is not assignable to "InvariantParamSpec[(object)]"
+    Type parameter "InOutP@InvariantParamSpec" is invariant, but "(int)" is not the same as "(object)" (reportAssignmentType)
+generics_paramspec_variance.py:15:39 - error: Type "InvariantParamSpec[(object)]" is not assignable to declared type "InvariantParamSpec[(int)]"
+  "InvariantParamSpec[(object)]" is not assignable to "InvariantParamSpec[(int)]"
+    Type parameter "InOutP@InvariantParamSpec" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_variance.py:21:42 - error: Type "ContravariantParamSpec[(int)]" is not assignable to declared type "ContravariantParamSpec[(object)]"
+  "ContravariantParamSpec[(int)]" is not assignable to "ContravariantParamSpec[(object)]"
+    Type parameter "InP@ContravariantParamSpec" is invariant, but "(int)" is not the same as "(object)" (reportAssignmentType)
+generics_paramspec_variance.py:22:39 - error: Type "ContravariantParamSpec[(object)]" is not assignable to declared type "ContravariantParamSpec[(int)]"
+  "ContravariantParamSpec[(object)]" is not assignable to "ContravariantParamSpec[(int)]"
+    Type parameter "InP@ContravariantParamSpec" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_variance.py:30:36 - error: Type "CovariantParamSpec[(object)]" is not assignable to declared type "CovariantParamSpec[(int)]"
+  "CovariantParamSpec[(object)]" is not assignable to "CovariantParamSpec[(int)]"
+    Type parameter "OutP@CovariantParamSpec" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_variance.py:31:39 - error: Type "CovariantParamSpec[(int)]" is not assignable to declared type "CovariantParamSpec[(object)]"
+  "CovariantParamSpec[(int)]" is not assignable to "CovariantParamSpec[(object)]"
+    Type parameter "OutP@CovariantParamSpec" is invariant, but "(int)" is not the same as "(object)" (reportAssignmentType)
+generics_paramspec_variance.py:61:12 - error: Cannot assign to attribute "t" for class "Box[InitP[(a: int)]]"
+  "InitP[(*, a: int)]" is not assignable to "InitP[(a: int)]"
+    Type parameter "P@InitP" is invariant, but "(*, a: int)" is not the same as "(a: int)" (reportAttributeAccessIssue)
+generics_paramspec_variance.py:63:12 - error: Cannot assign to attribute "t" for class "Box[InitP[(a: int)]]"
+  "InitP[(a: int, /)]" is not assignable to "InitP[(a: int)]"
+    Type parameter "P@InitP" is invariant, but "(a: int, /)" is not the same as "(a: int)" (reportAttributeAccessIssue)
+generics_paramspec_variance.py:65:12 - error: Cannot assign to attribute "t" for class "Box[InitP[(a: int)]]"
+  "InitP[(b: int)]" is not assignable to "InitP[(a: int)]"
+    Type parameter "P@InitP" is invariant, but "(b: int)" is not the same as "(a: int)" (reportAttributeAccessIssue)
+generics_paramspec_variance.py:69:12 - error: Cannot assign to attribute "t" for class "Box[InitP[(a: int)]]"
+  "InitP[(a: int, b: str)]" is not assignable to "InitP[(a: int)]"
+    Type parameter "P@InitP" is invariant, but "(a: int, b: str)" is not the same as "(a: int)" (reportAttributeAccessIssue)
+generics_paramspec_variance.py:84:13 - error: Cannot assign to attribute "t" for class "Box[OutitP[(a: int)]]"
+  "OutitP[(*, a: int)]" is not assignable to "OutitP[(a: int)]"
+    Type parameter "P@OutitP" is invariant, but "(*, a: int)" is not the same as "(a: int)" (reportAttributeAccessIssue)
+generics_paramspec_variance.py:86:13 - error: Cannot assign to attribute "t" for class "Box[OutitP[(a: int)]]"
+  "OutitP[(a: int, /)]" is not assignable to "OutitP[(a: int)]"
+    Type parameter "P@OutitP" is invariant, but "(a: int, /)" is not the same as "(a: int)" (reportAttributeAccessIssue)
+generics_paramspec_variance.py:88:13 - error: Cannot assign to attribute "t" for class "Box[OutitP[(a: int)]]"
+  "OutitP[(b: int)]" is not assignable to "OutitP[(a: int)]"
+    Type parameter "P@OutitP" is invariant, but "(b: int)" is not the same as "(a: int)" (reportAttributeAccessIssue)
+generics_paramspec_variance.py:92:13 - error: Cannot assign to attribute "t" for class "Box[OutitP[(a: int)]]"
+  "OutitP[(a: int, b: str)]" is not assignable to "OutitP[(a: int)]"
+    Type parameter "P@OutitP" is invariant, but "(a: int, b: str)" is not the same as "(a: int)" (reportAttributeAccessIssue)
+generics_paramspec_variance.py:97:24 - error: "contravariant" is unknown parameter to ParamSpec (reportGeneralTypeIssues)
+generics_paramspec_variance.py:98:26 - error: "covariant" is unknown parameter to ParamSpec (reportGeneralTypeIssues)
+generics_paramspec_variance.py:99:30 - error: "infer_variance" is unknown parameter to ParamSpec (reportGeneralTypeIssues)
+generics_paramspec_variance.py:100:28 - error: "covariant" is unknown parameter to ParamSpec (reportGeneralTypeIssues)
+generics_paramspec_variance.py:100:44 - error: "contravariant" is unknown parameter to ParamSpec (reportGeneralTypeIssues)
+generics_paramspec_variance.py:101:28 - error: "covariant" is unknown parameter to ParamSpec (reportGeneralTypeIssues)
+generics_paramspec_variance.py:101:44 - error: "infer_variance" is unknown parameter to ParamSpec (reportGeneralTypeIssues)
+generics_paramspec_variance.py:102:28 - error: "contravariant" is unknown parameter to ParamSpec (reportGeneralTypeIssues)
+generics_paramspec_variance.py:102:48 - error: "infer_variance" is unknown parameter to ParamSpec (reportGeneralTypeIssues)
+generics_paramspec_variance.py:110:14 - error: Type "InvariantParamSpecOld[(bool)]" is not assignable to declared type "InvariantParamSpecOld[(int)]"
+  "InvariantParamSpecOld[(bool)]" is not assignable to "InvariantParamSpecOld[(int)]"
+    Type parameter "P@InvariantParamSpecOld" is invariant, but "(bool)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_variance.py:111:14 - error: Type "InvariantParamSpecOld[(object)]" is not assignable to declared type "InvariantParamSpecOld[(int)]"
+  "InvariantParamSpecOld[(object)]" is not assignable to "InvariantParamSpecOld[(int)]"
+    Type parameter "P@InvariantParamSpecOld" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_variance.py:121:49 - error: Type "ContravariantParamSpecOld[(int)]" is not assignable to declared type "ContravariantParamSpecOld[(object)]"
+  "ContravariantParamSpecOld[(int)]" is not assignable to "ContravariantParamSpecOld[(object)]"
+    Type parameter "InP@ContravariantParamSpecOld" is invariant, but "(int)" is not the same as "(object)" (reportAssignmentType)
+generics_paramspec_variance.py:122:46 - error: Type "ContravariantParamSpecOld[(object)]" is not assignable to declared type "ContravariantParamSpecOld[(int)]"
+  "ContravariantParamSpecOld[(object)]" is not assignable to "ContravariantParamSpecOld[(int)]"
+    Type parameter "InP@ContravariantParamSpecOld" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_variance.py:132:43 - error: Type "CovariantParamSpecOld[(object)]" is not assignable to declared type "CovariantParamSpecOld[(int)]"
+  "CovariantParamSpecOld[(object)]" is not assignable to "CovariantParamSpecOld[(int)]"
+    Type parameter "OutP@CovariantParamSpecOld" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_variance.py:133:46 - error: Type "CovariantParamSpecOld[(int)]" is not assignable to declared type "CovariantParamSpecOld[(object)]"
+  "CovariantParamSpecOld[(int)]" is not assignable to "CovariantParamSpecOld[(object)]"
+    Type parameter "OutP@CovariantParamSpecOld" is invariant, but "(int)" is not the same as "(object)" (reportAssignmentType)
+generics_paramspec_variance.py:142:63 - error: Type "InferredContravariantParamSpecOld[(int)]" is not assignable to declared type "InferredContravariantParamSpecOld[(object)]"
+  "InferredContravariantParamSpecOld[(int)]" is not assignable to "InferredContravariantParamSpecOld[(object)]"
+    Type parameter "InferP@InferredContravariantParamSpecOld" is invariant, but "(int)" is not the same as "(object)" (reportAssignmentType)
+generics_paramspec_variance.py:143:60 - error: Type "InferredContravariantParamSpecOld[(object)]" is not assignable to declared type "InferredContravariantParamSpecOld[(int)]"
+  "InferredContravariantParamSpecOld[(object)]" is not assignable to "InferredContravariantParamSpecOld[(int)]"
+    Type parameter "InferP@InferredContravariantParamSpecOld" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_variance.py:151:57 - error: Type "InferredCovariantParamSpecOld[(object)]" is not assignable to declared type "InferredCovariantParamSpecOld[(int)]"
+  "InferredCovariantParamSpecOld[(object)]" is not assignable to "InferredCovariantParamSpecOld[(int)]"
+    Type parameter "InferP@InferredCovariantParamSpecOld" is invariant, but "(object)" is not the same as "(int)" (reportAssignmentType)
+generics_paramspec_variance.py:152:60 - error: Type "InferredCovariantParamSpecOld[(int)]" is not assignable to declared type "InferredCovariantParamSpecOld[(object)]"
+  "InferredCovariantParamSpecOld[(int)]" is not assignable to "InferredCovariantParamSpecOld[(object)]"
+    Type parameter "InferP@InferredCovariantParamSpecOld" is invariant, but "(int)" is not the same as "(object)" (reportAssignmentType)
+"""
