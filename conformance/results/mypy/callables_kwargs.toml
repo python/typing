@@ -2,8 +2,8 @@ conformant = "Partial"
 notes = """
 Allows callable without kwargs to be assigned to callable with unpacked kwargs.
 Does not support the `closed` and `extra_items` TypedDict class arguments.
-Does not reject passing unpacked kwargs typed with a TypedDict that has `extra_items` to a callable that has no `**kwargs`.
-Does not check the `extra_items` type of unpacked kwargs against the target callable's `**kwargs` annotation.
+Does not check the type of an unpacked TypedDict's extra items against the target callable's `**kwargs` annotation.
+Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable that has no `**kwargs`.
 """
 output = """
 callables_kwargs.py:23: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
