@@ -304,9 +304,9 @@ only::
 
 The reverse situation where the destination callable contains
 ``**kwargs: Unpack[TypedDict]`` and the source callable doesn't contain
-``**kwargs`` should be disallowed. This is because, we cannot be sure that
-additional keyword arguments are not being passed in when an instance of a
-subclass had been assigned to a variable with a base class type and then
+``**kwargs`` should be disallowed, if the TypedDict is :term:`closed`. This is because
+we cannot be sure that additional keyword arguments are not being passed in when an
+instance of a subclass had been assigned to a variable with a base class type and then
 unpacked in the destination callable invocation::
 
     def dest(**kwargs: Unpack[Animal]): ...
@@ -366,8 +366,8 @@ traditionally typed ``**kwargs`` aren't checked for keyword names.
 To summarize, function parameters should behave contravariantly and function
 return types should behave covariantly.
 
-Passing kwargs inside a function to another function
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Unpacking a TypedDict as keyword arguments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :ref:`A previous point <PEP 692 assignment dest no kwargs>`
 mentions the problem of possibly passing additional keyword arguments by
@@ -413,9 +413,10 @@ it needs completely ignoring any additional values.
 The calls to ``bar`` and ``spam`` will fail because an unexpected keyword
 argument will be passed to the ``takes_name`` function.
 
-Therefore, it is only safe to pass ``kwargs`` hinted with an unpacked, non-:term:`closed` ``TypedDict``
-to another function if that function has ``**kwargs`` in its signature as well. Type checkers should
-error if the ``TypedDict`` has :term:`extra items`, and may error if the ``TypedDict`` is :term:`open`.
+Therefore, it is only safe to unpack a non-:term:`closed` TypedDict in a function call
+if that function has ``**kwargs`` in its signature, and any :term:`extra items` are assignable to the type of ``**kwargs``.
+If the function being called has ``**kwargs``, checkers should error if the TypedDict's extra items are not assignable to the type of ``**kwargs``.
+If the function being called does not have ``**kwargs``, checkers may error if the TypedDict is :term:`open`.
 
 In cases similar to the ``bar`` function above the problem could be worked
 around by marking ``Animal`` with ``closed=True``, or by explicitly dereferencing desired
