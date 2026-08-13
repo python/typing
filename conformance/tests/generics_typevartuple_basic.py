@@ -61,10 +61,10 @@ class ClassA(Generic[Shape]):  # E: not unpacked
         ...
 
 
-# > TypeVarTuple does not yet support specification of bounds, constraints.
+# > TypeVarTuple does not support type constraints.
 
 Ts2 = TypeVarTuple("Ts2", int, float)  # E
-Ts3 = TypeVarTuple("Ts3", bound=int)  # E
+Ts3 = TypeVarTuple("Ts3", bound=int)  # E: bound is unavailable in Python 3.12
 
 
 # > If the same TypeVarTuple instance is used in multiple places in a signature

@@ -1190,13 +1190,15 @@ for two reasons:
 * To improve readability: the star also functions as an explicit visual
   indicator that the type variable tuple is not a normal type variable.
 
-Type Constraints and Type Bounds: Not Supported
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Type Constraints and Type Bounds
+""""""""""""""""""""""""""""""""
 
-``TypeVarTuple`` does not currently support specification of:
+``TypeVarTuple`` does not support type constraints such as
+``TypeVar('T', int, float)``.
 
-* Type constraints (``TypeVar('T', int, float)``)
-* Type bounds (``TypeVar('T', bound=ParentClass)``)
+The ``TypeVarTuple`` constructor accepts a ``bound`` argument beginning in
+Python 3.15 and in ``typing_extensions`` 4.16 and newer. As with ``ParamSpec``,
+the typing semantics of this argument are not yet specified.
 
 Type Variable Tuple Equality
 """"""""""""""""""""""""""""
