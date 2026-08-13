@@ -2,7 +2,7 @@
 Tests variance of TypeVarTuple.
 """
 
-# Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#semantics
+# Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#variance-inference
 
 
 from typing import Generic

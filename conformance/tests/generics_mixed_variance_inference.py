@@ -2,7 +2,7 @@
 Tests variance inference for mixed type parameters.
 """
 
-# Specification: https://peps.python.org/pep-0695/#variance-inference
+# Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#variance-inference
 
 class Mixed[T, *Ts, **P]:
     def f(self, x: T, /, *args: P.args, **kwargs: P.kwargs) -> tuple[*Ts]:

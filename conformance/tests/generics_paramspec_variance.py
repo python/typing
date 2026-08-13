@@ -2,7 +2,7 @@
 Tests variance of ParamSpec.
 """
 
-# Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#semantics
+# Specification: https://typing.readthedocs.io/en/latest/spec/generics.html#variance-inference
 
 
 from typing import Callable, Generic, ParamSpec
