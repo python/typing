@@ -2794,14 +2794,18 @@ Since ``lower`` is assignable to ``upper``, ``T3`` is covariant.
 Auto Variance For Traditional Type Variables
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The existing ``TypeVar``, ``TypeVarTuple`` and ``ParamSpec`` class constructors
-accept keyword parameters named ``covariant`` and ``contravariant``.
-If both of these are ``False``, the
-type variable is assumed to be invariant. PEP 695 adds another keyword
-parameter named ``infer_variance`` indicating that a type checker should use
-inference to determine whether the type variable is invariant, covariant or
-contravariant. Type parameters that are implicitly allocated using the new
-syntax always have inferred variance.
+The ``TypeVar``, ``TypeVarTuple``, and ``ParamSpec`` constructors accept the
+keyword parameters ``covariant``, ``contravariant``, and ``infer_variance``.
+At most one of these parameters may be ``True``. If all three are ``False``,
+the type variable is invariant. If ``infer_variance`` is ``True``, a type
+checker should infer whether the type variable is invariant, covariant, or
+contravariant.
+
+:pep:`695` introduced ``infer_variance`` for ``TypeVar``. The ``TypeVarTuple``
+constructor accepts these variance parameters beginning in Python 3.15;
+``typing_extensions`` provides a backport starting with version 4.16. Type
+parameters implicitly allocated using the new syntax always have inferred
+variance.
 
 A generic class that uses the traditional syntax may include combinations of
 type variables with explicit and inferred variance.
