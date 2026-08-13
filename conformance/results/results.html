@@ -1553,7 +1553,12 @@
                                 <li>Does not treat <code>*args: Any, **kargs: Any</code> as <code>...</code> when separated by keyword parameter.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not support callback protocols with PEP 695 ParamSpec type parameters.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -1576,7 +1581,12 @@
                     <tr>
                         <th scope="row">callables_protocol</th>
                         <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not support callback protocols with PEP 695 ParamSpec type parameters.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -1585,7 +1595,12 @@
                     <tr>
                         <th scope="row">callables_subtyping</th>
                         <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not support callback protocols with PEP 695 ParamSpec type parameters.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -1594,7 +1609,7 @@
                     <tr class="summary">
                         <td></td>
                         <td>3 / 4 • 75.0%</td>
-                        <td>4 / 4 • 100.0%</td>
+                        <td>2.5 / 4 • 62.5%</td>
                         <td>4 / 4 • 100.0%</td>
                         <td>4 / 4 • 100.0%</td>
                         <td>4 / 4 • 100.0%</td>
@@ -2708,7 +2723,7 @@
                     <tr>
                         <td></td>
                         <td>108.5 / 145 • 74.8%</td>
-                        <td>129.5 / 145 • 89.3%</td>
+                        <td>128 / 145 • 88.3%</td>
                         <td>140.5 / 145 • 96.9%</td>
                         <td>135.5 / 145 • 93.4%</td>
                         <td>128 / 145 • 88.3%</td>
