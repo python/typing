@@ -27,18 +27,13 @@ callables_kwargs.py:104: note: "TDProtocol5.__call__" has type "def __call__(sel
 callables_kwargs.py:112: error: Overlap between parameter names and ** TypedDict items: "v1"  [misc]
 callables_kwargs.py:123: error: Unpack item in ** parameter must be a TypedDict  [misc]
 callables_kwargs.py:145: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
-callables_kwargs.py:149: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
-callables_kwargs.py:153: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
-callables_kwargs.py:193: error: Name "func10" already defined on line 180  [no-redef]
+callables_kwargs.py:149: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 135: Expected 1 errors
-Line 176: Expected 1 errors
-Line 194: Expected 1 errors
-Line 195: Expected 1 errors
+Line 184: Expected 1 errors
+Line 185: Expected 1 errors
 Line 145: Unexpected errors ['callables_kwargs.py:145: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 149: Unexpected errors ['callables_kwargs.py:149: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 153: Unexpected errors ['callables_kwargs.py:153: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 193: Unexpected errors ['callables_kwargs.py:193: error: Name "func10" already defined on line 180  [no-redef]']
+Line 149: Unexpected errors ['callables_kwargs.py:149: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 """

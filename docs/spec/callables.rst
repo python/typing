@@ -413,10 +413,9 @@ it needs completely ignoring any additional values.
 The calls to ``bar`` and ``spam`` will fail because an unexpected keyword
 argument will be passed to the ``takes_name`` function.
 
-Therefore, it is only safe to pass ``kwargs`` hinted with an unpacked, non-closed ``TypedDict``
-to another function if that function has ``**kwargs`` in its signature as well. In this situation,
-type checkers should error if the ``TypedDict`` is explicitly open (``closed=False``) or has ``extra_items``.
-Additionally, type checkers may error if the ``TypedDict`` is implicitly open.
+Therefore, it is only safe to pass ``kwargs`` hinted with an unpacked, non-:term:`closed` ``TypedDict``
+to another function if that function has ``**kwargs`` in its signature as well. Type checkers should
+error if the ``TypedDict`` has :term:`extra items`, and may error if the ``TypedDict`` is :term:`open`.
 
 In cases similar to the ``bar`` function above the problem could be worked
 around by marking ``Animal`` with ``closed=True``, or by explicitly dereferencing desired

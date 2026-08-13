@@ -142,15 +142,11 @@ class TD3(TypedDict):
     name: str
 
 
-class TD4(TypedDict, closed=False):
+class TD4(TypedDict, closed=True):
     name: str
 
 
-class TD5(TypedDict, closed=True):
-    name: str
-
-
-class TD6(TypedDict, extra_items=int):
+class TD5(TypedDict, extra_items=int):
     name: str
 
 
@@ -163,9 +159,8 @@ def takes_name_kwargs(name: str, **kwargs) -> None:
 
 
 # > It is only safe to pass ``kwargs`` hinted with an unpacked, non-closed ``TypedDict``
-# > to another function if that function has ``**kwargs`` in its signature as well. In this situation,
-# > type checkers should error if the ``TypedDict`` is explicitly open (``closed=False``) or has ``extra_items``.
-# > Additionally, type checkers may error if the ``TypedDict`` is implicitly open.
+# > to another function if that function has ``**kwargs`` in its signature as well. Type checkers
+# > should error if the ``TypedDict`` has ``extra_items``, and may error if the ``TypedDict`` is open.
 
 def func8(**kwargs: Unpack[TD3]) -> None:
     takes_name(**kwargs)  # E?: a subtype may contain unknown keys
@@ -173,11 +168,6 @@ def func8(**kwargs: Unpack[TD3]) -> None:
 
 
 def func9(**kwargs: Unpack[TD4]) -> None:
-    takes_name(**kwargs)  # E: a subtype may contain unknown keys
-    takes_name_kwargs(**kwargs)
-
-
-def func10(**kwargs: Unpack[TD5]) -> None:
     takes_name(**kwargs)
     takes_name_kwargs(**kwargs)
 
@@ -190,7 +180,7 @@ def takes_name_int_kwargs(name: str, **kwargs: int) -> None:
     ...
 
 
-def func10(**kwargs: Unpack[TD6]) -> None:
+def func10(**kwargs: Unpack[TD5]) -> None:
     takes_name(**kwargs)  # E: extra items may be present
     takes_name_str_kwargs(**kwargs)  # E: extra items type is not compatible
     takes_name_int_kwargs(**kwargs)
