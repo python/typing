@@ -611,6 +611,20 @@
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
+                        <th scope="row">generics_mixed_variance_inference</th>
+                        <td class="conformant">Pass</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not infer covariance for a TypeVarTuple in a class with mixed type parameters.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row">generics_paramspec_basic</th>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -650,6 +664,20 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">generics_paramspec_variance</th>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not error when a ParamSpec is used in a position that violates its explicit variance.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant">Unsupported</td>
                     </tr>
                     <tr>
                         <th scope="row">generics_scoping</th>
@@ -827,7 +855,12 @@
                                 <li>Does not enforce that tuples captured by <code>TypeVarTuple</code> are same length.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Doesn't error when multiple type variable tuples appear in a PEP 695 type parameter list; only detects the <code>Generic[...]</code> form.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
                             Partial
@@ -895,6 +928,20 @@
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
+                        <th scope="row">generics_typevartuple_variance</th>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="not-conformant">Unsupported</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not error when a TypeVarTuple is used in a position that violates its explicit variance.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant">Unsupported</td>
+                    </tr>
+                    <tr>
                         <th scope="row">generics_upper_bound</th>
                         <td class="partially-conformant tooltip">
                             Partial
@@ -947,12 +994,12 @@
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>22.5 / 30 • 75.0%</td>
-                        <td>28.5 / 30 • 95.0%</td>
-                        <td>30 / 30 • 100.0%</td>
-                        <td>28.5 / 30 • 95.0%</td>
-                        <td>27 / 30 • 90.0%</td>
-                        <td>29.5 / 30 • 98.3%</td>
+                        <td>23.5 / 33 • 71.2%</td>
+                        <td>28 / 33 • 84.8%</td>
+                        <td>30 / 33 • 90.9%</td>
+                        <td>28.5 / 33 • 86.4%</td>
+                        <td>29 / 33 • 87.9%</td>
+                        <td>30 / 33 • 90.9%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -1459,21 +1506,41 @@
                     </tr>
                     <tr>
                         <th scope="row">protocols_variance</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>False report of ParamSpec variance keywords.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Doesn't support variance keywords to ParamSpec</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Doesn't support variance keyword arguments to ParamSpec.</li>
+                            </ul>
+                        </td>
                         <td class="not-conformant">Unsupported</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>False report of ParamSpec variance keywords.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr class="summary">
                         <td></td>
+                        <td>9.5 / 11 • 86.4%</td>
                         <td>10 / 11 • 90.9%</td>
-                        <td>10 / 11 • 90.9%</td>
-                        <td>11 / 11 • 100.0%</td>
-                        <td>11 / 11 • 100.0%</td>
+                        <td>10.5 / 11 • 95.5%</td>
+                        <td>10.5 / 11 • 95.5%</td>
                         <td>6.5 / 11 • 59.1%</td>
-                        <td>11 / 11 • 100.0%</td>
+                        <td>10.5 / 11 • 95.5%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -1491,7 +1558,12 @@
                                 <li>Does not treat <code>*args: Any, **kargs: Any</code> as <code>...</code> when separated by keyword parameter.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not support callback protocols with PEP 695 ParamSpec type parameters.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -1514,7 +1586,12 @@
                     <tr>
                         <th scope="row">callables_protocol</th>
                         <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not support callback protocols with PEP 695 ParamSpec type parameters.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -1523,7 +1600,12 @@
                     <tr>
                         <th scope="row">callables_subtyping</th>
                         <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not support callback protocols with PEP 695 ParamSpec type parameters.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -1532,7 +1614,7 @@
                     <tr class="summary">
                         <td></td>
                         <td>3 / 4 • 75.0%</td>
-                        <td>4 / 4 • 100.0%</td>
+                        <td>2.5 / 4 • 62.5%</td>
                         <td>4 / 4 • 100.0%</td>
                         <td>4 / 4 • 100.0%</td>
                         <td>4 / 4 • 100.0%</td>
@@ -2645,12 +2727,12 @@
                 <tfoot>
                     <tr>
                         <td></td>
-                        <td>108 / 142 • 76.1%</td>
-                        <td>130 / 142 • 91.5%</td>
-                        <td>141 / 142 • 99.3%</td>
-                        <td>136 / 142 • 95.8%</td>
-                        <td>126 / 142 • 88.7%</td>
-                        <td>140 / 142 • 98.6%</td>
+                        <td>108.5 / 145 • 74.8%</td>
+                        <td>128 / 145 • 88.3%</td>
+                        <td>140.5 / 145 • 96.9%</td>
+                        <td>135.5 / 145 • 93.4%</td>
+                        <td>128 / 145 • 88.3%</td>
+                        <td>140 / 145 • 96.6%</td>
                     </tr>
                 </tfoot>
             </table>

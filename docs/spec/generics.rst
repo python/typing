@@ -678,8 +678,9 @@ Prior to 3.12, the ``ParamSpec`` constructor can be used.
    P = ParamSpec("WrongName") # Rejected because P =/= WrongName
 
 The runtime should accept ``bound``\ s and ``covariant`` and ``contravariant``
-arguments in the declaration just as ``typing.TypeVar`` does, but for now we
-will defer the standardization of the semantics of those options to a later PEP.
+arguments in the declaration just as ``typing.TypeVar`` does.
+
+We defer the standardization of the semantics of the ``bound`` option to a later PEP.
 
 .. _`paramspec_valid_use_locations`:
 
@@ -1189,14 +1190,15 @@ for two reasons:
 * To improve readability: the star also functions as an explicit visual
   indicator that the type variable tuple is not a normal type variable.
 
-Variance, Type Constraints and Type Bounds: Not Supported
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Type Constraints and Type Bounds
+""""""""""""""""""""""""""""""""
 
-``TypeVarTuple`` does not currently support specification of:
+``TypeVarTuple`` does not support type constraints such as
+``TypeVar('T', int, float)``.
 
-* Variance (e.g. ``TypeVar('T', covariant=True)``)
-* Type constraints (``TypeVar('T', int, float)``)
-* Type bounds (``TypeVar('T', bound=ParentClass)``)
+The ``TypeVarTuple`` constructor accepts a ``bound`` argument beginning in
+Python 3.15 and in ``typing_extensions`` 4.16 and newer. As with ``ParamSpec``,
+the typing semantics of this argument are not yet specified.
 
 Type Variable Tuple Equality
 """"""""""""""""""""""""""""
@@ -2712,25 +2714,38 @@ The algorithm for computing the variance of a type parameter is as follows.
 
 For each type parameter in a generic class:
 
-1. If the type parameter is variadic (``TypeVarTuple``) or a parameter
-specification (``ParamSpec``), it is always considered invariant. No further
-inference is needed.
+1. If the type parameter comes from a traditional
+``TypeVar``/``TypeVarTuple``/``ParamSpec`` declaration and is not constructed
+with ``infer_variance=True`` (see below), its variance is specified by the
+constructor call. No further inference is needed.
 
-2. If the type parameter comes from a traditional ``TypeVar`` declaration and
-is not specified as ``infer_variance`` (see below), its variance is specified
-by the ``TypeVar`` constructor call. No further inference is needed.
-
-3. Create two specialized versions of the class. We'll refer to these as
+2. Create two specialized versions of the class. We'll refer to these as
 ``upper`` and ``lower`` specializations. In both of these specializations,
-replace all type parameters other than the one being inferred by a dummy type
-instance (a concrete anonymous class that is assumed to meet the bounds or
-constraints of the type parameter). In the ``upper`` specialized class,
-specialize the target type parameter with an ``object`` instance. This
-specialization ignores the type parameter's upper bound or constraints. In the
-``lower`` specialized class, specialize the target type parameter with itself
-(i.e. the corresponding type argument is the type parameter itself).
+replace all type parameters other than the one being inferred by a dummy
+argument of the appropriate kind:
 
-4. Determine whether ``lower`` can be assigned to ``upper`` using normal
+- for a type variable, a dummy type instance (a concrete anonymous class that
+  is assumed to meet the bounds or constraints of the type parameter)
+- for a type variable tuple, a fixed-length pack containing a single dummy type
+  instance
+- for a parameter specification, a signature taking a single positional-only
+  parameter of a dummy type
+
+Any dummy argument will do, as long as it is fixed across both specializations;
+its only purpose is to make the class fully specialized so that the target type
+parameter can be varied on its own. In the ``upper`` specialized class,
+specialize the target type parameter with:
+
+- an ``object`` instance for a type variable
+- a ``*tuple[object, ...]`` value for a type variable tuple
+- a "top signature" value for a parameter specification, i.e. a type that
+  represents the super type of every possible signature.
+
+This specialization ignores the type parameter's upper bound or constraints.
+In the ``lower`` specialized class, specialize the target type parameter with
+itself (i.e. the corresponding type argument is the type parameter itself).
+
+3. Determine whether ``lower`` can be assigned to ``upper`` using normal
 assignability rules. If so, the target type parameter is covariant. If not,
 determine whether ``upper`` can be assigned to ``lower``. If so, the target
 type parameter is contravariant. If neither of these combinations are
@@ -2776,18 +2791,21 @@ To determine the variance of ``T3``, we specialize ``ClassA`` as follows:
 Since ``lower`` is assignable to ``upper``, ``T3`` is covariant.
 
 
-Auto Variance For TypeVar
-^^^^^^^^^^^^^^^^^^^^^^^^^
+Auto Variance For Traditional Type Variables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The existing ``TypeVar`` class constructor accepts keyword parameters named
-``covariant`` and ``contravariant``. If both of these are ``False``, the
-type variable is assumed to be invariant. PEP 695 adds another keyword
-parameter named ``infer_variance`` indicating that a type checker should use
-inference to determine whether the type variable is invariant, covariant or
-contravariant. A corresponding instance variable ``__infer_variance__`` can be
-accessed at runtime to determine whether the variance is inferred. Type
-variables that are implicitly allocated using the new syntax will always
-have ``__infer_variance__`` set to ``True``.
+The ``TypeVar``, ``TypeVarTuple``, and ``ParamSpec`` constructors accept the
+keyword parameters ``covariant``, ``contravariant``, and ``infer_variance``.
+At most one of these parameters may be ``True``. If all three are ``False``,
+the type variable is invariant. If ``infer_variance`` is ``True``, a type
+checker should infer whether the type variable is invariant, covariant, or
+contravariant.
+
+:pep:`695` introduced ``infer_variance`` for ``TypeVar``. The ``TypeVarTuple``
+constructor accepts these variance parameters beginning in Python 3.15;
+``typing_extensions`` provides a backport starting with version 4.16. Type
+parameters implicitly allocated using the new syntax always have inferred
+variance.
 
 A generic class that uses the traditional syntax may include combinations of
 type variables with explicit and inferred variance.
