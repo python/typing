@@ -1,19 +1,25 @@
 conformant = "Partial"
 notes = """
 Does not check the type of an unpacked TypedDict's extra items against the target callable's `**kwargs` annotation.
+Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.
 Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable that has no `**kwargs`.
+Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
 Incorrectly rejects assigning a callable without `**kwargs` to a callable whose `**kwargs` is typed with a TypedDict that sets `extra_items=Never`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 206: Expected 1 errors
-Line 209: Expected 1 errors
+Line 212: Expected 1 errors
 Line 215: Expected 1 errors
-Line 218: Expected 1 errors
-Line 231: Expected 1 errors
-Line 232: Expected 1 errors
-Line 234: Expected 1 errors
-Line 235: Expected 1 errors
+Line 223: Expected 1 errors
+Line 226: Expected 1 errors
+Line 243: Expected 1 errors
+Line 244: Expected 1 errors
+Line 246: Expected 1 errors
+Line 247: Expected 1 errors
+Line 249: Expected 1 errors
+Line 250: Expected 1 errors
+Line 251: Expected 1 errors
+Line 252: Expected 1 errors
 Line 156: Unexpected errors ["`(*, v1: int, v3: str, v2: str = '') -> None` is not assignable to `TDProtocol8` [bad-assignment]"]
 """
 output = """

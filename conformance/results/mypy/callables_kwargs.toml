@@ -3,7 +3,9 @@ notes = """
 Allows callable without kwargs to be assigned to callable with unpacked kwargs.
 Does not support the `closed` and `extra_items` TypedDict class arguments.
 Does not check the type of an unpacked TypedDict's extra items against the target callable's `**kwargs` annotation.
+Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.
 Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable that has no `**kwargs`.
+Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
 """
 output = """
 callables_kwargs.py:23: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
@@ -35,14 +37,18 @@ callables_kwargs.py:178: error: Unexpected keyword argument "extra_items" for "_
 conformance_automated = "Fail"
 errors_diff = """
 Line 154: Expected 1 errors
-Line 206: Expected 1 errors
-Line 209: Expected 1 errors
+Line 212: Expected 1 errors
 Line 215: Expected 1 errors
-Line 218: Expected 1 errors
-Line 231: Expected 1 errors
-Line 232: Expected 1 errors
-Line 234: Expected 1 errors
-Line 235: Expected 1 errors
+Line 223: Expected 1 errors
+Line 226: Expected 1 errors
+Line 243: Expected 1 errors
+Line 244: Expected 1 errors
+Line 246: Expected 1 errors
+Line 247: Expected 1 errors
+Line 249: Expected 1 errors
+Line 250: Expected 1 errors
+Line 251: Expected 1 errors
+Line 252: Expected 1 errors
 Line 23: Unexpected errors ['callables_kwargs.py:23: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 27: Unexpected errors ['callables_kwargs.py:27: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 166: Unexpected errors ['callables_kwargs.py:166: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
