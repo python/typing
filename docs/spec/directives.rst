@@ -154,7 +154,7 @@ left undefined by the typing spec at this time.
 Version and platform checking
 -----------------------------
 
-Type checkers should support narrowing based on:
+Type checkers should understand code paths as definitely reachable or not reachable due to comparison tests against these symbols:
     * ``sys.version_info``
     * ``sys.platform``
     * ``sys.implementation.version``
@@ -176,8 +176,9 @@ Type checkers should support the following comparison patterns:
     * ``sys.version_info >= <2-tuple>``
     * ``sys.version_info < <2-tuple>``
 
-Comparisons checks are only supported against the first two elements of the version tuple. 
-Use of named attributes is not mandated.
+Comparison checks are only supported against the first two elements of the version tuple.
+It should be noted that type checkers may choose to also support the 3-tuple ``sys.version_info >= <3-tuple>``.
+Type checkers are not expected to support comparisons with named attributes of `sys.version_info`.
 
 .. code-block:: python
    :caption: Example `sys.version_info`
@@ -186,8 +187,10 @@ Use of named attributes is not mandated.
    import sys
    if sys.version_info >= (3, 12):
        # Python 3.12+
+   elif sys.version_info >= (3, 11):
+       # Python 3.11 
    else:
-       # Python 3.11 and lower
+       # Python 3.10 and lower
 
 sys.platform checks
 ^^^^^^^^^^^^^^^^^^^
@@ -195,12 +198,13 @@ sys.platform checks
 Type checkers should support the following comparison patterns:
     * ``sys.platform == <string literal>``
     * ``sys.platform != <string literal>``
-    * ``sys.platform in <tuple of string literals>``
-    * ``sys.platform not in <tuple of string literals>``
+    * ``sys.platform.startswith(<string literal>)``
+    * ``sys.platform in <set of string literals>``
+    * ``sys.platform not in <set of string literals>``
 
     Common values: ``"linux"``, ``"darwin"``, ``"win32"``, ``"emscripten"``, ``"wasi"``
 
-The membership checks ``in`` and ``not in`` only support simple containment testing with a tuple of literal strings.
+The membership checks ``in`` and ``not in`` only support simple containment testing with a set of literal strings.
 
 .. code-block:: python
    :caption: Example `sys.platform`
@@ -220,10 +224,12 @@ sys.implementation.name checks
 Type checkers should support comparison patterns:
     * ``sys.implementation.name == <string literal>``
     * ``sys.implementation.name != <string literal>``
-    * ``sys.implementation.name in <tuple of string literals>``
-    * ``sys.implementation.name not in <tuple of string literals>``
+    * ``sys.implementation.name in <set of string literals>``
+    * ``sys.implementation.name not in <set of string literals>``
 
+    Default value: ``"cpython"``, unless configured otherwise.
     Common values: ``"cpython"``, ``"pypy"``, ``"micropython"``, ``"graalpy"``, ``"jython"``, ``"ironpython"``
+
 
 .. code-block:: python
    :caption: Example `sys.implementation.name`
@@ -239,12 +245,16 @@ Type checkers should support comparison patterns:
 sys.implementation.version checks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+``sys.implementation.version`` is a tuple, in the same format as sys.version_info. However it represents the version of the Python implementation 
+rather than the version of the Python language. This has a distinct meaning from the specific version of the Python language to which the currently 
+running interpreter conforms. For CPython this is the same as `sys.version_info`.
+
 Type checkers should support the following comparison patterns:
     * ``sys.implementation.version >= <2-tuple>``
     * ``sys.implementation.version < <2-tuple>``
 
-Comparisons checks are only supported against the first two elements of the implementation version tuple.
-Use of named attributes is not mandated.
+Comparison checks are only supported against the first two elements of the implementation version tuple.
+Type checkers are not required to support comparisons against named attributes of `sys.implementation.version`.  
 
 .. code-block:: python
    :caption: Example `sys.implementation.version`
@@ -256,39 +266,45 @@ Use of named attributes is not mandated.
    if sys.implementation.name == "micropython" and sys.implementation.version >= (1, 24):
        # MicroPython version 1.24 and above
 
-.. note::
-
-    ``sys.implementation.version`` is a tuple, in the same format as sys.version_info. However it represents the version of the Python implementation rather than the version of the Python language. 
-    This has a distinct meaning from the specific version of the Python language to which the currently running interpreter conforms. For CPython this is the same as `sys.version_info`.
-
 
 No support for complex expressions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Type checkers are only required to support the above patterns, and are not required to evaluate complex expressions involving these variables.
-For example, the pattern ``sys.platform == "linux"`` is supported but other syntax variants such as ``platform == "linux"`` and ``"win" not in sys.platform`` are not mandated.
+Type checkers are required to support the above patterns, and are not required to evaluate other comparisons or other syntax variants.
 
 Therefore checkers are **not required** to understand obfuscations such as:
 
 .. code-block:: python
     :caption: Examples of unsupported or overly complex version/platform checks
-    :emphasize-lines: 3,5,7
+    :emphasize-lines: 4,6,8
 
     import sys
     from sys import platform
+
     if "".join(reversed(sys.platform)) == "xunil": 
-        # Linux specific code
+        # Typecheckers will not be required to understand this obfuscated check
     if platform == "linux":
-        # Linux specific code
+        # Typecheckers will not be required to understand this import alias for sys.platform
     if "win" not in sys.platform:
-        # Non-Windows specific code
+        # Typecheckers will not be required to understand this reversed membership check
 
 
 Configuration
 ^^^^^^^^^^^^^
 
-Type checkers should provide configuration or CLI options to specify target sys.version, sys.platform, sys.implementation.name and sys.implementation.version. 
-The exact mechanism for this is implementation-defined by the type checker.
+Type checkers must provide configuration or CLI options to specify target ``sys.version``, ``sys.platform``, ``sys.implementation.name`` and ``sys.implementation.version``.
+
+================================  ==========================  ==============  ===========================================================================
+  Symbol                            Suggested Format            Example         Suggested Default
+================================  ==========================  ==============  ===========================================================================
+``sys.version``                   string ``"major.minor"``    ``"3.11"``      The version of the Python interpreter used to run the type checker.
+``sys.platform``                  lowercase string            ``"linux"``     The platform of the Python interpreter used to run the type checker.
+``sys.implementation.name``       lowercase string            ``"cpython"``   ``"cpython"`` unless configured otherwise.
+``sys.implementation.version``    string ``"major.minor"``    ``"3.14"``      The value used for ``sys.version`` unless configured otherwise.
+================================  ==========================  ==============  ===========================================================================
+
+The configuration options should allow users to specify the target values for these symbols, so that type checkers can evaluate the version and platform checks correctly.
+The exact mechanism and name for these configuration options is implementation-specific, and defined by each type checker.
 
 .. _`deprecated`:
 
