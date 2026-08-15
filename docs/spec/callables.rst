@@ -304,7 +304,7 @@ only::
 
 The reverse situation where the destination callable contains
 ``**kwargs: Unpack[TypedDict]`` and the source callable doesn't contain
-``**kwargs`` should be disallowed, if the TypedDict is :term:`closed`. This is because
+``**kwargs`` should be disallowed, if the TypedDict is not :term:`closed`. This is because
 we cannot be sure that additional keyword arguments are not being passed in when an
 instance of a subclass had been assigned to a variable with a base class type and then
 unpacked in the destination callable invocation::
@@ -415,8 +415,9 @@ argument will be passed to the ``takes_name`` function.
 
 Therefore, it is only safe to unpack a non-:term:`closed` TypedDict in a function call
 if that function has ``**kwargs`` in its signature, and any :term:`extra items` are assignable to the type of ``**kwargs``.
-If the function being called has ``**kwargs``, checkers should error if the TypedDict's extra items are not assignable to the type of ``**kwargs``.
-If the function being called does not have ``**kwargs``, checkers may error if the TypedDict is :term:`open`.
+
+- If the function being called has ``**kwargs``, checkers should error if the TypedDict's :term:`extra items` are not assignable to the type of ``**kwargs``. For this rule, :term:`open` TypedDicts are treated as having extra items of type ``object``.
+- If the function being called does not have ``**kwargs``, checkers may error if the TypedDict is :term:`open`, and should error if the TypedDict declares non-``Never`` :term:`extra items`.
 
 In cases similar to the ``bar`` function above the problem could be worked
 around by marking ``Animal`` with ``closed=True``, or by explicitly dereferencing desired
