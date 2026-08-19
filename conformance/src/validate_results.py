@@ -19,8 +19,9 @@ ALLOWED_RESULT_KEYS = frozenset(
 )
 
 
-def main() -> int:
-    results_dir = Path(__file__).resolve().parent.parent / "results"
+def main(results_dir: Path | None = None) -> int:
+    if results_dir is None:
+        results_dir = Path(__file__).resolve().parent.parent / "results"
     issues: list[str] = []
     checked = 0
 
