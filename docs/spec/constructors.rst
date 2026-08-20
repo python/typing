@@ -667,11 +667,17 @@ Keyword arguments in a direct metaclass call (such as the last two calls in the
 example above) require no special handling: they are validated as part of
 evaluating the call using the standard constructor call rules.
 
-Regardless of the evaluated return type of the implied metaclass call, a
-:keyword:`class` statement defines a class, and type checkers should evaluate the
-type of the bound name accordingly (``type[MyClass1]`` in the example above).
-The implied metaclass call is evaluated only for the purpose of validating
-its arguments.
+Type checkers should honor the evaluated retunr type of the implied metaclass call,
+even if the evaluated type isn't a class::
+
+    class Meta(type):
+        def __new__(cls, *args: object, **kwargs: obect) -> int:
+            return 1
+
+    class MyClass6(metaclass=Meta):
+        pass
+
+    assert_type(MyClass6, int)
 
 Type checkers may validate the implied call to :attr:`!__prepare__`:
 
