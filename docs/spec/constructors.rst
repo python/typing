@@ -387,7 +387,10 @@ constructor calls:
 2. If the class defines a ``__new__`` method or inherits a ``__new__`` method
    from a base class other than ``object``, a type checker should synthesize a
    callable from the parameters and return type of that method after it is bound
-   to the class.
+   to the class. If the ``__new__`` method's only non-``cls`` parameters are
+   ``*args`` and ``**kwargs`` (i.e. a passthrough), the method is considered
+   to not constrain the constructor signature, and this step produces no
+   callable type.
 
 3. If the return type of the method in step 2 evaluates to a type that is not a
    subclass of the class being constructed (or a union that includes such a
@@ -454,7 +457,7 @@ constructor calls:
 
 
     reveal_type(accepts_callable(A))  # ``def () -> A``
-    reveal_type(accepts_callable(B))  # ``def (*args, **kwargs) -> B | def (x: int) -> B``
+    reveal_type(accepts_callable(B))  # ``def (x: int) -> B``
     reveal_type(accepts_callable(C))  # ``def (x: int) -> int``
     reveal_type(accepts_callable(D))  # ``def () -> NoReturn``
     reveal_type(accepts_callable(E))  # ``def () -> A``
