@@ -102,3 +102,44 @@ class ClassC(Generic[T]):
 def func10(x: U) -> ClassC[U]:
     # Never is not compatible in an invariant context.
     return ClassC[Never]()  # E
+
+
+# Never | T is equivalent to T — the union collapses.
+
+type Alias1 = Never | int   # Equivalent to int
+type Alias2 = int | Never   # Equivalent to int
+
+
+def func11(x: Alias1) -> int:
+    return x  # OK — Alias1 is int
+
+
+# No type other than Never (and Any) is assignable to Never.
+
+
+def func12(x: object) -> Never:
+    return x  # E
+
+
+def func13() -> Never:
+    raise RuntimeError("never")  # OK
+
+
+# type[Never] is valid and represents an uninhabitable class object.
+
+
+def func14(cls: type[Never]) -> None:
+    pass
+
+
+# Empty containers typed as list[Never] are assignable to list[T]
+# only when T is used covariantly; list itself is invariant, so
+# list[Never] is not assignable to list[int].
+
+
+def func15() -> list[Never]:
+    return []  # OK
+
+
+def func16(x: list[Never]) -> list[int]:
+    return x  # E — list is invariant
