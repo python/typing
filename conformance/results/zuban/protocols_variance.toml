@@ -1,13 +1,7 @@
-conformant = "Partial"
-conformance_automated = "Fail"
-notes = """
-False report of ParamSpec variance keywords.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 15: Unexpected errors ['protocols_variance.py:15: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]']
 """
 output = """
-protocols_variance.py:15: error: The variance and bound arguments to ParamSpec do not have defined semantics yet  [misc]
 protocols_variance.py:22: error: Invariant type variable "T1" used in protocol where Covariant one is expected  [misc]
 protocols_variance.py:41: error: Invariant type variable "T3" used in protocol where Contravariant one is expected  [misc]
 protocols_variance.py:57: error: Invariant type variable "T1" used in protocol where Contravariant one is expected  [misc]
