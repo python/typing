@@ -300,7 +300,15 @@ they should be replaced with their solved types. If the resulting return types
 for all remaining overloads are :term:`equivalent`, proceed to step 6.
 
 If the return types are not equivalent, overload matching is ambiguous. In
-this case, assume a return type of ``Any`` and stop.
+this case, infer a return type that is :term:`assignable` to each of the
+remaining return types and permits operations supported by any of them without
+errors, then stop. A type checker may infer ``Any`` or a more precise gradual
+type that satisfies these requirements.
+
+For example, if the remaining return types are ``int`` and ``str``, the result
+should be assignable to both ``int`` and ``str``, and both ``result + 1`` and
+``result.upper()`` should be accepted. Inferring the ordinary union ``int | str``
+would not satisfy these requirements.
 
 Step 6
 ~~~~~~
@@ -395,7 +403,8 @@ Example 4::
       # both apply and are ambiguous due to Any, and
       # the return types are inconsistent.
       r2 = example4(v2, 1)
-      reveal_type(r2)  # Should reveal Any
+      int_result: int = r2  # OK
+      list_result: list[int] = r2  # OK
 
 
 .. _argument-type-expansion:

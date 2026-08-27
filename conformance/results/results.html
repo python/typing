@@ -1814,7 +1814,6 @@
                                 <li>Does not expand boolean arguments to <code>Literal[True]</code> and <code>Literal[False]</code>.</li>
                                 <li>Does not expand enum arguments to literal variants.</li>
                                 <li>Does not expand tuple arguments to possible combinations.</li>
-                                <li>Does not evaluate <code>Any</code> in some cases where overload is ambiguous.</li>
                                 <li>Evaluates <code>Any</code> in some cases where overload is not ambiguous.</li>
                             </ul>
                         </td>
@@ -1823,7 +1822,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not evaluate <code>Any</code> in some cases where overload is ambiguous.</li>
+                                <li>Infers <code>list[int]</code> for ambiguous overloads with <code>list[Any]</code> arguments, rejecting use as <code>list[str]</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
