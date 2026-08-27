@@ -1,49 +1,27 @@
-conformant = "Unsupported"
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 90: Expected 1 errors
-Line 117: Expected 1 errors
-Line 126: Expected 1 errors
-Line 19: Unexpected errors ['./generics_paramspec_variance.py:19:23: Traceback (most recent call last):', './generics_paramspec_variance.py:19:4: Traceback (most recent call last):']
-Line 22: Unexpected errors ['./generics_paramspec_variance.py:22:38: Traceback (most recent call last):']
-Line 31: Unexpected errors ['./generics_paramspec_variance.py:31:38: Traceback (most recent call last):']
-Line 84: Unexpected errors ["./generics_paramspec_variance.py:84:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP~[(*, a: int) -> Any[unannotated]] [incompatible_assignment]"]
-Line 86: Unexpected errors ["./generics_paramspec_variance.py:86:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP~[(a: int, /) -> Any[unannotated]] [incompatible_assignment]"]
-Line 109: Unexpected errors ['./generics_paramspec_variance.py:109:13: Traceback (most recent call last):']
-Line 122: Unexpected errors ['./generics_paramspec_variance.py:122:45: Traceback (most recent call last):']
-Line 133: Unexpected errors ['./generics_paramspec_variance.py:133:45: Traceback (most recent call last):']
-Line 143: Unexpected errors ['./generics_paramspec_variance.py:143:59: Traceback (most recent call last):']
-Line 152: Unexpected errors ['./generics_paramspec_variance.py:152:59: Traceback (most recent call last):']
 """
 output = """
-./generics_paramspec_variance.py:14:41: Traceback (most recent call last):
-./generics_paramspec_variance.py:15:38: Traceback (most recent call last):
-./generics_paramspec_variance.py:19:23: Traceback (most recent call last):
-./generics_paramspec_variance.py:19:4: Traceback (most recent call last):
-./generics_paramspec_variance.py:21:41: Traceback (most recent call last):
-./generics_paramspec_variance.py:22:38: Traceback (most recent call last):
-./generics_paramspec_variance.py:30:35: Traceback (most recent call last):
-./generics_paramspec_variance.py:31:38: Traceback (most recent call last):
-./generics_paramspec_variance.py:61:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP~[(*, a: int) -> Any[unannotated]] [incompatible_assignment]
-./generics_paramspec_variance.py:63:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP~[(a: int, /) -> Any[unannotated]] [incompatible_assignment]
-./generics_paramspec_variance.py:65:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP~[(b: int) -> Any[unannotated]] [incompatible_assignment]
-./generics_paramspec_variance.py:69:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP~[(a: int, b: str) -> Any[unannotated]] [incompatible_assignment]
-./generics_paramspec_variance.py:84:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP~[(*, a: int) -> Any[unannotated]] [incompatible_assignment]
-./generics_paramspec_variance.py:86:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP~[(a: int, /) -> Any[unannotated]] [incompatible_assignment]
-./generics_paramspec_variance.py:88:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP~[(b: int) -> Any[unannotated]] [incompatible_assignment]
-./generics_paramspec_variance.py:92:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP~[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP~[(a: int, b: str) -> Any[unannotated]] [incompatible_assignment]
-./generics_paramspec_variance.py:100:8: Error calling (name: str, /, *, bound: object = no argument given, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False], default: object = no argument given) -> typing.ParamSpec (with impl): Bivariant types are not supported. [incompatible_call]
-./generics_paramspec_variance.py:101:8: Error calling (name: str, /, *, bound: object = no argument given, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False], default: object = no argument given) -> typing.ParamSpec (with impl): Variance cannot be specified with infer_variance. [incompatible_call]
-./generics_paramspec_variance.py:102:8: Error calling (name: str, /, *, bound: object = no argument given, covariant: bool = Literal[False], contravariant: bool = Literal[False], infer_variance: bool = Literal[False], default: object = no argument given) -> typing.ParamSpec (with impl): Variance cannot be specified with infer_variance. [incompatible_call]
-./generics_paramspec_variance.py:109:13: Traceback (most recent call last):
-./generics_paramspec_variance.py:110:13: Traceback (most recent call last):
-./generics_paramspec_variance.py:111:13: Traceback (most recent call last):
-./generics_paramspec_variance.py:121:48: Traceback (most recent call last):
-./generics_paramspec_variance.py:122:45: Traceback (most recent call last):
-./generics_paramspec_variance.py:132:42: Traceback (most recent call last):
-./generics_paramspec_variance.py:133:45: Traceback (most recent call last):
-./generics_paramspec_variance.py:142:62: Traceback (most recent call last):
-./generics_paramspec_variance.py:143:59: Traceback (most recent call last):
-./generics_paramspec_variance.py:151:56: Traceback (most recent call last):
-./generics_paramspec_variance.py:152:59: Traceback (most recent call last):
+./generics_paramspec_variance.py:14:0: Incompatible assignment: expected ./generics_paramspec_variance.py.InvariantParamSpec[(object, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.InvariantParamSpec[(int, /) -> Any[generic_argument]] [incompatible_assignment]
+./generics_paramspec_variance.py:15:0: Incompatible assignment: expected ./generics_paramspec_variance.py.InvariantParamSpec[(int, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.InvariantParamSpec[(object, /) -> Any[generic_argument]] [incompatible_assignment]
+./generics_paramspec_variance.py:21:0: Incompatible assignment: expected ./generics_paramspec_variance.py.ContravariantParamSpec[(object, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.ContravariantParamSpec[(int, /) -> Any[generic_argument]] [incompatible_assignment]
+./generics_paramspec_variance.py:30:0: Incompatible assignment: expected ./generics_paramspec_variance.py.CovariantParamSpec[(int, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.CovariantParamSpec[(object, /) -> Any[generic_argument]] [incompatible_assignment]
+./generics_paramspec_variance.py:61:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP[(*, a: int) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:63:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP[(a: int, /) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:65:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP[(b: int) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:69:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.InitP[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.InitP[(a: int, b: str) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:88:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP[(b: int) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:90:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP[(a: int = Literal[1]) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:92:0: Incompatible types in assignment to attribute 't': expected ./generics_paramspec_variance.py.OutitP[(a: int) -> Any[unannotated]], got ./generics_paramspec_variance.py.OutitP[(a: int, b: str) -> Any[unannotated]] [incompatible_assignment]
+./generics_paramspec_variance.py:100:8: Bivariant types are not supported [incompatible_call]
+./generics_paramspec_variance.py:101:8: Type parameter cannot combine infer_variance with explicit variance [incompatible_call]
+./generics_paramspec_variance.py:102:8: Type parameter cannot combine infer_variance with explicit variance [incompatible_call]
+./generics_paramspec_variance.py:110:0: Incompatible assignment: expected ./generics_paramspec_variance.py.InvariantParamSpecOld[(int, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.InvariantParamSpecOld[(bool, /) -> Any[generic_argument]] [incompatible_assignment]
+./generics_paramspec_variance.py:111:0: Incompatible assignment: expected ./generics_paramspec_variance.py.InvariantParamSpecOld[(int, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.InvariantParamSpecOld[(object, /) -> Any[generic_argument]] [incompatible_assignment]
+./generics_paramspec_variance.py:117:4: InP has incompatible variance in method [invalid_annotation]
+./generics_paramspec_variance.py:121:0: Incompatible assignment: expected ./generics_paramspec_variance.py.ContravariantParamSpecOld[(object, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.ContravariantParamSpecOld[(int, /) -> Any[generic_argument]] [incompatible_assignment]
+./generics_paramspec_variance.py:126:4: OutP has incompatible variance in method [invalid_annotation]
+./generics_paramspec_variance.py:132:0: Incompatible assignment: expected ./generics_paramspec_variance.py.CovariantParamSpecOld[(int, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.CovariantParamSpecOld[(object, /) -> Any[generic_argument]] [incompatible_assignment]
+./generics_paramspec_variance.py:142:0: Incompatible assignment: expected ./generics_paramspec_variance.py.InferredContravariantParamSpecOld[(object, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.InferredContravariantParamSpecOld[(int, /) -> Any[generic_argument]] [incompatible_assignment]
+./generics_paramspec_variance.py:151:0: Incompatible assignment: expected ./generics_paramspec_variance.py.InferredCovariantParamSpecOld[(int, /) -> Any[generic_argument]], got ./generics_paramspec_variance.py.InferredCovariantParamSpecOld[(object, /) -> Any[generic_argument]] [incompatible_assignment]
 """

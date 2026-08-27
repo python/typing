@@ -148,15 +148,15 @@ wheels = [
 
 [[package]]
 name = "pycroscope"
-version = "0.4.0"
+version = "0.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "typeshed-client" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7c/8e/284fdc4027bf9a7c92f8256ff07006a50456ccd2ce5506d040e6ed2f2f1b/pycroscope-0.4.0.tar.gz", hash = "sha256:14b40e36f6186dd2eff712c8da91d02eb89a263a257472b49f4c59153ff380fb", size = 662901, upload-time = "2026-05-02T14:00:43.775Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9d/67/c5cb4c78c1f50f905902fb8f5ff7dcd5c321b75f1ee123354ae9f26b364f/pycroscope-0.5.0.tar.gz", hash = "sha256:573eb605f49b97e6ff5d85af115de0406b475a239d9cb3db00ccec2ef97a62ba", size = 696137, upload-time = "2026-08-27T18:13:38.707Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/50/5f/c172c08b69e29d4094e1466b63260d8daf61a3ed3c689de7936f952f1663/pycroscope-0.4.0-py3-none-any.whl", hash = "sha256:cb7440b44ed16ed927995c33867cab22503f4bff7efe504964b81fb967183223", size = 714256, upload-time = "2026-05-02T14:00:41.891Z" },
+    { url = "https://files.pythonhosted.org/packages/4c/d1/873dac15d2a9f059b5dfb2fdae56d57378023f137d73d61bea5d085e0835/pycroscope-0.5.0-py3-none-any.whl", hash = "sha256:effc2fc347c2b6175bacdd5aad8e242392eba075d22832b441c0c6ecbc7f6517", size = 747967, upload-time = "2026-08-27T18:13:37.043Z" },
 ]
 
 [[package]]

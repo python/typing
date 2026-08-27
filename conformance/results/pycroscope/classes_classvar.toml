@@ -1,10 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not reject use of `ClassVar` as a qualifier for a NamedTuple field.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 94: Expected 1 errors
 """
 output = """
 ./classes_classvar.py:40:10: Invalid type annotation (<class 'int'>, <class 'str'>) [invalid_annotation]
@@ -23,6 +18,7 @@ output = """
 ./classes_classvar.py:79:7: ClassVar can only be used for assignments in class body [invalid_qualifier]
 ./classes_classvar.py:80:19: ClassVar cannot be used in type aliases [invalid_qualifier]
 ./classes_classvar.py:89:7: Unexpected ClassVar annotation [invalid_qualifier]
+./classes_classvar.py:94:7: ClassVar cannot be used for NamedTuple fields [invalid_qualifier]
 ./classes_classvar.py:127:0: Cannot assign to class variable 'stats' via instance [incompatible_assignment]
 ./classes_classvar.py:156:0: Incompatible assignment: expected ./classes_classvar.py.ProtoA, got ./classes_classvar.py.ProtoAImpl [incompatible_assignment]
 """
