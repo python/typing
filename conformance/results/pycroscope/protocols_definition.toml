@@ -1,10 +1,5 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Incorrectly accepts an instance-only attribute as satisfying a `ClassVar` protocol member.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 369: Expected 1 errors
 """
 output = """
 ./protocols_definition.py:30:10: Incompatible argument type for things: expected collections.abc.Iterable[./protocols_definition.py.SupportsClose] but got Literal[[1]] [incompatible_argument]
@@ -28,5 +23,6 @@ output = """
 ./protocols_definition.py:339:0: Incompatible assignment: expected ./protocols_definition.py.Template6, got ./protocols_definition.py.Concrete6_Bad1 [incompatible_assignment]
 ./protocols_definition.py:340:0: Incompatible assignment: expected ./protocols_definition.py.Template6, got ./protocols_definition.py.Concrete6_Bad2 [incompatible_assignment]
 ./protocols_definition.py:341:0: Incompatible assignment: expected ./protocols_definition.py.Template6, got ./protocols_definition.py.Concrete6_Bad3 [incompatible_assignment]
+./protocols_definition.py:369:0: Incompatible assignment: expected ./protocols_definition.py.Template7, got ./protocols_definition.py.Concrete7_Bad1 [incompatible_assignment]
 ./protocols_definition.py:370:0: Incompatible assignment: expected ./protocols_definition.py.Template7, got ./protocols_definition.py.Concrete7_Bad2 [incompatible_assignment]
 """

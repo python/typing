@@ -1,12 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not honor `@override` compatibility checks for `__init__` and `__new__`:
-the incompatible constructor overrides in `ChildC2` are not flagged.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Lines 134, 135: Expected error (tag 'init')
-Lines 137, 138: Expected error (tag 'new')
 """
 output = """
 ./classes_override.py:53:4: Method does not override any base method [override_does_not_override]
@@ -14,4 +7,6 @@ output = """
 ./classes_override.py:79:4: Method does not override any base method [override_does_not_override]
 ./classes_override.py:84:4: Method does not override any base method [override_does_not_override]
 ./classes_override.py:89:4: Method does not override any base method [override_does_not_override]
+./classes_override.py:135:4: Value of __init__ incompatible with base class classes_override.ParentC [incompatible_override]
+./classes_override.py:138:4: Value of __new__ incompatible with base class classes_override.ParentC [incompatible_override]
 """

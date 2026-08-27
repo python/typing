@@ -1,10 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not support callback protocols with PEP 695 ParamSpec type parameters.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 115: Unexpected errors ['./callables_annotation.py:115:38: Traceback (most recent call last):', './callables_annotation.py:115:4: Traceback (most recent call last):']
 """
 output = """
 ./callables_annotation.py:25:4: Missing required positional argument at position 1 [incompatible_call]
@@ -19,10 +14,8 @@ output = """
 ./callables_annotation.py:59:4: Ellipsis must be used directly in Callable[..., T], not in Callable[[...], T] [invalid_annotation]
 ./callables_annotation.py:91:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got () -> str [incompatible_assignment]
 ./callables_annotation.py:93:0: Incompatible assignment: expected (int, /, **Any[explicit]) -> str, got (*, a: int) -> str [incompatible_assignment]
-./callables_annotation.py:115:38: Traceback (most recent call last):
-./callables_annotation.py:115:4: Traceback (most recent call last):
 ./callables_annotation.py:159:4: Incompatible assignment: expected ./callables_annotation.py.Proto5[Any[explicit]], got ./callables_annotation.py.Proto8 [incompatible_assignment]
-./callables_annotation.py:172:4: Incompatible assignment: expected .Callback2[Any[ellipsis_callable]] = (int, /, ****P) -> str, got () -> str [incompatible_assignment]
+./callables_annotation.py:172:4: Incompatible assignment: expected .Callback2[AnySig()] = (int, /, ****P) -> str, got () -> str [incompatible_assignment]
 ./callables_annotation.py:187:4: Incompatible assignment: expected (str, /, **Any[explicit]) -> str, got (int, str, /) -> str [incompatible_assignment]
-./callables_annotation.py:189:4: Incompatible assignment: expected .CallbackWithStr[Any[ellipsis_callable]] = (str, /, ****P) -> str, got (int, str, /) -> str [incompatible_assignment]
+./callables_annotation.py:189:4: Incompatible assignment: expected .CallbackWithStr[AnySig()] = (str, /, ****P) -> str, got (int, str, /) -> str [incompatible_assignment]
 """
