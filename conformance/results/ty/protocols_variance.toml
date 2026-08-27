@@ -1,13 +1,12 @@
-conformance_automated = "Fail"
-conformant = "Unsupported"
+conformance_automated = "Pass"
 errors_diff = """
-Line 22: Expected 1 errors
-Line 41: Expected 1 errors
-Line 57: Expected 1 errors
-Line 67: Expected 1 errors
-Line 105: Expected 1 errors
-Lines 62, 63: Expected error (tag 'covariant_in_input')
-Lines 72, 73: Expected error (tag 'contravariant_in_output')
 """
 output = """
+protocols_variance.py:22:7: error[invalid-protocol] Type variable `T1` in protocol `AnotherBox` should be covariant, but is invariant
+protocols_variance.py:41:7: error[invalid-protocol] Type variable `T3` in protocol `Protocol2` should be contravariant, but is invariant
+protocols_variance.py:57:7: error[invalid-protocol] Type variable `T1` in protocol `Protocol4` should be contravariant, but is invariant
+protocols_variance.py:62:7: error[invalid-protocol] Type variable `T1_co` in protocol `Protocol5` should be contravariant, but is covariant
+protocols_variance.py:67:7: error[invalid-protocol] Type variable `T1` in protocol `Protocol6` should be covariant, but is invariant
+protocols_variance.py:72:7: error[invalid-protocol] Type variable `T1_contra` in protocol `Protocol7` should be covariant, but is contravariant
+protocols_variance.py:105:7: error[invalid-protocol] Type variable `T1` in protocol `Protocol12` should be covariant, but is invariant
 """
