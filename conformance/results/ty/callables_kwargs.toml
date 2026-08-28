@@ -1,5 +1,8 @@
-conformant = "Pass"
+conformant = "Partial"
 conformance_automated = "Fail"
+notes = """
+Does not reject unpacking an open TypedDict in a call to a callable that has no `**kwargs`.
+"""
 errors_diff = """
 Line 210: Expected 1 errors
 Line 213: Expected 1 errors
