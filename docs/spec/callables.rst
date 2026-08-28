@@ -417,7 +417,7 @@ Therefore, it is only safe to unpack a non-:term:`closed` TypedDict in a functio
 if that function has ``**kwargs`` in its signature, and any :term:`extra items` are assignable to the type of ``**kwargs``.
 
 - If the function being called has ``**kwargs``, checkers should error if the TypedDict's :term:`extra items` are not assignable to the type of ``**kwargs``. For this rule, :term:`open` TypedDicts are treated as having extra items of type ``object``.
-- If the function being called does not have ``**kwargs``, checkers may error if the TypedDict is :term:`open`, and should error if the TypedDict declares non-``Never`` :term:`extra items`.
+- If the function being called does not have ``**kwargs``, checkers should error if the TypedDict is :term:`open`, and should error if the TypedDict declares non-``Never`` :term:`extra items`.
 
 In cases similar to the ``bar`` function above the problem could be worked
 around by marking ``Animal`` with ``closed=True``, or by explicitly dereferencing desired
