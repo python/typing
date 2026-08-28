@@ -1501,6 +1501,7 @@
                             <ul class="notes">
                                 <li>Allows callable without kwargs to be assigned to callable with unpacked kwargs.</li>
                                 <li>Does not support the <code>closed</code> and <code>extra_items</code> TypedDict class arguments.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's <code>**kwargs</code> annotation.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
@@ -1513,6 +1514,7 @@
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's <code>**kwargs</code> annotation.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                                 <li>Incorrectly rejects assigning a callable without <code>**kwargs</code> to a callable whose <code>**kwargs</code> is typed with a closed TypedDict or one that sets <code>extra_items=Never</code>.</li>
                             </ul>
@@ -1523,6 +1525,7 @@
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's <code>**kwargs</code> annotation.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                                 <li>Incorrectly rejects assigning a callable without <code>**kwargs</code> to a callable whose <code>**kwargs</code> is typed with a TypedDict that sets <code>extra_items=Never</code>.</li>
                             </ul>
@@ -1530,15 +1533,22 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Does not check the type of an open TypedDict's extra items against the target callable's <code>**kwargs</code> annotation.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Incorrectly rejects assigning a callable without <code>**kwargs</code> to a callable whose <code>**kwargs</code> is typed with a closed TypedDict or one that sets <code>extra_items=Never</code>.</li>
@@ -1569,7 +1579,7 @@
                         <td>3.5 / 4 • 87.5%</td>
                         <td>3.5 / 4 • 87.5%</td>
                         <td>3.5 / 4 • 87.5%</td>
-                        <td>4 / 4 • 100.0%</td>
+                        <td>3.5 / 4 • 87.5%</td>
                         <td>3.5 / 4 • 87.5%</td>
                     </tr>
                 </tbody>
@@ -2648,7 +2658,7 @@
                         <td>137.5 / 145 • 94.8%</td>
                         <td>140 / 145 • 96.6%</td>
                         <td>135 / 145 • 93.1%</td>
-                        <td>132 / 145 • 91.0%</td>
+                        <td>131.5 / 145 • 90.7%</td>
                         <td>144 / 145 • 99.3%</td>
                     </tr>
                 </tfoot>
