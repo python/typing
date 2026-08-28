@@ -37,10 +37,18 @@ callables_kwargs.py:178: error: Unexpected keyword argument "extra_items" for "_
 conformance_automated = "Fail"
 errors_diff = """
 Line 154: Expected 1 errors
+Line 210: Expected 1 errors
 Line 212: Expected 1 errors
+Line 213: Expected 1 errors
 Line 215: Expected 1 errors
+Line 216: Expected 1 errors
+Line 217: Expected 1 errors
+Line 221: Expected 1 errors
 Line 223: Expected 1 errors
+Line 224: Expected 1 errors
 Line 226: Expected 1 errors
+Line 227: Expected 1 errors
+Line 228: Expected 1 errors
 Line 243: Expected 1 errors
 Line 244: Expected 1 errors
 Line 246: Expected 1 errors

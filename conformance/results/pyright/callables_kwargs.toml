@@ -50,6 +50,14 @@ callables_kwargs.py:247:29 - error: Argument of type "int" cannot be assigned to
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 210: Expected 1 errors
+Line 213: Expected 1 errors
+Line 216: Expected 1 errors
+Line 217: Expected 1 errors
+Line 221: Expected 1 errors
+Line 224: Expected 1 errors
+Line 227: Expected 1 errors
+Line 228: Expected 1 errors
 Line 243: Expected 1 errors
 Line 246: Expected 1 errors
 Line 249: Expected 1 errors

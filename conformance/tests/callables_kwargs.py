@@ -203,29 +203,29 @@ def takes_closed(**kwargs: Unpack[TDClosed]) -> None:
     ...
 
 
-# > Therefore, it is only safe to unpack a non-:term:`closed` TypedDict in a function call
-# > if that function has ``**kwargs`` in its signature, and any :term:`extra items` are assignable to the type of ``**kwargs``.
+# > It is only safe to unpack a non-:term:`closed` TypedDict in a function call if that function has
+# > ``**kwargs`` in its signature, and any :term:`extra items` are assignable to the type of ``**kwargs``.
 
 def open_implicit(value: TDOpenImplicit, **kwargs: Unpack[TDOpenImplicit]) -> None:
-    takes_name(**value)  # E?: a subtype may contain unknown keys
+    takes_name(**value)  # E: a subtype may contain unknown keys
     takes_name_kwargs(**value)
     takes_name_str_kwargs(**value) # E: extra items type is not compatible
-    takes_name(**kwargs)  # E?: a subtype may contain unknown keys
+    takes_name(**kwargs)  # E: a subtype may contain unknown keys
     takes_name_kwargs(**kwargs)
     takes_name_str_kwargs(**kwargs) # E: extra items type is not compatible
-    takes_closed(**value)  # E?: a subtype may contain unknown keys
-    takes_closed(**kwargs)  # E?: a subtype may contain unknown keys
+    takes_closed(**value)  # E: a subtype may contain unknown keys
+    takes_closed(**kwargs)  # E: a subtype may contain unknown keys
 
 
 def open_explicit(value:TDOpenExplicit, **kwargs: Unpack[TDOpenExplicit]) -> None:
-    takes_name(**value)  # E?: a subtype may contain unknown keys
+    takes_name(**value)  # E: a subtype may contain unknown keys
     takes_name_kwargs(**value)
     takes_name_str_kwargs(**value) # E: extra items type is not compatible
-    takes_name(**kwargs)  # E?: a subtype may contain unknown keys
+    takes_name(**kwargs)  # E: a subtype may contain unknown keys
     takes_name_kwargs(**kwargs)
     takes_name_str_kwargs(**kwargs) # E: extra items type is not compatible
-    takes_closed(**value)  # E?: a subtype may contain unknown keys
-    takes_closed(**kwargs)  # E?: a subtype may contain unknown keys
+    takes_closed(**value)  # E: a subtype may contain unknown keys
+    takes_closed(**kwargs)  # E: a subtype may contain unknown keys
 
 
 def kwargs_closed(value: TDClosed, **kwargs: Unpack[TDClosed]) -> None:

@@ -1,6 +1,14 @@
 conformant = "Pass"
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 210: Expected 1 errors
+Line 213: Expected 1 errors
+Line 216: Expected 1 errors
+Line 217: Expected 1 errors
+Line 221: Expected 1 errors
+Line 224: Expected 1 errors
+Line 227: Expected 1 errors
+Line 228: Expected 1 errors
 """
 output = """
 callables_kwargs.py:55:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`

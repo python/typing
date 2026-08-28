@@ -6,10 +6,18 @@ Incorrectly rejects assigning a callable without `**kwargs` to a callable whose 
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 210: Expected 1 errors
 Line 212: Expected 1 errors
+Line 213: Expected 1 errors
 Line 215: Expected 1 errors
+Line 216: Expected 1 errors
+Line 217: Expected 1 errors
+Line 221: Expected 1 errors
 Line 223: Expected 1 errors
+Line 224: Expected 1 errors
 Line 226: Expected 1 errors
+Line 227: Expected 1 errors
+Line 228: Expected 1 errors
 Line 243: Expected 1 errors
 Line 246: Expected 1 errors
 Line 155: Unexpected errors ['callables_kwargs.py:155: error: Incompatible types in assignment (expression has type "def func7(*, v1: int, v3: str, v2: str = ...) -> None", variable has type "TDProtocol7")  [assignment]']
