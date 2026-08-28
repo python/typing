@@ -1,15 +1,7 @@
-conformant = "Partial"
-notes = """
-Does not support precise type inference for slices over namedtuples.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 30: Unexpected errors ['./namedtuples_define_class.py:30:12:   tuple is not equivalent to tuple[int, int]']
-Line 31: Unexpected errors ['./namedtuples_define_class.py:31:12:   tuple is not equivalent to tuple[int, int, str]']
 """
 output = """
-./namedtuples_define_class.py:30:12:   tuple is not equivalent to tuple[int, int]
-./namedtuples_define_class.py:31:12:   tuple is not equivalent to tuple[int, int, str]
 ./namedtuples_define_class.py:33:6: Tuple index out of range: Literal[3] [incompatible_call]
 ./namedtuples_define_class.py:34:6: Tuple index out of range: Literal[-4] [incompatible_call]
 ./namedtuples_define_class.py:45:5: Missing required argument 'y' [incompatible_call]

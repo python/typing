@@ -3,7 +3,7 @@ errors_diff = """
 """
 output = """
 constructors_call_init.py:21: error: Argument 1 to "Class1" has incompatible type "float"; expected "int"  [arg-type]
-constructors_call_init.py:42: error: Argument 1 to "Class3" has incompatible type "Class2[Any]"; expected "Self | None"  [arg-type]
+constructors_call_init.py:42: error: Argument 1 to "Class3" has incompatible type "Class2[int]"; expected "Self | None"  [arg-type]
 constructors_call_init.py:56: error: Invalid self type in __init__  [call-arg]
 constructors_call_init.py:107: error: The type of self "T1" has type vars in non standard positions for class "Class8"  [misc]
 constructors_call_init.py:107: error: The type of self "T2" has type vars in non standard positions for class "Class8"  [misc]

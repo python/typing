@@ -7,21 +7,13 @@ Incorrectly rejects assigning a callable without `**kwargs` to a callable whose 
 conformance_automated = "Fail"
 errors_diff = """
 Line 210: Expected 1 errors
-Line 212: Expected 1 errors
 Line 213: Expected 1 errors
-Line 215: Expected 1 errors
 Line 216: Expected 1 errors
 Line 217: Expected 1 errors
 Line 221: Expected 1 errors
-Line 223: Expected 1 errors
 Line 224: Expected 1 errors
-Line 226: Expected 1 errors
 Line 227: Expected 1 errors
 Line 228: Expected 1 errors
-Line 243: Expected 1 errors
-Line 246: Expected 1 errors
-Line 155: Unexpected errors ['callables_kwargs.py:155: error: Incompatible types in assignment (expression has type "def func7(*, v1: int, v3: str, v2: str = ...) -> None", variable has type "TDProtocol7")  [assignment]']
-Line 156: Unexpected errors ['callables_kwargs.py:156: error: Incompatible types in assignment (expression has type "def func7(*, v1: int, v3: str, v2: str = ...) -> None", variable has type "TDProtocol8")  [assignment]']
 """
 output = """
 callables_kwargs.py:55: error: Missing named argument "v1" for "func1"  [call-arg]
@@ -44,9 +36,13 @@ callables_kwargs.py:123: error: Incompatible types in assignment (expression has
 callables_kwargs.py:131: error: Overlap between parameter names and ** TypedDict items: "v1"  [misc]
 callables_kwargs.py:142: error: Unpack item in ** parameter must be a TypedDict  [misc]
 callables_kwargs.py:154: error: Incompatible types in assignment (expression has type "def func7(*, v1: int, v3: str, v2: str = ...) -> None", variable has type "TDProtocol6")  [assignment]
-callables_kwargs.py:155: error: Incompatible types in assignment (expression has type "def func7(*, v1: int, v3: str, v2: str = ...) -> None", variable has type "TDProtocol7")  [assignment]
-callables_kwargs.py:156: error: Incompatible types in assignment (expression has type "def func7(*, v1: int, v3: str, v2: str = ...) -> None", variable has type "TDProtocol8")  [assignment]
+callables_kwargs.py:212: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenImplicit"; expected "str"  [arg-type]
+callables_kwargs.py:215: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenImplicit"; expected "str"  [arg-type]
+callables_kwargs.py:223: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenExplicit"; expected "str"  [arg-type]
+callables_kwargs.py:226: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenExplicit"; expected "str"  [arg-type]
+callables_kwargs.py:243: error: Too many arguments for "takes_name"  [call-arg]
 callables_kwargs.py:244: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
+callables_kwargs.py:246: error: Too many arguments for "takes_name"  [call-arg]
 callables_kwargs.py:247: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
 callables_kwargs.py:249: error: Argument 1 to "takes_closed" has incompatible type "**TDExtraItems"; expected "Never"  [arg-type]
 callables_kwargs.py:250: error: Argument 1 to "takes_closed" has incompatible type "**TDExtraItems"; expected "Never"  [arg-type]
