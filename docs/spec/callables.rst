@@ -415,9 +415,19 @@ argument will be passed to the ``takes_name`` function.
 
 Therefore, it is only safe to unpack a non-:term:`closed` TypedDict in a function call
 if that function has ``**kwargs`` in its signature, and any :term:`extra items` are assignable to the type of ``**kwargs``.
+For these rules, :term:`open` TypedDicts are treated as having :term:`extra items` of
+type ``object``.
 
-- If the function being called has ``**kwargs``, checkers should error if the TypedDict's :term:`extra items` are not assignable to the type of ``**kwargs``. For this rule, :term:`open` TypedDicts are treated as having extra items of type ``object``.
-- If the function being called does not have ``**kwargs``, checkers should error if the TypedDict is :term:`open`, and should error if the TypedDict declares non-``Never`` :term:`extra items`.
+- If the callee has non-unpacked ``**kwargs``, checkers should error if the TypedDict's
+  :term:`extra items` are not assignable to the type of ``**kwargs``.
+- If the callee has unpacked ``**kwargs`` (``**kwargs: Unpack[TD]``), checkers should
+  error if the TypedDict's :term:`extra items` are not assignable to ``TD``'s extra
+  items, treating a :term:`closed` ``TD`` as accepting no extra items.
+- If the callee does not have ``**kwargs``, checkers should error if the TypedDict is
+  :term:`open`, and should error if the TypedDict declares non-``Never``
+  :term:`extra items`.
+
+Additionally, the type of :term:`extra items` must be assignable to any keyword parameters the function call does not provide.
 
 In cases similar to the ``bar`` function above the problem could be worked
 around by marking ``Animal`` with ``closed=True``, or by explicitly dereferencing desired
