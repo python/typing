@@ -1,20 +1,45 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+conformance_automated = "Fail"
+notes = """
+Does not reject unpacking an open TypedDict in a call to a callable that has no `**kwargs`.
+Does not reject unpacking an open TypedDict in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
+"""
 errors_diff = """
+Line 223: Expected 1 errors
+Line 226: Expected 1 errors
+Line 229: Expected 1 errors
+Line 230: Expected 1 errors
+Line 238: Expected 1 errors
+Line 241: Expected 1 errors
+Line 244: Expected 1 errors
+Line 245: Expected 1 errors
 """
 output = """
-callables_kwargs.py:46:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`
-callables_kwargs.py:52:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`
-callables_kwargs.py:52:11: error[too-many-positional-arguments] Too many positional arguments to function `func1`: expected 0, got 3
-callables_kwargs.py:58:11: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `int`, found `str`
-callables_kwargs.py:61:11: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `str`, found `int | str`
-callables_kwargs.py:63:17: error[parameter-already-assigned] Multiple values provided for parameter `v1` of function `func1`
-callables_kwargs.py:64:11: error[invalid-argument-type] Argument to function `func2` is incorrect: Expected `str`, found `Literal[1]`
-callables_kwargs.py:64:14: error[parameter-already-assigned] Multiple values provided for parameter `v3` of function `func2`
-callables_kwargs.py:65:17: error[parameter-already-assigned] Multiple values provided for parameter `v1` of function `func2`
-callables_kwargs.py:101:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol3`
-callables_kwargs.py:102:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol4`
-callables_kwargs.py:103:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol5`
-callables_kwargs.py:111:20: error[invalid-type-form] Parameter `v1` overlaps with unpacked TypedDict key in `**kwargs` annotation
-callables_kwargs.py:122:21: error[invalid-type-form] Unpacked value for `**kwargs` must be a TypedDict, not `T@func6`
-callables_kwargs.py:134:19: error[invalid-assignment] Object of type `def func7(*, v1: int, v3: str, v2: str = "") -> None` is not assignable to `TDProtocol6`
+callables_kwargs.py:55:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`
+callables_kwargs.py:61:5: error[missing-argument] No arguments provided for required parameters `v1`, `v3` of function `func1`
+callables_kwargs.py:61:11: error[too-many-positional-arguments] Too many positional arguments to function `func1`: expected 0, got 3
+callables_kwargs.py:67:11: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `int`, found `str`
+callables_kwargs.py:70:11: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `str`, found `int | str`
+callables_kwargs.py:72:17: error[parameter-already-assigned] Multiple values provided for parameter `v1` of function `func1`
+callables_kwargs.py:73:11: error[invalid-argument-type] Argument to function `func2` is incorrect: Expected `str`, found `Literal[1]`
+callables_kwargs.py:73:14: error[parameter-already-assigned] Multiple values provided for parameter `v3` of function `func2`
+callables_kwargs.py:74:17: error[parameter-already-assigned] Multiple values provided for parameter `v1` of function `func2`
+callables_kwargs.py:121:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol3`
+callables_kwargs.py:122:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol4`
+callables_kwargs.py:123:19: error[invalid-assignment] Object of type `def func1(*, v1: int, v2: str = ..., v3: str, **kwargs: object) -> None` is not assignable to `TDProtocol5`
+callables_kwargs.py:131:20: error[invalid-type-form] Parameter `v1` overlaps with unpacked TypedDict key in `**kwargs` annotation
+callables_kwargs.py:142:21: error[invalid-type-form] Unpacked value for `**kwargs` must be a TypedDict, not `T@func6`
+callables_kwargs.py:154:19: error[invalid-assignment] Object of type `def func7(*, v1: int, v3: str, v2: str = "") -> None` is not assignable to `TDProtocol6`
+callables_kwargs.py:225:27: error[invalid-argument-type] Argument to function `takes_name_str_kwargs` is incorrect: Possible extra items in unpacked open `TypedDict` have type `object`, expected `str`
+callables_kwargs.py:228:27: error[invalid-argument-type] Argument to function `takes_name_str_kwargs` is incorrect: Possible extra items in unpacked open `TypedDict` have type `object`, expected `str`
+callables_kwargs.py:240:27: error[invalid-argument-type] Argument to function `takes_name_str_kwargs` is incorrect: Possible extra items in unpacked open `TypedDict` have type `object`, expected `str`
+callables_kwargs.py:243:27: error[invalid-argument-type] Argument to function `takes_name_str_kwargs` is incorrect: Possible extra items in unpacked open `TypedDict` have type `object`, expected `str`
+callables_kwargs.py:264:16: error[unknown-argument] Unpacked argument may contain keyword arguments that do not match any known parameter of function `takes_name`
+callables_kwargs.py:265:27: error[invalid-argument-type] Argument to function `takes_name_str_kwargs` is incorrect: Expected `str`, found `int`
+callables_kwargs.py:267:16: error[unknown-argument] Unpacked argument may contain keyword arguments that do not match any known parameter of function `takes_name`
+callables_kwargs.py:268:27: error[invalid-argument-type] Argument to function `takes_name_str_kwargs` is incorrect: Expected `str`, found `int`
+callables_kwargs.py:270:18: error[unknown-argument] Unpacked argument may contain keyword arguments that do not match any known parameter of function `takes_closed`
+callables_kwargs.py:271:18: error[unknown-argument] Unpacked argument may contain keyword arguments that do not match any known parameter of function `takes_closed`
+callables_kwargs.py:272:37: error[invalid-argument-type] Argument to function `takes_optional_label_int_kwargs` is incorrect: Expected `str`, found `int`
+callables_kwargs.py:273:37: error[invalid-argument-type] Argument to function `takes_optional_label_int_kwargs` is incorrect: Expected `str`, found `int`
 """

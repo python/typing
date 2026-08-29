@@ -304,9 +304,9 @@ only::
 
 The reverse situation where the destination callable contains
 ``**kwargs: Unpack[TypedDict]`` and the source callable doesn't contain
-``**kwargs`` should be disallowed. This is because, we cannot be sure that
-additional keyword arguments are not being passed in when an instance of a
-subclass had been assigned to a variable with a base class type and then
+``**kwargs`` should be disallowed, if the TypedDict is not :term:`closed`. This is because
+we cannot be sure that additional keyword arguments are not being passed in when an
+instance of a subclass had been assigned to a variable with a base class type and then
 unpacked in the destination callable invocation::
 
     def dest(**kwargs: Unpack[Animal]): ...
@@ -366,8 +366,8 @@ traditionally typed ``**kwargs`` aren't checked for keyword names.
 To summarize, function parameters should behave contravariantly and function
 return types should behave covariantly.
 
-Passing kwargs inside a function to another function
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Unpacking a TypedDict as keyword arguments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 :ref:`A previous point <PEP 692 assignment dest no kwargs>`
 mentions the problem of possibly passing additional keyword arguments by
@@ -413,15 +413,25 @@ it needs completely ignoring any additional values.
 The calls to ``bar`` and ``spam`` will fail because an unexpected keyword
 argument will be passed to the ``takes_name`` function.
 
-Therefore, ``kwargs`` hinted with an unpacked ``TypedDict`` can only be passed
-to another function if the function to which unpacked kwargs are being passed
-to has ``**kwargs`` in its signature as well, because then additional keywords
-would not cause errors at runtime during function invocation. Otherwise, the
-type checker should generate an error.
+Therefore, it is only safe to unpack a non-:term:`closed` TypedDict in a function call
+if that function has ``**kwargs`` in its signature, and any :term:`extra items` are assignable to the type of ``**kwargs``.
+For these rules, :term:`open` TypedDicts are treated as having :term:`extra items` of
+type ``object``.
+
+- If the callee has non-unpacked ``**kwargs``, checkers should error if the TypedDict's
+  :term:`extra items` are not assignable to the type of ``**kwargs``.
+- If the callee has unpacked ``**kwargs`` (``**kwargs: Unpack[TD]``), checkers should
+  error if the TypedDict's :term:`extra items` are not assignable to ``TD``'s extra
+  items, treating a :term:`closed` ``TD`` as accepting no extra items.
+- If the callee does not have ``**kwargs``, checkers should error if the TypedDict is
+  :term:`open`, and should error if the TypedDict declares non-``Never``
+  :term:`extra items`.
+
+Additionally, the type of :term:`extra items` must be assignable to any keyword parameters the function call does not provide.
 
 In cases similar to the ``bar`` function above the problem could be worked
-around by explicitly dereferencing desired fields and using them as arguments
-to perform the function call::
+around by marking ``Animal`` with ``closed=True``, or by explicitly dereferencing desired
+fields and using them as arguments to perform the function call::
 
     def bar(**kwargs: Unpack[Animal]):
         name = kwargs["name"]
