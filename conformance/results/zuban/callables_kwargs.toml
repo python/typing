@@ -1,9 +1,7 @@
 conformant = "Partial"
 notes = """
 Does not reject unpacking an open TypedDict in a call to a callable that has no `**kwargs`.
-Does not check the type of an open TypedDict's extra items against the target callable's `**kwargs` annotation.
-Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable that has no `**kwargs`.
-Incorrectly rejects assigning a callable without `**kwargs` to a callable whose `**kwargs` is typed with a closed TypedDict or one that sets `extra_items=Never`.
+Does not reject unpacking an open TypedDict in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
 """
 conformance_automated = "Fail"
 errors_diff = """
