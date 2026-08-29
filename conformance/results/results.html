@@ -1502,6 +1502,7 @@
                                 <li>Allows callable without kwargs to be assigned to callable with unpacked kwargs.</li>
                                 <li>Does not support the <code>closed</code> and <code>extra_items</code> TypedDict class arguments.</li>
                                 <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's <code>**kwargs</code> annotation.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
@@ -1511,21 +1512,18 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's <code>**kwargs</code> annotation.</li>
-                                <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
-                                <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
-                                <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
-                                <li>Incorrectly rejects assigning a callable without <code>**kwargs</code> to a callable whose <code>**kwargs</code> is typed with a closed TypedDict or one that sets <code>extra_items=Never</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's <code>**kwargs</code> annotation.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
-                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                                 <li>Incorrectly rejects assigning a callable without <code>**kwargs</code> to a callable whose <code>**kwargs</code> is typed with a TypedDict that sets <code>extra_items=Never</code>.</li>
                             </ul>
@@ -1534,6 +1532,7 @@
                             Partial
                             <ul class="notes">
                                 <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
                                 <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                                 <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
@@ -1543,15 +1542,14 @@
                             Partial
                             <ul class="notes">
                                 <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
                                 <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
-                                <li>Does not check the type of an open TypedDict's extra items against the target callable's <code>**kwargs</code> annotation.</li>
-                                <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
-                                <li>Incorrectly rejects assigning a callable without <code>**kwargs</code> to a callable whose <code>**kwargs</code> is typed with a closed TypedDict or one that sets <code>extra_items=Never</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
                             </ul>
                         </td>
                     </tr>

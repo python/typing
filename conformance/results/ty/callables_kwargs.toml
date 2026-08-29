@@ -2,6 +2,7 @@ conformant = "Partial"
 conformance_automated = "Fail"
 notes = """
 Does not reject unpacking an open TypedDict in a call to a callable that has no `**kwargs`.
+Does not reject unpacking an open TypedDict in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
 """
 errors_diff = """
 Line 210: Expected 1 errors

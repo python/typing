@@ -3,6 +3,7 @@ notes = """
 Allows callable without kwargs to be assigned to callable with unpacked kwargs.
 Does not support the `closed` and `extra_items` TypedDict class arguments.
 Does not reject unpacking an open TypedDict in a call to a callable that has no `**kwargs`.
+Does not reject unpacking an open TypedDict in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
 Does not check the type of an unpacked TypedDict's extra items against the target callable's `**kwargs` annotation.
 Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.
 Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable that has no `**kwargs`.
