@@ -10,26 +10,26 @@ Incorrectly rejects assigning a callable without `**kwargs` to a callable whose 
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 210: Expected 1 errors
-Line 212: Expected 1 errors
-Line 213: Expected 1 errors
-Line 215: Expected 1 errors
-Line 216: Expected 1 errors
-Line 217: Expected 1 errors
-Line 221: Expected 1 errors
 Line 223: Expected 1 errors
-Line 224: Expected 1 errors
+Line 225: Expected 1 errors
 Line 226: Expected 1 errors
-Line 227: Expected 1 errors
 Line 228: Expected 1 errors
+Line 229: Expected 1 errors
+Line 230: Expected 1 errors
+Line 238: Expected 1 errors
+Line 240: Expected 1 errors
+Line 241: Expected 1 errors
 Line 243: Expected 1 errors
 Line 244: Expected 1 errors
-Line 246: Expected 1 errors
-Line 247: Expected 1 errors
-Line 249: Expected 1 errors
-Line 250: Expected 1 errors
-Line 251: Expected 1 errors
-Line 252: Expected 1 errors
+Line 245: Expected 1 errors
+Line 264: Expected 1 errors
+Line 265: Expected 1 errors
+Line 267: Expected 1 errors
+Line 268: Expected 1 errors
+Line 270: Expected 1 errors
+Line 271: Expected 1 errors
+Line 272: Expected 1 errors
+Line 273: Expected 1 errors
 Line 156: Unexpected errors ["`(*, v1: int, v3: str, v2: str = '') -> None` is not assignable to `TDProtocol8` [bad-assignment]"]
 """
 output = """

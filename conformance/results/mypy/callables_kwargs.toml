@@ -35,34 +35,36 @@ callables_kwargs.py:166: error: Unexpected keyword argument "closed" for "__init
 callables_kwargs.py:170: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
 callables_kwargs.py:174: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 callables_kwargs.py:178: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
+callables_kwargs.py:182: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 154: Expected 1 errors
-Line 210: Expected 1 errors
-Line 212: Expected 1 errors
-Line 213: Expected 1 errors
-Line 215: Expected 1 errors
-Line 216: Expected 1 errors
-Line 217: Expected 1 errors
-Line 221: Expected 1 errors
 Line 223: Expected 1 errors
-Line 224: Expected 1 errors
+Line 225: Expected 1 errors
 Line 226: Expected 1 errors
-Line 227: Expected 1 errors
 Line 228: Expected 1 errors
+Line 229: Expected 1 errors
+Line 230: Expected 1 errors
+Line 238: Expected 1 errors
+Line 240: Expected 1 errors
+Line 241: Expected 1 errors
 Line 243: Expected 1 errors
 Line 244: Expected 1 errors
-Line 246: Expected 1 errors
-Line 247: Expected 1 errors
-Line 249: Expected 1 errors
-Line 250: Expected 1 errors
-Line 251: Expected 1 errors
-Line 252: Expected 1 errors
+Line 245: Expected 1 errors
+Line 264: Expected 1 errors
+Line 265: Expected 1 errors
+Line 267: Expected 1 errors
+Line 268: Expected 1 errors
+Line 270: Expected 1 errors
+Line 271: Expected 1 errors
+Line 272: Expected 1 errors
+Line 273: Expected 1 errors
 Line 23: Unexpected errors ['callables_kwargs.py:23: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 27: Unexpected errors ['callables_kwargs.py:27: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 166: Unexpected errors ['callables_kwargs.py:166: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 170: Unexpected errors ['callables_kwargs.py:170: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 174: Unexpected errors ['callables_kwargs.py:174: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 178: Unexpected errors ['callables_kwargs.py:178: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
+Line 182: Unexpected errors ['callables_kwargs.py:182: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 """
