@@ -179,11 +179,19 @@ class TDExtraItemsNever(TypedDict, extra_items=Never):
     name: str
 
 
+class TDExtraItemsObject(TypedDict, extra_items=object):
+    name: str
+
+
 def takes_name(name: str) -> None:
     ...
 
 
 def takes_name_kwargs(name: str, **kwargs) -> None:
+    ...
+
+
+def takes_name_object_kwargs(name: str, **kwargs: object) -> None:
     ...
 
 
@@ -203,6 +211,11 @@ def takes_closed(**kwargs: Unpack[TDClosed]) -> None:
     ...
 
 
+# Equivalent to `def takes_extra_items_object(*, name: str, **kwargs: object)`.
+def takes_extra_items_object(**kwargs: Unpack[TDExtraItemsObject]) -> None:
+    ...
+
+
 # > It is only safe to unpack a non-:term:`closed` TypedDict in a function call if that function has
 # > ``**kwargs`` in its signature, and any :term:`extra items` are assignable to the type of ``**kwargs``.
 
@@ -215,6 +228,10 @@ def open_implicit(value: TDOpenImplicit, **kwargs: Unpack[TDOpenImplicit]) -> No
     takes_name_str_kwargs(**kwargs) # E: extra items type is not compatible
     takes_closed(**value)  # E: a subtype may contain unknown keys
     takes_closed(**kwargs)  # E: a subtype may contain unknown keys
+    takes_name_object_kwargs(**value)
+    takes_name_object_kwargs(**kwargs)
+    takes_extra_items_object(**value)
+    takes_extra_items_object(**kwargs)
 
 
 def open_explicit(value:TDOpenExplicit, **kwargs: Unpack[TDOpenExplicit]) -> None:
@@ -226,6 +243,10 @@ def open_explicit(value:TDOpenExplicit, **kwargs: Unpack[TDOpenExplicit]) -> Non
     takes_name_str_kwargs(**kwargs) # E: extra items type is not compatible
     takes_closed(**value)  # E: a subtype may contain unknown keys
     takes_closed(**kwargs)  # E: a subtype may contain unknown keys
+    takes_name_object_kwargs(**value)
+    takes_name_object_kwargs(**kwargs)
+    takes_extra_items_object(**value)
+    takes_extra_items_object(**kwargs)
 
 
 def kwargs_closed(value: TDClosed, **kwargs: Unpack[TDClosed]) -> None:
@@ -250,6 +271,8 @@ def kwargs_extra_items(value: TDExtraItems, **kwargs: Unpack[TDExtraItems]) -> N
     takes_closed(**kwargs) # E: extra items may be present
     takes_optional_label_int_kwargs(**value)  # E: extra items type is not compatible w/ `label` param
     takes_optional_label_int_kwargs(**kwargs)  # E: extra items type is not compatible w/ `label` param
+    takes_extra_items_object(**value)
+    takes_extra_items_object(**kwargs)
 
 
 def kwargs_extra_items_never(value: TDExtraItemsNever, **kwargs: Unpack[TDExtraItemsNever]) -> None:

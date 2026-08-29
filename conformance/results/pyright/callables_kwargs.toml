@@ -37,33 +37,33 @@ callables_kwargs.py:142:21 - error: Expected TypedDict type argument for Unpack 
 callables_kwargs.py:154:19 - error: Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to declared type "TDProtocol6"
   Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to type "(**kwargs: **TD2) -> None"
     Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
-callables_kwargs.py:212:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:225:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "object" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:215:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:228:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "object" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:223:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:240:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "object" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:226:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:243:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "object" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:244:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:265:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "int" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:247:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:268:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "int" is not assignable to "str" (reportArgumentType)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 210: Expected 1 errors
-Line 213: Expected 1 errors
-Line 216: Expected 1 errors
-Line 217: Expected 1 errors
-Line 221: Expected 1 errors
-Line 224: Expected 1 errors
-Line 227: Expected 1 errors
-Line 228: Expected 1 errors
-Line 243: Expected 1 errors
-Line 246: Expected 1 errors
-Line 249: Expected 1 errors
-Line 250: Expected 1 errors
-Line 251: Expected 1 errors
-Line 252: Expected 1 errors
+Line 223: Expected 1 errors
+Line 226: Expected 1 errors
+Line 229: Expected 1 errors
+Line 230: Expected 1 errors
+Line 238: Expected 1 errors
+Line 241: Expected 1 errors
+Line 244: Expected 1 errors
+Line 245: Expected 1 errors
+Line 264: Expected 1 errors
+Line 267: Expected 1 errors
+Line 270: Expected 1 errors
+Line 271: Expected 1 errors
+Line 272: Expected 1 errors
+Line 273: Expected 1 errors
 """

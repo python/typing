@@ -5,14 +5,14 @@ Does not reject unpacking an open TypedDict in a call to a callable whose `**kwa
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 210: Expected 1 errors
-Line 213: Expected 1 errors
-Line 216: Expected 1 errors
-Line 217: Expected 1 errors
-Line 221: Expected 1 errors
-Line 224: Expected 1 errors
-Line 227: Expected 1 errors
-Line 228: Expected 1 errors
+Line 223: Expected 1 errors
+Line 226: Expected 1 errors
+Line 229: Expected 1 errors
+Line 230: Expected 1 errors
+Line 238: Expected 1 errors
+Line 241: Expected 1 errors
+Line 244: Expected 1 errors
+Line 245: Expected 1 errors
 """
 output = """
 ./callables_kwargs.py:55:4: In call to callables_kwargs.func1: Missing required argument 'v1' [incompatible_call]
@@ -29,16 +29,16 @@ output = """
 ./callables_kwargs.py:131:21: Parameter v1 overlaps with TypedDict key in **kwargs [invalid_annotation]
 ./callables_kwargs.py:142:12: Expected TypedDict type inside Unpack[] for **kwargs [invalid_annotation]
 ./callables_kwargs.py:154:0: Incompatible assignment: expected callables_kwargs.TDProtocol6, got function 'callables_kwargs.func7' [incompatible_assignment]
-./callables_kwargs.py:212:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str?: object}}> [incompatible_argument]
-./callables_kwargs.py:215:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str?: object}}> [incompatible_argument]
-./callables_kwargs.py:223:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str?: object}}> [incompatible_argument]
-./callables_kwargs.py:226:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str?: object}}> [incompatible_argument]
-./callables_kwargs.py:243:4: In call to callables_kwargs.takes_name: **kwargs provided but not used [incompatible_call]
-./callables_kwargs.py:244:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str: int}}> [incompatible_argument]
-./callables_kwargs.py:246:4: In call to callables_kwargs.takes_name: **kwargs provided but not used [incompatible_call]
-./callables_kwargs.py:247:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str: int}}> [incompatible_argument]
-./callables_kwargs.py:249:4: In call to callables_kwargs.takes_closed: **kwargs provided but not used [incompatible_call]
-./callables_kwargs.py:250:4: In call to callables_kwargs.takes_closed: **kwargs provided but not used [incompatible_call]
-./callables_kwargs.py:251:4: Incompatible argument type for label: expected str but got int [incompatible_argument]
-./callables_kwargs.py:252:4: Incompatible argument type for label: expected str but got int [incompatible_argument]
+./callables_kwargs.py:225:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str?: object}}> [incompatible_argument]
+./callables_kwargs.py:228:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str?: object}}> [incompatible_argument]
+./callables_kwargs.py:240:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str?: object}}> [incompatible_argument]
+./callables_kwargs.py:243:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str?: object}}> [incompatible_argument]
+./callables_kwargs.py:264:4: In call to callables_kwargs.takes_name: **kwargs provided but not used [incompatible_call]
+./callables_kwargs.py:265:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str: int}}> [incompatible_argument]
+./callables_kwargs.py:267:4: In call to callables_kwargs.takes_name: **kwargs provided but not used [incompatible_call]
+./callables_kwargs.py:268:4: Incompatible argument type for kwargs: expected dict[str, str] but got <dict containing {**{str: int}}> [incompatible_argument]
+./callables_kwargs.py:270:4: In call to callables_kwargs.takes_closed: **kwargs provided but not used [incompatible_call]
+./callables_kwargs.py:271:4: In call to callables_kwargs.takes_closed: **kwargs provided but not used [incompatible_call]
+./callables_kwargs.py:272:4: Incompatible argument type for label: expected str but got int [incompatible_argument]
+./callables_kwargs.py:273:4: Incompatible argument type for label: expected str but got int [incompatible_argument]
 """
