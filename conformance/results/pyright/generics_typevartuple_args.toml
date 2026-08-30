@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Does not correctly solve TypeVarTuple with heterogeneous bounds.
+Does not correctly solve `TypeVarTuple` with heterogeneous bounds.
 """
 conformance_automated = "Fail"
 errors_diff = """

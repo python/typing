@@ -18,16 +18,18 @@ qualifiers_final_annotation.py:107:13: error[redundant-final-classvar] `Combinin
 qualifiers_final_annotation.py:108:13: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
 qualifiers_final_annotation.py:118:9: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in type expressions (only in annotation expressions)
 qualifiers_final_annotation.py:121:14: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in parameter annotations
-qualifiers_final_annotation.py:134:1: error[missing-argument] No arguments provided for required parameters `x`, `y`
-qualifiers_final_annotation.py:134:3: error[unknown-argument] Argument `a` does not match any known parameter
-qualifiers_final_annotation.py:135:3: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
-qualifiers_final_annotation.py:135:9: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
-qualifiers_final_annotation.py:141:5: error[invalid-assignment] Reassignment of `Final` symbol `ID1` is not allowed: Reassignment of `Final` symbol
-qualifiers_final_annotation.py:145:5: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:147:10: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:149:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:152:30: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:155:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:166:1: error[invalid-assignment] Reassignment of `Final` symbol `TEN` is not allowed: Reassignment of `Final` symbol
-qualifiers_final_annotation.py:170:1: error[invalid-assignment] Reassignment of `Final` symbol `PI` is not allowed: Reassignment of `Final` symbol
+qualifiers_final_annotation.py:131:8: error[invalid-type-form] `Final` is not allowed in TypedDict fields
+qualifiers_final_annotation.py:136:5: error[invalid-named-tuple] Type qualifier `Final` is not allowed on NamedTuple field `b`
+qualifiers_final_annotation.py:148:1: error[missing-argument] No arguments provided for required parameters `x`, `y`
+qualifiers_final_annotation.py:148:3: error[unknown-argument] Argument `a` does not match any known parameter
+qualifiers_final_annotation.py:149:3: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
+qualifiers_final_annotation.py:149:9: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
+qualifiers_final_annotation.py:155:5: error[invalid-assignment] Reassignment of `Final` symbol `ID1` is not allowed: Reassignment of `Final` symbol
+qualifiers_final_annotation.py:159:5: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:161:10: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:163:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:166:30: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:169:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:180:1: error[invalid-assignment] Reassignment of `Final` symbol `TEN` is not allowed: Reassignment of `Final` symbol
+qualifiers_final_annotation.py:184:1: error[invalid-assignment] Reassignment of `Final` symbol `PI` is not allowed: Reassignment of `Final` symbol
 """

@@ -1,13 +1,6 @@
-conformant = "Partial"
-notes = """
-Does not implement several scoping checks/restrictions for generics
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 86: Expected 1 errors
-Line 89: Expected 1 errors
-Line 98: Expected 1 errors
-Line 107: Expected 1 errors
 """
 output = """
 ERROR generics_scoping.py:16:12-34: assert_type(int, Literal[1]) failed [assert-type]
@@ -18,6 +11,10 @@ ERROR generics_scoping.py:54:12-50: assert_type(bytes, Literal[b'abc']) failed [
 ERROR generics_scoping.py:61:8-15: Type variable `S` is not in scope [invalid-type-var]
 ERROR generics_scoping.py:65:14-21: Type variable `S` is not in scope [invalid-type-var]
 ERROR generics_scoping.py:76:11-20: Redundant type parameter declaration [invalid-type-var]
+ERROR generics_scoping.py:86:15-26: Type variable `T` is not in scope [invalid-type-var]
+ERROR generics_scoping.py:89:12-19: Type variable `T` is not in scope [invalid-type-var]
+ERROR generics_scoping.py:98:24-31: Type variable `T` is not in scope [invalid-type-var]
 ERROR generics_scoping.py:105:14-15: Type variable `T` is not in scope [invalid-type-var]
 ERROR generics_scoping.py:106:14-21: Type variable `T` is not in scope [invalid-type-var]
+ERROR generics_scoping.py:107:1-8: Type variable `T` is not in scope [invalid-type-var]
 """

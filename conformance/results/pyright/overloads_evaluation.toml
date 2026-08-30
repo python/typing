@@ -1,7 +1,11 @@
 conformant = "Partial"
 notes = """
+<<<<<<< HEAD
 Does not evaluate Any in some cases where overload is ambiguous.
 Picks first overload instead of most general return type in some cases where overload is ambiguous.
+=======
+Does not evaluate `Any` in some cases where overload is ambiguous.
+>>>>>>> main
 """
 conformance_automated = "Fail"
 errors_diff = """

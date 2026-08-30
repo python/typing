@@ -1,0 +1,31 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_variance.py:14: error: Incompatible types in assignment (expression has type "InvariantTypeVarTuple[int]", variable has type "InvariantTypeVarTuple[object]")  [assignment]
+generics_typevartuple_variance.py:15: error: Incompatible types in assignment (expression has type "InvariantTypeVarTuple[object]", variable has type "InvariantTypeVarTuple[int]")  [assignment]
+generics_typevartuple_variance.py:17: error: Incompatible types in assignment (expression has type "InvariantTypeVarTuple[Unpack[Tuple[object, ...]]]", variable has type "InvariantTypeVarTuple[Unpack[Tuple[int, ...]]]")  [assignment]
+generics_typevartuple_variance.py:18: error: Incompatible types in assignment (expression has type "InvariantTypeVarTuple[Unpack[Tuple[int, ...]]]", variable has type "InvariantTypeVarTuple[Unpack[Tuple[object, ...]]]")  [assignment]
+generics_typevartuple_variance.py:20: error: Incompatible types in assignment (expression has type "InvariantTypeVarTuple[Unpack[Tuple[int, ...]]]", variable has type "InvariantTypeVarTuple[int]")  [assignment]
+generics_typevartuple_variance.py:21: error: Incompatible types in assignment (expression has type "InvariantTypeVarTuple[int]", variable has type "InvariantTypeVarTuple[Unpack[Tuple[int, ...]]]")  [assignment]
+generics_typevartuple_variance.py:28: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTuple[object, int]", variable has type "ContravariantTypeVarTuple[object, object]")  [assignment]
+generics_typevartuple_variance.py:31: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTuple[Unpack[Tuple[int, ...]]]", variable has type "ContravariantTypeVarTuple[Unpack[Tuple[object, ...]]]")  [assignment]
+generics_typevartuple_variance.py:34: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTuple[int]", variable has type "ContravariantTypeVarTuple[Unpack[Tuple[int, ...]]]")  [assignment]
+generics_typevartuple_variance.py:42: error: Incompatible types in assignment (expression has type "CovariantTypeVarTuple[object]", variable has type "CovariantTypeVarTuple[int]")  [assignment]
+generics_typevartuple_variance.py:45: error: Incompatible types in assignment (expression has type "CovariantTypeVarTuple[bool, object]", variable has type "CovariantTypeVarTuple[int, int]")  [assignment]
+generics_typevartuple_variance.py:46: error: Incompatible types in assignment (expression has type "CovariantTypeVarTuple[object, bool]", variable has type "CovariantTypeVarTuple[int, int]")  [assignment]
+generics_typevartuple_variance.py:47: error: Incompatible types in assignment (expression has type "CovariantTypeVarTuple[object, object]", variable has type "CovariantTypeVarTuple[int, int]")  [assignment]
+generics_typevartuple_variance.py:48: error: Incompatible types in assignment (expression has type "CovariantTypeVarTuple[Unpack[Tuple[object, ...]]]", variable has type "CovariantTypeVarTuple[Unpack[Tuple[int, ...]]]")  [assignment]
+generics_typevartuple_variance.py:51: error: Incompatible types in assignment (expression has type "CovariantTypeVarTuple[Unpack[Tuple[int, ...]]]", variable has type "CovariantTypeVarTuple[int]")  [assignment]
+generics_typevartuple_variance.py:56: error: TypeVarTuple cannot be both covariant and contravariant  [misc]
+generics_typevartuple_variance.py:57: error: Cannot use covariant with infer_variance  [misc]
+generics_typevartuple_variance.py:58: error: Cannot use contravariant with infer_variance  [misc]
+generics_typevartuple_variance.py:68: error: Incompatible types in assignment (expression has type "InvariantTypeVarTupleOld[int]", variable has type "InvariantTypeVarTupleOld[object]")  [assignment]
+generics_typevartuple_variance.py:69: error: Incompatible types in assignment (expression has type "InvariantTypeVarTupleOld[object]", variable has type "InvariantTypeVarTupleOld[int]")  [assignment]
+generics_typevartuple_variance.py:79: error: Cannot use a contravariant type var tuples as return type  [type-var]
+generics_typevartuple_variance.py:83: error: Incompatible types in assignment (expression has type "ContravariantTypeVarTupleOld[int]", variable has type "ContravariantTypeVarTupleOld[object]")  [assignment]
+generics_typevartuple_variance.py:90: error: Cannot use a covariant type var tuples as a parameter  [type-var]
+generics_typevartuple_variance.py:97: error: Incompatible types in assignment (expression has type "CovariantTypeVarTupleOld[object]", variable has type "CovariantTypeVarTupleOld[int]")  [assignment]
+generics_typevartuple_variance.py:107: error: Incompatible types in assignment (expression has type "InferredContravariantTypeVarTupleOld[int]", variable has type "InferredContravariantTypeVarTupleOld[object]")  [assignment]
+generics_typevartuple_variance.py:116: error: Incompatible types in assignment (expression has type "InferredCovariantTypeVarTupleOld[object]", variable has type "InferredCovariantTypeVarTupleOld[int]")  [assignment]
+"""

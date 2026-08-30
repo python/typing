@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./dataclasses_inheritance.py:62:4: Value of x incompatible with base class ./dataclasses_inheritance.py.DC6 [incompatible_override]
+./dataclasses_inheritance.py:66:4: Value of y incompatible with base class ./dataclasses_inheritance.py.DC6 [incompatible_override]
+"""

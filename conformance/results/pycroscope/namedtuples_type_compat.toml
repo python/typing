@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./namedtuples_type_compat.py:22:0: Incompatible assignment: expected tuple[int, int], got Literal[Point(x=1, y=2, units='inches')] [incompatible_assignment]
+./namedtuples_type_compat.py:23:0: Incompatible assignment: expected tuple[int, str, str], got Literal[Point(x=1, y=2, units='inches')] [incompatible_assignment]
+"""

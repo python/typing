@@ -27,7 +27,7 @@ typeddicts_extra_items.py:257: error: Incompatible types in assignment (expressi
 typeddicts_extra_items.py:268: error: Incompatible types in assignment (expression has type "MovieNotClosed", variable has type "MovieExtraInt")  [assignment]
 typeddicts_extra_items.py:278: error: Extra key "year" for TypedDict "NonClosedMovie"  [typeddict-unknown-key]
 typeddicts_extra_items.py:285: error: Incompatible types (expression has type "str", TypedDict item "language" has type "int")  [typeddict-item]
-typeddicts_extra_items.py:293: error: Incompatible types (expression has type "int", TypedDict item "year" has type "Never")  [typeddict-item]
+typeddicts_extra_items.py:293: error: Extra key "year" for TypedDict "ClosedMovie"  [typeddict-unknown-key]
 typeddicts_extra_items.py:303: error: Incompatible types in assignment (expression has type "MovieExtraInt", variable has type "Mapping[str, int]")  [assignment]
 typeddicts_extra_items.py:352: error: Incompatible types in assignment (expression has type "dict[str, int]", variable has type "IntDict")  [assignment]
 """

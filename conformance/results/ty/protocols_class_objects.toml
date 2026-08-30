@@ -1,22 +1,18 @@
 conformance_automated = "Fail"
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-`type[Proto]` is not yet supported.
-`ClassVar` protocol members are not yet supported.
-`@property` protocol members are only partially supported.
-A class object `C` is only considered to inhabit a protocol type with a method member `f` if `f` exists as an attribute on the metaclass of `C`.
+Does not reject protocol classes where `type[Proto]` requires a concrete class.
+Incorrectly considers instance attributes as satisfying protocol members on class objects.
 """
 errors_diff = """
 Line 29: Expected 1 errors
 Line 34: Expected 1 errors
-Line 74: Expected 1 errors
-Line 104: Expected 1 errors
-Line 106: Expected 1 errors
 Line 107: Expected 1 errors
-Line 108: Expected 1 errors
-Line 59: Unexpected errors ["protocols_class_objects.py:59:16: error[invalid-assignment] Object of type `<class 'ConcreteA'>` is not assignable to `ProtoA2`"]
 """
 output = """
 protocols_class_objects.py:58:16: error[invalid-assignment] Object of type `<class 'ConcreteA'>` is not assignable to `ProtoA1`
-protocols_class_objects.py:59:16: error[invalid-assignment] Object of type `<class 'ConcreteA'>` is not assignable to `ProtoA2`
+protocols_class_objects.py:74:16: error[invalid-assignment] Object of type `<class 'ConcreteB'>` is not assignable to `ProtoB1`
+protocols_class_objects.py:104:16: error[invalid-assignment] Object of type `<class 'ConcreteC1'>` is not assignable to `ProtoC1`
+protocols_class_objects.py:106:16: error[invalid-assignment] Object of type `<class 'ConcreteC2'>` is not assignable to `ProtoC1`
+protocols_class_objects.py:108:16: error[invalid-assignment] Object of type `<class 'ConcreteC3'>` is not assignable to `ProtoC1`
 """

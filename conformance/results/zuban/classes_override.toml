@@ -7,4 +7,10 @@ classes_override.py:56: error: Method "method4" is marked as an override, but no
 classes_override.py:79: error: Method "static_method1" is marked as an override, but no base method was found with this name  [misc]
 classes_override.py:84: error: Method "class_method1" is marked as an override, but no base method was found with this name  [misc]
 classes_override.py:89: error: Method "property1" is marked as an override, but no base method was found with this name  [misc]
+classes_override.py:135: error: Argument 1 of "__init__" is incompatible with supertype "ParentC"; supertype defines the argument type as "int"  [override]
+classes_override.py:135: note: This violates the Liskov substitution principle
+classes_override.py:135: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
+classes_override.py:138: error: Argument 1 of "__new__" is incompatible with supertype "ParentC"; supertype defines the argument type as "int"  [override]
+classes_override.py:138: note: This violates the Liskov substitution principle
+classes_override.py:138: note: See https://mypy.readthedocs.io/en/stable/common_issues.html#incompatible-overrides
 """

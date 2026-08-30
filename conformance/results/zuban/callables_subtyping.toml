@@ -175,13 +175,19 @@ callables_subtyping.py:243: note:         def __call__(self, x: int) -> None
 callables_subtyping.py:273: error: Incompatible types in assignment (expression has type "Overloaded9", variable has type "FloatArg9")  [assignment]
 callables_subtyping.py:273: note: Following member(s) of "Overloaded9" have conflicts:
 callables_subtyping.py:273: note:     Expected:
-callables_subtyping.py:273: note:         def __call__(self: FloatArg9, x: float) -> float
+callables_subtyping.py:273: note:         def __call__(self, x: float) -> float
 callables_subtyping.py:273: note:     Got:
-callables_subtyping.py:273: note:         def __call__(*args: Any, **kwds: Any) -> Any
+callables_subtyping.py:273: note:         @overload
+callables_subtyping.py:273: note:         def __call__(self, x: int) -> int
+callables_subtyping.py:273: note:         @overload
+callables_subtyping.py:273: note:         def __call__(self, x: str) -> str
 callables_subtyping.py:297: error: Incompatible types in assignment (expression has type "StrArg10", variable has type "Overloaded10")  [assignment]
 callables_subtyping.py:297: note: Following member(s) of "StrArg10" have conflicts:
 callables_subtyping.py:297: note:     Expected:
-callables_subtyping.py:297: note:         def __call__(*args: Any, **kwds: Any) -> Any
+callables_subtyping.py:297: note:         @overload
+callables_subtyping.py:297: note:         def __call__(self, x: int, y: str) -> float
+callables_subtyping.py:297: note:         @overload
+callables_subtyping.py:297: note:         def __call__(self, x: str) -> complex
 callables_subtyping.py:297: note:     Got:
-callables_subtyping.py:297: note:         def __call__(self: StrArg10, x: str) -> complex
+callables_subtyping.py:297: note:         def __call__(self, x: str) -> complex
 """

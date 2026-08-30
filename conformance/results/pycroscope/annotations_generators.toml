@@ -1,0 +1,16 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./annotations_generators.py:51:0: Function may exit without returning a value [missing_return]
+./annotations_generators.py:54:8: Incompatible return type: expected annotations_generators.C, got Literal[False] [incompatible_return_value]
+./annotations_generators.py:57:8: Cannot assign value of type Literal[3] to yield expression of type annotations_generators.A [incompatible_yield]
+./annotations_generators.py:66:8: Cannot assign value of type Literal[3] to yield expression of type annotations_generators.A [incompatible_yield]
+./annotations_generators.py:71:4: Incompatible return type: expected None, got Literal[True] [incompatible_return_value]
+./annotations_generators.py:75:4: Cannot assign value of type annotations_generators.B to yield expression of type annotations_generators.A [incompatible_yield]
+./annotations_generators.py:86:20: Generator function must return an iterable [generator_return]
+./annotations_generators.py:91:26: Async generator function must return an async iterable [generator_return]
+./annotations_generators.py:118:4: Cannot yield from collections.abc.Iterator[annotations_generators.A] (expected annotations_generators.B) [incompatible_yield]
+./annotations_generators.py:119:4: Cannot yield from Literal[[1]] (expected annotations_generators.B) [incompatible_yield]
+./annotations_generators.py:135:4: Cannot send int to a generator (expected str) [incompatible_yield]
+"""

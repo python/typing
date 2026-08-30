@@ -1,13 +1,7 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Intersects the pre-existing type with the top materialization of the bracketed type rather than the bracketed type itself.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 35: Unexpected errors ['narrowing_typeis.py:35:18: error[invalid-assignment] Object of type `object` is not assignable to `int`']
 """
 output = """
-narrowing_typeis.py:35:18: error[invalid-assignment] Object of type `object` is not assignable to `int`
 narrowing_typeis.py:110:23: error[invalid-type-guard-definition] `TypeIs` function must have a parameter to narrow
 narrowing_typeis.py:115:22: error[invalid-type-guard-definition] `TypeIs` function must have a parameter to narrow
 narrowing_typeis.py:137:20: error[invalid-argument-type] Argument to function `takes_callable_str` is incorrect: Expected `(object, /) -> str`, found `def simple_typeguard(val: object) -> TypeIs[int]`

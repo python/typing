@@ -2,6 +2,6 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-enums_expansion.py:35: error: Statement is unreachable  [unreachable]
-enums_expansion.py:53: error: Expression is of type "CustomFlags", not "Literal[CustomFlags.FLAG3]"  [misc]
+enums_expansion.py:38: error: Statement is unreachable  [unreachable]
+enums_expansion.py:56: error: Expression is of type "CustomFlags", not "Literal[CustomFlags.FLAG3]"  [misc]
 """

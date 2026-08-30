@@ -1,18 +1,14 @@
-conformance_automated = "Fail"
-conformant = "Unsupported"
-notes = """
-Does not support PEP 800 disjoint-base semantics.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 69: Expected 1 errors
-Line 73: Expected 1 errors
-Line 77: Expected 1 errors
-Line 81: Expected 1 errors
-Line 105: Expected 1 errors
-Line 118: Expected 1 errors
-Line 123: Expected 1 errors
 """
 output = """
+directives_disjoint_base.py:69: error: Class "LeftAndRight" has incompatible disjoint bases  [misc]
+directives_disjoint_base.py:73: error: Class "LeftChildAndRight" has incompatible disjoint bases  [misc]
+directives_disjoint_base.py:77: error: Class "LeftAndRightViaChild" has incompatible disjoint bases  [misc]
+directives_disjoint_base.py:81: error: Class "LeftRecord" has incompatible disjoint bases  [misc]
+directives_disjoint_base.py:105: error: Class "IncompatibleSlots" has incompatible disjoint bases  [misc]
 directives_disjoint_base.py:113: error: Value of type variable "_TC" of "disjoint_base" cannot be "Callable[[], None]"  [type-var]
-directives_disjoint_base.py:135: error: Argument 1 to "assert_never" has incompatible type "<subclass of "tests.directives_disjoint_base.Left" and "tests.directives_disjoint_base.Right">"; expected "Never"  [arg-type]
+directives_disjoint_base.py:118: error: @disjoint_base cannot be used with TypedDict  [misc]
+directives_disjoint_base.py:123: error: @disjoint_base cannot be used with protocol class  [misc]
+directives_disjoint_base.py:134: error: Subclass of "Left" and "Right" cannot exist: have distinct disjoint bases  [unreachable]
 """

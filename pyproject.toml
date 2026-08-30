@@ -1,0 +1,21 @@
+[project]
+name = "typing"
+version = "1"  # dummy
+requires-python = ">= 3.12"  # for building the documentation etc.
+
+[dependency-groups]
+test = [
+    "flake8",
+    "flake8-bugbear",
+    "flake8-pyi",
+]
+docs = [
+    # Sphinx version is pinned so that new versions that introduce new warnings
+    # won't suddenly cause build failures. Updating the version is fine as long
+    # as no warnings are raised by doing so.
+    "sphinx==9.1.0",
+
+    # The theme used by the documentation is stored separately, so we need
+    # to install that as well.
+    "python-docs-theme",
+]

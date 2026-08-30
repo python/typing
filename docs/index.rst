@@ -23,6 +23,7 @@ Guides
    :maxdepth: 1
 
    guides/libraries
+   guides/lambda
    guides/writing_stubs
    guides/modernizing
    guides/unreachable
@@ -104,7 +105,7 @@ Development Environments
 * `PyCharm <https://www.jetbrains.com/pycharm/>`_, an IDE that supports
   type stubs both for type checking and code completion.
 * `Visual Studio Code <https://code.visualstudio.com/>`_, a code editor that
-  supports type checking using mypy, pyright, or the
+  supports type checking using mypy, pyrefly, pyright, ty, Zuban, or the
   `Pylance <https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance>`_
   extension.
 
@@ -129,3 +130,5 @@ Type-Hint and Stub Integration
   a thin wrapper around ``ApplyTypeAnnotationsVisitor`` from
   `libCST <https://libcst.readthedocs.io/en/latest/>`_ that integrates .pyi
   signatures as inline type-hints in Python source code.
+* `pyrefly infer <https://pyrefly.org/en/docs/autotype/>`_, a sub-command of Pyrefly which
+  inserts the types that Pyrefly infers as inline type-hints.

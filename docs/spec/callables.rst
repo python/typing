@@ -453,7 +453,7 @@ a function within a type expression. The syntax is
 
 Parameters specified using ``Callable`` are assumed to be positional-only.
 The ``Callable`` form provides no way to specify keyword-only parameters,
-or default argument values. For these use cases, see the section on 
+or default argument values. For these use cases, see the section on
 `Callback protocols`_.
 
 Meaning of ``...`` in ``Callable``

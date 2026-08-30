@@ -10,7 +10,7 @@ namedtuples_define_functional.py:31:18: error[unknown-argument] Argument `z` doe
 namedtuples_define_functional.py:36:18: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["1"]`
 namedtuples_define_functional.py:37:21: error[too-many-positional-arguments] Too many positional arguments: expected 3, got 4
 namedtuples_define_functional.py:42:18: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal["1"]`
-namedtuples_define_functional.py:43:15: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `float`
+namedtuples_define_functional.py:43:15: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `float*`
 namedtuples_define_functional.py:52:25: error[invalid-named-tuple] Duplicate field name `a` in `namedtuple()`: Field `a` already defined; will raise `ValueError` at runtime
 namedtuples_define_functional.py:53:25: error[invalid-named-tuple] Field name `def` in `namedtuple()` cannot be a Python keyword: Will raise `ValueError` at runtime
 namedtuples_define_functional.py:54:25: error[invalid-named-tuple] Field name `def` in `namedtuple()` cannot be a Python keyword: Will raise `ValueError` at runtime

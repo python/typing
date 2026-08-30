@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./literals_interactions.py:14:4: Tuple index out of range: Literal[5] [incompatible_call]
+./literals_interactions.py:15:4: Tuple index out of range: Literal[-5] [incompatible_call]
+./literals_interactions.py:16:4: Tuple index out of range: Literal[4] [incompatible_call]
+./literals_interactions.py:17:4: Tuple index out of range: Literal[-4] [incompatible_call]
+"""

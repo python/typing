@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR specialtypes_sentinels.py:14:20-27: Default `<MISSING>` is not assignable to parameter `x` with type `int` [bad-function-definition]
+ERROR specialtypes_sentinels.py:36:7-19: Argument `Cls.Cls.IN_CLASS` is not assignable to parameter `x` with type `int | <MISSING> | SPECIAL` in function `func2` [bad-argument-type]
+ERROR specialtypes_sentinels.py:39:7-14: Argument `<MISSING>` is not assignable to parameter `x` with type `int | Cls.Cls.IN_CLASS` in function `func3` [bad-argument-type]
+"""

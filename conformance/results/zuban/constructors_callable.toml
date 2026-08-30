@@ -21,7 +21,9 @@ constructors_callable.py:144: note: Revealed type is "def () -> Any"
 constructors_callable.py:146: error: Too many arguments  [call-arg]
 constructors_callable.py:164: note: Revealed type is "Overload(def (x: builtins.int) -> tests.constructors_callable.Class7[builtins.int], def (x: builtins.str) -> tests.constructors_callable.Class7[builtins.str])"
 constructors_callable.py:184: note: Revealed type is "def [T] (x: builtins.list[T], y: builtins.list[T]) -> tests.constructors_callable.Class8[T]"
-constructors_callable.py:186: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
-constructors_callable.py:195: note: Revealed type is "def [T] (x: builtins.list[T], y: builtins.list[T]) -> tests.constructors_callable.Class9"
-constructors_callable.py:197: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
+constructors_callable.py:185: error: Argument 2 has incompatible type "str"; expected "list[str]"  [arg-type]
+constructors_callable.py:187: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
+constructors_callable.py:196: note: Revealed type is "def [T] (x: builtins.list[T], y: builtins.list[T]) -> tests.constructors_callable.Class9"
+constructors_callable.py:197: error: Argument 2 has incompatible type "str"; expected "list[str]"  [arg-type]
+constructors_callable.py:199: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
 """

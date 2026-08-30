@@ -10,6 +10,7 @@ ERROR literals_literalstring.py:65:25-45: `str` is not assignable to `LiteralStr
 ERROR literals_literalstring.py:73:25-26: `Literal[3]` is not assignable to `LiteralString` [bad-assignment]
 ERROR literals_literalstring.py:74:25-32: `Literal[b'test']` is not assignable to `LiteralString` [bad-assignment]
 ERROR literals_literalstring.py:119:21-24: `str` is not assignable to upper bound `LiteralString` of type variable `TLiteral` [bad-specialization]
-ERROR literals_literalstring.py:133:51-52: Argument `str` is not assignable to parameter `value` with type `LiteralString` in function `Container.__init__` [bad-argument-type]
+ERROR literals_literalstring.py:133:41-53: `Container[str]` is not assignable to `Container[LiteralString]` [bad-assignment]
+ERROR literals_literalstring.py:133:50-53: `str` is not assignable to upper bound `LiteralString` of type variable `T` [bad-specialization]
 ERROR literals_literalstring.py:171:21-24: `list[LiteralString]` is not assignable to `list[str]` [bad-assignment]
 """
