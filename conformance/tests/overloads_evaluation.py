@@ -390,9 +390,9 @@ def example9(x: str | bytes, y: str) -> bool | int:
 def check_example9(x: Any):
     # All three overloads are candidates. The parameter types corresponding to
     # argument `x` are `str` and `bytes`, which are not equivalent, so none of
-    # the overloads can be eliminated. We pick the most general return type.
+    # the overloads can be eliminated. We fall back to `Any`.
     ret1 = example9(x, 'o1')
-    assert_type(ret1, int)
+    assert_type(ret1, Any)
     # The second and third overload are candidates. The parameter type
     # corresponding to argument `x` is `bytes` in both candidates, so we can
     # eliminate the third overload.

@@ -1,7 +1,6 @@
 conformance_automated = "Fail"
 errors_diff = """
 Line 371: Unexpected errors ['./overloads_evaluation.py:371:16:   Any[multiple_overload_matches] is not equivalent to bool']
-Line 395: Unexpected errors ['./overloads_evaluation.py:395:16:   Any[multiple_overload_matches] is not equivalent to int']
 Line 400: Unexpected errors ['./overloads_evaluation.py:400:16:   Any[multiple_overload_matches] is not equivalent to bool']
 Line 420: Unexpected errors ['./overloads_evaluation.py:420:16:   Any[multiple_overload_matches] is not equivalent to bool']
 Line 439: Unexpected errors ['./overloads_evaluation.py:439:16:   Any[multiple_overload_matches] is not equivalent to bool']
@@ -14,7 +13,6 @@ output = """
 ./overloads_evaluation.py:51:0: Cannot call overloaded function [incompatible_argument]
 ./overloads_evaluation.py:116:4: Cannot call overloaded function [incompatible_argument]
 ./overloads_evaluation.py:371:16:   Any[multiple_overload_matches] is not equivalent to bool
-./overloads_evaluation.py:395:16:   Any[multiple_overload_matches] is not equivalent to int
 ./overloads_evaluation.py:400:16:   Any[multiple_overload_matches] is not equivalent to bool
 ./overloads_evaluation.py:420:16:   Any[multiple_overload_matches] is not equivalent to bool
 ./overloads_evaluation.py:439:16:   Any[multiple_overload_matches] is not equivalent to bool

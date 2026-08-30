@@ -315,9 +315,13 @@ caller eliminates types that include ``Any``.
 Once this filtering process is applied for all arguments, examine the return
 types of the remaining overloads. If these return types include type variables
 that are scoped to the called function, they should be replaced with their
-solved types. Eliminate every overload for which there exists a
-:term:`materialization <materialize>` of another overload's return type that is
-not assignable to this overload's return type.
+solved types.
+
+Next, keep only the overloads for which both of the following are true:
+* All :term:`materializations <materialize>` of every other candidate
+  overload's return type are assignable to this overload's return type, and
+* This overload's return type is assignable to every other candidate overload's
+  return type.
 
 This rule picks the most general return type, if one exists.
 
