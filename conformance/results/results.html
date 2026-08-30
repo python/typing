@@ -1725,29 +1725,79 @@
                                 <li>Does not expand boolean arguments to <code>Literal[True]</code> and <code>Literal[False]</code>.</li>
                                 <li>Does not expand enum arguments to literal variants.</li>
                                 <li>Does not expand tuple arguments to possible combinations.</li>
+                                <li>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</li>
+                                <li>Does not handle unpacked arguments when checking for parameter type equivalence.</li>
+                                <li>Does not evaluate Any in some cases where overload is ambiguous.</li>
+                                <li>Evaluates Any in some cases where overload is not ambiguous.</li>
+                                <li>=======</li>
                                 <li>Does not evaluate <code>Any</code> in some cases where overload is ambiguous.</li>
                                 <li>Evaluates <code>Any</code> in some cases where overload is not ambiguous.</li>
+                                <li><blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>main</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote></li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
+                        <td class="not-conformant">Unknown</td>
                         <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
+                                <li>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</li>
+                                <li>Does not evaluate Any in some cases where overload is ambiguous.</li>
+                                <li>Picks first overload instead of most general return type in some cases where overload is ambiguous.</li>
+                                <li>=======</li>
                                 <li>Does not evaluate <code>Any</code> in some cases where overload is ambiguous.</li>
+                                <li><blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>main</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote></li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Returns Any instead of most general return type for ambiguous calls.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not handle unpacked arguments when checking for parameter type equivalence.</li>
+                                <li>Returns Any instead of most general return type for ambiguous calls.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr class="summary">
                         <td></td>
                         <td>3.5 / 5 • 70.0%</td>
-                        <td>3.5 / 5 • 70.0%</td>
+                        <td>2.5 / 5 • 50.0%</td>
                         <td>5 / 5 • 100.0%</td>
                         <td>4.5 / 5 • 90.0%</td>
-                        <td>5 / 5 • 100.0%</td>
-                        <td>5 / 5 • 100.0%</td>
+                        <td>4.5 / 5 • 90.0%</td>
+                        <td>4.5 / 5 • 90.0%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2608,11 +2658,11 @@
                     <tr>
                         <td></td>
                         <td>108.5 / 145 • 74.8%</td>
-                        <td>138 / 145 • 95.2%</td>
+                        <td>137 / 145 • 94.5%</td>
                         <td>140.5 / 145 • 96.9%</td>
                         <td>135.5 / 145 • 93.4%</td>
-                        <td>132 / 145 • 91.0%</td>
-                        <td>144.5 / 145 • 99.7%</td>
+                        <td>131.5 / 145 • 90.7%</td>
+                        <td>144 / 145 • 99.3%</td>
                     </tr>
                 </tfoot>
             </table>

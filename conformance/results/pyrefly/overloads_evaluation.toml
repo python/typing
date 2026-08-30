@@ -1,10 +1,12 @@
 conformant = "Pass"
-conformance_automated = "Pass"
+conformance_automated = "Fail"
 errors_diff = """
+Line 395: Unexpected errors ['assert_type(int, Any) failed [assert-type]']
 """
 output = """
 ERROR overloads_evaluation.py:38:11-13: No matching overload found for function `example1_1` called with arguments: () [no-matching-overload]
 ERROR overloads_evaluation.py:46:15-16: Argument `Literal[1]` is not assignable to parameter `y` with type `str` in function `example1_1` [bad-argument-type]
 ERROR overloads_evaluation.py:51:12-13: Argument `Literal[1]` is not assignable to parameter `x` with type `str` in function `example1_1` [bad-argument-type]
 ERROR overloads_evaluation.py:116:13-22: No matching overload found for function `example2` called with arguments: (int | str, int | str, Literal[1]) [no-matching-overload]
+ERROR overloads_evaluation.py:395:16-27: assert_type(int, Any) failed [assert-type]
 """
