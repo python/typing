@@ -8,8 +8,8 @@ ERROR specialtypes_type.py:70:7-15: Argument `type[Callable]` is not assignable 
 ERROR specialtypes_type.py:76:12-26: Expected 1 type argument for `type`, got 2 [bad-specialization]
 ERROR specialtypes_type.py:117:5-14: Class `object` has no class attribute `unknown` [missing-attribute]
 ERROR specialtypes_type.py:120:5-14: Class `object` has no class attribute `unknown` [missing-attribute]
-ERROR specialtypes_type.py:143:1-12: TODO: Expr::attr_infer_for_type attribute base undefined for type: TypeAlias[TA1, type[type[Any]]] (trying to access unknown) [internal-error]
-ERROR specialtypes_type.py:144:1-12: TODO: Expr::attr_infer_for_type attribute base undefined for type: TypeAlias[TA2, type[type[Any]]] (trying to access unknown) [internal-error]
-ERROR specialtypes_type.py:145:1-12: TODO: Expr::attr_infer_for_type attribute base undefined for type: TypeAlias[TA3, type[type[Any]]] (trying to access unknown) [internal-error]
-ERROR specialtypes_type.py:146:1-12: TODO: Expr::attr_infer_for_type attribute base undefined for type: TypeAlias[TA4, type[type[Any]]] (trying to access unknown) [internal-error]
+ERROR specialtypes_type.py:143:1-12: Class `type` has no class attribute `unknown` [missing-attribute]
+ERROR specialtypes_type.py:144:1-12: Class `type` has no class attribute `unknown` [missing-attribute]
+ERROR specialtypes_type.py:145:1-12: Class `type` has no class attribute `unknown` [missing-attribute]
+ERROR specialtypes_type.py:146:1-12: Class `type` has no class attribute `unknown` [missing-attribute]
 """

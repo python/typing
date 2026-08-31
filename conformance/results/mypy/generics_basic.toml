@@ -16,6 +16,13 @@ generics_basic.py:208: error: Dynamic metaclass not supported for "GenericMetaIn
 generics_basic.py:208: error: Type variable "generics_basic.T" is unbound  [valid-type]
 generics_basic.py:208: note: (Hint: Use "Generic[T]" or "Protocol[T]" base class to bind "T" inside a class)
 generics_basic.py:208: note: (Hint: Use "T" in function signature to bind "T" inside a function)
+generics_basic.py:223: error: Argument 2 to "takes_two_lists" has incompatible type "str"; expected "list[int]"  [arg-type]
+generics_basic.py:225: error: Cannot infer value of type parameter "T" of "takes_two_lists"  [misc]
+generics_basic.py:232: error: Cannot infer value of type parameter "T" of "takes_two_lists"  [misc]
+generics_basic.py:240: error: Argument 2 to "takes_two_int_lists" has incompatible type "str"; expected "list[int]"  [arg-type]
+generics_basic.py:241: error: Cannot infer value of type parameter "T_int" of "takes_two_int_lists"  [misc]
+generics_basic.py:244: error: Cannot infer value of type parameter "T_int" of "takes_two_int_lists"  [misc]
+generics_basic.py:251: error: Cannot infer value of type parameter "T_int" of "takes_two_int_lists"  [misc]
 """
 conformance_automated = "Pass"
 errors_diff = """

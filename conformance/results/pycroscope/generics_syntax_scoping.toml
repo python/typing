@@ -1,0 +1,13 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_syntax_scoping.py:14:19: TypeVar bound cannot be parameterized by type variables [invalid_annotation]
+./generics_syntax_scoping.py:18:13: Type parameter bound cannot reference a later type parameter [invalid_type_parameter]
+./generics_syntax_scoping.py:35:6: Undefined name: T [undefined_name]
+./generics_syntax_scoping.py:44:12: Incompatible argument type for x: expected type[./generics_syntax_scoping.py.Foo[~T@./generics_syntax_scoping.py.decorator1.<locals>.decorator1]] but got types.GenericAlias (partial from <class 'Foo'>[Any[error]]) [incompatible_argument]
+./generics_syntax_scoping.py:44:16: Undefined name: T [undefined_name]
+./generics_syntax_scoping.py:92:16: Type parameter 'T' is already in use by an outer scope [invalid_type_parameter]
+./generics_syntax_scoping.py:95:16: Type parameter 'T' is already in use by an outer scope [invalid_type_parameter]
+./generics_syntax_scoping.py:98:16: Type parameter 'T' is already in use by an outer scope [invalid_type_parameter]
+"""

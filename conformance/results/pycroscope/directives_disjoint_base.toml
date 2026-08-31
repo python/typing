@@ -1,0 +1,13 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./directives_disjoint_base.py:69:0: Class has incompatible disjoint bases [invalid_base]
+./directives_disjoint_base.py:73:0: Class has incompatible disjoint bases [invalid_base]
+./directives_disjoint_base.py:77:0: Class has incompatible disjoint bases [invalid_base]
+./directives_disjoint_base.py:81:0: Class has incompatible disjoint bases [invalid_base]
+./directives_disjoint_base.py:105:0: Class has incompatible disjoint bases [invalid_base]
+./directives_disjoint_base.py:113:1: disjoint_base cannot be applied to a function [invalid_disjoint_base]
+./directives_disjoint_base.py:118:1: disjoint_base cannot be applied to a TypedDict [invalid_disjoint_base]
+./directives_disjoint_base.py:123:1: disjoint_base cannot be applied to a Protocol [invalid_disjoint_base]
+"""

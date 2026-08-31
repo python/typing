@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_specialization.py:109:17: error[invalid-type-form] `*` can only unpack a tuple type or `TypeVarTuple`
+generics_typevartuple_specialization.py:110:17: error[invalid-type-form] `Unpack` can only be used with a fixed tuple type in this context
+generics_typevartuple_specialization.py:121:7: error[invalid-type-form] Multiple unpacked variadic tuples are not allowed in a `tuple` specialization
+generics_typevartuple_specialization.py:122:7: error[invalid-type-form] Multiple unpacked variadic tuples are not allowed in a `tuple` specialization
+generics_typevartuple_specialization.py:127:5: error[invalid-type-arguments] No type arguments provided for required type variables `T1`, `T2`
+generics_typevartuple_specialization.py:163:13: error[invalid-type-form] A TypeVarTuple cannot be split to provide a fixed type argument
+"""

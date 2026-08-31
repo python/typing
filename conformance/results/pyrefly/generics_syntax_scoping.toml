@@ -1,3 +1,4 @@
+conformant = "Pass"
 conformance_automated = "Pass"
 errors_diff = """
 """
@@ -5,7 +6,6 @@ output = """
 ERROR generics_syntax_scoping.py:14:20-31: Type variable bounds and constraints must be concrete [invalid-annotation]
 ERROR generics_syntax_scoping.py:18:26-27: Expected a type form, got instance of `int` [not-a-type]
 ERROR generics_syntax_scoping.py:35:7-8: `T` is uninitialized [unbound-name]
-ERROR generics_syntax_scoping.py:44:17-18: `T` is uninitialized [unbound-name]
 ERROR generics_syntax_scoping.py:44:17-18: Expected a type form, got instance of `int` [not-a-type]
 ERROR generics_syntax_scoping.py:92:17-18: Type parameter `T` shadows a type parameter of the same name from an enclosing scope [invalid-type-var]
 ERROR generics_syntax_scoping.py:95:17-18: Type parameter `T` shadows a type parameter of the same name from an enclosing scope [invalid-type-var]

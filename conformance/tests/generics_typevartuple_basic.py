@@ -7,6 +7,7 @@ Tests basic usage of TypeVarTuple.
 from typing import Generic, NewType, TypeVarTuple, assert_type
 
 Ts = TypeVarTuple("Ts")
+Ts1 = TypeVarTuple("Ts1")
 
 
 class Array1(Generic[*Ts]):
@@ -54,17 +55,16 @@ class ClassA(Generic[Shape]):  # E: not unpacked
         self._shape: tuple[*Shape] = shape
 
     def get_shape(self) -> tuple[Shape]:  # E: not unpacked
-        return self._shape
+        raise NotImplementedError
 
     def method1(*args: Shape) -> None:  # E: not unpacked
         ...
 
 
-# > TypeVarTuple does not yet support specification of variance, bounds, constraints.
+# > TypeVarTuple does not support type constraints.
 
-Ts1 = TypeVarTuple("Ts1", covariant=True)  # E
 Ts2 = TypeVarTuple("Ts2", int, float)  # E
-Ts3 = TypeVarTuple("Ts3", bound=int)  # E
+Ts3 = TypeVarTuple("Ts3", bound=int)  # E: bound is unavailable in Python 3.12
 
 
 # > If the same TypeVarTuple instance is used in multiple places in a signature
@@ -81,12 +81,13 @@ def func2(arg1: tuple[*Ts], arg2: tuple[*Ts]) -> tuple[*Ts]:
 # > the types must match exactly (the list of type parameters must be the
 # > same length, and the type parameters themselves must be identical)
 
-assert_type(func2((0,), (1,)), tuple[int])  # OK
+def check_func2(x: int):
+    assert_type(func2((x,), (1,)), tuple[int])  # OK
 func2((0,), (0.0,))  # OK
 func2((0.0,), (0,))  # OK
 func2((0,), (1,))  # OK
 
-func2((0,), ("0",))  # E
+func2((0,), ("0",))  # OK
 func2((0, 0), (0,))  # E
 
 
@@ -103,5 +104,9 @@ def func3(x: Array[Height], y: Array[Width], z: Array[Height, Width]):
 # > Only a single type variable tuple may appear in a type parameter list.
 
 
-class Array3(Generic[*Ts1, *Ts2]):  # E
+class Array3(Generic[*Ts, *Ts1]):  # E
+    ...
+
+
+class Array4[*Ts1, *Ts2]:  # E
     ...

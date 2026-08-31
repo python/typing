@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_transform_field.py:64:16: error[unknown-argument] Argument `id` does not match any known parameter
+dataclasses_transform_field.py:75:1: error[missing-argument] No argument provided for required parameter `name`
+dataclasses_transform_field.py:75:16: error[too-many-positional-arguments] Too many positional arguments: expected 0, got 1
+"""

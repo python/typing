@@ -1,0 +1,16 @@
+conformance_automated = "Fail"
+conformant = "Unsupported"
+notes = """
+Allows implicitly abstract protocol methods to be called via `super()` on a protocol subclass.
+Allows instantiation of abstract subclasses of protocol classes.
+"""
+errors_diff = """
+Line 27: Expected 1 errors
+Line 60: Expected 1 errors
+Line 89: Expected 1 errors
+Line 134: Expected 1 errors
+Line 164: Expected 1 errors
+"""
+output = """
+protocols_explicit.py:56:9: error[invalid-assignment] Object of type `tuple[int, int, str]` is not assignable to attribute `rgb` of type `tuple[int, int, int]`
+"""

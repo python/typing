@@ -1,14 +1,11 @@
-conformant = "Partial"
-notes = """
-Does not reject class-scoped type var in self param annotation
-"""
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 107: Expected 1 errors
 """
 output = """
 ERROR constructors_call_init.py:21:13-16: Argument `float` is not assignable to parameter `x` with type `int` in function `Class1.__init__` [bad-argument-type]
 ERROR constructors_call_init.py:42:8-20: Argument `Class2[@_]` is not assignable to parameter `x` with type `Class3 | None` in function `Class2.__init__` [bad-argument-type]
 ERROR constructors_call_init.py:56:12-14: Argument `Class4[str]` is not assignable to parameter `self` with type `Class4[int]` in function `Class4.__init__` [bad-argument-type]
+ERROR constructors_call_init.py:107:9-17: `__init__` method self type cannot reference class type parameters `T2`, `T1` [invalid-annotation]
 ERROR constructors_call_init.py:130:9-10: Expected 0 positional arguments, got 1 in function `object.__init__` [bad-argument-count]
 """

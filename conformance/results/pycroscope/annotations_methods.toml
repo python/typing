@@ -1,0 +1,6 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./annotations_methods.py:42:12:   annotations_methods.B is not equivalent to annotations_methods.A
+"""

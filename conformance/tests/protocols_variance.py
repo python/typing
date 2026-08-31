@@ -4,14 +4,15 @@ Tests type variable variance inference for generic protocols.
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/protocol.html#generic-protocols
 
-from typing import ParamSpec, Protocol, TypeVar
+from typing import Protocol, TypeVar
+from typing_extensions import ParamSpec
 
 T1 = TypeVar("T1")
 T2 = TypeVar("T2", bound=int)
 T3 = TypeVar("T3", bytes, str)
 T1_co = TypeVar("T1_co", covariant=True)
 T1_contra = TypeVar("T1_contra", contravariant=True)
-P = ParamSpec("P")
+P = ParamSpec("P", contravariant=True)
 R = TypeVar("R", covariant=True)
 
 # > Type checkers will warn if the inferred variance is different from the
@@ -58,8 +59,8 @@ class Protocol4(Protocol[T1]):  # E: T1 should be contravariant
         ...
 
 
-class Protocol5(Protocol[T1_co]):  # E: T1_co should be contravariant
-    def m1(self, p0: T1_co) -> None:  # E?: Incorrect use of covariant TypeVar
+class Protocol5(Protocol[T1_co]):  # E[covariant_in_input+]
+    def m1(self, p0: T1_co) -> None:  # E[covariant_in_input+]
         ...
 
 
@@ -68,8 +69,8 @@ class Protocol6(Protocol[T1]):  # E: T1 should be covariant
         ...
 
 
-class Protocol7(Protocol[T1_contra]):  # E: T1_contra should be covariant
-    def m1(self) -> T1_contra:  # E?: Incorrect use of contravariant TypeVar
+class Protocol7(Protocol[T1_contra]):  # E[contravariant_in_output+]
+    def m1(self) -> T1_contra:  # E[contravariant_in_output+]
         ...
 
 

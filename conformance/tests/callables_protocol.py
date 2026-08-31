@@ -173,7 +173,7 @@ P = ParamSpec("P")
 R = TypeVar("R", covariant=True)
 
 
-class Proto9(Protocol[P, R]):
+class Proto9[**P, R](Protocol):
     other_attribute: int
 
     def __call__(self, *args: P.args, **kwargs: P.kwargs) -> R:
@@ -222,15 +222,15 @@ class Proto11(Protocol):
 
 
 def cb11_good1(x: int, /, y: str, z: None = None) -> Any:
-    pass
+    raise NotImplementedError
 
 
 def cb11_good2(x: int, y: str, z: None = None) -> Any:
-    pass
+    raise NotImplementedError
 
 
 def cb11_bad1(x: int, y: str, /) -> Any:
-    pass
+    raise NotImplementedError
 
 
 cb11: Proto11 = cb11_good1  # OK

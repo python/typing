@@ -1,0 +1,8 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_mixed_variance_inference.py:13:0: Incompatible assignment: expected generics_mixed_variance_inference.Mixed[int, tuple[()], () -> Any[generic_argument]], got generics_mixed_variance_inference.Mixed[bool, () -> Any[generic_argument]] [incompatible_assignment]
+./generics_mixed_variance_inference.py:16:0: Incompatible assignment: expected generics_mixed_variance_inference.Mixed[int, int, () -> Any[generic_argument]], got generics_mixed_variance_inference.Mixed[int, object, () -> Any[generic_argument]] [incompatible_assignment]
+./generics_mixed_variance_inference.py:21:0: Incompatible assignment: expected generics_mixed_variance_inference.Mixed[int, tuple[()], (int, /) -> Any[generic_argument]], got generics_mixed_variance_inference.Mixed[int, (bool, /) -> Any[generic_argument]] [incompatible_assignment]
+"""

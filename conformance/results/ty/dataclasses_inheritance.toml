@@ -1,0 +1,7 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+dataclasses_inheritance.py:62:5: error[invalid-attribute-override] Invalid override of attribute `x`: class variable cannot override instance variable `DC6.x`
+dataclasses_inheritance.py:66:5: error[invalid-attribute-override] Invalid override of attribute `y`: instance variable cannot override class variable `DC6.y`
+"""

@@ -1,6 +1,6 @@
 conformant = "Unsupported"
 notes = """
-Type parameter syntax not yet support.
+Type parameter syntax not yet supported.
 """
 output = """
 generics_syntax_infer_variance.py:11: error: Unexpected argument to "TypeVar()": "infer_variance"  [misc]

@@ -1,0 +1,9 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+literals_semantics.py:10:18: error[invalid-assignment] Object of type `Literal[4]` is not assignable to `Literal[3]`
+literals_semantics.py:24:26: error[invalid-assignment] Object of type `Literal[0]` is not assignable to `Literal[False]`
+literals_semantics.py:25:22: error[invalid-assignment] Object of type `Literal[False]` is not assignable to `Literal[0]`
+literals_semantics.py:33:5: error[invalid-assignment] Object of type `Literal[6, 7, 8]` is not assignable to `Literal[3, 4, 5]`
+"""

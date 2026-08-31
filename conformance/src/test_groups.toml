@@ -7,6 +7,10 @@ href = "https://typing.readthedocs.io/en/latest/spec/concepts.html"
 name = "Type annotations"
 href = "https://typing.readthedocs.io/en/latest/spec/annotations.html"
 
+[typeforms]
+name = "Type forms"
+href = "https://typing.readthedocs.io/en/latest/spec/type-forms.html"
+
 [specialtypes]
 name = "Special types in annotations"
 href = "https://typing.readthedocs.io/en/latest/spec/special-types.html"

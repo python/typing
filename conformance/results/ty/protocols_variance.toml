@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+protocols_variance.py:22:7: error[invalid-protocol] Type variable `T1` in protocol `AnotherBox` should be covariant, but is invariant
+protocols_variance.py:41:7: error[invalid-protocol] Type variable `T3` in protocol `Protocol2` should be contravariant, but is invariant
+protocols_variance.py:57:7: error[invalid-protocol] Type variable `T1` in protocol `Protocol4` should be contravariant, but is invariant
+protocols_variance.py:62:7: error[invalid-protocol] Type variable `T1_co` in protocol `Protocol5` should be contravariant, but is covariant
+protocols_variance.py:67:7: error[invalid-protocol] Type variable `T1` in protocol `Protocol6` should be covariant, but is invariant
+protocols_variance.py:72:7: error[invalid-protocol] Type variable `T1_contra` in protocol `Protocol7` should be covariant, but is contravariant
+protocols_variance.py:105:7: error[invalid-protocol] Type variable `T1` in protocol `Protocol12` should be covariant, but is invariant
+"""

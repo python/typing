@@ -1,10 +1,12 @@
 conformant = "Pass"
 output = """
-dataclasses_hash.py:15:16 - error: Type "DC1" is not assignable to declared type "Hashable"
+dataclasses_hash.py:17:1 - error: Object of type "None" cannot be called (reportOptionalCall)
+dataclasses_hash.py:18:16 - error: Type "DC1" is not assignable to declared type "Hashable"
   "DC1" is incompatible with protocol "Hashable"
     "__hash__" is an incompatible type
       Type "None" is not assignable to type "() -> int" (reportAssignmentType)
-dataclasses_hash.py:32:16 - error: Type "DC3" is not assignable to declared type "Hashable"
+dataclasses_hash.py:39:1 - error: Object of type "None" cannot be called (reportOptionalCall)
+dataclasses_hash.py:40:16 - error: Type "DC3" is not assignable to declared type "Hashable"
   "DC3" is incompatible with protocol "Hashable"
     "__hash__" is an incompatible type
       Type "None" is not assignable to type "() -> int" (reportAssignmentType)

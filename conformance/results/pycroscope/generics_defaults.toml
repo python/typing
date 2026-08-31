@@ -1,0 +1,11 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_defaults.py:24:0: non-default TypeVars cannot follow ones with defaults [invalid_type_parameter_default]
+./generics_defaults.py:66:7: Expected at least 2 type arguments for ./generics_defaults.py.AllTheDefaults [invalid_specialization]
+./generics_defaults.py:152:50: TypeVar default must be assignable to its bound [invalid_type_parameter_default]
+./generics_defaults.py:159:51: TypeVar default must be one of its constraints [invalid_type_parameter_default]
+./generics_defaults.py:176:12:   Any[generic_argument] is not equivalent to int
+./generics_defaults.py:188:0: TypeVars with defaults cannot follow TypeVarTuples [invalid_type_parameter_default]
+"""

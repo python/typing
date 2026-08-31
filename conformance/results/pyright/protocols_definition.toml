@@ -97,6 +97,12 @@ protocols_definition.py:341:22 - error: Type "Concrete6_Bad3" is not assignable 
   "Concrete6_Bad3" is incompatible with protocol "Template6"
     "val1" is writable in protocol
     "val1" is not read-only in protocol (reportAssignmentType)
+protocols_definition.py:369:22 - error: Type "Concrete7_Bad1" is not assignable to declared type "Template7"
+  "Concrete7_Bad1" is incompatible with protocol "Template7"
+    "val1" is defined as a ClassVar in protocol (reportAssignmentType)
+protocols_definition.py:370:22 - error: Type "Concrete7_Bad2" is not assignable to declared type "Template7"
+  "Concrete7_Bad2" is incompatible with protocol "Template7"
+    "val1" is defined as a ClassVar in protocol (reportAssignmentType)
 """
 conformance_automated = "Pass"
 errors_diff = """

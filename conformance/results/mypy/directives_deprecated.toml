@@ -6,7 +6,7 @@ output = """
 directives_deprecated.py:18: error: class _directives_deprecated_library.Ham is deprecated: Use Spam instead  [deprecated]
 directives_deprecated.py:24: error: function _directives_deprecated_library.norwegian_blue is deprecated: It is pining for the fjords  [deprecated]
 directives_deprecated.py:25: error: function _directives_deprecated_library.norwegian_blue is deprecated: It is pining for the fjords  [deprecated]
-directives_deprecated.py:30: error: overload def (x: builtins.int) -> builtins.str of function _directives_deprecated_library.foo is deprecated: Only str will be allowed  [deprecated]
+directives_deprecated.py:30: error: overload def (x: int) -> str of function _directives_deprecated_library.foo is deprecated: Only str will be allowed  [deprecated]
 directives_deprecated.py:41: error: function _directives_deprecated_library.Spam.__add__ is deprecated: There is enough spam in the world  [deprecated]
 directives_deprecated.py:42: error: function _directives_deprecated_library.Spam.__add__ is deprecated: There is enough spam in the world  [deprecated]
 directives_deprecated.py:44: error: function _directives_deprecated_library.Spam.greasy is deprecated: All spam will be equally greasy  [deprecated]

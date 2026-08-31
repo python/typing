@@ -1,0 +1,13 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+generics_typevartuple_args.py:33:20: error[invalid-argument-type] Argument to function `exec_le` is incorrect: Expected `Env`, found `Literal[""]`
+generics_typevartuple_args.py:34:20: error[invalid-argument-type] Argument to function `exec_le` is incorrect: Expected `Env`, found `Literal[""]`
+generics_typevartuple_args.py:48:10: error[invalid-argument-type] Argument to function `func1` is incorrect: Expected `int`, found `Literal["2"]`
+generics_typevartuple_args.py:57:10: error[invalid-argument-type] Argument to function `func2` is incorrect: Expected `str`, found `Literal[1]`
+generics_typevartuple_args.py:58:1: error[missing-argument] No argument provided for required parameter `*args` of function `func2`
+generics_typevartuple_args.py:59:1: error[missing-argument] No argument provided for required parameter `*args` of function `func2`
+generics_typevartuple_args.py:67:1: error[missing-argument] No argument provided for required parameter `*args` of function `func3`
+generics_typevartuple_args.py:75:13: error[invalid-argument-type] Argument to function `func4` is incorrect: Expected `tuple[Literal[0]]`, found `tuple[Literal[1], Literal[2]]`
+"""

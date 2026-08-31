@@ -1,0 +1,12 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_defaults_referential.py:36:16: Incompatible argument type for b: expected int but got str [incompatible_argument]
+./generics_defaults_referential.py:37:13: Incompatible argument type for a: expected int but got str [incompatible_argument]
+./generics_defaults_referential.py:53:0: Type parameter defaults can reference only earlier type parameters from the same class [invalid_type_parameter_default]
+./generics_defaults_referential.py:60:4: Type parameter defaults can reference only earlier type parameters from the same class [invalid_type_parameter_default]
+./generics_defaults_referential.py:68:39: TypeVar default must be assignable to its bound [invalid_type_parameter_default]
+./generics_defaults_referential.py:74:51: TypeVar default must be one of its constraints [invalid_type_parameter_default]
+./generics_defaults_referential.py:78:62: TypeVar default must be one of its constraints [invalid_type_parameter_default]
+"""

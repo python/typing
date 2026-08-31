@@ -3,7 +3,8 @@ errors_diff = """
 """
 output = """
 generics_upper_bound.py:24: error: TypeVar bound must not contain type variables  [misc]
-generics_upper_bound.py:51: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
-generics_upper_bound.py:51: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
-generics_upper_bound.py:56: error: TypeVar cannot have both values and an upper bound  [misc]
+generics_upper_bound.py:44: error: Expression is of type "list[int] | set[int]", not "Collection[int]"  [misc]
+generics_upper_bound.py:52: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
+generics_upper_bound.py:52: error: Value of type variable "ST" of "longer" cannot be "int"  [type-var]
+generics_upper_bound.py:57: error: TypeVar cannot have both values and an upper bound  [misc]
 """

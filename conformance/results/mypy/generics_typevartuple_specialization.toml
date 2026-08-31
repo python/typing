@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
-Incorrectly specializes generic alias that includes a TypeVar and TypeVarTuple if no type arguments are provided.
-Rejects specialization of generic type alias defined as a tuple containing a TypeVar.
+Incorrectly specializes generic alias that includes a `TypeVar` and `TypeVarTuple` if no type arguments are provided.
+Rejects specialization of generic type alias defined as a tuple containing a `TypeVar`.
 """
 output = """
 generics_typevartuple_specialization.py:85: error: Argument 1 to "takes_float_array_with_specific_shape" has incompatible type "Array2[float, *tuple[Any, ...]]"; expected "Array2[float, Height, Width]"  [arg-type]

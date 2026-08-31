@@ -3,6 +3,9 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR directives_version_platform.py:40:17-19: `Literal['']` is not assignable to `int` [bad-assignment]
-ERROR directives_version_platform.py:45:17-19: `Literal['']` is not assignable to `int` [bad-assignment]
+ERROR directives_version_platform.py:33:19-23: Could not find name `val3` [unknown-name]
+ERROR directives_version_platform.py:50:19-23: Could not find name `val6` [unknown-name]
+ERROR directives_version_platform.py:59:19-23: Could not find name `val9` [unknown-name]
+ERROR directives_version_platform.py:66:19-24: Could not find name `val10` [unknown-name]
+ERROR directives_version_platform.py:75:19-24: Could not find name `val13` [unknown-name]
 """

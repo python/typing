@@ -23,6 +23,7 @@ Guides
    :maxdepth: 1
 
    guides/libraries
+   guides/lambda
    guides/writing_stubs
    guides/modernizing
    guides/unreachable
@@ -57,6 +58,15 @@ Specification
 
    spec/index
 
+
+Typing PEPs
+-----------
+
+Significant changes to the Python Type System Specification are proposed and
+discussed in Python Enhancement Proposals (PEPs). See
+https://peps.python.org/topic/typing for a list of all current and historical
+typing-related PEPs.
+
 Indices and tables
 ==================
 
@@ -85,13 +95,17 @@ Type Checkers
 * `ty <https://docs.astral.sh/ty/>`_
 * `Zuban <https://docs.zubanls.com/en/latest/>`_
 
+The extent to which these adhere to the specification is monitored by a
+`conformance test suite <https://github.com/python/typing/tree/main/conformance>`_
+(`results <https://htmlpreview.github.io/?https://github.com/python/typing/blob/main/conformance/results/results.html>`_).
+
 Development Environments
 ------------------------
 
 * `PyCharm <https://www.jetbrains.com/pycharm/>`_, an IDE that supports
   type stubs both for type checking and code completion.
 * `Visual Studio Code <https://code.visualstudio.com/>`_, a code editor that
-  supports type checking using mypy, pyright, or the
+  supports type checking using mypy, pyrefly, pyright, ty, Zuban, or the
   `Pylance <https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance>`_
   extension.
 
@@ -116,8 +130,5 @@ Type-Hint and Stub Integration
   a thin wrapper around ``ApplyTypeAnnotationsVisitor`` from
   `libCST <https://libcst.readthedocs.io/en/latest/>`_ that integrates .pyi
   signatures as inline type-hints in Python source code.
-
-Typing PEPs
-===========
-
-See https://peps.python.org/topic/typing for a list of all typing-related PEPs.
+* `pyrefly infer <https://pyrefly.org/en/docs/autotype/>`_, a sub-command of Pyrefly which
+  inserts the types that Pyrefly infers as inline type-hints.

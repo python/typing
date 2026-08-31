@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+specialtypes_sentinels.py:14:11: error[invalid-parameter-default] Default value of type `MISSING` is not assignable to annotated parameter type `int`
+specialtypes_sentinels.py:36:7: error[invalid-argument-type] Argument to function `func2` is incorrect: Expected `int | MISSING | SPECIAL`, found `IN_CLASS`
+specialtypes_sentinels.py:39:7: error[invalid-argument-type] Argument to function `func3` is incorrect: Expected `int | IN_CLASS`, found `MISSING`
+"""

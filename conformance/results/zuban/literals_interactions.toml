@@ -2,8 +2,8 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+literals_interactions.py:14: error: Tuple index out of range  [misc]
 literals_interactions.py:15: error: Tuple index out of range  [misc]
 literals_interactions.py:16: error: Tuple index out of range  [misc]
 literals_interactions.py:17: error: Tuple index out of range  [misc]
-literals_interactions.py:18: error: Tuple index out of range  [misc]
 """

@@ -1,0 +1,18 @@
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./generics_variance.py:14:5: Bivariant types are not supported [incompatible_call]
+./generics_variance.py:77:13: T_co has incompatible variance in base class [invalid_base]
+./generics_variance.py:81:13: T_contra has incompatible variance in base class [invalid_base]
+./generics_variance.py:93:16: T_contra has incompatible variance in base class [invalid_base]
+./generics_variance.py:105:20: T_co has incompatible variance in base class [invalid_base]
+./generics_variance.py:113:20: T_co has incompatible variance in base class [invalid_base]
+./generics_variance.py:126:4: T_co has incompatible variance in base class [invalid_base]
+./generics_variance.py:132:4: T_contra has incompatible variance in base class [invalid_base]
+./generics_variance.py:142:4: T_co has incompatible variance in base class [invalid_base]
+./generics_variance.py:163:25: T_contra has incompatible variance in base class [invalid_base]
+./generics_variance.py:167:29: T_co has incompatible variance in base class [invalid_base]
+./generics_variance.py:191:32: T_contra has incompatible variance in base class [invalid_base]
+./generics_variance.py:196:4: T_co has incompatible variance in base class [invalid_base]
+"""

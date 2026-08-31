@@ -93,8 +93,8 @@ class ConcreteC2:
 class CMeta(type):
     attr1: int
 
-    def __init__(self, attr1: int) -> None:
-        self.attr1 = attr1
+    def __init__(self, *args, **kwargs) -> None:
+        self.attr1: int = 1
 
 
 class ConcreteC3(metaclass=CMeta):
@@ -105,5 +105,5 @@ pc1: ProtoC1 = ConcreteC1  # E
 pc2: ProtoC2 = ConcreteC1  # OK
 pc3: ProtoC1 = ConcreteC2  # E
 pc4: ProtoC2 = ConcreteC2  # E
-pc5: ProtoC1 = ConcreteC3  # E
+pc5: ProtoC1 = ConcreteC3  # E?: Explicit ClassVar matching is unspecified
 pc6: ProtoC2 = ConcreteC3  # OK
