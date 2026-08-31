@@ -14,16 +14,19 @@ ID1: Final = 1
 assert_type(ID1, Literal[1])
 expects_one(ID1)
 
+ID2: Final = True
+assert_type(ID2, Literal[True])
+
 # > Type checkers are not obligated to understand any other uses of Final.
 
-ID2: Final[int] = 1
-expects_one(ID2)  # E?: May or may not be accepted by type checkers
+ID3: Final[int] = 1
+expects_one(ID3)  # E?: May or may not be accepted by type checkers
 
-ID3: Final = 2 - 1
-expects_one(ID2)  # E?: May or may not be accepted by type checkers
+ID4: Final = 2 - 1
+expects_one(ID4)  # E?: May or may not be accepted by type checkers
 
-ID4: Final = range(1)
-assert_type(ID4, range)  # E?: May or may not be inferred by type checkers
+ID5: Final = range(1)
+assert_type(ID5, range)  # E?: May or may not be inferred by type checkers
 
 # > If the right hand side is omitted, there must be an explicit type argument to Final.
 
