@@ -504,39 +504,7 @@ involving Literal bools. For example, we can combine ``Literal[True]``,
 Interactions with Final
 """""""""""""""""""""""
 
-The ``Final`` qualifier can be used to declare that some variable or
-attribute cannot be reassigned::
-
-    foo: Final = 3
-    foo = 4           # Error: 'foo' is declared to be Final
-
-Note that in the example above, we know that ``foo`` will always be equal to
-exactly ``3``. A type checker can use this information to deduce that ``foo``
-is valid to use in any context that expects a ``Literal[3]``::
-
-    def expects_three(x: Literal[3]) -> None: ...
-
-    expects_three(foo)  # Type checks, since 'foo' is Final and equal to 3
-
-The ``Final`` qualifier serves as a shorthand for declaring that a variable
-is *effectively Literal*.
-
-Type checkers are expected to
-support this shortcut. Specifically, given a variable or attribute assignment
-of the form ``var: Final = value`` where ``value`` is a valid parameter for
-``Literal[...]``, type checkers should understand that ``var`` may be used in
-any context that expects a ``Literal[value]``.
-
-Type checkers are not obligated to understand any other uses of Final. For
-example, whether or not the following program type checks is left unspecified::
-
-    # Note: The assignment does not exactly match the form 'var: Final = value'.
-    bar1: Final[int] = 3
-    expects_three(bar1)  # May or may not be accepted by type checkers
-
-    # Note: "Literal[1 + 2]" is not a legal type.
-    bar2: Final = 1 + 2
-    expects_three(bar2)  # May or may not be accepted by type checkers
+See the :ref:`final-inference` section in the :ref:`type-qualifiers` chapter.
 
 .. _`literalstring`:
 

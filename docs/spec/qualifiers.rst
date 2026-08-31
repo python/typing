@@ -91,8 +91,9 @@ Syntax
 
     ID: Final = 1
 
-  The typechecker should apply its usual type inference mechanisms to
-  determine the type of ``ID`` (here, likely, ``int``). Note that unlike for
+  The typechecker should apply the inference mechanisms
+  :ref:`described below <final-inference>` to determine the type of ``ID``.
+  Note that unlike for
   generic classes this is *not* the same as ``Final[Any]``.
 
 * In class bodies and stub files you can omit the right hand side and just write
@@ -159,14 +160,6 @@ The generated ``__init__`` method of :doc:`dataclasses` qualifies for this
 requirement: a bare ``x: Final[int]`` is permitted in a dataclass body, because
 the generated ``__init__`` will initialize ``x``.
 
-Type checkers should infer a final attribute that is initialized in a class
-body as being a class variable, except in the case of :doc:`dataclasses`, where
-``x: Final[int] = 3`` creates a dataclass field and instance-level final
-attribute ``x`` with default value ``3``; ``x: ClassVar[Final[int]] = 3`` is
-necessary to create a final class variable with value ``3``. In
-non-dataclasses, combining ``ClassVar`` and ``Final`` is redundant, and type
-checkers may choose to warn or error on the redundancy.
-
 ``Final`` may only be used in assignments or variable annotations. Using it in
 any other position is an error. In particular, ``Final`` can't be used in
 annotations for function arguments::
@@ -193,19 +186,51 @@ with ``Final`` to prevent mutating such values::
    z: Final = ('a', 'b')  # Also works
 
 
-Type checkers should treat uses of a final name that was initialized
-with a literal as if it was replaced by the literal. For example, the
-following should be allowed::
-
-   from typing import NamedTuple, Final
-
-   X: Final = "x"
-   Y: Final = "y"
-   N = NamedTuple("N", [(X, int), (Y, int)])
-
 ``Final`` cannot be used as a qualifier for a :ref:`TypedDict <typeddict>`
 item or a :ref:`NamedTuple <namedtuple>` field. Such usage also generates
 an error at runtime.
+
+.. _`final-inference`:
+
+Inference Rules
+^^^^^^^^^^^^^^^
+
+In the example below, we know that ``foo`` will always be equal to
+exactly ``3``. A type checker can use this information to deduce that ``foo``
+is valid to use in any context that expects a ``Literal[3]``::
+
+    def expects_three(x: Literal[3]) -> None: ...
+
+    foo: Final = 3
+    expects_three(foo)  # Type checks, since 'foo' is Final and equal to 3
+
+The ``Final`` qualifier serves as a shorthand for declaring that a variable
+is *effectively Literal*.
+
+Type checkers are expected to
+support this shortcut. Specifically, given a variable or attribute assignment
+of the form ``var: Final = value`` where ``value`` is a valid parameter for
+``Literal[...]``, type checkers should understand that ``var`` may be used in
+any context that expects a ``Literal[value]``.
+
+Type checkers are not obligated to understand any other uses of Final. For
+example, whether or not the following program type checks is left unspecified::
+
+    # Note: The assignment does not exactly match the form 'var: Final = value'.
+    bar1: Final[int] = 3
+    expects_three(bar1)  # May or may not be accepted by type checkers
+
+    # Note: "Literal[1 + 2]" is not a legal type.
+    bar2: Final = 1 + 2
+    expects_three(bar2)  # May or may not be accepted by type checkers
+
+Type checkers should infer a final attribute that is initialized in a class
+body as being a class variable, except in the case of :doc:`dataclasses`, where
+``x: Final[int] = 3`` creates a dataclass field and instance-level final
+attribute ``x`` with default value ``3``; ``x: ClassVar[Final[int]] = 3`` is
+necessary to create a final class variable with value ``3``. In
+non-dataclasses, combining ``ClassVar`` and ``Final`` is redundant, and type
+checkers may choose to warn or error on the redundancy.
 
 
 Importing ``Final`` Variables
