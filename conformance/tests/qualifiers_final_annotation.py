@@ -19,10 +19,11 @@ expects_one(ID1)
 ID2: Final[int] = 1
 expects_one(ID2)  # E?: May or may not be accepted by type checkers
 
-# Type checkers can only infer literals if the parameter is valid for Literal.
+ID3: Final = 2 - 1
+expects_one(ID2)  # E?: May or may not be accepted by type checkers
 
-ID3: Final = range(1)
-assert_type(ID3, range)
+ID4: Final = range(1)
+assert_type(ID4, range)  # E?: May or may not be inferred by type checkers
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/qualifiers.html#id1
 
