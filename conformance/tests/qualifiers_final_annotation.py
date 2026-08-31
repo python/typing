@@ -4,12 +4,28 @@ Tests the typing.Final special form.
 
 from typing import ClassVar, Final, Literal, NamedTuple, TypedDict, assert_type
 
+# Specification: https://typing.python.org/en/latest/spec/literal.html#interactions-with-final
+
+def expects_one(x: Literal[1]) -> None: ...
+
+# > The Final qualifier serves as a shorthand for declaring that a variable is effectively Literal.
+
+ID1: Final = 1
+assert_type(ID1, Literal[1])
+expects_one(ID1)
+
+# > Type checkers are not obligated to understand any other uses of Final.
+
+ID2: Final[int] = 1
+expects_one(ID2)  # E?: May or may not be accepted by type checkers
+
+ID3: Final = 2 - 1
+expects_one(ID2)  # E?: May or may not be accepted by type checkers
+
+ID4: Final = range(1)
+assert_type(ID4, range)  # E?: May or may not be inferred by type checkers
+
 # Specification: https://typing.readthedocs.io/en/latest/spec/qualifiers.html#id1
-
-ID1: Final[int] = 1
-
-ID2: Final = 1
-assert_type(ID2, Literal[1])
 
 # > If the right hand side is omitted, there must be an explicit type argument to Final.
 
