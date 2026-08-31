@@ -1,3 +1,7 @@
+conformant = "Partial"
+notes = """
+Infers invalid `Literal[range(0, 1)]` from `Final`
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 25: Unexpected errors ['./qualifiers_final_annotation.py:25:12:   Literal[range(0, 1)] is not equivalent to range']
