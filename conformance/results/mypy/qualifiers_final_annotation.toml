@@ -6,10 +6,7 @@ Does not allow redefinition of private class variable that is marked `Final` in 
 Does not report modification of local `Final` variable via `for` statement.
 """
 output = """
-qualifiers_final_annotation.py:10: error: Expression is of type "int", not "Any"  [assert-type]
-qualifiers_final_annotation.py:10: error: Parameter 1 of Literal[...] is invalid  [valid-type]
-qualifiers_final_annotation.py:16: error: Expression is of type "Literal[1.0]", not "Any"  [assert-type]
-qualifiers_final_annotation.py:16: error: Parameter 1 of Literal[...] is invalid  [valid-type]
+qualifiers_final_annotation.py:16: error: Expression is of type "Literal[1.0]", not "float"  [assert-type]
 qualifiers_final_annotation.py:20: error: Type in Final[...] can only be omitted if there is an initializer  [misc]
 qualifiers_final_annotation.py:22: error: Final[...] takes at most one type argument  [misc]
 qualifiers_final_annotation.py:38: error: Type in Final[...] can only be omitted if there is an initializer  [misc]
@@ -47,8 +44,7 @@ qualifiers_final_annotation.py:188: error: Cannot assign to final name "PI"  [mi
 conformance_automated = "Fail"
 errors_diff = """
 Line 167: Expected 1 errors
-Line 10: Unexpected errors ['qualifiers_final_annotation.py:10: error: Expression is of type "int", not "Any"  [assert-type]', 'qualifiers_final_annotation.py:10: error: Parameter 1 of Literal[...] is invalid  [valid-type]']
-Line 16: Unexpected errors ['qualifiers_final_annotation.py:16: error: Expression is of type "Literal[1.0]", not "Any"  [assert-type]', 'qualifiers_final_annotation.py:16: error: Parameter 1 of Literal[...] is invalid  [valid-type]']
+Line 16: Unexpected errors ['qualifiers_final_annotation.py:16: error: Expression is of type "Literal[1.0]", not "float"  [assert-type]']
 Line 63: Unexpected errors ['qualifiers_final_annotation.py:63: error: Cannot assign to final attribute "ID6"  [misc]']
 Line 100: Unexpected errors ['qualifiers_final_annotation.py:100: error: Cannot assign to final name "__private"  [misc]']
 Line 149: Unexpected errors ['qualifiers_final_annotation.py:149: error: Invalid "NamedTuple()" field name  [misc]']

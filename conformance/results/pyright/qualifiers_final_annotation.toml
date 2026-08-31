@@ -1,9 +1,6 @@
 conformant = "Pass"
 output = """
-qualifiers_final_annotation.py:10:13 - error: "assert_type" mismatch: expected "Unknown" but received "Literal[1]" (reportAssertTypeFailure)
-qualifiers_final_annotation.py:10:26 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
-qualifiers_final_annotation.py:16:13 - error: "assert_type" mismatch: expected "Unknown" but received "float" (reportAssertTypeFailure)
-qualifiers_final_annotation.py:16:26 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)
+qualifiers_final_annotation.py:10:13 - error: "assert_type" mismatch: expected "int" but received "Literal[1]" (reportAssertTypeFailure)
 qualifiers_final_annotation.py:20:1 - error: "BAD1" is declared Final, but value is not assigned (reportGeneralTypeIssues)
 qualifiers_final_annotation.py:22:7 - error: Expected a single type argument after "Final" (reportInvalidTypeForm)
 qualifiers_final_annotation.py:38:5 - error: "ID2" is declared Final, but value is not assigned (reportGeneralTypeIssues)
@@ -50,6 +47,5 @@ qualifiers_final_annotation.py:188:1 - error: "PI" is declared as Final and cann
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 10: Unexpected errors ['qualifiers_final_annotation.py:10:13 - error: "assert_type" mismatch: expected "Unknown" but received "Literal[1]" (reportAssertTypeFailure)', 'qualifiers_final_annotation.py:10:26 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)']
-Line 16: Unexpected errors ['qualifiers_final_annotation.py:16:13 - error: "assert_type" mismatch: expected "Unknown" but received "float" (reportAssertTypeFailure)', 'qualifiers_final_annotation.py:16:26 - error: Type arguments for "Literal" must be None, a literal value (int, bool, str, or bytes), or an enum value (reportInvalidTypeForm)']
+Line 10: Unexpected errors ['qualifiers_final_annotation.py:10:13 - error: "assert_type" mismatch: expected "int" but received "Literal[1]" (reportAssertTypeFailure)']
 """

@@ -1,13 +1,9 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 10: Unexpected errors ["./qualifiers_final_annotation.py:10:12:   int is not equivalent to type 'int'", "./qualifiers_final_annotation.py:10:0: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got <class 'int'> [invalid_literal]"]
-Line 16: Unexpected errors ["./qualifiers_final_annotation.py:16:12:   Literal[1.0] is not equivalent to type 'float'", "./qualifiers_final_annotation.py:16:0: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got <class 'float'> [invalid_literal]"]
+Line 16: Unexpected errors ['./qualifiers_final_annotation.py:16:12:   Literal[1.0] is not equivalent to float | int']
 """
 output = """
-./qualifiers_final_annotation.py:10:12:   int is not equivalent to type 'int'
-./qualifiers_final_annotation.py:10:0: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got <class 'int'> [invalid_literal]
-./qualifiers_final_annotation.py:16:12:   Literal[1.0] is not equivalent to type 'float'
-./qualifiers_final_annotation.py:16:0: Arguments to Literal[] must be None, bool, int, str, bytes, or enum members; got <class 'float'> [invalid_literal]
+./qualifiers_final_annotation.py:16:12:   Literal[1.0] is not equivalent to float | int
 ./qualifiers_final_annotation.py:20:6: Final annotation without assignment requires an explicit type [invalid_qualifier]
 ./qualifiers_final_annotation.py:22:6: Invalid type annotation (<class 'str'>, <class 'int'>) [invalid_annotation]
 ./qualifiers_final_annotation.py:38:9: Final annotation without assignment requires an explicit type [invalid_qualifier]

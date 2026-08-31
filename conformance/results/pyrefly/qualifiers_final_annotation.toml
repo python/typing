@@ -1,13 +1,7 @@
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 10: Unexpected errors ['assert_type(int, Unknown) failed [assert-type]', 'Invalid type inside literal, `int` [invalid-literal]']
-Line 16: Unexpected errors ['assert_type(float, Unknown) failed [assert-type]', 'Invalid type inside literal, `float` [invalid-literal]']
 """
 output = """
-ERROR qualifiers_final_annotation.py:10:12-31: assert_type(int, Unknown) failed [assert-type]
-ERROR qualifiers_final_annotation.py:10:26-29: Invalid type inside literal, `int` [invalid-literal]
-ERROR qualifiers_final_annotation.py:16:12-33: assert_type(float, Unknown) failed [assert-type]
-ERROR qualifiers_final_annotation.py:16:26-31: Invalid type inside literal, `float` [invalid-literal]
 ERROR qualifiers_final_annotation.py:20:7-12: Expected a type argument for `Final` [invalid-annotation]
 ERROR qualifiers_final_annotation.py:22:7-22: Expected 1 type argument for `Final`, got 2 [invalid-annotation]
 ERROR qualifiers_final_annotation.py:38:5-8: Final attribute declared in class body must be initialized with a value or in `__init__` [invalid-annotation]

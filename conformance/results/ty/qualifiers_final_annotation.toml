@@ -1,13 +1,11 @@
 conformance_automated = "Fail"
 errors_diff = """
-Line 10: Unexpected errors ['qualifiers_final_annotation.py:10:1: error[type-assertion-failure] Type `Literal[1]` does not match asserted type `Unknown`', 'qualifiers_final_annotation.py:10:26: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member']
-Line 16: Unexpected errors ['qualifiers_final_annotation.py:16:1: error[type-assertion-failure] Type `float*` does not match asserted type `Unknown`', 'qualifiers_final_annotation.py:16:26: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member']
+Line 10: Unexpected errors ['qualifiers_final_annotation.py:10:1: error[type-assertion-failure] Type `Literal[1]` does not match asserted type `int`']
+Line 16: Unexpected errors ['qualifiers_final_annotation.py:16:1: error[type-assertion-failure] Type `float*` does not match asserted type `float`']
 """
 output = """
-qualifiers_final_annotation.py:10:1: error[type-assertion-failure] Type `Literal[1]` does not match asserted type `Unknown`
-qualifiers_final_annotation.py:10:26: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
-qualifiers_final_annotation.py:16:1: error[type-assertion-failure] Type `float*` does not match asserted type `Unknown`
-qualifiers_final_annotation.py:16:26: error[invalid-type-form] Type arguments for `Literal` must be `None`, a literal value (int, bool, str, or bytes), or an enum member
+qualifiers_final_annotation.py:10:1: error[type-assertion-failure] Type `Literal[1]` does not match asserted type `int`
+qualifiers_final_annotation.py:16:1: error[type-assertion-failure] Type `float*` does not match asserted type `float`
 qualifiers_final_annotation.py:20:1: error[final-without-value] `Final` symbol `BAD1` is not assigned a value
 qualifiers_final_annotation.py:22:7: error[invalid-type-form] Type qualifier `typing.Final` expected exactly 1 argument, got 2
 qualifiers_final_annotation.py:38:5: error[final-without-value] `Final` symbol `ID2` is not assigned a value
