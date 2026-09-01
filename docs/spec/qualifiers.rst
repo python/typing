@@ -91,8 +91,6 @@ Syntax
 
     ID: Final = 1
 
-  The typechecker should apply the inference mechanisms
-  :ref:`described below <final-inference>` to determine the type of ``ID``.
   Note that unlike for
   generic classes this is *not* the same as ``Final[Any]``.
 
@@ -186,6 +184,16 @@ with ``Final`` to prevent mutating such values::
    z: Final = ('a', 'b')  # Also works
 
 
+Type checkers should treat uses of a final name that was initialized
+with a literal as if it was replaced by the literal. For example, the
+following should be allowed::
+
+   from typing import NamedTuple, Final
+
+   X: Final = "x"
+   Y: Final = "y"
+   N = NamedTuple("N", [(X, int), (Y, int)])
+
 ``Final`` cannot be used as a qualifier for a :ref:`TypedDict <typeddict>`
 item or a :ref:`NamedTuple <namedtuple>` field. Such usage also generates
 an error at runtime.
@@ -195,34 +203,41 @@ an error at runtime.
 Inference Rules
 ^^^^^^^^^^^^^^^
 
-In the example below, we know that ``foo`` will always be equal to
-exactly ``3``. A type checker can use this information to deduce that ``foo``
-is valid to use in any context that expects a ``Literal[3]``::
+Type checkers should use the following inference rules for ``Final`` without a
+type annotation:
 
-    def expects_three(x: Literal[3]) -> None: ...
+* If the value is a literal value which is a valid parameter for
+  ``Literal[...]``, type checkers should infer that ``Literal``. For example::
 
-    foo: Final = 3
-    expects_three(foo)  # Type checks, since 'foo' is Final and equal to 3
+    bare1: Final = 3  # infer bare1 as Final[Literal[3]]
 
-The ``Final`` qualifier serves as a shorthand for declaring that a variable
-is *effectively Literal*.
+* If the value is an expression whose result is a valid parameter for
+  ``Literal[...]``, type checkers may infer that ``Literal`` or use standard
+  inference rules. For example::
 
-Type checkers are expected to
-support this shortcut. Specifically, given a variable or attribute assignment
-of the form ``var: Final = value`` where ``value`` is a valid parameter for
-``Literal[...]``, type checkers should understand that ``var`` may be used in
-any context that expects a ``Literal[value]``.
+    bare2: Final = 1 + 2  # may infer bare2 as Final[Literal[3]] or Final[int]
 
-Type checkers are not obligated to understand any other uses of Final. For
-example, whether or not the following program type checks is left unspecified::
+* In all other cases, type checkers should use standard inference rules.
+  For example::
+
+    bare3: Final = 3.14  # infer bare3 as Final[float] or Final[float | int]
+    bare4: Final = range(3)  # infer bare4 as Final[range]
+
+Type checkers should use the following inference rules for ``Final`` with an
+explicit type:
+
+* If the right hand side is missing, type checkers should use the explicit
+  type::
+
+    typed1: Final[int]  # infer typed1 as Final[int]
+
+* Type checkers are not obligated to understand any other uses of Final. For
+  example, whether or not the following program type checks is left
+  unspecified::
 
     # Note: The assignment does not exactly match the form 'var: Final = value'.
-    bar1: Final[int] = 3
-    expects_three(bar1)  # May or may not be accepted by type checkers
-
-    # Note: "Literal[1 + 2]" is not a legal type.
-    bar2: Final = 1 + 2
-    expects_three(bar2)  # May or may not be accepted by type checkers
+    typed2: Final[int] = 3
+    expects_three(typed2)  # May or may not be accepted by type checkers
 
 Type checkers should infer a final attribute that is initialized in a class
 body as being a class variable, except in the case of :doc:`dataclasses`, where

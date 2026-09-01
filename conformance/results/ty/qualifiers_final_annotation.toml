@@ -1,35 +1,45 @@
-conformance_automated = "Pass"
+conformance = "Partial"
+notes = """
+Infers `float*` instead of `float`.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Lines 31, 32: Expected at least one success (tag 'bare3')
+Line 31: Unexpected errors ['qualifiers_final_annotation.py:31:1: error[type-assertion-failure] Type `float*` does not match asserted type `float`']
+Line 32: Unexpected errors ['qualifiers_final_annotation.py:32:1: error[type-assertion-failure] Type `float*` does not match asserted type `float`']
 """
 output = """
-qualifiers_final_annotation.py:33:1: error[final-without-value] `Final` symbol `BAD1` is not assigned a value
-qualifiers_final_annotation.py:35:7: error[invalid-type-form] Type qualifier `typing.Final` expected exactly 1 argument, got 2
-qualifiers_final_annotation.py:51:5: error[final-without-value] `Final` symbol `ID2` is not assigned a value
-qualifiers_final_annotation.py:55:5: error[final-without-value] `Final` symbol `ID3` is not assigned a value
-qualifiers_final_annotation.py:71:9: error[invalid-assignment] Invalid assignment to final attribute: `ID5` already has a value in the class body
-qualifiers_final_annotation.py:79:9: error[invalid-assignment] Cannot assign to final attribute `id3` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
-qualifiers_final_annotation.py:80:9: error[invalid-assignment] Cannot assign to final attribute `id4` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
-qualifiers_final_annotation.py:82:9: error[invalid-assignment] Cannot assign to final attribute `ID7` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
-qualifiers_final_annotation.py:84:9: error[invalid-assignment] Cannot assign to final attribute `ID7` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
-qualifiers_final_annotation.py:88:1: error[invalid-assignment] Reassignment of `Final` symbol `RATE` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:98:1: error[invalid-assignment] Cannot assign to final attribute `DEFAULT_ID` on type `<class 'ClassB'>`: `Final` attributes can only be assigned in the class body or `__init__`
-qualifiers_final_annotation.py:111:5: error[override-of-final-variable] Cannot override final variable `BORDER_WIDTH` from superclass `ClassC`
-qualifiers_final_annotation.py:124:13: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
-qualifiers_final_annotation.py:125:13: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
-qualifiers_final_annotation.py:135:9: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in type expressions (only in annotation expressions)
-qualifiers_final_annotation.py:138:14: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in parameter annotations
-qualifiers_final_annotation.py:148:8: error[invalid-type-form] `Final` is not allowed in TypedDict fields
-qualifiers_final_annotation.py:153:5: error[invalid-named-tuple] Type qualifier `Final` is not allowed on NamedTuple field `b`
-qualifiers_final_annotation.py:165:1: error[missing-argument] No arguments provided for required parameters `x`, `y`
-qualifiers_final_annotation.py:165:3: error[unknown-argument] Argument `a` does not match any known parameter
-qualifiers_final_annotation.py:166:3: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
-qualifiers_final_annotation.py:166:9: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
-qualifiers_final_annotation.py:172:5: error[invalid-assignment] Reassignment of `Final` symbol `ID1` is not allowed: Reassignment of `Final` symbol
-qualifiers_final_annotation.py:176:5: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:178:10: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:180:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:183:30: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:186:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
-qualifiers_final_annotation.py:197:1: error[invalid-assignment] Reassignment of `Final` symbol `TEN` is not allowed: Reassignment of `Final` symbol
-qualifiers_final_annotation.py:201:1: error[invalid-assignment] Reassignment of `Final` symbol `PI` is not allowed: Reassignment of `Final` symbol
+qualifiers_final_annotation.py:26:1: error[type-assertion-failure] Type `Literal[3]` does not match asserted type `int`
+qualifiers_final_annotation.py:31:1: error[type-assertion-failure] Type `float*` does not match asserted type `float`
+qualifiers_final_annotation.py:32:1: error[type-assertion-failure] Type `float*` does not match asserted type `float`
+qualifiers_final_annotation.py:39:1: error[final-without-value] `Final` symbol `BAD1` is not assigned a value
+qualifiers_final_annotation.py:41:7: error[invalid-type-form] Type qualifier `typing.Final` expected exactly 1 argument, got 2
+qualifiers_final_annotation.py:57:5: error[final-without-value] `Final` symbol `ID2` is not assigned a value
+qualifiers_final_annotation.py:61:5: error[final-without-value] `Final` symbol `ID3` is not assigned a value
+qualifiers_final_annotation.py:77:9: error[invalid-assignment] Invalid assignment to final attribute: `ID5` already has a value in the class body
+qualifiers_final_annotation.py:85:9: error[invalid-assignment] Cannot assign to final attribute `id3` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:86:9: error[invalid-assignment] Cannot assign to final attribute `id4` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:88:9: error[invalid-assignment] Cannot assign to final attribute `ID7` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:90:9: error[invalid-assignment] Cannot assign to final attribute `ID7` on type `Self@method1`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:94:1: error[invalid-assignment] Reassignment of `Final` symbol `RATE` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:104:1: error[invalid-assignment] Cannot assign to final attribute `DEFAULT_ID` on type `<class 'ClassB'>`: `Final` attributes can only be assigned in the class body or `__init__`
+qualifiers_final_annotation.py:117:5: error[override-of-final-variable] Cannot override final variable `BORDER_WIDTH` from superclass `ClassC`
+qualifiers_final_annotation.py:130:13: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
+qualifiers_final_annotation.py:131:13: error[redundant-final-classvar] `Combining `ClassVar` and `Final` is redundant
+qualifiers_final_annotation.py:141:9: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in type expressions (only in annotation expressions)
+qualifiers_final_annotation.py:144:14: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in parameter annotations
+qualifiers_final_annotation.py:154:8: error[invalid-type-form] `Final` is not allowed in TypedDict fields
+qualifiers_final_annotation.py:159:5: error[invalid-named-tuple] Type qualifier `Final` is not allowed on NamedTuple field `b`
+qualifiers_final_annotation.py:171:1: error[missing-argument] No arguments provided for required parameters `x`, `y`
+qualifiers_final_annotation.py:171:3: error[unknown-argument] Argument `a` does not match any known parameter
+qualifiers_final_annotation.py:172:3: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
+qualifiers_final_annotation.py:172:9: error[invalid-argument-type] Argument is incorrect: Expected `int`, found `Literal[""]`
+qualifiers_final_annotation.py:180:5: error[invalid-assignment] Reassignment of `Final` symbol `ID1` is not allowed: Reassignment of `Final` symbol
+qualifiers_final_annotation.py:184:5: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:186:10: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:188:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:191:30: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:194:9: error[invalid-assignment] Reassignment of `Final` symbol `x` is not allowed: Symbol later reassigned here
+qualifiers_final_annotation.py:205:1: error[invalid-assignment] Reassignment of `Final` symbol `TEN` is not allowed: Reassignment of `Final` symbol
+qualifiers_final_annotation.py:209:1: error[invalid-assignment] Reassignment of `Final` symbol `PI` is not allowed: Reassignment of `Final` symbol
 """

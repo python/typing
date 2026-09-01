@@ -8,25 +8,31 @@ from typing import ClassVar, Final, Literal, NamedTuple, TypedDict, assert_type
 
 def expects_one(x: Literal[1]) -> None: ...
 
-# > The Final qualifier serves as a shorthand for declaring that a variable is effectively Literal.
+# > If the value is a literal value which is a valid parameter for
+# > Literal[...], type checkers should infer that Literal.
 
-ID1: Final = 1
-assert_type(ID1, Literal[1])
-expects_one(ID1)
+bare1_1: Final = 3
+assert_type(bare1_1, Literal[3])
 
-ID2: Final = True
-assert_type(ID2, Literal[True])
+bare1_2: Final = True
+assert_type(bare1_2, Literal[True])
 
-# > Type checkers are not obligated to understand any other uses of Final.
+# > If the value is an expression whose result is a valid parameter for
+# > Literal[...], type checkers may infer that Literal or use standard
+# > inference rules.
 
-ID3: Final[int] = 1
-expects_one(ID3)  # E?: May or may not be accepted by type checkers
+bare2: Final = 1 + 2
+assert_type(bare2, Literal[3])  # E[bare2]: either Literal[3] or int
+assert_type(bare2, int)  # E[bare2]: either Literal[3] or int
 
-ID4: Final = 2 - 1
-expects_one(ID4)  # E?: May or may not be accepted by type checkers
+# > In all other cases, type checkers should use standard inference rules.
 
-ID5: Final = range(1)
-assert_type(ID5, range)  # E?: May or may not be inferred by type checkers
+bare3: Final = 3.14  # infer bare3 as Final[float] or Final[float | int]
+assert_type(bare3, float)  # E[bare3!]: either float or float | int
+assert_type(bare3, float | int)  # E[bare3!]: either float or float | int
+
+bare4: Final = range(3)
+assert_type(bare4, range)
 
 # > If the right hand side is omitted, there must be an explicit type argument to Final.
 
@@ -85,7 +91,7 @@ class ClassA:
 
 
 RATE: Final = 3000
-RATE = 300  # E: Cannot redefine Final value
+RATE = 300  # E: Cannot redefine Final
 
 # > There can’t be separate class-level and instance-level constants
 # > with the same name.
@@ -165,6 +171,8 @@ N(x=3, y=4)  # OK
 N(a=1)  # E
 N(x="", y="")  # E
 
+
+ID1: Final = 1
 
 def func2() -> None:
     global ID1
