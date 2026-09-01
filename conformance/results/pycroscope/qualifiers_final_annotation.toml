@@ -1,4 +1,4 @@
-conformance = "Partial"
+conformant = "Partial"
 notes = """
 Infers invalid `Literal` values from `float` and `range`.
 """

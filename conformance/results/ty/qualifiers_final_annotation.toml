@@ -1,4 +1,4 @@
-conformance = "Partial"
+conformant = "Partial"
 notes = """
 Infers `float*` instead of `float`.
 """
