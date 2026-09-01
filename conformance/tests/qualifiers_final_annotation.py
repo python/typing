@@ -6,8 +6,6 @@ from typing import ClassVar, Final, Literal, NamedTuple, TypedDict, assert_type
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/qualifiers.html#id1
 
-def expects_one(x: Literal[1]) -> None: ...
-
 # > If the value is a literal value which is a valid parameter for
 # > Literal[...], type checkers should infer that Literal.
 

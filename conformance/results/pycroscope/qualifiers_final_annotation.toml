@@ -4,44 +4,44 @@ Infers invalid `Literal` values from `float` and `range`.
 """
 conformance_automated = "Fail"
 errors_diff = """
-Lines 31, 32: Expected at least one success (tag 'bare3')
-Line 31: Unexpected errors ['./qualifiers_final_annotation.py:31:12:   Literal[3.14] is not equivalent to float | int']
-Line 32: Unexpected errors ['./qualifiers_final_annotation.py:32:12:   Literal[3.14] is not equivalent to float | int']
-Line 35: Unexpected errors ['./qualifiers_final_annotation.py:35:12:   Literal[range(0, 3)] is not equivalent to range']
+Lines 29, 30: Expected at least one success (tag 'bare3')
+Line 29: Unexpected errors ['./qualifiers_final_annotation.py:29:12:   Literal[3.14] is not equivalent to float | int']
+Line 30: Unexpected errors ['./qualifiers_final_annotation.py:30:12:   Literal[3.14] is not equivalent to float | int']
+Line 33: Unexpected errors ['./qualifiers_final_annotation.py:33:12:   Literal[range(0, 3)] is not equivalent to range']
 """
 output = """
-./qualifiers_final_annotation.py:26:12:   Literal[3] is not equivalent to int
-./qualifiers_final_annotation.py:31:12:   Literal[3.14] is not equivalent to float | int
-./qualifiers_final_annotation.py:32:12:   Literal[3.14] is not equivalent to float | int
-./qualifiers_final_annotation.py:35:12:   Literal[range(0, 3)] is not equivalent to range
-./qualifiers_final_annotation.py:39:6: Final annotation without assignment requires an explicit type [invalid_qualifier]
-./qualifiers_final_annotation.py:41:6: Invalid type annotation (<class 'str'>, <class 'int'>) [invalid_annotation]
-./qualifiers_final_annotation.py:57:9: Final annotation without assignment requires an explicit type [invalid_qualifier]
-./qualifiers_final_annotation.py:57:4: Final class attributes without initializers must be assigned in __init__ [invalid_qualifier]
-./qualifiers_final_annotation.py:61:4: Final class attributes without initializers must be assigned in __init__ [invalid_qualifier]
-./qualifiers_final_annotation.py:77:8: Cannot assign to final name ID5 [incompatible_assignment]
-./qualifiers_final_annotation.py:85:18: Final instance attributes may be declared only in __init__ [invalid_qualifier]
-./qualifiers_final_annotation.py:86:18: Final instance attributes may be declared only in __init__ [invalid_qualifier]
+./qualifiers_final_annotation.py:24:12:   Literal[3] is not equivalent to int
+./qualifiers_final_annotation.py:29:12:   Literal[3.14] is not equivalent to float | int
+./qualifiers_final_annotation.py:30:12:   Literal[3.14] is not equivalent to float | int
+./qualifiers_final_annotation.py:33:12:   Literal[range(0, 3)] is not equivalent to range
+./qualifiers_final_annotation.py:37:6: Final annotation without assignment requires an explicit type [invalid_qualifier]
+./qualifiers_final_annotation.py:39:6: Invalid type annotation (<class 'str'>, <class 'int'>) [invalid_annotation]
+./qualifiers_final_annotation.py:55:9: Final annotation without assignment requires an explicit type [invalid_qualifier]
+./qualifiers_final_annotation.py:55:4: Final class attributes without initializers must be assigned in __init__ [invalid_qualifier]
+./qualifiers_final_annotation.py:59:4: Final class attributes without initializers must be assigned in __init__ [invalid_qualifier]
+./qualifiers_final_annotation.py:75:8: Cannot assign to final name ID5 [incompatible_assignment]
+./qualifiers_final_annotation.py:83:18: Final instance attributes may be declared only in __init__ [invalid_qualifier]
+./qualifiers_final_annotation.py:84:18: Final instance attributes may be declared only in __init__ [invalid_qualifier]
+./qualifiers_final_annotation.py:86:8: Cannot assign to final name ID7 [incompatible_assignment]
 ./qualifiers_final_annotation.py:88:8: Cannot assign to final name ID7 [incompatible_assignment]
-./qualifiers_final_annotation.py:90:8: Cannot assign to final name ID7 [incompatible_assignment]
-./qualifiers_final_annotation.py:94:0: Cannot assign to final name RATE [incompatible_assignment]
-./qualifiers_final_annotation.py:104:0: Cannot assign to final name DEFAULT_ID [incompatible_assignment]
-./qualifiers_final_annotation.py:117:4: Cannot override final attribute BORDER_WIDTH [incompatible_override]
-./qualifiers_final_annotation.py:130:12: Final cannot be combined with ClassVar [invalid_qualifier]
-./qualifiers_final_annotation.py:131:12: Final cannot be combined with ClassVar [invalid_qualifier]
-./qualifiers_final_annotation.py:141:3: Unrecognized annotation typing.Final[<class 'int'>] [invalid_annotation]
-./qualifiers_final_annotation.py:144:13: Unexpected Final annotation [invalid_qualifier]
-./qualifiers_final_annotation.py:154:7: Unexpected Final annotation [invalid_qualifier]
-./qualifiers_final_annotation.py:159:4: Final class attributes without initializers must be assigned in __init__ [invalid_qualifier]
-./qualifiers_final_annotation.py:171:0: In call to pycroscope.signature.N: Missing required argument 'x' [incompatible_call]
-./qualifiers_final_annotation.py:172:4: Incompatible argument type for x: expected int but got Literal[''] [incompatible_argument]
-./qualifiers_final_annotation.py:172:10: Incompatible argument type for y: expected int but got Literal[''] [incompatible_argument]
-./qualifiers_final_annotation.py:180:4: Cannot assign to final name ID1 [incompatible_assignment]
-./qualifiers_final_annotation.py:184:4: Cannot assign to final name x [incompatible_assignment]
-./qualifiers_final_annotation.py:186:9: Cannot assign to final name x [incompatible_assignment]
-./qualifiers_final_annotation.py:188:8: Cannot assign to final name x [incompatible_assignment]
-./qualifiers_final_annotation.py:191:29: Cannot assign to final name x [incompatible_assignment]
-./qualifiers_final_annotation.py:194:8: Cannot assign to final name x [incompatible_assignment]
-./qualifiers_final_annotation.py:205:0: Cannot assign to final name TEN [incompatible_assignment]
-./qualifiers_final_annotation.py:209:0: Cannot assign to final name PI [incompatible_assignment]
+./qualifiers_final_annotation.py:92:0: Cannot assign to final name RATE [incompatible_assignment]
+./qualifiers_final_annotation.py:102:0: Cannot assign to final name DEFAULT_ID [incompatible_assignment]
+./qualifiers_final_annotation.py:115:4: Cannot override final attribute BORDER_WIDTH [incompatible_override]
+./qualifiers_final_annotation.py:128:12: Final cannot be combined with ClassVar [invalid_qualifier]
+./qualifiers_final_annotation.py:129:12: Final cannot be combined with ClassVar [invalid_qualifier]
+./qualifiers_final_annotation.py:139:3: Unrecognized annotation typing.Final[<class 'int'>] [invalid_annotation]
+./qualifiers_final_annotation.py:142:13: Unexpected Final annotation [invalid_qualifier]
+./qualifiers_final_annotation.py:152:7: Unexpected Final annotation [invalid_qualifier]
+./qualifiers_final_annotation.py:157:4: Final class attributes without initializers must be assigned in __init__ [invalid_qualifier]
+./qualifiers_final_annotation.py:169:0: In call to pycroscope.signature.N: Missing required argument 'x' [incompatible_call]
+./qualifiers_final_annotation.py:170:4: Incompatible argument type for x: expected int but got Literal[''] [incompatible_argument]
+./qualifiers_final_annotation.py:170:10: Incompatible argument type for y: expected int but got Literal[''] [incompatible_argument]
+./qualifiers_final_annotation.py:178:4: Cannot assign to final name ID1 [incompatible_assignment]
+./qualifiers_final_annotation.py:182:4: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:184:9: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:186:8: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:189:29: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:192:8: Cannot assign to final name x [incompatible_assignment]
+./qualifiers_final_annotation.py:203:0: Cannot assign to final name TEN [incompatible_assignment]
+./qualifiers_final_annotation.py:207:0: Cannot assign to final name PI [incompatible_assignment]
 """
