@@ -6,7 +6,8 @@ import contextlib
 import re
 import sys
 import tomllib
-from collections.abc import Sequence
+from collections.abc import Container, Sequence
+from enum import Enum
 from pathlib import Path
 from time import time
 
@@ -63,17 +64,24 @@ def run_tests(
     update_type_checker_info(type_checker, root_dir)
 
 
+class ErrorMultiplicity(Enum):
+    """How many lines with the same tag can have an error."""
+
+    SINGLE = 1  # exactly one line must have an error
+    MULTI = 2  # at least one line must have an error
+    REQUIRE_SUCCESS = 3  # at least one line must not have an error
+
+
 def get_expected_errors(test_case: Path) -> tuple[
     dict[int, tuple[int, int]],
-    dict[str, tuple[list[int], bool, bool]],
+    dict[str, tuple[list[int], ErrorMultiplicity]],
 ]:
     """Return the line numbers where type checkers are expected to produce an error.
 
     The return value is a tuple of two dictionaries:
     - The format of the first is {line number: (number of required errors, number of optional errors)}.
-    - The format of the second is {error tag: ([lines where the error may appear], allow multiple, require success)}.
-      If require success is True, at least one line can't raise an error; otherwise, if allow multiple is True, the
-      error may appear on multiple lines; otherwise, it must appear exactly once.
+    - The format of the second is {error tag: ([lines where the error may appear], error multiplicity)}.
+      See the ErrorMultiplicy enum for the second argument.
 
     For example, the following test case:
 
@@ -92,7 +100,7 @@ def get_expected_errors(test_case: Path) -> tuple[
     with open(test_case, "r", encoding="utf-8") as f:
         lines = f.readlines()
     output: dict[int, tuple[int, int]] = {}
-    groups: dict[str, tuple[list[int], bool, bool]] = {}
+    groups: dict[str, tuple[list[int], ErrorMultiplicity]] = {}
     for i, line in enumerate(lines, start=1):
         line_without_comment, *_ = line.split("#")
         # Ignore lines with no non-comment content. This allows commenting out test cases.
@@ -110,27 +118,26 @@ def get_expected_errors(test_case: Path) -> tuple[
         for match in re.finditer(r"# E\[([^\]]+)\]", line):
             tag = match.group(1)
             if tag.endswith("+"):
-                allow_multiple = True
-                require_success = False
+                multiplicity: ErrorMultiplicity = ErrorMultiplicity.MULTI
                 tag = tag[:-1]
             elif tag.endswith("!"):
-                allow_multiple = True
-                require_success = True
+                multiplicity = ErrorMultiplicity.REQUIRE_SUCCESS
                 tag = tag[:-1]
             else:
-                allow_multiple = False
-                require_success = False
+                multiplicity = ErrorMultiplicity.SINGLE
             if tag not in groups:
-                groups[tag] = ([i], allow_multiple, require_success)
+                groups[tag] = ([i], multiplicity)
             else:
-                if groups[tag][1] != allow_multiple:
-                    raise ValueError(f"Error group {tag} has inconsistent allow_multiple value in {test_case}")
-                if groups[tag][2] != require_success:
-                    raise ValueError(f"Error group {tag} has inconsistent require_success value in {test_case}")
+                if groups[tag][1] != multiplicity:
+                    raise ValueError(
+                        f"Error group {tag} has inconsistent multiplicity value in {test_case}"
+                    )
                 groups[tag][0].append(i)
     for group, linenos in groups.items():
         if len(linenos) == 1:
-            raise ValueError(f"Error group {group} only appears on a single line in {test_case}")
+            raise ValueError(
+                f"Error group {group} only appears on a single line in {test_case}"
+            )
     return output, groups
 
 
@@ -148,32 +155,61 @@ def diff_expected_errors(
             lineno: [
                 error
                 for error in errors_list
-                if not any(ignored in error for ignored in ignored_errors)]
+                if not any(ignored in error for ignored in ignored_errors)
+            ]
             for lineno, errors_list in errors.items()
         }
-        errors = {lineno: errors_list for lineno, errors_list in errors.items() if errors_list}
+        errors = {
+            lineno: errors_list for lineno, errors_list in errors.items() if errors_list
+        }
 
     differences: list[str] = []
     for expected_lineno, (expected_count, _) in expected_errors.items():
         if expected_lineno not in errors and expected_count > 0:
-            differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
+            differences.append(
+                f"Line {expected_lineno}: Expected {expected_count} errors"
+            )
         # We don't report an issue if the count differs, because type checkers may produce
         # multiple error messages for a single line.
     linenos_used_by_groups: set[int] = set()
-    for group, (linenos, allow_multiple, require_success) in error_groups.items():
-        num_errors = sum(1 for lineno in linenos if lineno in errors)
-        if require_success and num_errors == len(linenos):
-            differences.append(f"Lines {', '.join(map(str, linenos))}: Expected at least one success (tag {group!r})")
-        elif num_errors == 0 and not require_success:
-            differences.append(f"Lines {', '.join(map(str, linenos))}: Expected error (tag {group!r})")
-        elif num_errors == 1 or allow_multiple or require_success:
+    for group, (linenos, multiplicity) in error_groups.items():
+        error = determine_group_error(group, linenos, multiplicity, errors)
+        if error is None:
             linenos_used_by_groups.update(linenos)
         else:
-            differences.append(f"Lines {', '.join(map(str, linenos))}: Expected exactly one error (tag {group!r})")
+            differences.append(error)
     for actual_lineno, actual_errors in errors.items():
-        if actual_lineno not in expected_errors and actual_lineno not in linenos_used_by_groups:
-            differences.append(f"Line {actual_lineno}: Unexpected errors {actual_errors}")
+        if (
+            actual_lineno not in expected_errors
+            and actual_lineno not in linenos_used_by_groups
+        ):
+            differences.append(
+                f"Line {actual_lineno}: Unexpected errors {actual_errors}"
+            )
     return "".join(f"{diff}\n" for diff in differences)
+
+
+def determine_group_error(
+    group: str,
+    group_linenos: Sequence[int],
+    multiplicity: ErrorMultiplicity,
+    error_linenos: Container[int],
+) -> str | None:
+    """Return the error message for the given group or None."""
+    num_errors = sum(1 for lineno in group_linenos if lineno in error_linenos)
+    match multiplicity:
+        case ErrorMultiplicity.SINGLE:
+            if num_errors == 0:
+                return f"Lines {', '.join(map(str, group_linenos))}: Expected error (tag {group!r})"
+            elif num_errors > 1:
+                return f"Lines {', '.join(map(str, group_linenos))}: Expected exactly one error (tag {group!r})"
+        case ErrorMultiplicity.MULTI:
+            if num_errors == 0:
+                return f"Lines {', '.join(map(str, group_linenos))}: Expected error (tag {group!r})"
+        case ErrorMultiplicity.REQUIRE_SUCCESS:
+            if num_errors == len(group_linenos):
+                return f"Lines {', '.join(map(str, group_linenos))}: Expected at least one success (tag {group!r})"
+    return None
 
 
 def update_output_for_test(
@@ -201,7 +237,9 @@ def update_output_for_test(
         existing_results = {}
 
     ignored_errors = existing_results.get("ignore_errors", [])
-    errors_diff = "\n" + diff_expected_errors(type_checker, test_case, output, ignored_errors)
+    errors_diff = "\n" + diff_expected_errors(
+        type_checker, test_case, output, ignored_errors
+    )
     old_errors_diff = "\n" + existing_results.get("errors_diff", "")
 
     if errors_diff != old_errors_diff:
@@ -294,7 +332,9 @@ def main():
                 if not type_checker.install():
                     print(f"Skipping tests for {type_checker.name}")
                 else:
-                    run_tests(root_dir, type_checker, test_cases, verbose=options.verbose)
+                    run_tests(
+                        root_dir, type_checker, test_cases, verbose=options.verbose
+                    )
 
     # Generate a summary report.
     generate_summary(root_dir)
