@@ -6,9 +6,9 @@ import contextlib
 import re
 import sys
 import tomllib
-from collections.abc import Sequence
 from pathlib import Path
 from time import time
+from typing import Sequence
 
 import tomlkit
 
@@ -65,7 +65,7 @@ def run_tests(
 
 def get_expected_errors(test_case: Path) -> tuple[
     dict[int, tuple[int, int]],
-    dict[str, tuple[list[int], bool, bool]],
+    dict[str, tuple[list[int], bool]],
 ]:
     """Return the line numbers where type checkers are expected to produce an error.
 
@@ -92,7 +92,7 @@ def get_expected_errors(test_case: Path) -> tuple[
     with open(test_case, "r", encoding="utf-8") as f:
         lines = f.readlines()
     output: dict[int, tuple[int, int]] = {}
-    groups: dict[str, tuple[list[int], bool, bool]] = {}
+    groups: dict[str, tuple[list[int], bool]] = {}
     for i, line in enumerate(lines, start=1):
         line_without_comment, *_ = line.split("#")
         # Ignore lines with no non-comment content. This allows commenting out test cases.
@@ -111,22 +111,14 @@ def get_expected_errors(test_case: Path) -> tuple[
             tag = match.group(1)
             if tag.endswith("+"):
                 allow_multiple = True
-                require_success = False
-                tag = tag[:-1]
-            elif tag.endswith("!"):
-                allow_multiple = True
-                require_success = True
                 tag = tag[:-1]
             else:
                 allow_multiple = False
-                require_success = False
             if tag not in groups:
-                groups[tag] = ([i], allow_multiple, require_success)
+                groups[tag] = ([i], allow_multiple)
             else:
                 if groups[tag][1] != allow_multiple:
                     raise ValueError(f"Error group {tag} has inconsistent allow_multiple value in {test_case}")
-                if groups[tag][2] != require_success:
-                    raise ValueError(f"Error group {tag} has inconsistent require_success value in {test_case}")
                 groups[tag][0].append(i)
     for group, linenos in groups.items():
         if len(linenos) == 1:
@@ -160,13 +152,11 @@ def diff_expected_errors(
         # We don't report an issue if the count differs, because type checkers may produce
         # multiple error messages for a single line.
     linenos_used_by_groups: set[int] = set()
-    for group, (linenos, allow_multiple, require_success) in error_groups.items():
+    for group, (linenos, allow_multiple) in error_groups.items():
         num_errors = sum(1 for lineno in linenos if lineno in errors)
-        if require_success and num_errors == len(linenos):
-            differences.append(f"Lines {', '.join(map(str, linenos))}: Expected at least one success (tag {group!r})")
-        elif num_errors == 0 and not require_success:
+        if num_errors == 0:
             differences.append(f"Lines {', '.join(map(str, linenos))}: Expected error (tag {group!r})")
-        elif num_errors == 1 or allow_multiple or require_success:
+        elif num_errors == 1 or allow_multiple:
             linenos_used_by_groups.update(linenos)
         else:
             differences.append(f"Lines {', '.join(map(str, linenos))}: Expected exactly one error (tag {group!r})")
