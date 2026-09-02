@@ -25,9 +25,8 @@ assert_type(bare2, int)  # E[bare2]: either Literal[3] or int
 
 # > In all other cases, type checkers should use standard inference rules.
 
-bare3: Final = 3.14  # infer bare3 as Final[float] or Final[float | int]
-assert_type(bare3, float)  # E[bare3!]: either float or float | int
-assert_type(bare3, float | int)  # E[bare3!]: either float or float | int
+bare3: Final = [1]
+assert_type(bare3, list[int])
 
 bare4: Final = range(3)
 assert_type(bare4, range)

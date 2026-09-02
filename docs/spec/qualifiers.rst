@@ -184,7 +184,7 @@ with ``Final`` to prevent mutating such values::
    z: Final = ('a', 'b')  # Also works
 
 
-Type checkers should treat uses of a final name that was initialized
+Type checkers should treat uses of a name annotated with bare ``Final`` and initialized
 with a literal as if it was replaced by the literal. For example, the
 following should be allowed::
 
@@ -203,25 +203,24 @@ an error at runtime.
 Inference Rules
 ^^^^^^^^^^^^^^^
 
-Type checkers should use the following inference rules for ``Final`` without a
+Type checkers should use the following inference rules for ``Final`` with no
 type annotation:
 
-* If the value is a literal value which is a valid parameter for
+* If the value would be a valid parameter for
   ``Literal[...]``, type checkers should infer that ``Literal``. For example::
 
-    bare1: Final = 3  # infer bare1 as Final[Literal[3]]
+    bare1: Final = 3  # infer bare1 as Literal[3]
 
 * If the value is an expression whose result is a valid parameter for
-  ``Literal[...]``, type checkers may infer that ``Literal`` or use standard
-  inference rules. For example::
+  ``Literal[...]``, type checkers may infer that ``Literal`` but are not
+  required to. For example::
 
     bare2: Final = 1 + 2  # may infer bare2 as Final[Literal[3]] or Final[int]
 
-* In all other cases, type checkers should use standard inference rules.
+* In all other cases, type checkers may apply their preferred inference rules.
   For example::
 
-    bare3: Final = 3.14  # infer bare3 as Final[float] or Final[float | int]
-    bare4: Final = range(3)  # infer bare4 as Final[range]
+    bare3: Final = [1]  # infer bare3 as list[int]
 
 Type checkers should use the following inference rules for ``Final`` with an
 explicit type:
@@ -231,9 +230,11 @@ explicit type:
 
     typed1: Final[int]  # infer typed1 as Final[int]
 
-* Type checkers are not obligated to understand any other uses of Final. For
-  example, whether or not the following program type checks is left
-  unspecified::
+* Type checkers are not obligated to infer ``Literal`` types for any other uses
+  of ``Final``. For example, whether or not the following program type checks
+  is left unspecified::
+
+    def expects_three(x: Literal[3]) -> None: ...
 
     # Note: The assignment does not exactly match the form 'var: Final = value'.
     typed2: Final[int] = 3

@@ -994,7 +994,6 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Infers invalid <code>Literal</code> values from <code>float</code>.</li>
                                 <li>Does not treat use of <code>Final</code> name as if it was replaced by the literal in <code>NamedTuple</code> definition.</li>
                                 <li>Does not allow conditional assignment of <code>Final</code> instance variable in <code>__init__</code> method.</li>
                                 <li>Does not allow redefinition of private class variable that is marked <code>Final</code> in parent class.</li>
@@ -1004,17 +1003,12 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Infers invalid <code>Literal</code> values from <code>float</code> and <code>range</code>.</li>
+                                <li>Infers invalid <code>Literal</code> values from <code>list</code> and <code>range</code>.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Infers <code>float*</code> instead of <code>float</code>.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1032,7 +1026,7 @@
                         <td>2 / 3 • 66.7%</td>
                         <td>3 / 3 • 100.0%</td>
                         <td>3 / 3 • 100.0%</td>
-                        <td>2.5 / 3 • 83.3%</td>
+                        <td>3 / 3 • 100.0%</td>
                         <td>3 / 3 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -2622,7 +2616,7 @@
                         <td>137.5 / 145 • 94.8%</td>
                         <td>140.5 / 145 • 96.9%</td>
                         <td>135.5 / 145 • 93.4%</td>
-                        <td>131.5 / 145 • 90.7%</td>
+                        <td>132 / 145 • 91.0%</td>
                         <td>144.5 / 145 • 99.7%</td>
                     </tr>
                 </tfoot>
