@@ -118,7 +118,7 @@ def get_expected_errors(test_case: Path) -> tuple[
         for match in re.finditer(r"# E\[([^\]]+)\]", line):
             tag = match.group(1)
             if tag.endswith("+"):
-                multiplicity: ErrorMultiplicity = ErrorMultiplicity.MULTI
+                multiplicity = ErrorMultiplicity.MULTI
                 tag = tag[:-1]
             elif tag.endswith("!"):
                 multiplicity = ErrorMultiplicity.REQUIRE_SUCCESS
