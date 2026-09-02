@@ -162,13 +162,13 @@ def diff_expected_errors(
             differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
         # We don't report an issue if the count differs, because type checkers may produce
         # multiple error messages for a single line.
-    linenos_used_by_groups: set[int] = set()
+
     for group, (linenos, multiplicity) in error_groups.items():
         error = determine_group_error(group, linenos, multiplicity, errors)
-        if error is None:
-            linenos_used_by_groups.update(linenos)
-        else:
+        if error is not None:
             differences.append(error)
+
+    linenos_used_by_groups = {ln for linenos, _ in error_groups.values() for ln in linenos}
     for actual_lineno, actual_errors in errors.items():
         if (
             actual_lineno not in expected_errors
