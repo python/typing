@@ -159,9 +159,7 @@ def diff_expected_errors(
     differences: list[str] = []
     for expected_lineno, (expected_count, _) in expected_errors.items():
         if expected_lineno not in errors and expected_count > 0:
-            differences.append(
-                f"Line {expected_lineno}: Expected {expected_count} errors"
-            )
+            differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
         # We don't report an issue if the count differs, because type checkers may produce
         # multiple error messages for a single line.
     linenos_used_by_groups: set[int] = set()
