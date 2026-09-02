@@ -71,9 +71,9 @@ def get_expected_errors(test_case: Path) -> tuple[
 
     The return value is a tuple of two dictionaries:
     - The format of the first is {line number: (number of required errors, number of optional errors)}.
-    - The format of the second is {error tag: ([lines where the error may appear], allow multiple}.
-      If allow multiple is True, the error may appear on multiple lines; otherwise, it must
-      appear exactly once.
+    - The format of the second is {error tag: ([lines where the error may appear], allow multiple, require success)}.
+      If require success is True, at least one line can't raise an error; otherwise, if allow multiple is True, the
+      error may appear on multiple lines; otherwise, it must appear exactly once.
 
     For example, the following test case:
 
