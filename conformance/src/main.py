@@ -129,15 +129,11 @@ def get_expected_errors(test_case: Path) -> tuple[
                 groups[tag] = ([i], multiplicity)
             else:
                 if groups[tag][1] != multiplicity:
-                    raise ValueError(
-                        f"Error group {tag} has inconsistent multiplicity value in {test_case}"
-                    )
+                    raise ValueError(f"Error group {tag} has inconsistent multiplicity value in {test_case}")
                 groups[tag][0].append(i)
     for group, linenos in groups.items():
         if len(linenos) == 1:
-            raise ValueError(
-                f"Error group {group} only appears on a single line in {test_case}"
-            )
+            raise ValueError(f"Error group {group} only appears on a single line in {test_case}")
     return output, groups
 
 
@@ -155,13 +151,10 @@ def diff_expected_errors(
             lineno: [
                 error
                 for error in errors_list
-                if not any(ignored in error for ignored in ignored_errors)
-            ]
+                if not any(ignored in error for ignored in ignored_errors)]
             for lineno, errors_list in errors.items()
         }
-        errors = {
-            lineno: errors_list for lineno, errors_list in errors.items() if errors_list
-        }
+        errors = {lineno: errors_list for lineno, errors_list in errors.items() if errors_list}
 
     differences: list[str] = []
     for expected_lineno, (expected_count, _) in expected_errors.items():
@@ -237,9 +230,7 @@ def update_output_for_test(
         existing_results = {}
 
     ignored_errors = existing_results.get("ignore_errors", [])
-    errors_diff = "\n" + diff_expected_errors(
-        type_checker, test_case, output, ignored_errors
-    )
+    errors_diff = "\n" + diff_expected_errors(type_checker, test_case, output, ignored_errors)
     old_errors_diff = "\n" + existing_results.get("errors_diff", "")
 
     if errors_diff != old_errors_diff:
@@ -332,9 +323,7 @@ def main():
                 if not type_checker.install():
                     print(f"Skipping tests for {type_checker.name}")
                 else:
-                    run_tests(
-                        root_dir, type_checker, test_cases, verbose=options.verbose
-                    )
+                    run_tests(root_dir, type_checker, test_cases, verbose=options.verbose)
 
     # Generate a summary report.
     generate_summary(root_dir)
