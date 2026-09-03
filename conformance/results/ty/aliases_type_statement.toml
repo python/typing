@@ -1,10 +1,5 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Does not reject a generic type alias that recursively specializes itself with different type arguments.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 75: Expected 1 errors
 """
 output = """
 aliases_type_statement.py:17:1: error[unresolved-attribute] Object of type `TypeAliasType` has no attribute `bit_count`
@@ -30,6 +25,7 @@ aliases_type_statement.py:58:17: error[unbound-type-variable] Type variable `T1`
 aliases_type_statement.py:68:27: error[invalid-type-arguments] Type `str` is not assignable to upper bound `int` of type variable `S@RecursiveTypeAlias2`
 aliases_type_statement.py:70:32: error[invalid-type-arguments] Type `int` is not assignable to upper bound `str` of type variable `T@RecursiveTypeAlias2`
 aliases_type_statement.py:73:1: error[cyclic-type-alias-definition] Cyclic definition of `RecursiveTypeAlias3`
+aliases_type_statement.py:75:1: error[cyclic-type-alias-definition] Cyclic definition of `RecursiveTypeAlias4`
 aliases_type_statement.py:79:1: error[cyclic-type-alias-definition] Cyclic definition of `RecursiveTypeAlias6`
 aliases_type_statement.py:80:1: error[cyclic-type-alias-definition] Cyclic definition of `RecursiveTypeAlias7`
 """
