@@ -87,7 +87,7 @@ class ClassD:
 
     y: int = 0  # E: Refers to the local int function, which isn't a valid type
 
-    x: "int" = 0  # E: Refers to a local int function
+    x: "int" = 0  # E: Refers to the local int function, which isn't a valid type
 
     def __init__(self) -> None:
         self.ClassC = ClassC()
