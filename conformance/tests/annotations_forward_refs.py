@@ -80,7 +80,7 @@ class ClassD:
 
     str: "str" = ""  # E: circular reference
 
-    z: "int" = 0  # E: Refers to the local int function
+    z: "int" = 0  # E: Refers to the local int function, which isn't a valid type
 
     def int(self) -> None:  # OK
         ...
