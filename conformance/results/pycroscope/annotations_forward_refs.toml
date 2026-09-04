@@ -1,7 +1,8 @@
 conformant = "Partial"
 notes = """
 Fails to reject `"x" | int` annotations that fail at runtime.
-Resolves forward references in type annotations at the point of definition instead of end-of-scope
+Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope
+Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+
 Rejects some valid quoted annotations.
 """
 conformance_automated = "Fail"

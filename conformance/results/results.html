@@ -294,36 +294,47 @@
                             <ul class="notes">
                                 <li>Does not report error for a forward reference that is not enclosed in quotes.</li>
                                 <li>Does not report error for use of quoted type with <code>|</code> operator (runtime error).</li>
-                                <li>Resolves forward references in type annotations at the point of definition instead of end-of-scope</li>
+                                <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
                                 <li>Fails to reject <code>"x" | int</code> annotations that fail at runtime.</li>
-                                <li>Resolves forward references in type annotations at the point of definition instead of end-of-scope</li>
+                                <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
+                                <li>Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+</li>
                                 <li>Rejects some valid quoted annotations.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Resolves forward references in type annotations at the point of definition instead of end-of-scope</li>
+                                <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
+                                <li>Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+</li>
+                                <li>Fails to resolve a forward reference to a nested class</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Resolves forward references in type annotations at the point of definition instead of end-of-scope</li>
+                                <li>Prefers to resolve forward references in classes outside of the class instead of end-of-scope</li>
+                                <li>Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
                                 <li>Fails to reject <code>str: "str"</code> forward references</li>
+                                <li>Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+</li>
                             </ul>
                         </td>
-                        <td class="not-conformant">Unknown</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Fails to resolve forward references in classes from builtins</li>
+                                <li>Incorrectly resolves type parameter syntax names in forward references</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">annotations_generators</th>
@@ -379,7 +390,7 @@
                         <td>4.5 / 5 • 90.0%</td>
                         <td>4.5 / 5 • 90.0%</td>
                         <td>4.5 / 5 • 90.0%</td>
-                        <td>4 / 5 • 80.0%</td>
+                        <td>4.5 / 5 • 90.0%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2573,7 +2584,7 @@
                         <td>140.5 / 145 • 96.9%</td>
                         <td>135 / 145 • 93.1%</td>
                         <td>135.5 / 145 • 93.4%</td>
-                        <td>144 / 145 • 99.3%</td>
+                        <td>144.5 / 145 • 99.7%</td>
                     </tr>
                 </tfoot>
             </table>

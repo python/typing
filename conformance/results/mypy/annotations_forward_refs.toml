@@ -2,7 +2,14 @@ conformant = "Partial"
 notes = """
 Does not report error for a forward reference that is not enclosed in quotes.
 Does not report error for use of quoted type with `|` operator (runtime error).
-Resolves forward references in type annotations at the point of definition instead of end-of-scope
+Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 24: Expected 1 errors
+Line 25: Expected 1 errors
+Line 94: Expected 1 errors
+Line 96: Expected 1 errors
 """
 output = """
 annotations_forward_refs.py:41: error: Invalid type comment or annotation  [valid-type]
@@ -27,11 +34,4 @@ annotations_forward_refs.py:101: error: Function "annotations_forward_refs.Class
 annotations_forward_refs.py:101: note: Perhaps you need "Callable[...]" or a callback protocol?
 annotations_forward_refs.py:103: error: Function "annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
 annotations_forward_refs.py:103: note: Perhaps you need "Callable[...]" or a callback protocol?
-"""
-conformance_automated = "Fail"
-errors_diff = """
-Line 24: Expected 1 errors
-Line 25: Expected 1 errors
-Line 94: Expected 1 errors
-Line 96: Expected 1 errors
 """

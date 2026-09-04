@@ -2,6 +2,7 @@ conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
 Fails to reject `str: "str"` forward references
+Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+
 """
 errors_diff = """
 Line 94: Expected 1 errors

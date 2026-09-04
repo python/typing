@@ -1,6 +1,14 @@
 conformant = "Partial"
 notes = """
-Resolves forward references in type annotations at the point of definition instead of end-of-scope
+Prefers to resolve forward references in classes outside of the class instead of end-of-scope
+Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 94: Expected 1 errors
+Line 96: Expected 1 errors
+Line 103: Expected 1 errors
+Line 83: Unexpected errors ['annotations_forward_refs.py:83:13 - error: "ClassInner" is not defined (reportUndefinedVariable)']
 """
 output = """
 annotations_forward_refs.py:22:7 - error: "ClassA" is not defined (reportUndefinedVariable)
@@ -37,11 +45,4 @@ annotations_forward_refs.py:83:13 - error: "ClassInner" is not defined (reportUn
 annotations_forward_refs.py:92:14 - error: Type of "ClassF" could not be determined because it refers to itself (reportGeneralTypeIssues)
 annotations_forward_refs.py:92:14 - error: Variable not allowed in type expression (reportInvalidTypeForm)
 annotations_forward_refs.py:101:8 - error: Expected class but received "(self: Self@ClassD) -> None" (reportGeneralTypeIssues)
-"""
-conformance_automated = "Fail"
-errors_diff = """
-Line 94: Expected 1 errors
-Line 96: Expected 1 errors
-Line 103: Expected 1 errors
-Line 83: Unexpected errors ['annotations_forward_refs.py:83:13 - error: "ClassInner" is not defined (reportUndefinedVariable)']
 """
