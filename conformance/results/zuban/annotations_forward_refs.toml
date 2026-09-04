@@ -1,13 +1,13 @@
 conformant = "Partial"
 notes = """
-Incorrectly generates error for quoted type defined in class scope.
+Fails to resolve forward references in classes from builtins
+Incorrectly resolves type parameter syntax names in forward references
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 82: Unexpected errors ['annotations_forward_refs.py:82: error: Name "str" is not defined  [name-defined]']
-Line 87: Unexpected errors ['annotations_forward_refs.py:87: error: Function "tests.annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]']
-Line 95: Unexpected errors ['annotations_forward_refs.py:95: error: Expression is of type "Any", not "str"  [misc]']
-Line 96: Unexpected errors ['annotations_forward_refs.py:96: error: Expression is of type "Any", not "int"  [misc]']
+Line 82: Unexpected errors ['annotations_forward_refs.py:82: error: Name "bytes" is not defined  [name-defined]']
+Line 110: Unexpected errors ['annotations_forward_refs.py:110: error: Expression is of type "Any", not "bytes"  [misc]']
+Line 128: Unexpected errors ['annotations_forward_refs.py:128: error: Expression is of type "T", not "int"  [misc]', 'annotations_forward_refs.py:128: error: Argument 1 to "identity2" of "ClassE" has incompatible type "int"; expected "T"  [arg-type]']
 """
 output = """
 annotations_forward_refs.py:24: error: Forward reference unions cause runtime errors, consider wrapping the whole annotation with a string  [misc]
@@ -31,12 +31,16 @@ annotations_forward_refs.py:53: error: Invalid type comment or annotation  [vali
 annotations_forward_refs.py:54: error: Invalid type comment or annotation  [valid-type]
 annotations_forward_refs.py:55: error: Module "types" is not valid as a type  [valid-type]
 annotations_forward_refs.py:55: note: Perhaps you meant to use a protocol matching the module structure?
-annotations_forward_refs.py:80: error: Name "ClassF" is not defined  [name-defined]
-annotations_forward_refs.py:82: error: Name "str" is not defined  [name-defined]
-annotations_forward_refs.py:87: error: Function "tests.annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
-annotations_forward_refs.py:87: note: Perhaps you need "Callable[...]" or a callback protocol?
-annotations_forward_refs.py:89: error: Function "tests.annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
-annotations_forward_refs.py:89: note: Perhaps you need "Callable[...]" or a callback protocol?
-annotations_forward_refs.py:95: error: Expression is of type "Any", not "str"  [misc]
-annotations_forward_refs.py:96: error: Expression is of type "Any", not "int"  [misc]
+annotations_forward_refs.py:82: error: Name "bytes" is not defined  [name-defined]
+annotations_forward_refs.py:92: error: Name "ClassF" is not defined  [name-defined]
+annotations_forward_refs.py:94: error: Name "str" is not defined  [name-defined]
+annotations_forward_refs.py:96: error: Function "tests.annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
+annotations_forward_refs.py:96: note: Perhaps you need "Callable[...]" or a callback protocol?
+annotations_forward_refs.py:101: error: Function "tests.annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
+annotations_forward_refs.py:101: note: Perhaps you need "Callable[...]" or a callback protocol?
+annotations_forward_refs.py:103: error: Function "tests.annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
+annotations_forward_refs.py:103: note: Perhaps you need "Callable[...]" or a callback protocol?
+annotations_forward_refs.py:110: error: Expression is of type "Any", not "bytes"  [misc]
+annotations_forward_refs.py:128: error: Expression is of type "T", not "int"  [misc]
+annotations_forward_refs.py:128: error: Argument 1 to "identity2" of "ClassE" has incompatible type "int"; expected "T"  [arg-type]
 """

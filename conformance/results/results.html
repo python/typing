@@ -294,34 +294,41 @@
                             <ul class="notes">
                                 <li>Does not report error for a forward reference that is not enclosed in quotes.</li>
                                 <li>Does not report error for use of quoted type with <code>|</code> operator (runtime error).</li>
-                                <li>Incorrectly generates error for quoted type defined in class scope.</li>
+                                <li>Resolves some forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
                                 <li>Fails to reject <code>"x" | int</code> annotations that fail at runtime.</li>
+                                <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
                                 <li>Rejects some valid quoted annotations.</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Types in quotes incorrectly refer to shadowing class member.</li>
-                                <li>Does not reject some type forms that require quotes.</li>
-                            </ul>
-                        </td>
-                        <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Resolves references in type annotations as referring to end-of-scope types (<a href="https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439">https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439</a>, <a href="https://github.com/python/typing/pull/2144">https://github.com/python/typing/pull/2144</a>)</li>
+                                <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
+                                <li>Fails to resolve a forward reference to a nested class</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Incorrectly generates error for quoted type defined in class scope.</li>
+                                <li>Prefers to resolve forward references in classes outside of the class instead of end-of-scope</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Fails to reject <code>str: "str"</code> forward references</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Fails to resolve forward references in classes from builtins</li>
+                                <li>Incorrectly resolves type parameter syntax names in forward references</li>
                             </ul>
                         </td>
                     </tr>
@@ -377,7 +384,7 @@
                         <td>4 / 5 • 80.0%</td>
                         <td>4 / 5 • 80.0%</td>
                         <td>4.5 / 5 • 90.0%</td>
-                        <td>5 / 5 • 100.0%</td>
+                        <td>4.5 / 5 • 90.0%</td>
                         <td>4.5 / 5 • 90.0%</td>
                         <td>4.5 / 5 • 90.0%</td>
                     </tr>
@@ -2571,7 +2578,7 @@
                         <td>108.5 / 145 • 74.8%</td>
                         <td>138 / 145 • 95.2%</td>
                         <td>140.5 / 145 • 96.9%</td>
-                        <td>135.5 / 145 • 93.4%</td>
+                        <td>135 / 145 • 93.1%</td>
                         <td>135.5 / 145 • 93.4%</td>
                         <td>144.5 / 145 • 99.7%</td>
                     </tr>

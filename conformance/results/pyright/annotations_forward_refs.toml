@@ -1,4 +1,13 @@
-conformant = "Pass"
+conformant = "Partial"
+notes = """
+Prefers to resolve forward references in classes outside of the class instead of end-of-scope
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 94: Expected 1 errors
+Line 96: Expected 1 errors
+Line 103: Expected 1 errors
+"""
 output = """
 annotations_forward_refs.py:22:7 - error: "ClassA" is not defined (reportUndefinedVariable)
 annotations_forward_refs.py:23:12 - error: "ClassA" is not defined (reportUndefinedVariable)
@@ -29,11 +38,9 @@ annotations_forward_refs.py:52:11 - error: Unary operator not allowed in type ex
 annotations_forward_refs.py:53:11 - error: Binary operator not allowed in type expression (reportInvalidTypeForm)
 annotations_forward_refs.py:54:11 - error: Type expressions cannot use format string literals (f-strings) (reportGeneralTypeIssues)
 annotations_forward_refs.py:55:10 - error: Module cannot be used as a type (reportGeneralTypeIssues)
-annotations_forward_refs.py:66:26 - error: "ClassB" is not defined (reportUndefinedVariable)
-annotations_forward_refs.py:80:14 - error: Type of "ClassF" could not be determined because it refers to itself (reportGeneralTypeIssues)
-annotations_forward_refs.py:80:14 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-annotations_forward_refs.py:89:8 - error: Expected class but received "(self: Self@ClassD) -> None" (reportGeneralTypeIssues)
-"""
-conformance_automated = "Pass"
-errors_diff = """
+annotations_forward_refs.py:65:26 - error: "ClassB" is not defined (reportUndefinedVariable)
+annotations_forward_refs.py:83:13 - error: "ClassInner" is not defined (reportUndefinedVariable)
+annotations_forward_refs.py:92:14 - error: Type of "ClassF" could not be determined because it refers to itself (reportGeneralTypeIssues)
+annotations_forward_refs.py:92:14 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+annotations_forward_refs.py:101:8 - error: Expected class but received "(self: Self@ClassD) -> None" (reportGeneralTypeIssues)
 """
