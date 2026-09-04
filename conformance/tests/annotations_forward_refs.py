@@ -74,7 +74,17 @@ class ClassC:
 
 
 class ClassD:
-    ClassC: "ClassC"  # OK
+    # OK
+    simple_attr: ClassA
+    ClassB: ClassB
+    ClassC: "ClassC"
+    bytes_direct: bytes
+    bytes: "bytes"
+    inner1: ClassInner
+    inner2: "ClassInner"
+
+    class ClassInner:
+        ...
 
     ClassF: "ClassF"  # E: circular reference
 
@@ -91,6 +101,22 @@ class ClassD:
 
     def __init__(self) -> None:
         self.ClassC = ClassC()
+
+
+class T:
+    ...
+
+
+class ClassE[T]:
+    def identity1(self, value: T) -> T:
+        return value
+
+    def identity2(self, value: "T") -> "T":
+        return value
+
+
+assert_type(ClassE[int]().identity1(1), int)
+assert_type(ClassE[int]().identity2(1), int)
 
 
 # > If a triple quote is used, the string should be parsed as though it is implicitly
