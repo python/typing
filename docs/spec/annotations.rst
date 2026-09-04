@@ -290,6 +290,14 @@ _module_._class_ name::
     from models.a import A
     from models.b import B
 
+from __future__ import annotations
+----------------------------------
+
+The presence of the import `from __future__ import annotations` must not
+influence type checking.  Annotations must be resolved in the exact same way as
+if the import was not present.
+
+
 Annotating generator functions and coroutines
 ---------------------------------------------
 
