@@ -2,7 +2,7 @@ conformant = "Partial"
 notes = """
 Does not report error for a forward reference that is not enclosed in quotes.
 Does not report error for use of quoted type with `|` operator (runtime error).
-Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope
+Resolves some forward references in type annotations in classes at the point of definition instead of end-of-scope
 """
 conformance_automated = "Fail"
 errors_diff = """
