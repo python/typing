@@ -1,3 +1,8 @@
+conformant = "Partial"
+notes = """
+Fails to resolve forward references in classes from builtins
+Incorrectly resolves type parameter syntax names in forward references
+"""
 conformance_automated = "Fail"
 errors_diff = """
 Line 82: Unexpected errors ['annotations_forward_refs.py:82: error: Name "bytes" is not defined  [name-defined]']
