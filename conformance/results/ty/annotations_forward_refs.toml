@@ -2,11 +2,9 @@ conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
 Fails to reject `str: "str"` forward references
-Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+
 """
 errors_diff = """
 Line 94: Expected 1 errors
-Line 83: Unexpected errors ['annotations_forward_refs.py:83:13: error[unresolved-reference] Name `ClassInner` used when not defined']
 """
 output = """
 annotations_forward_refs.py:22:7: error[unresolved-reference] Name `ClassA` used when not defined

@@ -294,7 +294,7 @@
                             <ul class="notes">
                                 <li>Does not report error for a forward reference that is not enclosed in quotes.</li>
                                 <li>Does not report error for use of quoted type with <code>|</code> operator (runtime error).</li>
-                                <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
+                                <li>Resolves some forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
@@ -302,7 +302,6 @@
                             <ul class="notes">
                                 <li>Fails to reject <code>"x" | int</code> annotations that fail at runtime.</li>
                                 <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
-                                <li>Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+</li>
                                 <li>Rejects some valid quoted annotations.</li>
                             </ul>
                         </td>
@@ -310,7 +309,6 @@
                             Partial
                             <ul class="notes">
                                 <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
-                                <li>Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+</li>
                                 <li>Fails to resolve a forward reference to a nested class</li>
                             </ul>
                         </td>
@@ -318,14 +316,12 @@
                             Partial
                             <ul class="notes">
                                 <li>Prefers to resolve forward references in classes outside of the class instead of end-of-scope</li>
-                                <li>Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
                                 <li>Fails to reject <code>str: "str"</code> forward references</li>
-                                <li>Adds an error for symbols in annotations that are defined later than the annotation, which is now possible in Python 3.14+</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">

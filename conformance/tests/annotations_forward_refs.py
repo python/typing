@@ -80,7 +80,7 @@ class ClassD:
     ClassC: "ClassC"
     bytes_direct: bytes
     bytes: "bytes"
-    inner1: ClassInner
+    inner1: ClassInner  # E?: Runtime error prior to 3.14: requires quotes
     inner2: "ClassInner"
 
     class ClassInner:

@@ -6,7 +6,8 @@ Incorrectly resolves type parameter syntax names in forward references
 conformance_automated = "Fail"
 errors_diff = """
 Line 82: Unexpected errors ['annotations_forward_refs.py:82: error: Name "bytes" is not defined  [name-defined]']
-Line 122: Unexpected errors ['annotations_forward_refs.py:122: error: Expression is of type "T", not "int"  [misc]', 'annotations_forward_refs.py:122: error: Argument 1 to "identity2" of "ClassE" has incompatible type "int"; expected "T"  [arg-type]']
+Line 110: Unexpected errors ['annotations_forward_refs.py:110: error: Expression is of type "Any", not "bytes"  [misc]']
+Line 128: Unexpected errors ['annotations_forward_refs.py:128: error: Expression is of type "T", not "int"  [misc]', 'annotations_forward_refs.py:128: error: Argument 1 to "identity2" of "ClassE" has incompatible type "int"; expected "T"  [arg-type]']
 """
 output = """
 annotations_forward_refs.py:24: error: Forward reference unions cause runtime errors, consider wrapping the whole annotation with a string  [misc]
@@ -39,6 +40,7 @@ annotations_forward_refs.py:101: error: Function "tests.annotations_forward_refs
 annotations_forward_refs.py:101: note: Perhaps you need "Callable[...]" or a callback protocol?
 annotations_forward_refs.py:103: error: Function "tests.annotations_forward_refs.ClassD.int" is not valid as a type  [valid-type]
 annotations_forward_refs.py:103: note: Perhaps you need "Callable[...]" or a callback protocol?
-annotations_forward_refs.py:122: error: Expression is of type "T", not "int"  [misc]
-annotations_forward_refs.py:122: error: Argument 1 to "identity2" of "ClassE" has incompatible type "int"; expected "T"  [arg-type]
+annotations_forward_refs.py:110: error: Expression is of type "Any", not "bytes"  [misc]
+annotations_forward_refs.py:128: error: Expression is of type "T", not "int"  [misc]
+annotations_forward_refs.py:128: error: Argument 1 to "identity2" of "ClassE" has incompatible type "int"; expected "T"  [arg-type]
 """
