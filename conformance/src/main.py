@@ -6,9 +6,10 @@ import contextlib
 import re
 import sys
 import tomllib
+from collections.abc import Container, Sequence
+from enum import Enum
 from pathlib import Path
 from time import time
-from typing import Sequence
 
 import tomlkit
 
@@ -63,17 +64,24 @@ def run_tests(
     update_type_checker_info(type_checker, root_dir)
 
 
+class ErrorMultiplicity(Enum):
+    """How many lines with the same tag can have an error."""
+
+    SINGLE = 1  # exactly one line must have an error
+    MULTI = 2  # at least one line must have an error
+    REQUIRE_SUCCESS = 3  # at least one line must not have an error
+
+
 def get_expected_errors(test_case: Path) -> tuple[
     dict[int, tuple[int, int]],
-    dict[str, tuple[list[int], bool]],
+    dict[str, tuple[list[int], ErrorMultiplicity]],
 ]:
     """Return the line numbers where type checkers are expected to produce an error.
 
     The return value is a tuple of two dictionaries:
     - The format of the first is {line number: (number of required errors, number of optional errors)}.
-    - The format of the second is {error tag: ([lines where the error may appear], allow multiple}.
-      If allow multiple is True, the error may appear on multiple lines; otherwise, it must
-      appear exactly once.
+    - The format of the second is {error tag: ([lines where the error may appear], error multiplicity)}.
+      See the ErrorMultiplicy enum for the second argument.
 
     For example, the following test case:
 
@@ -92,7 +100,7 @@ def get_expected_errors(test_case: Path) -> tuple[
     with open(test_case, "r", encoding="utf-8") as f:
         lines = f.readlines()
     output: dict[int, tuple[int, int]] = {}
-    groups: dict[str, tuple[list[int], bool]] = {}
+    groups: dict[str, tuple[list[int], ErrorMultiplicity]] = {}
     for i, line in enumerate(lines, start=1):
         line_without_comment, *_ = line.split("#")
         # Ignore lines with no non-comment content. This allows commenting out test cases.
@@ -110,15 +118,18 @@ def get_expected_errors(test_case: Path) -> tuple[
         for match in re.finditer(r"# E\[([^\]]+)\]", line):
             tag = match.group(1)
             if tag.endswith("+"):
-                allow_multiple = True
+                multiplicity = ErrorMultiplicity.MULTI
+                tag = tag[:-1]
+            elif tag.endswith("!"):
+                multiplicity = ErrorMultiplicity.REQUIRE_SUCCESS
                 tag = tag[:-1]
             else:
-                allow_multiple = False
+                multiplicity = ErrorMultiplicity.SINGLE
             if tag not in groups:
-                groups[tag] = ([i], allow_multiple)
+                groups[tag] = ([i], multiplicity)
             else:
-                if groups[tag][1] != allow_multiple:
-                    raise ValueError(f"Error group {tag} has inconsistent allow_multiple value in {test_case}")
+                if groups[tag][1] != multiplicity:
+                    raise ValueError(f"Error group {tag} has inconsistent multiplicity value in {test_case}")
                 groups[tag][0].append(i)
     for group, linenos in groups.items():
         if len(linenos) == 1:
@@ -151,19 +162,45 @@ def diff_expected_errors(
             differences.append(f"Line {expected_lineno}: Expected {expected_count} errors")
         # We don't report an issue if the count differs, because type checkers may produce
         # multiple error messages for a single line.
-    linenos_used_by_groups: set[int] = set()
-    for group, (linenos, allow_multiple) in error_groups.items():
-        num_errors = sum(1 for lineno in linenos if lineno in errors)
-        if num_errors == 0:
-            differences.append(f"Lines {', '.join(map(str, linenos))}: Expected error (tag {group!r})")
-        elif num_errors == 1 or allow_multiple:
-            linenos_used_by_groups.update(linenos)
-        else:
-            differences.append(f"Lines {', '.join(map(str, linenos))}: Expected exactly one error (tag {group!r})")
+
+    for group, (linenos, multiplicity) in error_groups.items():
+        error = determine_group_error(group, linenos, multiplicity, errors)
+        if error is not None:
+            differences.append(error)
+
+    linenos_used_by_groups = {ln for linenos, _ in error_groups.values() for ln in linenos}
     for actual_lineno, actual_errors in errors.items():
-        if actual_lineno not in expected_errors and actual_lineno not in linenos_used_by_groups:
-            differences.append(f"Line {actual_lineno}: Unexpected errors {actual_errors}")
+        if (
+            actual_lineno not in expected_errors
+            and actual_lineno not in linenos_used_by_groups
+        ):
+            differences.append(
+                f"Line {actual_lineno}: Unexpected errors {actual_errors}"
+            )
     return "".join(f"{diff}\n" for diff in differences)
+
+
+def determine_group_error(
+    group: str,
+    group_linenos: Sequence[int],
+    multiplicity: ErrorMultiplicity,
+    error_linenos: Container[int],
+) -> str | None:
+    """Return the error message for the given group or None."""
+    num_errors = sum(1 for lineno in group_linenos if lineno in error_linenos)
+    match multiplicity:
+        case ErrorMultiplicity.SINGLE:
+            if num_errors == 0:
+                return f"Lines {', '.join(map(str, group_linenos))}: Expected error (tag {group!r})"
+            elif num_errors > 1:
+                return f"Lines {', '.join(map(str, group_linenos))}: Expected exactly one error (tag {group!r})"
+        case ErrorMultiplicity.MULTI:
+            if num_errors == 0:
+                return f"Lines {', '.join(map(str, group_linenos))}: Expected error (tag {group!r})"
+        case ErrorMultiplicity.REQUIRE_SUCCESS:
+            if num_errors == len(group_linenos):
+                return f"Lines {', '.join(map(str, group_linenos))}: Expected at least one success (tag {group!r})"
+    return None
 
 
 def update_output_for_test(

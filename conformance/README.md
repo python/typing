@@ -63,6 +63,8 @@ Test cases support the following special comments for declaring where errors sho
 * `# E[tag]`, where `tag` is an arbitrary string: must appear multiple times in a file with the same tag.
   Exactly one line with this tag must raise an error.
 * `# E[tag+]`: like `# E[tag]`, but errors may be raised on multiple lines.
+* `# E[tag!]`: like `# E[tag]`, but zero or more lines with this tag may raise
+  an error while at least line must not raise an error.
 
 Each comment may be followed by a colon plus an explanation of the error; the explanation is ignored
 by the scoring system.
