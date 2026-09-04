@@ -4,7 +4,8 @@ notes = """
 Fails to reject `str: "str"` forward references
 """
 errors_diff = """
-Line 81: Expected 1 errors
+Line 94: Expected 1 errors
+Line 83: Unexpected errors ['annotations_forward_refs.py:83:13: error[unresolved-reference] Name `ClassInner` used when not defined']
 """
 output = """
 annotations_forward_refs.py:22:7: error[unresolved-reference] Name `ClassA` used when not defined
@@ -27,8 +28,9 @@ annotations_forward_refs.py:53:11: error[invalid-type-form] Boolean operations a
 annotations_forward_refs.py:54:11: error[invalid-type-form] F-strings are not allowed in parameter annotations
 annotations_forward_refs.py:55:11: error[invalid-type-form] Module `types` is not valid in a parameter annotation
 annotations_forward_refs.py:65:26: error[unresolved-reference] Name `ClassB` used when not defined
-annotations_forward_refs.py:79:14: error[unresolved-reference] Name `ClassF` used when not defined
-annotations_forward_refs.py:83:9: error[invalid-type-form] Function `int` is not valid in a type expression
-annotations_forward_refs.py:88:8: error[invalid-type-form] Function `int` is not valid in a type expression
-annotations_forward_refs.py:90:9: error[invalid-type-form] Function `int` is not valid in a type expression
+annotations_forward_refs.py:83:13: error[unresolved-reference] Name `ClassInner` used when not defined
+annotations_forward_refs.py:92:14: error[unresolved-reference] Name `ClassF` used when not defined
+annotations_forward_refs.py:96:9: error[invalid-type-form] Function `int` is not valid in a type expression
+annotations_forward_refs.py:101:8: error[invalid-type-form] Function `int` is not valid in a type expression
+annotations_forward_refs.py:103:9: error[invalid-type-form] Function `int` is not valid in a type expression
 """

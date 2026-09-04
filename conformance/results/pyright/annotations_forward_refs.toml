@@ -33,13 +33,15 @@ annotations_forward_refs.py:53:11 - error: Binary operator not allowed in type e
 annotations_forward_refs.py:54:11 - error: Type expressions cannot use format string literals (f-strings) (reportGeneralTypeIssues)
 annotations_forward_refs.py:55:10 - error: Module cannot be used as a type (reportGeneralTypeIssues)
 annotations_forward_refs.py:65:26 - error: "ClassB" is not defined (reportUndefinedVariable)
-annotations_forward_refs.py:79:14 - error: Type of "ClassF" could not be determined because it refers to itself (reportGeneralTypeIssues)
-annotations_forward_refs.py:79:14 - error: Variable not allowed in type expression (reportInvalidTypeForm)
-annotations_forward_refs.py:88:8 - error: Expected class but received "(self: Self@ClassD) -> None" (reportGeneralTypeIssues)
+annotations_forward_refs.py:83:13 - error: "ClassInner" is not defined (reportUndefinedVariable)
+annotations_forward_refs.py:92:14 - error: Type of "ClassF" could not be determined because it refers to itself (reportGeneralTypeIssues)
+annotations_forward_refs.py:92:14 - error: Variable not allowed in type expression (reportInvalidTypeForm)
+annotations_forward_refs.py:101:8 - error: Expected class but received "(self: Self@ClassD) -> None" (reportGeneralTypeIssues)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 81: Expected 1 errors
-Line 83: Expected 1 errors
-Line 90: Expected 1 errors
+Line 94: Expected 1 errors
+Line 96: Expected 1 errors
+Line 103: Expected 1 errors
+Line 83: Unexpected errors ['annotations_forward_refs.py:83:13 - error: "ClassInner" is not defined (reportUndefinedVariable)']
 """

@@ -86,6 +86,9 @@ class ClassD:
     class ClassInner:
         ...
 
+    inner_after1: ClassInner
+    inner_after2: "ClassInner"
+
     ClassF: "ClassF"  # E: circular reference
 
     str: "str" = ""  # E: circular reference

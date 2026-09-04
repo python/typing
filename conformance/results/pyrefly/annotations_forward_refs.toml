@@ -4,8 +4,10 @@ Resolves forward references in type annotations at the point of definition inste
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 81: Expected 1 errors
-Line 83: Expected 1 errors
+Line 94: Expected 1 errors
+Line 96: Expected 1 errors
+Line 83: Unexpected errors ['Could not find name `ClassInner` [unknown-name]']
+Line 84: Unexpected errors ['Could not find name `ClassInner` [unknown-name]']
 """
 output = """
 ERROR annotations_forward_refs.py:23:12-18: `ClassA` is uninitialized [unbound-name]
@@ -27,7 +29,9 @@ ERROR annotations_forward_refs.py:52:11-13: Unary operation cannot be used in an
 ERROR annotations_forward_refs.py:53:11-21: Boolean operation cannot be used in annotations [invalid-annotation]
 ERROR annotations_forward_refs.py:54:11-17: F-string cannot be used in annotations [invalid-annotation]
 ERROR annotations_forward_refs.py:55:11-16: Expected a type form, got instance of `Module[types]` [not-a-type]
-ERROR annotations_forward_refs.py:79:14-20: Could not find name `ClassF` [unknown-name]
-ERROR annotations_forward_refs.py:88:8-11: Expected a type form, got instance of `(self: Self@ClassD) -> None` [not-a-type]
-ERROR annotations_forward_refs.py:90:9-12: Expected a type form, got instance of `(self: Self@ClassD) -> None` [not-a-type]
+ERROR annotations_forward_refs.py:83:13-23: Could not find name `ClassInner` [unknown-name]
+ERROR annotations_forward_refs.py:84:14-24: Could not find name `ClassInner` [unknown-name]
+ERROR annotations_forward_refs.py:92:14-20: Could not find name `ClassF` [unknown-name]
+ERROR annotations_forward_refs.py:101:8-11: Expected a type form, got instance of `(self: Self@ClassD) -> None` [not-a-type]
+ERROR annotations_forward_refs.py:103:9-12: Expected a type form, got instance of `(self: Self@ClassD) -> None` [not-a-type]
 """
