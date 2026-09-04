@@ -6,10 +6,30 @@ from typing import ClassVar, Final, Literal, NamedTuple, TypedDict, assert_type
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/qualifiers.html#id1
 
-ID1: Final[int] = 1
+# > If the value is a literal value which is a valid parameter for
+# > Literal[...], type checkers should infer that Literal.
 
-ID2: Final = 1
-assert_type(ID2, Literal[1])
+bare1_1: Final = 3
+assert_type(bare1_1, Literal[3])
+
+bare1_2: Final = True
+assert_type(bare1_2, Literal[True])
+
+# > If the value is an expression whose result is a valid parameter for
+# > Literal[...], type checkers may infer that Literal or use standard
+# > inference rules.
+
+bare2: Final = 1 + 2
+assert_type(bare2, Literal[3])  # E[bare2]: either Literal[3] or int
+assert_type(bare2, int)  # E[bare2]: either Literal[3] or int
+
+# > In all other cases, type checkers should use standard inference rules.
+
+bare3: Final = [1]
+assert_type(bare3, list[int])
+
+bare4: Final = range(3)
+assert_type(bare4, range)
 
 # > If the right hand side is omitted, there must be an explicit type argument to Final.
 
@@ -68,7 +88,7 @@ class ClassA:
 
 
 RATE: Final = 3000
-RATE = 300  # E: Cannot redefine Final value
+RATE = 300  # E: Cannot redefine Final
 
 # > There can’t be separate class-level and instance-level constants
 # > with the same name.
@@ -148,6 +168,8 @@ N(x=3, y=4)  # OK
 N(a=1)  # E
 N(x="", y="")  # E
 
+
+ID1: Final = 1
 
 def func2() -> None:
     global ID1
