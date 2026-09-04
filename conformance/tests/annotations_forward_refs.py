@@ -106,6 +106,12 @@ class ClassD:
         self.ClassC = ClassC()
 
 
+def check_valid_attributes(d: ClassD) -> None:
+    assert_type(d.bytes, bytes)
+    assert_type(d.inner2, ClassD.ClassInner)
+    assert_type(d.inner_after2, ClassD.ClassInner)
+
+
 class T:
     ...
 
