@@ -85,7 +85,7 @@ class ClassD:
     def int(self) -> None:  # OK
         ...
 
-    y: int = 0  # E: Refers to the local int function, which isn't a legal type expression
+    y: int = 0  # E: Refers to the local int function, which isn't a valid type
 
     x: "int" = 0  # E: Refers to a local int function
 
