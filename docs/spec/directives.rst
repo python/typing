@@ -177,7 +177,7 @@ Type checkers should support the following comparison patterns:
     * ``sys.version_info < <2-tuple>``
 
 Comparison checks are only supported against the first two elements of the version tuple.
-It should be noted that type checkers may choose to also support the 3-tuple ``sys.version_info >= <3-tuple>``.
+Type checkers may choose to also support the 3-tuple ``sys.version_info >= <3-tuple>``.
 Type checkers are not expected to support comparisons with named attributes of `sys.version_info`.
 
 .. code-block:: python
@@ -199,6 +199,9 @@ Type checkers should support the following comparison patterns:
     * ``sys.platform == <string literal>``
     * ``sys.platform != <string literal>``
     * ``sys.platform.startswith(<string literal>)``
+    * ``sys.platform in <tuple of string literals>``
+    * ``sys.platform not in <tuple of string literals>``
+Type checkers may also support the following comparison patterns:
     * ``sys.platform in <set of string literals>``
     * ``sys.platform not in <set of string literals>``
 
@@ -247,7 +250,7 @@ sys.implementation.version checks
 
 ``sys.implementation.version`` is a tuple, in the same format as sys.version_info. However it represents the version of the Python implementation 
 rather than the version of the Python language. This has a distinct meaning from the specific version of the Python language to which the currently 
-running interpreter conforms. For CPython this is the same as `sys.version_info`.
+running interpreter conforms. For CPython (``sys.implementation.name == "cpython"``) this is the same as `sys.version_info`.
 
 Type checkers should support the following comparison patterns:
     * ``sys.implementation.version >= <2-tuple>``
@@ -292,7 +295,7 @@ Therefore checkers are **not required** to understand obfuscations such as:
 Configuration
 ^^^^^^^^^^^^^
 
-Type checkers must provide configuration or CLI options to specify target ``sys.version``, ``sys.platform``, ``sys.implementation.name`` and ``sys.implementation.version``.
+Type checkers must be able to retrieve the information from the python implementation's runtime environment, or provide configuration or CLI options to specify target ``sys.version``, ``sys.platform``, ``sys.implementation.name`` and ``sys.implementation.version``.
 
 ================================  ==========================  ==============  ===========================================================================
   Symbol                            Suggested Format            Example         Suggested Default
