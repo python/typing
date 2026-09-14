@@ -1,5 +1,13 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Fails to reject `str: "str"` forward references
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 37: Expected 1 errors
 """
 output = """
+annotations_future_import.py:39:8: error[invalid-type-form] Function `int` is not valid in a type expression
+annotations_future_import.py:44:8: error[invalid-type-form] Function `int` is not valid in a type expression
+annotations_future_import.py:46:9: error[invalid-type-form] Function `int` is not valid in a type expression
 """

@@ -25,6 +25,8 @@ class ClassB:
     ClassC: ClassC
     inner1: ClassInner
     inner2: "ClassInner"
+    bytes_direct: bytes
+    bytes: bytes
 
     class ClassInner:
         ...
