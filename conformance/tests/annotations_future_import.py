@@ -32,6 +32,17 @@ class ClassB:
     inner_after1: ClassInner
     inner_after2: "ClassInner"
 
+    str: str = ""  # E: circular reference
+
+    z: int = 0  # E: Refers to the local int function, which isn't a valid type
+
+    def int(self) -> None:  # OK
+        ...
+
+    y: int = 0  # E: Refers to the local int function, which isn't a valid type
+
+    x: "int" = 0  # E: Refers to the local int function, which isn't a valid type
+
 
 class ClassC:
     ...

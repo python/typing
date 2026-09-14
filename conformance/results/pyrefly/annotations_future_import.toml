@@ -1,6 +1,6 @@
 conformant = "Partial"
 notes = """
-Names in annotations that refer to definitions after them are not resolved in the precence of `from __future__ import annotations`
+Forward references to nested classes are not resolved in the precence of `from __future__ import annotations`
 """
 conformance_automated = "Fail"
 errors_diff = """
