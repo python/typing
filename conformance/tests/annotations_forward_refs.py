@@ -108,7 +108,9 @@ class ClassD:
 
 def check_valid_attributes(d: ClassD) -> None:
     assert_type(d.bytes, bytes)
+    assert_type(d.inner1, ClassD.ClassInner)  # E?: Runtime error prior to 3.14: requires quotes
     assert_type(d.inner2, ClassD.ClassInner)
+    assert_type(d.inner_after1, ClassD.ClassInner)
     assert_type(d.inner_after2, ClassD.ClassInner)
 
 

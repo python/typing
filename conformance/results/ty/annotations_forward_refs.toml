@@ -32,4 +32,5 @@ annotations_forward_refs.py:92:14: error[unresolved-reference] Name `ClassF` use
 annotations_forward_refs.py:96:9: error[invalid-type-form] Function `int` is not valid in a type expression
 annotations_forward_refs.py:101:8: error[invalid-type-form] Function `int` is not valid in a type expression
 annotations_forward_refs.py:103:9: error[invalid-type-form] Function `int` is not valid in a type expression
+annotations_forward_refs.py:111:5: error[type-assertion-failure] Type `Unknown` does not match asserted type `ClassInner`
 """

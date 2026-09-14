@@ -293,10 +293,9 @@ _module_._class_ name::
 from __future__ import annotations
 ----------------------------------
 
-The presence of the import `from __future__ import annotations` must not
-influence type checking.  Annotations must be resolved in the exact same way as
-if the import was not present.
-
+For purposes of type checking, annotations in a file containing `from
+__future__ import annotations` must use the same name-resolution rules as
+explicitly stringified annotations, regardless of the target Python version.
 
 Annotating generator functions and coroutines
 ---------------------------------------------

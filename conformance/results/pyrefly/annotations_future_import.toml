@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Names in annotations that refer to definitions after them are not resolved in the precence of `from __future__ import annotations`
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Unexpected errors ['Could not find name `ClassInner` [unknown-name]']
+Line 27: Unexpected errors ['Could not find name `ClassInner` [unknown-name]']
+Line 42: Unexpected errors ['assert_type(Unknown, ClassB.ClassInner) failed [assert-type]']
+Line 43: Unexpected errors ['assert_type(Unknown, ClassB.ClassInner) failed [assert-type]']
+"""
+output = """
+ERROR annotations_future_import.py:26:13-23: Could not find name `ClassInner` [unknown-name]
+ERROR annotations_future_import.py:27:14-24: Could not find name `ClassInner` [unknown-name]
+ERROR annotations_future_import.py:42:16-45: assert_type(Unknown, ClassB.ClassInner) failed [assert-type]
+ERROR annotations_future_import.py:43:16-45: assert_type(Unknown, ClassB.ClassInner) failed [assert-type]
+"""

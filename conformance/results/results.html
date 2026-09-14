@@ -333,6 +333,26 @@
                         </td>
                     </tr>
                     <tr>
+                        <th scope="row">annotations_future_import</th>
+                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Names in annotations that refer to definitions after them are not resolved in the precence of <code>from __future__ import annotations</code></li>
+                                <li>Nested classes are resolved, but its type is Any</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Names in annotations that refer to definitions after them are not resolved in the precence of <code>from __future__ import annotations</code></li>
+                            </ul>
+                        </td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                    </tr>
+                    <tr>
                         <th scope="row">annotations_generators</th>
                         <td class="partially-conformant tooltip">
                             Partial
@@ -381,12 +401,12 @@
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>4 / 5 • 80.0%</td>
-                        <td>4 / 5 • 80.0%</td>
-                        <td>4.5 / 5 • 90.0%</td>
-                        <td>4.5 / 5 • 90.0%</td>
-                        <td>4.5 / 5 • 90.0%</td>
-                        <td>4.5 / 5 • 90.0%</td>
+                        <td>5 / 6 • 83.3%</td>
+                        <td>4.5 / 6 • 75.0%</td>
+                        <td>5 / 6 • 83.3%</td>
+                        <td>5.5 / 6 • 91.7%</td>
+                        <td>5.5 / 6 • 91.7%</td>
+                        <td>5.5 / 6 • 91.7%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2575,12 +2595,12 @@
                 <tfoot>
                     <tr>
                         <td></td>
-                        <td>108.5 / 145 • 74.8%</td>
-                        <td>138 / 145 • 95.2%</td>
-                        <td>140.5 / 145 • 96.9%</td>
-                        <td>135 / 145 • 93.1%</td>
-                        <td>135.5 / 145 • 93.4%</td>
-                        <td>144.5 / 145 • 99.7%</td>
+                        <td>109.5 / 146 • 75.0%</td>
+                        <td>138.5 / 146 • 94.9%</td>
+                        <td>141 / 146 • 96.6%</td>
+                        <td>136 / 146 • 93.2%</td>
+                        <td>136.5 / 146 • 93.5%</td>
+                        <td>145.5 / 146 • 99.7%</td>
                     </tr>
                 </tfoot>
             </table>
