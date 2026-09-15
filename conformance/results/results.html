@@ -268,7 +268,7 @@
                         <th scope="col">pycroscope 0.5.0</th>
                         <th scope="col">pyrefly 1.3.0-dev.1</th>
                         <th scope="col">pyright 1.1.410</th>
-                        <th scope="col">ty 0.0.78</th>
+                        <th scope="col">ty 0.0.81</th>
                         <th scope="col">zuban 0.9.2</th>
                     </tr>
                 </thead>
@@ -543,7 +543,6 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Allows arbitrary attributes to be accessed on <code>TA</code> where <code>TA = typing.Type[typing.Any]</code> or <code>TA = type[typing.Any]</code>.</li>
                                 <li>Treats <code>type</code> equivalently to <code>type[object]</code> rather than <code>type[typing.Any]</code>.</li>
                             </ul>
                         </td>
@@ -1093,13 +1092,7 @@
                                 <li>the incompatible constructor overrides in <code>ChildC2</code> are not flagged.</li>
                             </ul>
                         </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not honor <code>@override</code> compatibility checks for <code>__init__</code> and <code>__new__</code>:</li>
-                                <li>the incompatible constructor overrides in <code>ChildC2</code> are not flagged.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr class="summary">
@@ -1108,7 +1101,7 @@
                         <td>2 / 2 • 100.0%</td>
                         <td>2 / 2 • 100.0%</td>
                         <td>1.5 / 2 • 75.0%</td>
-                        <td>1.5 / 2 • 75.0%</td>
+                        <td>2 / 2 • 100.0%</td>
                         <td>2 / 2 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -2620,7 +2613,7 @@
                         <td>138.5 / 146 • 94.9%</td>
                         <td>141 / 146 • 96.6%</td>
                         <td>135.5 / 146 • 92.8%</td>
-                        <td>136 / 146 • 93.2%</td>
+                        <td>136.5 / 146 • 93.5%</td>
                         <td>145 / 146 • 99.3%</td>
                     </tr>
                 </tfoot>
