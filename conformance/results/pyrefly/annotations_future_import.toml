@@ -1,0 +1,22 @@
+conformant = "Partial"
+notes = """
+Forward references to nested classes are not resolved
+Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 37: Expected 1 errors
+Line 39: Expected 1 errors
+Line 26: Unexpected errors ['Could not find name `ClassInner` [unknown-name]']
+Line 27: Unexpected errors ['Could not find name `ClassInner` [unknown-name]']
+Line 55: Unexpected errors ['assert_type(Unknown, ClassB.ClassInner) failed [assert-type]']
+Line 56: Unexpected errors ['assert_type(Unknown, ClassB.ClassInner) failed [assert-type]']
+"""
+output = """
+ERROR annotations_future_import.py:26:13-23: Could not find name `ClassInner` [unknown-name]
+ERROR annotations_future_import.py:27:14-24: Could not find name `ClassInner` [unknown-name]
+ERROR annotations_future_import.py:44:8-11: Expected a type form, got instance of `(self: Self@ClassB) -> None` [not-a-type]
+ERROR annotations_future_import.py:46:9-12: Expected a type form, got instance of `(self: Self@ClassB) -> None` [not-a-type]
+ERROR annotations_future_import.py:55:16-45: assert_type(Unknown, ClassB.ClassInner) failed [assert-type]
+ERROR annotations_future_import.py:56:16-45: assert_type(Unknown, ClassB.ClassInner) failed [assert-type]
+"""

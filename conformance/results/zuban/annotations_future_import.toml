@@ -1,0 +1,18 @@
+conformant = "Partial"
+notes = """
+Fails to resolve forward references in classes from builtins
+Resolves some class annotations to outer names instead of shadowing class bindings
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 37: Expected 1 errors
+Line 39: Expected 1 errors
+Line 28: Unexpected errors ['annotations_future_import.py:28: error: Invalid type comment or annotation  [valid-type]']
+"""
+output = """
+annotations_future_import.py:28: error: Invalid type comment or annotation  [valid-type]
+annotations_future_import.py:44: error: Function "tests.annotations_future_import.ClassB.int" is not valid as a type  [valid-type]
+annotations_future_import.py:44: note: Perhaps you need "Callable[...]" or a callback protocol?
+annotations_future_import.py:46: error: Function "tests.annotations_future_import.ClassB.int" is not valid as a type  [valid-type]
+annotations_future_import.py:46: note: Perhaps you need "Callable[...]" or a callback protocol?
+"""
