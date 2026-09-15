@@ -7,7 +7,7 @@ Tests the handling of forward references in type annotations.
 
 
 import types
-from typing import assert_type, Any
+from typing import assert_type
 
 
 def func1(

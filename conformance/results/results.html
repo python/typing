@@ -345,6 +345,7 @@
                             <ul class="notes">
                                 <li>Forward references to nested classes are not resolved</li>
                                 <li>Nested classes are resolved, but its type is Any</li>
+                                <li>Resolves some class annotations to outer names instead of shadowing class bindings</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
@@ -370,6 +371,7 @@
                             Partial
                             <ul class="notes">
                                 <li>Fails to resolve forward references in classes from builtins</li>
+                                <li>Resolves some class annotations to outer names instead of shadowing class bindings</li>
                             </ul>
                         </td>
                     </tr>

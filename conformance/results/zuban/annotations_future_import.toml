@@ -1,6 +1,7 @@
 conformant = "Partial"
 notes = """
 Fails to resolve forward references in classes from builtins
+Resolves some class annotations to outer names instead of shadowing class bindings
 """
 conformance_automated = "Fail"
 errors_diff = """

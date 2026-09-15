@@ -293,8 +293,8 @@ _module_._class_ name::
 from __future__ import annotations
 ----------------------------------
 
-For purposes of type checking, annotations in a file containing `from
-__future__ import annotations` must use the same name-resolution rules as
+For purposes of type checking, annotations in a file containing ``from
+__future__ import annotations`` must use the same name-resolution rules as
 explicitly stringified annotations, regardless of the target Python version.
 
 Annotating generator functions and coroutines

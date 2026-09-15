@@ -2,6 +2,7 @@ conformant = "Partial"
 notes = """
 Forward references to nested classes are not resolved
 Nested classes are resolved, but its type is Any
+Resolves some class annotations to outer names instead of shadowing class bindings
 """
 conformance_automated = "Fail"
 errors_diff = """
