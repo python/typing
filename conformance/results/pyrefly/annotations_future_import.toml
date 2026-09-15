@@ -1,6 +1,7 @@
 conformant = "Partial"
 notes = """
 Forward references to nested classes are not resolved
+Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope
 """
 conformance_automated = "Fail"
 errors_diff = """
