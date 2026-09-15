@@ -134,10 +134,3 @@ def parse_status3(status: str) -> None:
 
     if status == "PENDING":
         expects_pending_status(status)  # E? narrowing the type here is unsound, but allowed per the spec
-
-
-final_val1: Final = 3
-assert_type(final_val1, Literal[3])
-
-final_val2: Final = True
-assert_type(final_val2, Literal[True])
