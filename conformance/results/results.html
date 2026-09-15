@@ -343,7 +343,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Names in annotations that refer to definitions after them are not resolved in the precence of <code>from __future__ import annotations</code></li>
+                                <li>Forward references to nested classes are not resolved</li>
                                 <li>Nested classes are resolved, but its type is Any</li>
                             </ul>
                         </td>
@@ -351,6 +351,7 @@
                             Partial
                             <ul class="notes">
                                 <li>Forward references to nested classes are not resolved</li>
+                                <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
