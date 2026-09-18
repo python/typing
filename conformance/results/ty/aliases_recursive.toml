@@ -1,17 +1,20 @@
 conformance_automated = "Fail"
-conformant = "Unsupported"
+conformant = "Partial"
+notes = """
+Does not reject invalid cyclic type alias definitions.
+"""
 errors_diff = """
-Line 19: Expected 1 errors
-Line 20: Expected 1 errors
-Line 38: Expected 1 errors
-Line 39: Expected 1 errors
-Line 50: Expected 1 errors
-Line 51: Expected 1 errors
-Line 52: Expected 1 errors
-Line 63: Expected 1 errors
-Line 69: Expected 1 errors
 Line 72: Expected 1 errors
 Line 75: Expected 1 errors
 """
 output = """
+aliases_recursive.py:19:12: error[invalid-assignment] Object of type `dict[str, None | complex | str | list[Json] | dict[str, Json]]` is not assignable to `Json`
+aliases_recursive.py:20:12: error[invalid-assignment] Object of type `list[None | complex | str | list[Json] | dict[str, Json]]` is not assignable to `Json`
+aliases_recursive.py:38:22: error[invalid-assignment] Object of type `tuple[Literal[1], tuple[Literal["1"], Literal[1]], tuple[Literal[1], tuple[Literal[1], list[int]]]]` is not assignable to `RecursiveTuple`
+aliases_recursive.py:39:22: error[invalid-assignment] Object of type `tuple[Literal[1], list[int]]` is not assignable to `RecursiveTuple`
+aliases_recursive.py:50:24: error[invalid-assignment] Object of type `dict[str, list[int]]` is not assignable to `RecursiveMapping`
+aliases_recursive.py:51:24: error[invalid-assignment] Object of type `dict[str, str | int | list[int]]` is not assignable to `RecursiveMapping`
+aliases_recursive.py:52:24: error[invalid-assignment] Object of type `dict[str, str | int | dict[str, str | int | list[int]]]` is not assignable to `RecursiveMapping`
+aliases_recursive.py:63:30: error[invalid-assignment] Object of type `list[list[GenericTypeAlias1[str] | str] | str | list[list[GenericTypeAlias1[str] | str] | str | float]]` is not assignable to `GenericTypeAlias1[str]`
+aliases_recursive.py:69:35: error[invalid-assignment] Object of type `list[list[GenericTypeAlias2[str, int] | str | int] | str | int | list[list[GenericTypeAlias2[str, int] | str | int] | str | int | list[list[GenericTypeAlias2[str, int] | str | int] | str | int | list[list[GenericTypeAlias2[str, int] | str | int] | str | float]]]]` is not assignable to `GenericTypeAlias2[str, int]`
 """
