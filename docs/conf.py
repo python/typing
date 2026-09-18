@@ -52,4 +52,7 @@ html_theme = 'python_docs_theme'
 html_static_path = []
 
 extensions = ['sphinx.ext.intersphinx']
-intersphinx_mapping = {'python': ('https://docs.python.org/3', None)}
+intersphinx_mapping = {
+    'python': ('https://docs.python.org/3', None),
+    'py315': ('https://docs.python.org/3.15', None),
+}
