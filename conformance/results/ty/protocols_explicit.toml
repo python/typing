@@ -1,16 +1,16 @@
 conformance_automated = "Fail"
-conformant = "Unsupported"
+conformant = "Partial"
 notes = """
-Allows implicitly abstract protocol methods to be called via `super()` on a protocol subclass.
-Allows instantiation of abstract subclasses of protocol classes.
+Allows abstract protocol methods with no default implementation to be called via `super()` on a protocol subclass.
+Allows instantiation of protocol subclasses with uninitialized `ClassVar` members.
 """
 errors_diff = """
 Line 27: Expected 1 errors
-Line 60: Expected 1 errors
 Line 89: Expected 1 errors
-Line 134: Expected 1 errors
-Line 164: Expected 1 errors
 """
 output = """
 protocols_explicit.py:56:9: error[invalid-assignment] Object of type `tuple[int, int, str]` is not assignable to attribute `rgb` of type `tuple[int, int, int]`
+protocols_explicit.py:60:5: error[call-non-callable] Cannot instantiate `Point` with unimplemented abstract methods `intensity` and `transparency`
+protocols_explicit.py:134:6: error[call-non-callable] Cannot instantiate `Concrete5` with unimplemented abstract method `method1`
+protocols_explicit.py:164:7: error[call-non-callable] Cannot instantiate `Concrete7A` with unimplemented abstract method `method1`
 """

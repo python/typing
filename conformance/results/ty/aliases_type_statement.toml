@@ -6,7 +6,7 @@ aliases_type_statement.py:17:1: error[unresolved-attribute] Object of type `Type
 aliases_type_statement.py:19:1: error[call-non-callable] Object of type `TypeAliasType` is not callable
 aliases_type_statement.py:23:7: error[unresolved-attribute] Object of type `TypeAliasType` has no attribute `other_attrib`
 aliases_type_statement.py:26:18: error[invalid-base] Invalid class base with type `TypeAliasType`
-aliases_type_statement.py:31:22: error[invalid-argument-type] Argument to function `isinstance` is incorrect: Expected `type | UnionType | tuple[Divergent, ...]`, found `TypeAliasType`
+aliases_type_statement.py:31:22: error[invalid-argument-type] Argument to function `isinstance` is incorrect: Expected `_ClassInfo`, found `TypeAliasType`
 aliases_type_statement.py:37:22: error[invalid-type-form] Function calls are not allowed in type alias values
 aliases_type_statement.py:38:22: error[invalid-type-form] List literals are not allowed in this context in a type alias value
 aliases_type_statement.py:39:22: error[invalid-type-form] Tuple literals are not allowed in this context in a type alias value
