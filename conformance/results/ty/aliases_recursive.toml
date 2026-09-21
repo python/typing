@@ -1,11 +1,5 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Does not reject invalid cyclic type alias definitions.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 72: Expected 1 errors
-Line 75: Expected 1 errors
 """
 output = """
 aliases_recursive.py:19:12: error[invalid-assignment] Object of type `dict[str, None | complex | str | list[Json] | dict[str, Json]]` is not assignable to `Json`
@@ -17,4 +11,7 @@ aliases_recursive.py:51:24: error[invalid-assignment] Object of type `dict[str, 
 aliases_recursive.py:52:24: error[invalid-assignment] Object of type `dict[str, str | int | dict[str, str | int | list[int]]]` is not assignable to `RecursiveMapping`
 aliases_recursive.py:63:30: error[invalid-assignment] Object of type `list[list[GenericTypeAlias1[str] | str] | str | list[list[GenericTypeAlias1[str] | str] | str | float]]` is not assignable to `GenericTypeAlias1[str]`
 aliases_recursive.py:69:35: error[invalid-assignment] Object of type `list[list[GenericTypeAlias2[str, int] | str | int] | str | int | list[list[GenericTypeAlias2[str, int] | str | int] | str | int | list[list[GenericTypeAlias2[str, int] | str | int] | str | int | list[list[GenericTypeAlias2[str, int] | str | int] | str | float]]]]` is not assignable to `GenericTypeAlias2[str, int]`
+aliases_recursive.py:72:29: error[cyclic-type-alias-definition] Type alias `RecursiveUnion` has a circular definition
+aliases_recursive.py:75:31: error[cyclic-type-alias-definition] Type alias `MutualReference1` has a circular definition
+aliases_recursive.py:75:93: error[cyclic-type-alias-definition] Type alias `MutualReference2` has a circular definition
 """

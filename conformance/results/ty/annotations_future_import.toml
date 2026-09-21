@@ -1,12 +1,8 @@
-conformant = "Partial"
-notes = """
-Fails to reject `str: "str"` forward references
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 37: Expected 1 errors
 """
 output = """
+annotations_future_import.py:37:10: error[invalid-type-form] Variable of type `Literal[""]` is not allowed in a type expression
 annotations_future_import.py:39:8: error[invalid-type-form] Function `int` is not valid in a type expression
 annotations_future_import.py:44:8: error[invalid-type-form] Function `int` is not valid in a type expression
 annotations_future_import.py:46:9: error[invalid-type-form] Function `int` is not valid in a type expression
