@@ -268,7 +268,7 @@
                         <th scope="col">pycroscope 0.5.0</th>
                         <th scope="col">pyrefly 1.3.0-dev.1</th>
                         <th scope="col">pyright 1.1.410</th>
-                        <th scope="col">ty 0.0.82</th>
+                        <th scope="col">ty 0.0.83</th>
                         <th scope="col">zuban 0.10.0</th>
                     </tr>
                 </thead>
@@ -318,12 +318,7 @@
                                 <li>Prefers to resolve forward references in classes outside of the class instead of end-of-scope</li>
                             </ul>
                         </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Fails to reject <code>str: "str"</code> forward references</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -355,12 +350,7 @@
                                 <li>Prefers to resolve forward references in classes outside of the class instead of end-of-scope</li>
                             </ul>
                         </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Fails to reject <code>str: "str"</code> forward references</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -416,7 +406,7 @@
                         <td>4.5 / 6 • 75.0%</td>
                         <td>5 / 6 • 83.3%</td>
                         <td>5 / 6 • 83.3%</td>
-                        <td>5 / 6 • 83.3%</td>
+                        <td>6 / 6 • 100.0%</td>
                         <td>6 / 6 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1161,12 +1151,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject invalid cyclic type alias definitions.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1214,7 +1199,7 @@
                         <td>6 / 7 • 85.7%</td>
                         <td>7 / 7 • 100.0%</td>
                         <td>7 / 7 • 100.0%</td>
-                        <td>5.5 / 7 • 78.6%</td>
+                        <td>6 / 7 • 85.7%</td>
                         <td>7 / 7 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1558,7 +1543,6 @@
                             Partial
                             <ul class="notes">
                                 <li>Does not reject invalid argument types to an inherited constructor in a specialized subclass of a generic superclass.</li>
-                                <li>Does not reject class-scoped type variables used in the <code>self</code> annotation.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -2603,7 +2587,7 @@
                         <td>138.5 / 146 • 94.9%</td>
                         <td>141 / 146 • 96.6%</td>
                         <td>135.5 / 146 • 92.8%</td>
-                        <td>138 / 146 • 94.5%</td>
+                        <td>139.5 / 146 • 95.5%</td>
                         <td>146 / 146 • 100.0%</td>
                     </tr>
                 </tfoot>

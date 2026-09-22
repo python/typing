@@ -7,10 +7,10 @@ aliases_typealiastype.py:40:21: error[invalid-type-arguments] Type `int` is not 
 aliases_typealiastype.py:43:40: error[invalid-type-alias-type] Type parameter `S` used in the alias value must be included in `type_params`
 aliases_typealiastype.py:44:40: error[invalid-type-alias-type] Type parameter `S` used in the alias value must be included in `type_params`
 aliases_typealiastype.py:45:57: error[invalid-type-alias-type] The `type_params` argument to `TypeAliasType` must be a tuple literal
-aliases_typealiastype.py:46:40: error[cyclic-type-alias-definition] Cyclic definition of `BadAlias4`
-aliases_typealiastype.py:47:40: error[cyclic-type-alias-definition] Cyclic definition of `BadAlias5`
-aliases_typealiastype.py:48:40: error[cyclic-type-alias-definition] Cyclic definition of `BadAlias6`
-aliases_typealiastype.py:49:40: error[cyclic-type-alias-definition] Cyclic definition of `BadAlias7`
+aliases_typealiastype.py:46:40: error[cyclic-type-alias-definition] Type alias `BadAlias4` has a circular definition
+aliases_typealiastype.py:47:40: error[cyclic-type-alias-definition] Type alias `BadAlias5` has a circular definition
+aliases_typealiastype.py:48:40: error[cyclic-type-alias-definition] Type alias `BadAlias6` has a circular definition
+aliases_typealiastype.py:49:40: error[cyclic-type-alias-definition] Type alias `BadAlias7` has a circular definition
 aliases_typealiastype.py:52:40: error[invalid-type-form] Function calls are not allowed in type expressions
 aliases_typealiastype.py:53:40: error[invalid-type-form] List literals are not allowed in this context in a type expression
 aliases_typealiastype.py:54:42: error[invalid-type-form] Tuple literals are not allowed in this context in a type expression

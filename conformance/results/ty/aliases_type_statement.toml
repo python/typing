@@ -24,8 +24,8 @@ aliases_type_statement.py:53:23: error[unbound-type-variable] Type variable `V` 
 aliases_type_statement.py:58:17: error[unbound-type-variable] Type variable `T1` is not bound to any outer generic context
 aliases_type_statement.py:68:27: error[invalid-type-arguments] Type `str` is not assignable to upper bound `int` of type variable `S@RecursiveTypeAlias2`
 aliases_type_statement.py:70:32: error[invalid-type-arguments] Type `int` is not assignable to upper bound `str` of type variable `T@RecursiveTypeAlias2`
-aliases_type_statement.py:73:1: error[cyclic-type-alias-definition] Cyclic definition of `RecursiveTypeAlias3`
-aliases_type_statement.py:75:1: error[cyclic-type-alias-definition] Cyclic definition of `RecursiveTypeAlias4`
-aliases_type_statement.py:79:1: error[cyclic-type-alias-definition] Cyclic definition of `RecursiveTypeAlias6`
-aliases_type_statement.py:80:1: error[cyclic-type-alias-definition] Cyclic definition of `RecursiveTypeAlias7`
+aliases_type_statement.py:73:28: error[cyclic-type-alias-definition] Type alias `RecursiveTypeAlias3` has a circular definition
+aliases_type_statement.py:75:31: error[cyclic-type-alias-definition] Type alias `RecursiveTypeAlias4` has a circular definition
+aliases_type_statement.py:79:28: error[cyclic-type-alias-definition] Type alias `RecursiveTypeAlias6` has a circular definition
+aliases_type_statement.py:80:28: error[cyclic-type-alias-definition] Type alias `RecursiveTypeAlias7` has a circular definition
 """
