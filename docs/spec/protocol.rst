@@ -368,7 +368,7 @@ The self-types in protocols follow the
           ...
 
   class One:
-      def copy(self) -> Self:
+      def copy(self) -> 'One':
           ...
 
   class Other:
