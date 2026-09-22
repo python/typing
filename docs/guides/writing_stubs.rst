@@ -652,7 +652,7 @@ referencing a type variable.
 
 Yes::
 
-    _T = TypeVar("_T")
+    _T = TypeVar("_T", bound="Foo")
 
     class Foo:
         def bar(self) -> None: ...

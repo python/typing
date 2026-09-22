@@ -365,9 +365,10 @@ The self-types in protocols follow the
 
   class Copyable(Protocol):
       def copy[C: Copyable](self: C) -> C:
+          ...
 
   class One:
-      def copy(self) -> 'One':
+      def copy(self) -> Self:
           ...
 
   class Other:

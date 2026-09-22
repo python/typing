@@ -17,23 +17,19 @@ protocols_generic.py:56: error: Incompatible types in assignment (expression has
 protocols_generic.py:66: error: Incompatible types in assignment (expression has type "Sender[int]", variable has type "Sender[float]")  [assignment]
 protocols_generic.py:74: error: Incompatible types in assignment (expression has type "AttrProto[int]", variable has type "AttrProto[float]")  [assignment]
 protocols_generic.py:75: error: Incompatible types in assignment (expression has type "AttrProto[float]", variable has type "AttrProto[int]")  [assignment]
-protocols_generic.py:145: error: Incompatible types in assignment (expression has type "ConcreteHasProperty2", variable has type "HasPropertyProto")  [assignment]
-protocols_generic.py:145: note: Following member(s) of "ConcreteHasProperty2" have conflicts:
-protocols_generic.py:145: note:     Expected:
-protocols_generic.py:145: note:         def [T] m(self, item: T, callback: Callable[[T], str]) -> str
-protocols_generic.py:145: note:     Got:
-protocols_generic.py:145: note:         def m(self, item: int, callback: Callable[[int], str]) -> str
-protocols_generic.py:146: error: Incompatible types in assignment (expression has type "ConcreteHasProperty3", variable has type "HasPropertyProto")  [assignment]
-protocols_generic.py:146: note: Following member(s) of "ConcreteHasProperty3" have conflicts:
-protocols_generic.py:146: note:     f: expected "ConcreteHasProperty3", got "int"
-protocols_generic.py:146: note:     Expected:
-protocols_generic.py:146: note:         def [T] m(self, item: T, callback: Callable[[T], str]) -> str
-protocols_generic.py:146: note:     Got:
-protocols_generic.py:146: note:         def m(self, item: int, callback: Callable[[int], str]) -> str
-protocols_generic.py:147: error: Incompatible types in assignment (expression has type "ConcreteHasProperty4", variable has type "HasPropertyProto")  [assignment]
-protocols_generic.py:147: note: Following member(s) of "ConcreteHasProperty4" have conflicts:
-protocols_generic.py:147: note:     Expected:
-protocols_generic.py:147: note:         def [T] m(self, item: T, callback: Callable[[T], str]) -> str
-protocols_generic.py:147: note:     Got:
-protocols_generic.py:147: note:         def m(self, item: str, callback: Callable[[int], str]) -> str
+protocols_generic.py:133: error: Incompatible types in assignment (expression has type "InvalidParentProperty", variable has type "HasParentProperty")  [assignment]
+protocols_generic.py:133: note: Following member(s) of "InvalidParentProperty" have conflicts:
+protocols_generic.py:133: note:     parent: expected "InvalidParentProperty", got "int"
+protocols_generic.py:153: error: Incompatible types in assignment (expression has type "InvalidHasMethod", variable has type "HasMethod")  [assignment]
+protocols_generic.py:153: note: Following member(s) of "InvalidHasMethod" have conflicts:
+protocols_generic.py:153: note:     Expected:
+protocols_generic.py:153: note:         def [T] m(self, item: T, callback: Callable[[T], str]) -> str
+protocols_generic.py:153: note:     Got:
+protocols_generic.py:153: note:         def m(self, item: int, callback: Callable[[int], str]) -> str
+protocols_generic.py:185: error: Incompatible types in assignment (expression has type "InvalidGreaterThan", variable has type "HasGreaterThan")  [assignment]
+protocols_generic.py:185: note: Following member(s) of "InvalidGreaterThan" have conflicts:
+protocols_generic.py:185: note:     Expected:
+protocols_generic.py:185: note:         def [Self: InvalidGreaterThan] __gt__(self, other: Self) -> bool
+protocols_generic.py:185: note:     Got:
+protocols_generic.py:185: note:         def __gt__(self, other: int) -> bool
 """
