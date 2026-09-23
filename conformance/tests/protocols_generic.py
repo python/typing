@@ -125,8 +125,8 @@ class ConcreteParentProperty:
 
 class InvalidParentProperty:
     @property
-    def parent(self) -> int:
-        return 0
+    def parent(self) -> HasParentProperty:
+        return ConcreteParentProperty()
 
 
 hp1: HasParentProperty = ConcreteParentProperty()  # OK

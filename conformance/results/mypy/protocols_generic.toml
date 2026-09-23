@@ -18,7 +18,7 @@ protocols_generic.py:74: error: Incompatible types in assignment (expression has
 protocols_generic.py:75: error: Incompatible types in assignment (expression has type "AttrProto[float]", variable has type "AttrProto[int]")  [assignment]
 protocols_generic.py:133: error: Incompatible types in assignment (expression has type "InvalidParentProperty", variable has type "HasParentProperty")  [assignment]
 protocols_generic.py:133: note: Following member(s) of "InvalidParentProperty" have conflicts:
-protocols_generic.py:133: note:     parent: expected "InvalidParentProperty", got "int"
+protocols_generic.py:133: note:     parent: expected "InvalidParentProperty", got "HasParentProperty"
 protocols_generic.py:153: error: Incompatible types in assignment (expression has type "InvalidHasMethod", variable has type "HasMethod")  [assignment]
 protocols_generic.py:153: note: Following member(s) of "InvalidHasMethod" have conflicts:
 protocols_generic.py:153: note:     Expected:
