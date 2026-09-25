@@ -657,6 +657,12 @@ Yes::
         @classmethod
         def create(cls) -> Self: ...
 
+    _T = TypeVar("_T")
+
+    class Box(Generic[_T]):
+        # This method is only available on boxes containing strings.
+        def upper(self: Box[str]) -> str: ...
+
 No::
 
     class Foo:
