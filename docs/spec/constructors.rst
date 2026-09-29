@@ -667,11 +667,13 @@ Keyword arguments in a direct metaclass call (such as the last two calls in the
 example above) require no special handling: they are validated as part of
 evaluating the call using the standard constructor call rules.
 
-Type checkers should honor the evaluated retunr type of the implied metaclass call,
-even if the evaluated type isn't a class::
+Type checkers should honor the evaluated return type of the implied metaclass call,
+even if the evaluated type isn't a class:
+
+  ::
 
     class Meta(type):
-        def __new__(cls, *args: object, **kwargs: obect) -> int:
+        def __new__(mcls, *args: object, **kwargs: object) -> int:
             return 1
 
     class MyClass6(metaclass=Meta):
@@ -699,7 +701,7 @@ Type checkers may validate the implied call to :attr:`!__prepare__`:
             return super().__new__(mcls, name, bases, namespace)
 
     # The 'key' argument may result in a type checker error:
-    class MyClass6(metaclass=Meta, key=3):
+    class MyClass7(metaclass=Meta, key=3):
         pass
 
 The ``metaclass`` argument can also be an arbitrary callable that is not a subclass
