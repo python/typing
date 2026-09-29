@@ -1,0 +1,9 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_metaclass.py:47:1 - error: Argument missing for parameter "key" (reportCallIssue)
+constructors_metaclass.py:48:24 - error: Argument of type "Literal['']" cannot be assigned to parameter "key" of type "int" in function "__new__"
+  "Literal['']" is not assignable to "int" (reportArgumentType)
+"""

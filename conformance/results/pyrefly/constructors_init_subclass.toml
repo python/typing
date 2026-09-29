@@ -1,0 +1,14 @@
+conformant = "Partial"
+notes = """
+Does not validate keyword arguments against `object.__init_subclass__` in a class statement with no explicit base classes.
+Does not validate keyword arguments against `__init_subclass__` when the metaclass defines an `__init__` method (but no `__new__` method).
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 34: Expected 1 errors
+Line 58: Expected 1 errors
+"""
+output = """
+ERROR constructors_init_subclass.py:26:25-27: Argument `Literal['']` is not assignable to parameter `flag` with type `bool` in function `Base.__init_subclass__` [bad-argument-type]
+ERROR constructors_init_subclass.py:30:20-25: Unexpected keyword argument `other` in function `Base.__init_subclass__` [unexpected-keyword]
+"""

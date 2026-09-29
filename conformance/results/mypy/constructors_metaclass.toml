@@ -1,0 +1,19 @@
+conformant = "Partial"
+notes = """
+Does not evaluate the `__call__` method of the metaclass's own metaclass.
+Incorrectly rejects a metaclass `__new__` method annotated to return a type other than a class.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 28: Unexpected errors ['constructors_metaclass.py:28: error: Expression is of type "Meta1", not "Never"  [assert-type]']
+Line 57: Unexpected errors ['constructors_metaclass.py:57: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "type")  [misc]']
+Line 67: Unexpected errors ['constructors_metaclass.py:67: error: Expression is of type "Meta3", not "int"  [assert-type]', 'constructors_metaclass.py:67: error: Too many arguments for "Meta3"  [call-arg]']
+"""
+output = """
+constructors_metaclass.py:28: error: Expression is of type "Meta1", not "Never"  [assert-type]
+constructors_metaclass.py:47: error: Missing named argument "key" for "Meta2"  [call-arg]
+constructors_metaclass.py:48: error: Argument "key" to "Meta2" has incompatible type "str"; expected "int"  [arg-type]
+constructors_metaclass.py:57: error: Incompatible return type for "__new__" (returns "int", but must return a subtype of "type")  [misc]
+constructors_metaclass.py:67: error: Expression is of type "Meta3", not "int"  [assert-type]
+constructors_metaclass.py:67: error: Too many arguments for "Meta3"  [call-arg]
+"""

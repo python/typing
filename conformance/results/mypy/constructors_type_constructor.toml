@@ -1,0 +1,15 @@
+conformant = "Partial"
+notes = """
+Does not report a single-argument call to a subclass of `type`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+"""
+output = """
+constructors_type_constructor.py:30: error: No overload variant of "type" matches argument types "str", "tuple[()]"  [call-overload]
+constructors_type_constructor.py:30: note: Possible overload variants:
+constructors_type_constructor.py:30: note:     def type(object, /) -> type
+constructors_type_constructor.py:30: note:     def type(str, tuple[type, ...], dict[str, Any], /, **kwds: Any) -> type
+constructors_type_constructor.py:52: error: Argument 1 to "MetaSingle" has incompatible type "str"; expected "int"  [arg-type]
+"""

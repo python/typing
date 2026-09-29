@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Does not honor the evaluated return type of the implied metaclass call when it isn't a class.
+Does not validate keyword arguments in a class statement against the metaclass `__new__` method.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 56: Expected 1 errors
+Line 60: Expected 1 errors
+Line 85: Unexpected errors ['assert_type(type[Class6], int) failed [assert-type]']
+"""
+output = """
+ERROR constructors_class_statements.py:30:7-20: Class `ClassConflict` has metaclass `MetaA` from base class `BaseA` which is not compatible with metaclass `MetaB` from base class `BaseB` [invalid-inheritance]
+ERROR constructors_class_statements.py:69:29-31: Argument `Literal['']` is not assignable to parameter `key` with type `int` in function `Meta1.__new__` [bad-argument-type]
+ERROR constructors_class_statements.py:85:12-25: assert_type(type[Class6], int) failed [assert-type]
+ERROR constructors_class_statements.py:93:9-20: Class member `Meta3.__prepare__` overrides parent class `type` in an inconsistent manner [bad-override]
+"""

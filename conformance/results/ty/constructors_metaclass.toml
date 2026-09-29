@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_metaclass.py:47:1: error[missing-argument] No argument provided for required parameter `key` of constructor `Meta2.__new__`
+constructors_metaclass.py:48:20: error[invalid-argument-type] Argument to constructor `Meta2.__new__` is incorrect: Expected `int`, found `Literal[""]`
+"""

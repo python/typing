@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Does not honor the evaluated return type of the implied metaclass call when it isn't a class.
+Does not validate keyword arguments in a class statement against the metaclass `__new__` method.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 56: Expected 1 errors
+Line 60: Expected 1 errors
+Line 85: Unexpected errors ["constructors_class_statements.py:85:1: error[type-assertion-failure] Type `<class 'Class6'>` does not match asserted type `int`"]
+"""
+output = """
+constructors_class_statements.py:30:1: error[conflicting-metaclass] The metaclass of a derived class (`ClassConflict`) must be a subclass of the metaclasses of all its bases, but `MetaA` (metaclass of base class `BaseA`) and `MetaB` (metaclass of base class `BaseB`) have no subclass relationship
+constructors_class_statements.py:69:25: error[invalid-argument-type] Argument to constructor `Meta1.__new__` is incorrect: Expected `int`, found `Literal[""]`
+constructors_class_statements.py:85:1: error[type-assertion-failure] Type `<class 'Class6'>` does not match asserted type `int`
+constructors_class_statements.py:93:9: error[invalid-method-override] Invalid override of method `__prepare__`: Definition is incompatible with `type.__prepare__`
+"""
