@@ -1,0 +1,17 @@
+conformant = "Partial"
+notes = """
+Does not validate class statement keyword arguments against `__init_subclass__`.
+Incorrectly rejects a call to `type` with three positional arguments and additional keyword arguments.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 26: Expected 1 errors
+Line 30: Expected 1 errors
+Line 34: Expected 1 errors
+Line 58: Expected 1 errors
+Line 67: Unexpected errors ['./constructors_init_subclass.py:67:0: Cannot call overloaded function [incompatible_call]']
+"""
+output = """
+./constructors_init_subclass.py:67:0: Cannot call overloaded function [incompatible_call]
+./constructors_init_subclass.py:68:0: Cannot call overloaded function [incompatible_call]
+"""

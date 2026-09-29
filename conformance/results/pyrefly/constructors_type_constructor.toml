@@ -1,0 +1,12 @@
+conformant = "Partial"
+notes = """
+Does not report a single-argument call to a subclass of `type`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+"""
+output = """
+ERROR constructors_type_constructor.py:30:5-14: No matching overload found for function `type.__new__` called with arguments: (type[type], Literal['A'], tuple[()]) [no-matching-overload]
+ERROR constructors_type_constructor.py:52:12-14: Argument `Literal['']` is not assignable to parameter `x` with type `int` in function `MetaSingle.__new__` [bad-argument-type]
+"""

@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_metaclass.py:47: error: Missing named argument "key" for "Meta2"  [call-arg]
+constructors_metaclass.py:48: error: Argument "key" to "Meta2" has incompatible type "str"; expected "int"  [arg-type]
+"""

@@ -1,0 +1,12 @@
+conformant = "Partial"
+notes = """
+Does not report a single-argument call to a subclass of `type`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+"""
+output = """
+constructors_type_constructor.py:30:1: error[no-matching-overload] No overload of class `type` matches arguments
+constructors_type_constructor.py:52:12: error[invalid-argument-type] Argument to constructor `MetaSingle.__new__` is incorrect: Expected `int`, found `Literal[""]`
+"""

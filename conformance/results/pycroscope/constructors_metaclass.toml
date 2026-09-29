@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+./constructors_metaclass.py:47:0: Missing required argument 'key' [incompatible_call]
+./constructors_metaclass.py:48:23: Incompatible argument type for key: expected int but got Literal[''] [incompatible_argument]
+"""

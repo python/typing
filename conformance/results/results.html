@@ -1616,6 +1616,51 @@
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
+                        <th scope="row">constructors_class_statements</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not honor the evaluated return type of the implied metaclass call when it isn't a class.</li>
+                                <li>Does not validate keyword arguments in a class statement against the metaclass <code>__new__</code> method.</li>
+                                <li>Incorrectly rejects a metaclass <code>__new__</code> method annotated to return a type other than a class.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not honor the evaluated return type of the implied metaclass call when it isn't a class.</li>
+                                <li>Does not validate keyword arguments in a class statement against the metaclass <code>__new__</code> method.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not honor the evaluated return type of the implied metaclass call when it isn't a class.</li>
+                                <li>Does not validate keyword arguments in a class statement against the metaclass <code>__new__</code> method.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not honor the evaluated return type of the implied metaclass call when it isn't a class.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not honor the evaluated return type of the implied metaclass call when it isn't a class.</li>
+                                <li>Does not validate keyword arguments in a class statement against the metaclass <code>__new__</code> method.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not honor the evaluated return type of the implied metaclass call when it isn't a class.</li>
+                                <li>Does not validate keyword arguments in a class statement against the metaclass <code>__new__</code> method.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row">constructors_consistency</th>
                         <td class="conformant tooltip">
                             Pass
@@ -1629,14 +1674,106 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
+                    <tr>
+                        <th scope="row">constructors_init_subclass</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not validate keyword arguments against <code>__init_subclass__</code> when the metaclass defines an <code>__init__</code> method (but no <code>__new__</code> method).</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not validate class statement keyword arguments against <code>__init_subclass__</code>.</li>
+                                <li>Incorrectly rejects a call to <code>type</code> with three positional arguments and additional keyword arguments.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not validate keyword arguments against <code>object.__init_subclass__</code> in a class statement with no explicit base classes.</li>
+                                <li>Does not validate keyword arguments against <code>__init_subclass__</code> when the metaclass defines an <code>__init__</code> method (but no <code>__new__</code> method).</li>
+                            </ul>
+                        </td>
+                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not validate keyword arguments against <code>object.__init_subclass__</code> in a class statement with no explicit base classes.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not validate keyword arguments against <code>__init_subclass__</code> when the metaclass defines an <code>__init__</code> method (but no <code>__new__</code> method).</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">constructors_metaclass</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not evaluate the <code>__call__</code> method of the metaclass's own metaclass.</li>
+                                <li>Incorrectly rejects a metaclass <code>__new__</code> method annotated to return a type other than a class.</li>
+                            </ul>
+                        </td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">constructors_type_constructor</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not report a single-argument call to a subclass of <code>type</code>.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not report a single-argument call to a subclass of <code>type</code>.</li>
+                                <li>Does not evaluate the result of a single-argument call to <code>type</code> as <code>type[T]</code>.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not report a single-argument call to a subclass of <code>type</code>.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not report a single-argument call to a subclass of <code>type</code>.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not report a single-argument call to a subclass of <code>type</code>.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not report a single-argument call to a subclass of <code>type</code>.</li>
+                                <li>Does not distribute the evaluated type of a single-argument call to <code>type</code> over union types.</li>
+                            </ul>
+                        </td>
+                    </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>3 / 6 • 50.0%</td>
-                        <td>6 / 6 • 100.0%</td>
-                        <td>6 / 6 • 100.0%</td>
-                        <td>6 / 6 • 100.0%</td>
-                        <td>5 / 6 • 83.3%</td>
-                        <td>6 / 6 • 100.0%</td>
+                        <td>5 / 10 • 50.0%</td>
+                        <td>8.5 / 10 • 85.0%</td>
+                        <td>8.5 / 10 • 85.0%</td>
+                        <td>9 / 10 • 90.0%</td>
+                        <td>7.5 / 10 • 75.0%</td>
+                        <td>8.5 / 10 • 85.0%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2583,12 +2720,12 @@
                 <tfoot>
                     <tr>
                         <td></td>
-                        <td>109 / 146 • 74.7%</td>
-                        <td>138.5 / 146 • 94.9%</td>
-                        <td>141 / 146 • 96.6%</td>
-                        <td>135.5 / 146 • 92.8%</td>
-                        <td>139.5 / 146 • 95.5%</td>
-                        <td>146 / 146 • 100.0%</td>
+                        <td>111 / 150 • 74.0%</td>
+                        <td>141 / 150 • 94.0%</td>
+                        <td>143.5 / 150 • 95.7%</td>
+                        <td>138.5 / 150 • 92.3%</td>
+                        <td>142 / 150 • 94.7%</td>
+                        <td>148.5 / 150 • 99.0%</td>
                     </tr>
                 </tfoot>
             </table>

@@ -1,0 +1,15 @@
+conformant = "Partial"
+notes = """
+Does not report a single-argument call to a subclass of `type`.
+Does not evaluate the result of a single-argument call to `type` as `type[T]`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+Line 28: Unexpected errors ["./constructors_type_constructor.py:28:12:   type 'int' is not equivalent to type[int]"]
+"""
+output = """
+./constructors_type_constructor.py:28:12:   type 'int' is not equivalent to type[int]
+./constructors_type_constructor.py:30:0: Cannot call overloaded function [incompatible_call]
+./constructors_type_constructor.py:52:11: Incompatible argument type for x: expected int but got Literal[''] [incompatible_argument]
+"""

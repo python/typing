@@ -1,0 +1,20 @@
+conformant = "Partial"
+notes = """
+Does not honor the evaluated return type of the implied metaclass call when it isn't a class.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 85: Unexpected errors ['constructors_class_statements.py:85:13 - error: "assert_type" mismatch: expected "int" but received "type[Class6]" (reportAssertTypeFailure)']
+"""
+output = """
+constructors_class_statements.py:30:7 - error: The metaclass of a derived class must be a subclass of the metaclasses of all its base classes
+  Metaclass "MetaA" conflicts with "MetaB" (reportGeneralTypeIssues)
+constructors_class_statements.py:56:35 - error: Argument of type "Literal['']" cannot be assigned to parameter of type "int" in function "__new__"
+  "Literal['']" is not assignable to "int" (reportArgumentType)
+constructors_class_statements.py:60:7 - error: Argument missing for parameter "key" (reportGeneralTypeIssues)
+constructors_class_statements.py:69:29 - error: Argument of type "Literal['']" cannot be assigned to parameter "key" of type "int" in function "__new__"
+  "Literal['']" is not assignable to "int" (reportArgumentType)
+constructors_class_statements.py:85:13 - error: "assert_type" mismatch: expected "int" but received "type[Class6]" (reportAssertTypeFailure)
+constructors_class_statements.py:93:9 - error: Method "__prepare__" overrides class "type" in an incompatible manner
+  Parameter "**kwds" has no corresponding parameter (reportIncompatibleMethodOverride)
+"""

@@ -1,0 +1,15 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+constructors_init_subclass.py:26:7 - error: Incorrect keyword arguments for __init_subclass__ method (reportGeneralTypeIssues)
+constructors_init_subclass.py:26:25 - error: Argument of type "Literal['']" cannot be assigned to parameter "flag" of type "bool" in function "__init_subclass__"
+  "Literal['']" is not assignable to "bool" (reportArgumentType)
+constructors_init_subclass.py:30:7 - error: Incorrect keyword arguments for __init_subclass__ method (reportGeneralTypeIssues)
+constructors_init_subclass.py:30:20 - error: No parameter named "other" (reportCallIssue)
+constructors_init_subclass.py:34:7 - error: Incorrect keyword arguments for __init_subclass__ method (reportGeneralTypeIssues)
+constructors_init_subclass.py:34:14 - error: No parameter named "other" (reportCallIssue)
+constructors_init_subclass.py:58:7 - error: Incorrect keyword arguments for __init_subclass__ method (reportGeneralTypeIssues)
+constructors_init_subclass.py:58:40 - error: No parameter named "key" (reportCallIssue)
+"""

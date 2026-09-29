@@ -1,0 +1,23 @@
+conformant = "Partial"
+notes = """
+Does not honor the evaluated return type of the implied metaclass call when it isn't a class.
+Does not validate keyword arguments in a class statement against the metaclass `__new__` method.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 56: Expected 1 errors
+Line 60: Expected 1 errors
+Line 85: Unexpected errors ['constructors_class_statements.py:85: error: Expression is of type "type[Class6]", not "int"  [misc]']
+"""
+output = """
+constructors_class_statements.py:30: error: Metaclass conflict: the metaclass of a derived class must be a (non-strict) subclass of the metaclasses of all its bases  [metaclass]
+constructors_class_statements.py:69: error: Argument "key" to "Meta1" has incompatible type "str"; expected "int"  [arg-type]
+constructors_class_statements.py:85: error: Expression is of type "type[Class6]", not "int"  [misc]
+constructors_class_statements.py:93: error: Signature of "__prepare__" incompatible with supertype "builtins.type"  [override]
+constructors_class_statements.py:93: note:      Superclass:
+constructors_class_statements.py:93: note:          @classmethod
+constructors_class_statements.py:93: note:          def __prepare__(cls, str, tuple[type[Any], ...], /, **kwds: Any) -> MutableMapping[str, object]
+constructors_class_statements.py:93: note:      Subclass:
+constructors_class_statements.py:93: note:          @classmethod
+constructors_class_statements.py:93: note:          def __prepare__(cls, name: str, bases: tuple[type[Any], ...]) -> dict[Any, Any]
+"""

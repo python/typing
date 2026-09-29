@@ -1,0 +1,8 @@
+conformant = "Pass"
+conformance_automated = "Pass"
+errors_diff = """
+"""
+output = """
+ERROR constructors_metaclass.py:47:6-19: Missing argument `key` in function `Meta2.__new__` [missing-argument]
+ERROR constructors_metaclass.py:48:24-26: Argument `Literal['']` is not assignable to parameter `key` with type `int` in function `Meta2.__new__` [bad-argument-type]
+"""

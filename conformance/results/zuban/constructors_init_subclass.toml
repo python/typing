@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Does not validate keyword arguments against `__init_subclass__` when the metaclass defines an `__init__` method (but no `__new__` method).
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 58: Expected 1 errors
+"""
+output = """
+constructors_init_subclass.py:26: error: Argument "flag" to "__init_subclass__" of "Base" has incompatible type "str"; expected "bool"  [arg-type]
+constructors_init_subclass.py:30: error: Unexpected keyword argument "other" for "__init_subclass__" of "Base"  [call-arg]
+constructors_init_subclass.py:34: error: Unexpected keyword argument "other" for "__init_subclass__" of "object"  [call-arg]
+"""

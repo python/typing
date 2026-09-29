@@ -1,0 +1,16 @@
+conformant = "Partial"
+notes = """
+Does not honor the evaluated return type of the implied metaclass call when it isn't a class.
+Does not validate keyword arguments in a class statement against the metaclass `__new__` method.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 56: Expected 1 errors
+Line 60: Expected 1 errors
+Line 85: Unexpected errors ["./constructors_class_statements.py:85:12:   <class 'Class6'> is not equivalent to int"]
+"""
+output = """
+./constructors_class_statements.py:69:28: Incompatible argument type for key: expected int but got Literal[''] [incompatible_argument]
+./constructors_class_statements.py:85:12:   <class 'Class6'> is not equivalent to int
+./constructors_class_statements.py:93:4: Value of __prepare__ incompatible with base class type [incompatible_override]
+"""

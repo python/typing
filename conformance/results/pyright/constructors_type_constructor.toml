@@ -1,0 +1,16 @@
+conformant = "Partial"
+notes = """
+Does not report a single-argument call to a subclass of `type`.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 29: Expected 1 errors
+"""
+output = """
+constructors_type_constructor.py:30:1 - error: No overloads for "__new__" match the provided arguments
+  Argument types: (Literal['A'], tuple[()]) (reportCallIssue)
+constructors_type_constructor.py:30:1 - error: No overloads for "__init__" match the provided arguments
+  Argument types: (Literal['A'], tuple[()]) (reportCallIssue)
+constructors_type_constructor.py:52:12 - error: Argument of type "Literal['']" cannot be assigned to parameter "x" of type "int" in function "__new__"
+  "Literal['']" is not assignable to "int" (reportArgumentType)
+"""
