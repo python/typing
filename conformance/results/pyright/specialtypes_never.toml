@@ -8,6 +8,11 @@ specialtypes_never.py:85:21 - error: Type "list[Never]" is not assignable to dec
 specialtypes_never.py:104:12 - error: Type "ClassC[Never]" is not assignable to return type "ClassC[U@func10]"
   "ClassC[Never]" is not assignable to "ClassC[U@func10]"
     Type parameter "T@ClassC" is invariant, but "Never" is not the same as "U@func10" (reportReturnType)
+specialtypes_never.py:121:5 - error: Function with declared return type "NoReturn" cannot include a return statement (reportGeneralTypeIssues)
+specialtypes_never.py:145:12 - error: Type "list[Never]" is not assignable to return type "list[int]"
+  "list[Never]" is not assignable to "list[int]"
+    Type parameter "_T@list" is invariant, but "Never" is not the same as "int"
+    Consider switching from "list" to "Sequence" which is covariant (reportReturnType)
 """
 conformance_automated = "Pass"
 errors_diff = """

@@ -1,5 +1,12 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not flag `return <object>` in a function declared `-> Never` (line 121).
+Does not flag `return list[Never]` where `list[int]` is expected (line 145).
+"""
+conformance_automated = "Partial"
 errors_diff = """
+Line 121: Expected 1 errors
+Line 145: Expected 1 errors
 """
 output = """
 specialtypes_never.py:19:22: error[invalid-return-type] Function always implicitly returns `None`, which is not assignable to return type `Never`
