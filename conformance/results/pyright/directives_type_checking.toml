@@ -1,5 +1,7 @@
 conformant = "Pass"
 output = """
+directives_type_checking.py:14:21 - error: Type "list[str]" is not assignable to declared type "list[int]"
+  "Literal['foo']" is not assignable to "int" (reportAssignmentType)
 """
 conformance_automated = "Pass"
 errors_diff = """
