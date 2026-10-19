@@ -167,7 +167,7 @@ Type checkers should support combining these checks with:
 * A ``not`` unary operator
 * An ``and`` or ``or`` binary operator
 
-Type checkers are only required to support the fully-qualified form
+Type checkers are only required to support the fully qualified form
 (e.g., ``sys.platform``). Support for aliases or import variants
 (e.g., ``from sys import platform``) is not required, though type checkers may
 choose to support them.
@@ -185,10 +185,10 @@ Type checkers should support the following comparison patterns:
 
 where ``<2-tuple>`` is a literal tuple of two literal integers.
 
-Comparison checks are only supported against the first two elements of the version
-tuple. Type checkers may choose to also support the 3-tuple
-``sys.version_info >= <3-tuple>``. Type checkers are not expected to support
-comparisons with named attributes of ``sys.version_info``.
+Required support is limited to comparisons against literal two-element tuples.
+Type checkers may choose to also support comparisons against three-element tuple
+literals: ``sys.version_info >= <3-tuple>``. Type checkers are not expected to
+support comparisons with named attributes of ``sys.version_info``.
 
 .. code-block:: python
    :caption: Examples of ``sys.version_info`` checks
@@ -210,18 +210,18 @@ Type checkers should support the following comparison patterns:
 * ``sys.platform == <string literal>``
 * ``sys.platform != <string literal>``
 * ``sys.platform.startswith(<string literal>)``
-* ``sys.platform in <tuple of string literals>``
-* ``sys.platform in <set of string literals>``
-* ``sys.platform in <list of string literals>``
-* ``sys.platform not in <tuple of string literals>``
-* ``sys.platform not in <set of string literals>``
-* ``sys.platform not in <list of string literals>``
+* ``sys.platform in <literal tuple of string literals>``
+* ``sys.platform in <literal set of string literals>``
+* ``sys.platform in <literal list of string literals>``
+* ``sys.platform not in <literal tuple of string literals>``
+* ``sys.platform not in <literal set of string literals>``
+* ``sys.platform not in <literal list of string literals>``
 
 Common values: ``"linux"``, ``"darwin"``, ``"win32"``, ``"emscripten"``,
 ``"wasi"``
 
 The membership checks ``in`` and ``not in`` only support simple containment
-testing with a tuple, set, or list of literal strings.
+testing with a literal tuple, literal set, or literal list of literal strings.
 
 .. code-block:: python
    :caption: Examples of ``sys.platform`` checks
@@ -241,21 +241,22 @@ testing with a tuple, set, or list of literal strings.
 sys.implementation.name checks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Type checkers should support comparison patterns:
+Type checkers should support these comparison patterns with
+``sys.implementation.name``:
 
 * ``sys.implementation.name == <string literal>``
 * ``sys.implementation.name != <string literal>``
-* ``sys.implementation.name in <tuple of string literals>``
-* ``sys.implementation.name in <set of string literals>``
-* ``sys.implementation.name in <list of string literals>``
-* ``sys.implementation.name not in <tuple of string literals>``
-* ``sys.implementation.name not in <set of string literals>``
-* ``sys.implementation.name not in <list of string literals>``
+* ``sys.implementation.name in <literal tuple of string literals>``
+* ``sys.implementation.name in <literal set of string literals>``
+* ``sys.implementation.name in <literal list of string literals>``
+* ``sys.implementation.name not in <literal tuple of string literals>``
+* ``sys.implementation.name not in <literal set of string literals>``
+* ``sys.implementation.name not in <literal list of string literals>``
 
 Default value: ``"cpython"``, unless configured otherwise.
 
 Common values: ``"cpython"``, ``"pypy"``, ``"micropython"``, ``"graalpy"``,
-``"jython"``, ``"ironpython"``
+``"android"``, ``"ios"``, ``"ironpython"``
 
 .. code-block:: python
    :caption: Examples of ``sys.implementation.name`` checks
@@ -271,7 +272,7 @@ Common values: ``"cpython"``, ``"pypy"``, ``"micropython"``, ``"graalpy"``,
 sys.implementation.version checks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The value of ``sys.implementation.version`` is a tuple, in the same format as
+The value of ``sys.implementation.version`` is a tuple, in a similar format as
 ``sys.version_info``. However, it represents the version of the
 *Python implementation* rather than the version of the *Python language*. This has
 a distinct meaning from the specific version of the Python language to which the
@@ -280,18 +281,18 @@ currently running interpreter conforms.
 For CPython (``sys.implementation.name == "cpython"``) this is the same as
 ``sys.version_info``.
 For other Python implementations the value of ``sys.implementation.version`` may
-differ and must be specified according to the type checkers'
-configuration options. If it is not specified, type checkers should issue a warning
-or error if it is used in a type-checking context.
+be specified in the type checker configuration or discovered at runtime.
 
 Type checkers should support the following comparison patterns:
 
 * ``sys.implementation.version >= <2-tuple>``
 * ``sys.implementation.version < <2-tuple>``
 
-Comparison checks are only supported against the first two elements of the
-implementation version tuple. Type checkers are not required to support comparisons
-against named attributes of ``sys.implementation.version``.
+Required support is limited to comparisons against literal two-element tuples.
+Type checkers may choose to also support comparisons against three-element tuple
+literals of ``sys.implementation.version``. 
+Type checkers are not required to support comparisons against named attributes 
+of ``sys.implementation.version``.
 
 .. code-block:: python
    :caption: Examples of ``sys.implementation.version`` checks
@@ -304,11 +305,29 @@ against named attributes of ``sys.implementation.version``.
        # MicroPython version 1.24 and above
 
 
+os.name checks
+^^^^^^^^^^^^^^
+
+Type checkers may optionally support comparisons of ``os.name`` with string
+literals.
+
+* ``os.name == <string literal>``
+* ``os.name != <string literal>``
+
+.. code-block:: python
+   :caption: Example of an ``os.name`` check
+   :emphasize-lines: 3
+
+   import os
+
+   if os.name == "posix":
+       # POSIX-specific code
+
 Required forms and optional extensions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Type checkers must support the forms described above. They may support additional
-comparisons and syntax forms, but are not required to recognize them. For example,
+Type checkers must support the forms specified above as required. Support for additional 
+comparison patterns and syntax forms is optional. For example,
 type checkers are not required to support the following forms:
 
 .. code-block:: python
@@ -325,13 +344,12 @@ type checkers are not required to support the following forms:
    if "win" not in sys.platform:
        # Substring membership test against sys.platform
 
-
 Configuration
 ^^^^^^^^^^^^^
 
-Type checkers must be able to retrieve the information from the Python
+Type checkers should be able to retrieve the information from the Python
 implementation's runtime environment, or provide configuration or CLI options
-to specify target ``sys.version``, ``sys.platform``,
+to specify target ``sys.version_info``, ``sys.platform``,
 ``sys.implementation.name`` and ``sys.implementation.version``.
 
 ============================== ======================== ============= =====================================
@@ -344,10 +362,10 @@ Symbol                         Suggested Format         Example       Suggested 
 ``sys.implementation.name``    lowercase string         ``"cpython"`` ``"cpython"`` unless configured
                                                                       otherwise.
 ``sys.implementation.version`` string ``"major.minor"`` ``"3.14"``    On CPython, default to the value used
-                                                                      for ``sys.version``. On other
-                                                                      implementations, the value must be
-                                                                      provided according to the type
-                                                                      checker's configuration options.
+                                                                      for ``sys.version_info``. On other
+                                                                      implementations, the value should be
+                                                                      provided in configuration or 
+                                                                      otherwise inferred. 
 ============================== ======================== ============= =====================================
 
 The configuration options should allow users to specify the target values for these
