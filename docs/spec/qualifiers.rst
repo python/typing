@@ -199,7 +199,7 @@ with ``Final`` to prevent mutating such values::
    z: Final = ('a', 'b')  # Also works
 
 
-Type checkers should treat uses of name declared with a :term:`bare Final`
+Type checkers should treat uses of names declared with a :term:`bare Final`
 that was initialized with a literal as if it was replaced by the literal. For
 example, the following should be allowed::
 
