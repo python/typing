@@ -21,28 +21,28 @@ qualifiers_final_annotation.py:71:1 - error: "RATE" is declared as Final and can
 qualifiers_final_annotation.py:81:8 - error: Cannot assign to attribute "DEFAULT_ID" for class "type[ClassB]"
   "DEFAULT_ID" is declared as Final and cannot be reassigned (reportAttributeAccessIssue)
 qualifiers_final_annotation.py:94:5 - error: "BORDER_WIDTH" cannot be redeclared because parent class "ClassC" declares it as Final (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:109:22 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
-qualifiers_final_annotation.py:110:19 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-qualifiers_final_annotation.py:120:9 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
-qualifiers_final_annotation.py:123:14 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
-qualifiers_final_annotation.py:133:5 - error: "b" is declared Final, but value is not assigned (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:133:8 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
-qualifiers_final_annotation.py:138:5 - error: "b" is declared Final, but value is not assigned (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:138:8 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
-qualifiers_final_annotation.py:150:1 - error: Arguments missing for parameters "x", "y" (reportCallIssue)
-qualifiers_final_annotation.py:150:3 - error: No parameter named "a" (reportCallIssue)
-qualifiers_final_annotation.py:151:5 - error: Argument of type "Literal['']" cannot be assigned to parameter "x" of type "int" in function "__new__"
+qualifiers_final_annotation.py:108:22 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
+qualifiers_final_annotation.py:109:19 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+qualifiers_final_annotation.py:119:9 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
+qualifiers_final_annotation.py:122:14 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
+qualifiers_final_annotation.py:132:5 - error: "b" is declared Final, but value is not assigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:132:8 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
+qualifiers_final_annotation.py:137:5 - error: "b" is declared Final, but value is not assigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:137:8 - error: "Final" is not allowed in this context (reportInvalidTypeForm)
+qualifiers_final_annotation.py:149:1 - error: Arguments missing for parameters "x", "y" (reportCallIssue)
+qualifiers_final_annotation.py:149:3 - error: No parameter named "a" (reportCallIssue)
+qualifiers_final_annotation.py:150:5 - error: Argument of type "Literal['']" cannot be assigned to parameter "x" of type "int" in function "__new__"
   "Literal['']" is not assignable to "int" (reportArgumentType)
-qualifiers_final_annotation.py:151:11 - error: Argument of type "Literal['']" cannot be assigned to parameter "y" of type "int" in function "__new__"
+qualifiers_final_annotation.py:150:11 - error: Argument of type "Literal['']" cannot be assigned to parameter "y" of type "int" in function "__new__"
   "Literal['']" is not assignable to "int" (reportArgumentType)
-qualifiers_final_annotation.py:157:5 - error: "ID1" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:161:5 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:163:10 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:165:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:168:30 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:171:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:182:1 - error: "TEN" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
-qualifiers_final_annotation.py:186:1 - error: "PI" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:156:5 - error: "ID1" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:160:5 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:162:10 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:164:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:167:30 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:170:9 - error: "x" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:181:1 - error: "TEN" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
+qualifiers_final_annotation.py:185:1 - error: "PI" is declared as Final and cannot be reassigned (reportGeneralTypeIssues)
 """
 conformance_automated = "Pass"
 errors_diff = """
