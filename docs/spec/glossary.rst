@@ -28,8 +28,8 @@ This section defines a few terms that may be used elsewhere in the specification
       :ref:`type-system-concepts`.
 
    bare ``Final``
-      A :ref:`Final <uppercase-final>` annotation without an explicit  type,
-      e.g. ``x: Final``.
+      A :ref:`Final <uppercase-final>` :term:`type qualifier` without an
+      explicit type, e.g. ``x: Final``.
 
    closed
       A :ref:`TypedDict <typeddict>` type is closed if it may not contain any
@@ -64,8 +64,8 @@ This section defines a few terms that may be used elsewhere in the specification
       also materializations of ``A``.
 
    explicitly typed ``Final``
-      A :ref:`Final <uppercase-final>` annotation used as a :term:`type qualifier`,
-      i.e. with an explicit type: ``x: Final[int]``.
+      A :ref:`Final <uppercase-final>` :term:`type qualifier` with an explicit
+      type, e.g. ``x: Final[int]``.
 
    extra items
       A :ref:`TypedDict <typeddict>` type with extra items may contain arbitrary

@@ -349,8 +349,8 @@ still recommended to separately define known attributes.
 Constants
 ---------
 
-When the value of a constant is important,  mark it as ``Final`` and assign it
-to its value.
+When the value of a constant is important, mark it as a :term:`bare Final` and
+assign it to its value.
 
 Yes::
 

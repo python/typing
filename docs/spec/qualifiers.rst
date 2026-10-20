@@ -83,7 +83,7 @@ Syntax
 
 ``Final`` may be used in one of two forms:
 
-* As :term:`explicitly typed Final`, using the syntax ``Final[<type>]``.
+* As an :term:`explicitly typed Final`, using the syntax ``Final[<type>]``.
   Example::
 
     ID: Final[float] = 1
@@ -92,9 +92,11 @@ Syntax
 
     ID: Final[float]
 
-* As :term:`bare Final`, with no type annotation. Example::
+* As a :term:`bare Final`, without a type argument. Example::
 
     ID: Final = 1
+
+  Bare ``Final`` annotations must have an assigned value.
 
   The typechecker should apply its usual type inference mechanisms to
   determine the type of ``ID`` (here, likely, ``int``). Note that unlike for
@@ -150,18 +152,9 @@ be initialized in the ``__init__`` method (except in stub files)::
        def __init__(self) -> None:
            self.x = 1  # Good
 
-Alternatively, ``Final`` attributes can be assigned in and *only* in
-``__init__`` methods, so that the final instance attribute is assigned only
-once when an instance is created::
-
-   class ImmutableAttributes:
-       def __init__(self) -> None:
-           self.x: Final = 3
-           self.y: Final[str] = "knight"
-
 The generated ``__init__`` method of :doc:`dataclasses` qualifies for this
-requirement: a ``x: Final[int]`` without right side is permitted in a dataclass
-body, because the generated ``__init__`` will initialize ``x``.
+requirement: an ``x: Final[int]`` without an initializer is permitted in a
+dataclass body, because the generated ``__init__`` will initialize ``x``.
 
 Type checkers should infer a final attribute that is initialized in a class
 body as being a class variable, except in the case of :doc:`dataclasses`, where
@@ -170,6 +163,15 @@ attribute ``x`` with default value ``3``; ``x: ClassVar[Final[int]] = 3`` is
 necessary to create a final class variable with value ``3``. In
 non-dataclasses, combining ``ClassVar`` and ``Final`` is redundant, and type
 checkers may choose to warn or error on the redundancy.
+
+``Final`` attributes can also be declared in and *only* in ``__init__``
+methods, so that the final instance attribute is assigned only once when an
+instance is created::
+
+   class ImmutableAttributes:
+       def __init__(self) -> None:
+           self.x: Final = 3
+           self.y: Final[str] = "knight"
 
 ``Final`` may only be used in assignments or variable annotations. Using it in
 any other position is an error. In particular, ``Final`` can't be used in
@@ -197,9 +199,9 @@ with ``Final`` to prevent mutating such values::
    z: Final = ('a', 'b')  # Also works
 
 
-Type checkers should treat uses of a final name that was initialized
-with a literal as if it was replaced by the literal. For example, the
-following should be allowed::
+Type checkers should treat uses of name declared with a :term:`bare Final`
+that was initialized with a literal as if it was replaced by the literal. For
+example, the following should be allowed::
 
    from typing import NamedTuple, Final
 
