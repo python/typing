@@ -504,8 +504,8 @@ involving Literal bools. For example, we can combine ``Literal[True]``,
 Interactions with Final
 """""""""""""""""""""""
 
-The ``Final`` qualifier can be used to declare that some variable or
-attribute cannot be reassigned::
+A :term:`bare Final` type qualifier can be used to declare that some variable
+or attribute cannot be reassigned::
 
     foo: Final = 3
     foo = 4           # Error: 'foo' is declared to be Final
@@ -518,8 +518,8 @@ is valid to use in any context that expects a ``Literal[3]``::
 
     expects_three(foo)  # Type checks, since 'foo' is Final and equal to 3
 
-The ``Final`` qualifier serves as a shorthand for declaring that a variable
-is *effectively Literal*.
+A :term:`bare Final` type qualifier serves as a shorthand for declaring that a
+variable is *effectively Literal*.
 
 Type checkers are expected to
 support this shortcut. Specifically, given a variable or attribute assignment
@@ -530,7 +530,7 @@ any context that expects a ``Literal[value]``.
 Type checkers are not obligated to understand any other uses of Final. For
 example, whether or not the following program type checks is left unspecified::
 
-    # Note: The assignment does not exactly match the form 'var: Final = value'.
+    # Note: Literal inference is unspecified for explicitly typed Final.
     bar1: Final[int] = 3
     expects_three(bar1)  # May or may not be accepted by type checkers
 

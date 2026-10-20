@@ -526,8 +526,9 @@ This includes, but is not limited to, the following semantics:
 * ClassVar attributes are not considered dataclass fields and are
   `ignored by dataclass mechanisms <https://docs.python.org/3/library/dataclasses.html#class-variables>`_.
 
-* A dataclass field may be annotated with ``Final[...]``. For example, ``x:
-  Final[int]`` in a dataclass body specifies a dataclass field ``x``, which
+* A dataclass field may be annotated with an :term:`explicitly typed Final`
+  :term:`type qualifier`. For example, ``x: Final[int]``
+  in a dataclass body specifies a dataclass field ``x``, which
   will be initialized in the generated ``__init__`` and cannot be assigned to
   thereafter. A ``Final`` dataclass field initialized in the class body is not
   a class attribute unless explicitly annotated with ``ClassVar``. For example,
