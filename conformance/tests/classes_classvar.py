@@ -9,7 +9,6 @@ from typing import (
     Any,
     Callable,
     ClassVar,
-    Final,
     Generic,
     NamedTuple,
     ParamSpec,
