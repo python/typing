@@ -164,9 +164,9 @@ necessary to create a final class variable with value ``3``. In
 non-dataclasses, combining ``ClassVar`` and ``Final`` is redundant, and type
 checkers may choose to warn or error on the redundancy.
 
-``Final`` attributes can also be declared in and *only* in ``__init__``
-methods, so that the final instance attribute is assigned only once when an
-instance is created::
+``Final`` attributes can also be declared in ``__init__`` methods, as
+annotations on an assignment to an attribute on ``self``. This is allowed
+*only* in ``__init__``, not in any other method::
 
    class ImmutableAttributes:
        def __init__(self) -> None:
