@@ -81,29 +81,24 @@ variable or attribute should not be reassigned, redefined, or overridden.
 Syntax
 ^^^^^^
 
-``Final`` may be used in one of several forms:
+``Final`` may be used in one of two forms:
 
-* With an explicit type, using the syntax ``Final[<type>]``. Example::
+* As :term:`explicitly typed Final`, using the syntax ``Final[<type>]``.
+  Example::
 
     ID: Final[float] = 1
 
-* With no type annotation. Example::
+  In class bodies and stub files the right hand side can be omitted::
+
+    ID: Final[float]
+
+* As :term:`bare Final`, with no type annotation. Example::
 
     ID: Final = 1
 
   The typechecker should apply its usual type inference mechanisms to
   determine the type of ``ID`` (here, likely, ``int``). Note that unlike for
   generic classes this is *not* the same as ``Final[Any]``.
-
-* In class bodies and stub files you can omit the right hand side and just write
-  ``ID: Final[float]``.  If the right hand side is omitted, there must
-  be an explicit type argument to ``Final``.
-
-* Finally, as ``self.id: Final = 1`` (also optionally with a type in
-  square brackets). This is allowed *only* in ``__init__`` methods, so
-  that the final instance attribute is assigned only once when an
-  instance is created.
-
 
 Semantics and examples
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -155,9 +150,18 @@ be initialized in the ``__init__`` method (except in stub files)::
        def __init__(self) -> None:
            self.x = 1  # Good
 
+Alternatively, ``Final`` attributes can be assigned in and *only* in
+``__init__`` methods, so that the final instance attribute is assigned only
+once when an instance is created::
+
+   class ImmutableAttributes:
+       def __init__(self) -> None:
+           self.x: Final = 3
+           self.y: Final[str] = "knight"
+
 The generated ``__init__`` method of :doc:`dataclasses` qualifies for this
-requirement: a bare ``x: Final[int]`` is permitted in a dataclass body, because
-the generated ``__init__`` will initialize ``x``.
+requirement: a ``x: Final[int]`` without right side is permitted in a dataclass
+body, because the generated ``__init__`` will initialize ``x``.
 
 Type checkers should infer a final attribute that is initialized in a class
 body as being a class variable, except in the case of :doc:`dataclasses`, where

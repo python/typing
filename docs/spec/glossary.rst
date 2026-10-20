@@ -27,6 +27,10 @@ This section defines a few terms that may be used elsewhere in the specification
       ``B``, respectively, such that ``B'`` is a subtype of ``A'``. See
       :ref:`type-system-concepts`.
 
+   bare ``Final``
+      A :ref:`Final <uppercase-final>` annotation without an explicit  type,
+      e.g. ``x: Final``.
+
    closed
       A :ref:`TypedDict <typeddict>` type is closed if it may not contain any
       additional :term:`items <item>` beyond those specified in the TypedDict definition.
@@ -58,6 +62,10 @@ This section defines a few terms that may be used elsewhere in the specification
       are equivalent if all :term:`materializations <materialize>` of ``A`` are
       also materializations of ``B``, and all materializations of ``B`` are
       also materializations of ``A``.
+
+   explicitly typed ``Final``
+      A :ref:`Final <uppercase-final>` annotation used as a :term:`type qualifier`,
+      i.e. with an explicit type: ``x: Final[int]``.
 
    extra items
       A :ref:`TypedDict <typeddict>` type with extra items may contain arbitrary
