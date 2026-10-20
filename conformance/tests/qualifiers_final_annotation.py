@@ -104,8 +104,10 @@ class ClassCChild(ClassC):
 class ClassD:
     VALUE1: Final = 1
 
-    VALUE2: ClassVar[Final] = 1  # E: Final cannot be used with ClassVar
-    VALUE3: Final[ClassVar] = 1  # E: Final cannot be used with ClassVar
+    # > In non-dataclasses, combining ``ClassVar`` and ``Final`` is redundant,
+    # > and type checkers may choose to warn or error on the redundancy.
+    VALUE2: ClassVar[Final] = 1  # E?: Final cannot be used with ClassVar
+    VALUE3: Final[ClassVar] = 1  # E?: Final cannot be used with ClassVar
 
 
 ClassD.VALUE1  # OK

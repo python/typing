@@ -53,7 +53,6 @@ class ClassA(Generic[T, P]):
 
     bad8: ClassVar[list[str]] = {}  # E: type violation in initialization
 
-    bad9: Final[ClassVar[int]] = 3  # E: ClassVar cannot be nested with Final
     bad10: list[ClassVar[int]] = []  # E: ClassVar cannot be nested
 
     good1: CV[int] = 1

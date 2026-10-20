@@ -8,18 +8,17 @@ classes_classvar.py:48:20 - error: "ClassVar" type cannot include type variables
 classes_classvar.py:49:20 - error: "ClassVar" type cannot include type variables (reportGeneralTypeIssues)
 classes_classvar.py:54:33 - error: Type "dict[Any, Any]" is not assignable to declared type "list[str]" (reportAssignmentType)
 classes_classvar.py:56:17 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:57:17 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:71:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:72:12 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:73:18 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:75:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:79:8 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:80:20 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:89:8 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:94:8 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
-classes_classvar.py:127:14 - error: Cannot assign to attribute "stats" for class "Starship"
+classes_classvar.py:70:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:71:12 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:72:18 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:74:26 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:78:8 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:79:20 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:88:8 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:93:8 - error: "ClassVar" is not allowed in this context (reportInvalidTypeForm)
+classes_classvar.py:126:14 - error: Cannot assign to attribute "stats" for class "Starship"
   Attribute "stats" cannot be assigned through a class instance because it is a ClassVar (reportAttributeAccessIssue)
-classes_classvar.py:156:13 - error: Type "ProtoAImpl" is not assignable to declared type "ProtoA"
+classes_classvar.py:155:13 - error: Type "ProtoAImpl" is not assignable to declared type "ProtoA"
   "ProtoAImpl" is incompatible with protocol "ProtoA"
     "x" is defined as a ClassVar in protocol
     "y" is defined as a ClassVar in protocol (reportAssignmentType)
