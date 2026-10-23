@@ -8,4 +8,7 @@ ERROR directives_version_platform.py:50:19-23: Could not find name `val6` [unkno
 ERROR directives_version_platform.py:59:19-23: Could not find name `val9` [unknown-name]
 ERROR directives_version_platform.py:66:19-24: Could not find name `val10` [unknown-name]
 ERROR directives_version_platform.py:75:19-24: Could not find name `val13` [unknown-name]
+ERROR directives_version_platform.py:84:17-28: `Literal['reachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+ERROR directives_version_platform.py:96:17-28: `Literal['reachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+ERROR directives_version_platform.py:111:17-28: `Literal['reachable']` is not assignable to variable `error` with type `int` [bad-assignment]
 """

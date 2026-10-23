@@ -2603,6 +2603,84 @@
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
+                        <th scope="row">directives_implementation_name</th>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.name equality or membership checks.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.name equality or membership checks.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.name equality or membership checks.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.name equality or membership checks.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.name equality or membership checks.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.name equality or membership checks.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">directives_implementation_version</th>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.version comparisons using the CPython target version.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.version comparisons using the CPython target version.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.version comparisons using the CPython target version.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.version comparisons using the CPython target version.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.version comparisons using the CPython target version.</li>
+                            </ul>
+                        </td>
+                        <td class="not-conformant tooltip">
+                            Unsupported
+                            <ul class="notes">
+                                <li>Does not prune branches for sys.implementation.version comparisons using the CPython target version.</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
                         <th scope="row">directives_no_type_check</th>
                         <td class="partially-conformant tooltip">
                             Partial
@@ -2621,6 +2699,40 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">directives_platform_checks</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for tuple, set, or list membership and nonmembership checks.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for startswith or tuple, set, or list membership and nonmembership checks.</li>
+                            </ul>
+                        </td>
+                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for startswith or tuple, set, or list membership and nonmembership checks.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for set or list membership and nonmembership checks; tuple checks pass.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for tuple, set, or list membership and nonmembership checks.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">directives_reveal_type</th>
@@ -2687,14 +2799,54 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
+                    <tr>
+                        <th scope="row">directives_version_platform_boolean</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for negated platform membership or combinations involving implementation checks.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not fully prune branches for and/or combinations of version and platform checks.</li>
+                                <li>Does not prune branches for negated platform membership or combinations involving implementation checks.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for combinations involving implementation checks.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for negated platform membership or combinations involving implementation checks.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for combinations involving implementation checks.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not prune branches for negated platform membership or combinations involving implementation checks.</li>
+                            </ul>
+                        </td>
+                    </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>10 / 11 • 90.9%</td>
-                        <td>10.5 / 11 • 95.5%</td>
-                        <td>11 / 11 • 100.0%</td>
-                        <td>10 / 11 • 90.9%</td>
-                        <td>10.5 / 11 • 95.5%</td>
-                        <td>11 / 11 • 100.0%</td>
+                        <td>11 / 15 • 73.3%</td>
+                        <td>11.5 / 15 • 76.7%</td>
+                        <td>12.5 / 15 • 83.3%</td>
+                        <td>11 / 15 • 73.3%</td>
+                        <td>11.5 / 15 • 76.7%</td>
+                        <td>12 / 15 • 80.0%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2732,12 +2884,12 @@
                 <tfoot>
                     <tr>
                         <td></td>
-                        <td>108.5 / 145 • 74.8%</td>
-                        <td>127.5 / 145 • 87.9%</td>
-                        <td>140.5 / 145 • 96.9%</td>
-                        <td>135.5 / 145 • 93.4%</td>
-                        <td>128 / 145 • 88.3%</td>
-                        <td>140 / 145 • 96.6%</td>
+                        <td>109.5 / 149 • 73.5%</td>
+                        <td>128.5 / 149 • 86.2%</td>
+                        <td>142 / 149 • 95.3%</td>
+                        <td>136.5 / 149 • 91.6%</td>
+                        <td>129 / 149 • 86.6%</td>
+                        <td>141 / 149 • 94.6%</td>
                     </tr>
                 </tfoot>
             </table>

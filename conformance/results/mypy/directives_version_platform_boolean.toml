@@ -1,0 +1,36 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not prune branches for negated platform membership or combinations involving implementation checks.
+"""
+errors_diff = """
+Line 32: Unexpected errors ['directives_version_platform_boolean.py:32: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 115: Unexpected errors ['directives_version_platform_boolean.py:115: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 118: Unexpected errors ['directives_version_platform_boolean.py:118: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 120: Unexpected errors ['directives_version_platform_boolean.py:120: error: Expression is of type "int | str", not "int"  [assert-type]']
+Line 123: Unexpected errors ['directives_version_platform_boolean.py:123: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 129: Unexpected errors ['directives_version_platform_boolean.py:129: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+"""
+output = """
+directives_version_platform_boolean.py:17: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:27: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:30: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:32: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:40: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:50: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:54: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:58: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:68: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:73: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:77: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:81: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:95: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:110: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:115: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:118: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:120: error: Expression is of type "int | str", not "int"  [assert-type]
+directives_version_platform_boolean.py:123: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:125: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:129: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform_boolean.py:131: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+"""

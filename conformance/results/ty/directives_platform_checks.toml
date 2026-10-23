@@ -1,0 +1,51 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not prune branches for set or list membership and nonmembership checks; tuple checks pass.
+"""
+errors_diff = """
+Line 110: Unexpected errors ['directives_platform_checks.py:110:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 115: Unexpected errors ['directives_platform_checks.py:115:5: error[type-assertion-failure] Type `str | int` does not match asserted type `int`']
+Line 122: Unexpected errors ['directives_platform_checks.py:122:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 124: Unexpected errors ['directives_platform_checks.py:124:5: error[type-assertion-failure] Type `int | str` does not match asserted type `int`']
+Line 130: Unexpected errors ['directives_platform_checks.py:130:21: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 132: Unexpected errors ['directives_platform_checks.py:132:21: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 144: Unexpected errors ['directives_platform_checks.py:144:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 149: Unexpected errors ['directives_platform_checks.py:149:5: error[type-assertion-failure] Type `str | int` does not match asserted type `int`']
+Line 156: Unexpected errors ['directives_platform_checks.py:156:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 158: Unexpected errors ['directives_platform_checks.py:158:5: error[type-assertion-failure] Type `int | str` does not match asserted type `int`']
+Line 164: Unexpected errors ['directives_platform_checks.py:164:21: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 166: Unexpected errors ['directives_platform_checks.py:166:21: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+"""
+output = """
+directives_platform_checks.py:18:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:24:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:36:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:48:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:65:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:66:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:78:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:84:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:94:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:100:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:110:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_platform_checks.py:113:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:115:5: error[type-assertion-failure] Type `str | int` does not match asserted type `int`
+directives_platform_checks.py:119:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:122:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_platform_checks.py:124:5: error[type-assertion-failure] Type `int | str` does not match asserted type `int`
+directives_platform_checks.py:128:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:130:21: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_platform_checks.py:132:21: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_platform_checks.py:134:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:144:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_platform_checks.py:147:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:149:5: error[type-assertion-failure] Type `str | int` does not match asserted type `int`
+directives_platform_checks.py:153:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:156:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_platform_checks.py:158:5: error[type-assertion-failure] Type `int | str` does not match asserted type `int`
+directives_platform_checks.py:162:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:164:21: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_platform_checks.py:166:21: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_platform_checks.py:168:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+"""

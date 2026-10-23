@@ -9,6 +9,9 @@ directives_version_platform.py:33: error: Name "val3" is not defined; did you me
 directives_version_platform.py:42: error: Expression is of type "int | str", not "int"  [assert-type]
 directives_version_platform.py:50: error: Name "val6" is not defined  [name-defined]
 directives_version_platform.py:59: error: Name "val9" is not defined  [name-defined]
+directives_version_platform.py:84: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform.py:96: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_version_platform.py:111: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
 """
 conformance_automated = "Pass"
 errors_diff = """
