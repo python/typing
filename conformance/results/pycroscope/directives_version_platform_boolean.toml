@@ -1,0 +1,49 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not fully prune branches for and/or combinations of version and platform checks.
+Does not prune branches for negated platform membership or combinations involving implementation checks.
+"""
+errors_diff = """
+Line 32: Unexpected errors ["./directives_version_platform_boolean.py:32:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 43: Unexpected errors ["./directives_version_platform_boolean.py:43:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 45: Unexpected errors ['./directives_version_platform_boolean.py:45:16:   int | str is not equivalent to int']
+Line 65: Unexpected errors ["./directives_version_platform_boolean.py:65:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 70: Unexpected errors ['./directives_version_platform_boolean.py:70:16:   str | int is not equivalent to int']
+Line 98: Unexpected errors ["./directives_version_platform_boolean.py:98:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 100: Unexpected errors ['./directives_version_platform_boolean.py:100:16:   int | str is not equivalent to int']
+Line 115: Unexpected errors ["./directives_version_platform_boolean.py:115:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 118: Unexpected errors ["./directives_version_platform_boolean.py:118:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 120: Unexpected errors ['./directives_version_platform_boolean.py:120:16:   int | str is not equivalent to int']
+Line 123: Unexpected errors ["./directives_version_platform_boolean.py:123:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 129: Unexpected errors ["./directives_version_platform_boolean.py:129:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+"""
+output = """
+./directives_version_platform_boolean.py:17:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:27:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:30:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:32:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:40:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:43:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:45:16:   int | str is not equivalent to int
+./directives_version_platform_boolean.py:50:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:54:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:58:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:65:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:68:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:70:16:   str | int is not equivalent to int
+./directives_version_platform_boolean.py:73:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:77:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:81:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:95:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:98:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:100:16:   int | str is not equivalent to int
+./directives_version_platform_boolean.py:110:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:115:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:118:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:120:16:   int | str is not equivalent to int
+./directives_version_platform_boolean.py:123:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:125:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:129:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_version_platform_boolean.py:131:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+"""

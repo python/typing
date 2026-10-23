@@ -7,4 +7,7 @@ directives_version_platform.py:50:19: error[unresolved-reference] Name `val6` us
 directives_version_platform.py:59:19: error[unresolved-reference] Name `val9` used when not defined
 directives_version_platform.py:66:19: error[unresolved-reference] Name `val10` used when not defined
 directives_version_platform.py:75:19: error[unresolved-reference] Name `val13` used when not defined
+directives_version_platform.py:84:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform.py:96:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform.py:111:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
 """

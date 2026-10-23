@@ -1,0 +1,56 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not prune branches for negated platform membership or combinations involving implementation checks.
+"""
+errors_diff = """
+Line 32: Unexpected errors ['directives_version_platform_boolean.py:32:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 115: Unexpected errors ['directives_version_platform_boolean.py:115:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 118: Unexpected errors ['directives_version_platform_boolean.py:118:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 120: Unexpected errors ['directives_version_platform_boolean.py:120:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)']
+Line 123: Unexpected errors ['directives_version_platform_boolean.py:123:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 129: Unexpected errors ['directives_version_platform_boolean.py:129:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+"""
+output = """
+directives_version_platform_boolean.py:17:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:27:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:30:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:32:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:40:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:50:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:54:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:58:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:68:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:73:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:77:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:81:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:95:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:110:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:115:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:118:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:120:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)
+directives_version_platform_boolean.py:123:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:125:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:129:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_version_platform_boolean.py:131:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+"""
