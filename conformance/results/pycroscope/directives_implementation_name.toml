@@ -1,0 +1,74 @@
+conformant = "Unsupported"
+notes = """
+Does not prune branches for sys.implementation.name equality or membership checks.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Unexpected errors ["./directives_implementation_name.py:21:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 23: Unexpected errors ['./directives_implementation_name.py:23:16:   int | str is not equivalent to int']
+Line 27: Unexpected errors ["./directives_implementation_name.py:27:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 32: Unexpected errors ['./directives_implementation_name.py:32:16:   str | int is not equivalent to int']
+Line 36: Unexpected errors ["./directives_implementation_name.py:36:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 42: Unexpected errors ["./directives_implementation_name.py:42:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 44: Unexpected errors ['./directives_implementation_name.py:44:16:   str | int is not equivalent to int']
+Line 54: Unexpected errors ["./directives_implementation_name.py:54:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 56: Unexpected errors ['./directives_implementation_name.py:56:16:   int | str is not equivalent to int']
+Line 60: Unexpected errors ["./directives_implementation_name.py:60:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 65: Unexpected errors ['./directives_implementation_name.py:65:16:   str | int is not equivalent to int']
+Line 68: Unexpected errors ["./directives_implementation_name.py:68:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 74: Unexpected errors ["./directives_implementation_name.py:74:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 84: Unexpected errors ["./directives_implementation_name.py:84:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 86: Unexpected errors ['./directives_implementation_name.py:86:16:   int | str is not equivalent to int']
+Line 90: Unexpected errors ["./directives_implementation_name.py:90:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 95: Unexpected errors ['./directives_implementation_name.py:95:16:   str | int is not equivalent to int']
+Line 98: Unexpected errors ["./directives_implementation_name.py:98:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 104: Unexpected errors ["./directives_implementation_name.py:104:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 114: Unexpected errors ["./directives_implementation_name.py:114:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 116: Unexpected errors ['./directives_implementation_name.py:116:16:   int | str is not equivalent to int']
+Line 120: Unexpected errors ["./directives_implementation_name.py:120:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 125: Unexpected errors ['./directives_implementation_name.py:125:16:   str | int is not equivalent to int']
+Line 128: Unexpected errors ["./directives_implementation_name.py:128:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 134: Unexpected errors ["./directives_implementation_name.py:134:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+"""
+output = """
+./directives_implementation_name.py:18:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:21:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:23:16:   int | str is not equivalent to int
+./directives_implementation_name.py:27:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:30:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:32:16:   str | int is not equivalent to int
+./directives_implementation_name.py:36:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:39:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:42:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:44:16:   str | int is not equivalent to int
+./directives_implementation_name.py:51:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:54:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:56:16:   int | str is not equivalent to int
+./directives_implementation_name.py:60:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:63:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:65:16:   str | int is not equivalent to int
+./directives_implementation_name.py:68:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:70:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:72:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:74:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:81:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:84:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:86:16:   int | str is not equivalent to int
+./directives_implementation_name.py:90:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:93:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:95:16:   str | int is not equivalent to int
+./directives_implementation_name.py:98:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:100:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:102:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:104:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:111:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:114:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:116:16:   int | str is not equivalent to int
+./directives_implementation_name.py:120:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:123:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:125:16:   str | int is not equivalent to int
+./directives_implementation_name.py:128:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_implementation_name.py:130:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:132:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_implementation_name.py:134:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+"""

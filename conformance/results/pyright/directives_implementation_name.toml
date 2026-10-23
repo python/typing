@@ -1,0 +1,105 @@
+conformant = "Unsupported"
+notes = """
+Does not prune branches for sys.implementation.name equality or membership checks.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Unexpected errors ['directives_implementation_name.py:21:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 23: Unexpected errors ['directives_implementation_name.py:23:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)']
+Line 27: Unexpected errors ['directives_implementation_name.py:27:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 32: Unexpected errors ['directives_implementation_name.py:32:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)']
+Line 36: Unexpected errors ['directives_implementation_name.py:36:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 42: Unexpected errors ['directives_implementation_name.py:42:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 44: Unexpected errors ['directives_implementation_name.py:44:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)']
+Line 54: Unexpected errors ['directives_implementation_name.py:54:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 56: Unexpected errors ['directives_implementation_name.py:56:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)']
+Line 60: Unexpected errors ['directives_implementation_name.py:60:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 65: Unexpected errors ['directives_implementation_name.py:65:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)']
+Line 68: Unexpected errors ['directives_implementation_name.py:68:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 74: Unexpected errors ['directives_implementation_name.py:74:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 84: Unexpected errors ['directives_implementation_name.py:84:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 86: Unexpected errors ['directives_implementation_name.py:86:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)']
+Line 90: Unexpected errors ['directives_implementation_name.py:90:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 95: Unexpected errors ['directives_implementation_name.py:95:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)']
+Line 98: Unexpected errors ['directives_implementation_name.py:98:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 104: Unexpected errors ['directives_implementation_name.py:104:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 114: Unexpected errors ['directives_implementation_name.py:114:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 116: Unexpected errors ['directives_implementation_name.py:116:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)']
+Line 120: Unexpected errors ['directives_implementation_name.py:120:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 125: Unexpected errors ['directives_implementation_name.py:125:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)']
+Line 128: Unexpected errors ['directives_implementation_name.py:128:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+Line 134: Unexpected errors ['directives_implementation_name.py:134:17 - error: Type "Literal[\\'unreachable\\']" is not assignable to declared type "int"']
+"""
+output = """
+directives_implementation_name.py:18:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:21:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:23:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)
+directives_implementation_name.py:27:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:30:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:32:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)
+directives_implementation_name.py:36:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:39:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:42:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:44:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)
+directives_implementation_name.py:51:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:54:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:56:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)
+directives_implementation_name.py:60:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:63:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:65:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)
+directives_implementation_name.py:68:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:70:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:72:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:74:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:81:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:84:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:86:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)
+directives_implementation_name.py:90:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:93:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:95:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)
+directives_implementation_name.py:98:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:100:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:102:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:104:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:111:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:114:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:116:17 - error: "assert_type" mismatch: expected "int" but received "int | str" (reportAssertTypeFailure)
+directives_implementation_name.py:120:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:123:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:125:17 - error: "assert_type" mismatch: expected "int" but received "str | int" (reportAssertTypeFailure)
+directives_implementation_name.py:128:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:130:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:132:17 - error: Type "Literal['reachable']" is not assignable to declared type "int"
+  "Literal['reachable']" is not assignable to "int" (reportAssignmentType)
+directives_implementation_name.py:134:17 - error: Type "Literal['unreachable']" is not assignable to declared type "int"
+  "Literal['unreachable']" is not assignable to "int" (reportAssignmentType)
+"""
