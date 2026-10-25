@@ -97,15 +97,16 @@ class ClassCChild(ClassC):
 
 
 # > Type checkers should infer a final attribute that is initialized in a class
-# > body as being a class variable. Variables should not be annotated with both
-# > ClassVar and Final. (Except in a dataclass; see dataclasses_final.py.)
+# > body as being a class variable.
 
 
 class ClassD:
     VALUE1: Final = 1
 
-    VALUE2: ClassVar[Final] = 1  # E: Final cannot be used with ClassVar
-    VALUE3: Final[ClassVar] = 1  # E: Final cannot be used with ClassVar
+    # > In non-dataclasses, combining ``ClassVar`` and ``Final`` is redundant,
+    # > and type checkers may choose to warn or error on the redundancy.
+    VALUE2: ClassVar[Final] = 1  # E?
+    VALUE3: Final[ClassVar] = 1  # E?
 
 
 ClassD.VALUE1  # OK
