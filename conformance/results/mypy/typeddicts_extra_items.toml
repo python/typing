@@ -1,14 +1,14 @@
 conformant = "Unsupported"
 conformance_automated = "Fail"
 errors_diff = """
+Line 73: Expected 1 errors
+Line 109: Expected 1 errors
 Line 215: Expected 1 errors
 Line 222: Expected 1 errors
 Line 242: Expected 1 errors
 Line 256: Expected 1 errors
 Line 257: Expected 1 errors
 Line 268: Expected 1 errors
-Lines 91, 92: Expected error (tag 'MovieC')
-Lines 94, 95: Expected error (tag 'MovieD')
 Lines 184, 185: Expected error (tag 'MovieRequiredYear')
 Lines 187, 188: Expected error (tag 'MovieNotRequiredYear')
 Lines 196, 197: Expected error (tag 'BookWithPublisher')
@@ -19,13 +19,8 @@ Line 21: Unexpected errors ['typeddicts_extra_items.py:21: error: Extra keys ("n
 Line 29: Unexpected errors ['typeddicts_extra_items.py:29: error: Expression is of type "Any", not "bool"  [assert-type]', 'typeddicts_extra_items.py:29: error: TypedDict "Movie" has no key "novel_adaptation"  [typeddict-item]']
 Line 33: Unexpected errors ['typeddicts_extra_items.py:33: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 40: Unexpected errors ['typeddicts_extra_items.py:40: error: Extra key "other_extra_key" for TypedDict "InheritedMovie"  [typeddict-unknown-key]']
-Line 55: Unexpected errors ['typeddicts_extra_items.py:55: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 64: Unexpected errors ['typeddicts_extra_items.py:64: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 70: Unexpected errors ['typeddicts_extra_items.py:70: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 82: Unexpected errors ['typeddicts_extra_items.py:82: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 88: Unexpected errors ['typeddicts_extra_items.py:88: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 100: Unexpected errors ['typeddicts_extra_items.py:100: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 103: Unexpected errors ['typeddicts_extra_items.py:103: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 106: Unexpected errors ['typeddicts_extra_items.py:106: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 124: Unexpected errors ['typeddicts_extra_items.py:124: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 129: Unexpected errors ['typeddicts_extra_items.py:129: error: TypedDict "MovieEI" has no key "year"  [typeddict-item]']
@@ -50,7 +45,6 @@ Line 255: Unexpected errors ['typeddicts_extra_items.py:255: error: Extra key "d
 Line 266: Unexpected errors ['typeddicts_extra_items.py:266: error: Extra key "year" for TypedDict "MovieExtraInt"  [typeddict-unknown-key]']
 Line 280: Unexpected errors ['typeddicts_extra_items.py:280: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 284: Unexpected errors ['typeddicts_extra_items.py:284: error: Extra key "year" for TypedDict "ExtraMovie"  [typeddict-unknown-key]']
-Line 289: Unexpected errors ['typeddicts_extra_items.py:289: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 299: Unexpected errors ['typeddicts_extra_items.py:299: error: Extra key "summary" for TypedDict "MovieExtraStr"  [typeddict-unknown-key]']
 Line 300: Unexpected errors ['typeddicts_extra_items.py:300: error: Incompatible types in assignment (expression has type "MovieExtraStr", variable has type "Mapping[str, str]")  [assignment]']
 Line 302: Unexpected errors ['typeddicts_extra_items.py:302: error: Extra key "year" for TypedDict "MovieExtraInt"  [typeddict-unknown-key]']
@@ -78,18 +72,13 @@ typeddicts_extra_items.py:29: error: TypedDict "Movie" has no key "novel_adaptat
 typeddicts_extra_items.py:33: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 typeddicts_extra_items.py:39: error: Incompatible types (expression has type "None", TypedDict item "year" has type "int")  [typeddict-item]
 typeddicts_extra_items.py:40: error: Extra key "other_extra_key" for TypedDict "InheritedMovie"  [typeddict-unknown-key]
-typeddicts_extra_items.py:49: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_extra_items.py:55: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_extra_items.py:64: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_extra_items.py:67: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
+typeddicts_extra_items.py:49: error: "closed" argument must be a True or False literal  [literal-required]
+typeddicts_extra_items.py:67: error: Open TypedDict class cannot subclass closed TypedDict class "ClosedBase"  [misc]
 typeddicts_extra_items.py:70: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_extra_items.py:73: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_extra_items.py:82: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_extra_items.py:88: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
+typeddicts_extra_items.py:92: error: Cannot extend closed base class "MovieA" with new field "age"  [misc]
+typeddicts_extra_items.py:95: error: Cannot extend closed base class "MovieB" with new field "age"  [misc]
 typeddicts_extra_items.py:100: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_extra_items.py:103: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
 typeddicts_extra_items.py:106: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
-typeddicts_extra_items.py:109: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
 typeddicts_extra_items.py:114: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 typeddicts_extra_items.py:117: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 typeddicts_extra_items.py:124: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
@@ -120,7 +109,6 @@ typeddicts_extra_items.py:278: error: Extra key "year" for TypedDict "NonClosedM
 typeddicts_extra_items.py:280: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 typeddicts_extra_items.py:284: error: Extra key "year" for TypedDict "ExtraMovie"  [typeddict-unknown-key]
 typeddicts_extra_items.py:285: error: Extra key "language" for TypedDict "ExtraMovie"  [typeddict-unknown-key]
-typeddicts_extra_items.py:289: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
 typeddicts_extra_items.py:293: error: Extra key "year" for TypedDict "ClosedMovie"  [typeddict-unknown-key]
 typeddicts_extra_items.py:299: error: Extra key "summary" for TypedDict "MovieExtraStr"  [typeddict-unknown-key]
 typeddicts_extra_items.py:300: error: Incompatible types in assignment (expression has type "MovieExtraStr", variable has type "Mapping[str, str]")  [assignment]
