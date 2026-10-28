@@ -14,7 +14,7 @@ annotations_forward_refs.py:45:10: error[invalid-type-form] Dict literals are no
 annotations_forward_refs.py:46:10: error[invalid-type-form] Function calls are not allowed in parameter annotations
 annotations_forward_refs.py:47:10: error[invalid-type-form] Only simple names and dotted names can be subscripted in parameter annotations
 annotations_forward_refs.py:48:10: error[invalid-type-form] `if` expressions are not allowed in parameter annotations
-annotations_forward_refs.py:49:10: error[invalid-type-form] Variable of type `Literal[1]` is not allowed in a parameter annotation
+annotations_forward_refs.py:49:10: error[invalid-type-form] Variable `var1` cannot be used as a type: Variable of type `Literal[1]` is not allowed in a parameter annotation
 annotations_forward_refs.py:50:11: error[invalid-type-form] Boolean literals are not allowed in this context in a parameter annotation: Did you mean `typing.Literal[True]`?
 annotations_forward_refs.py:51:11: error[invalid-type-form] Int literals are not allowed in this context in a parameter annotation: Did you mean `typing.Literal[1]`?
 annotations_forward_refs.py:52:11: error[invalid-type-form] Unary operations are not allowed in parameter annotations
