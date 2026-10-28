@@ -143,6 +143,7 @@ expression contains a :term:`type expression`, optionally qualified with one of 
 :term:`type qualifiers <type qualifier>` ``Required``, ``NotRequired``, or ``ReadOnly``.
 These type qualifiers may be nested arbitrarily or wrapped in ``Annotated[]``. It is
 an error to use both ``Required`` and ``NotRequired`` in the same item definition.
+It is also an error to nest a qualifier within itself (e.g., ``Required[Required[T]]``).
 An item is :term:`read-only` if and only if the ``ReadOnly`` qualifier is used.
 
 To determine whether an item is :term:`required` or :term:`non-required`, the following

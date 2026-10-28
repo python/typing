@@ -1,8 +1,8 @@
 conformant = "Pass"
 output = """
-dataclasses_kwonly.py:23: error: Too many positional arguments for "DC1"  [misc]
-dataclasses_kwonly.py:38: error: Too many positional arguments for "DC2"  [misc]
-dataclasses_kwonly.py:53: error: Too many positional arguments for "DC3"  [misc]
+dataclasses_kwonly.py:23: error: Too many positional arguments for "DC1"  [call-arg]
+dataclasses_kwonly.py:38: error: Too many positional arguments for "DC2"  [call-arg]
+dataclasses_kwonly.py:53: error: Too many positional arguments for "DC3"  [call-arg]
 """
 conformance_automated = "Pass"
 errors_diff = """

@@ -264,12 +264,12 @@
                 <thead>
                     <tr>
                         <th scope="col"></th>
-                        <th scope="col">mypy 2.1.0</th>
+                        <th scope="col">mypy 2.4.0</th>
                         <th scope="col">pycroscope 0.5.0</th>
-                        <th scope="col">pyrefly 1.3.0-dev.1</th>
-                        <th scope="col">pyright 1.1.410</th>
-                        <th scope="col">ty 0.0.83</th>
-                        <th scope="col">zuban 0.10.0</th>
+                        <th scope="col">pyrefly 1.4.0</th>
+                        <th scope="col">pyright 1.1.414</th>
+                        <th scope="col">ty 0.0.93</th>
+                        <th scope="col">zuban 0.10.1</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -431,7 +431,7 @@
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
-                        <td class="not-conformant">Unsupported</td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -440,7 +440,7 @@
                         <td>0.5 / 1 • 50.0%</td>
                         <td>0.5 / 1 • 50.0%</td>
                         <td>1 / 1 • 100.0%</td>
-                        <td>0 / 1 • 0.0%</td>
+                        <td>1 / 1 • 100.0%</td>
                         <td>1 / 1 • 100.0%</td>
                         <td>1 / 1 • 100.0%</td>
                     </tr>
@@ -495,7 +495,7 @@
                     </tr>
                     <tr>
                         <th scope="row">specialtypes_sentinels</th>
-                        <td class="not-conformant">Unsupported</td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
@@ -530,7 +530,7 @@
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>4.5 / 6 • 75.0%</td>
+                        <td>5.5 / 6 • 91.7%</td>
                         <td>5.5 / 6 • 91.7%</td>
                         <td>6 / 6 • 100.0%</td>
                         <td>5.5 / 6 • 91.7%</td>
@@ -564,12 +564,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Incorrectly allows constrained type variables to be solved to a union of their constraints.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -621,7 +616,7 @@
                         <th scope="row">generics_mixed_variance_inference</th>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="not-conformant">Unsupported</td>
+                        <td class="conformant">Pass</td>
                         <td class="not-conformant">Unsupported</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -754,7 +749,12 @@
                     </tr>
                     <tr>
                         <th scope="row">generics_syntax_declarations</th>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Doesn't flag TypeVar with empty constraints.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -813,12 +813,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not correctly solve <code>TypeVarTuple</code> with heterogeneous bounds.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -832,12 +827,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not correctly solve <code>TypeVarTuple</code> with heterogeneous bounds.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -947,11 +937,11 @@
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>24 / 33 • 72.7%</td>
+                        <td>23.5 / 33 • 71.2%</td>
                         <td>33 / 33 • 100.0%</td>
+                        <td>31 / 33 • 93.9%</td>
                         <td>30 / 33 • 90.9%</td>
-                        <td>29 / 33 • 87.9%</td>
-                        <td>32 / 33 • 97.0%</td>
+                        <td>32.5 / 33 • 98.5%</td>
                         <td>33 / 33 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1092,12 +1082,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not emit a diagnostic if a type alias to a union, in which every element of the union is implicitly specialized with <code>Unknown</code>, is invalidly specialized again.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1112,13 +1097,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject variables with <code>Any</code> or <code>Unknown</code> types when used as implicit type aliases.</li>
-                                <li>Falls short on full syntactic validation of type aliases.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1189,7 +1168,7 @@
                         <td>6 / 7 • 85.7%</td>
                         <td>7 / 7 • 100.0%</td>
                         <td>7 / 7 • 100.0%</td>
-                        <td>6 / 7 • 85.7%</td>
+                        <td>7 / 7 • 100.0%</td>
                         <td>7 / 7 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1704,12 +1683,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Infers <code>list[int]</code> for ambiguous overloads with <code>list[Any]</code> arguments, rejecting use as <code>list[str]</code>.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -1718,7 +1692,7 @@
                         <td>3.5 / 5 • 70.0%</td>
                         <td>3.5 / 5 • 70.0%</td>
                         <td>5 / 5 • 100.0%</td>
-                        <td>4.5 / 5 • 90.0%</td>
+                        <td>5 / 5 • 100.0%</td>
                         <td>5 / 5 • 100.0%</td>
                         <td>5 / 5 • 100.0%</td>
                     </tr>
@@ -1850,7 +1824,12 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Incorrect type for <strong>match_args</strong></li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">dataclasses_order</th>
@@ -1966,7 +1945,7 @@
                         <td>15.5 / 16 • 96.9%</td>
                         <td>16 / 16 • 100.0%</td>
                         <td>15.5 / 16 • 96.9%</td>
-                        <td>16 / 16 • 100.0%</td>
+                        <td>15.5 / 16 • 96.9%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -1999,12 +1978,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not support version-conditional items in <code>TypedDict</code> definitions.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -2134,7 +2108,7 @@
                         <td>11.5 / 14 • 82.1%</td>
                         <td>14 / 14 • 100.0%</td>
                         <td>14 / 14 • 100.0%</td>
-                        <td>13.5 / 14 • 96.4%</td>
+                        <td>14 / 14 • 100.0%</td>
                         <td>14 / 14 • 100.0%</td>
                         <td>14 / 14 • 100.0%</td>
                     </tr>
@@ -2290,12 +2264,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not treat a complete union of all literal members as equivalent to the enum type.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -2357,7 +2326,7 @@
                         <td>4.5 / 6 • 75.0%</td>
                         <td>6 / 6 • 100.0%</td>
                         <td>6 / 6 • 100.0%</td>
-                        <td>5.5 / 6 • 91.7%</td>
+                        <td>6 / 6 • 100.0%</td>
                         <td>6 / 6 • 100.0%</td>
                         <td>6 / 6 • 100.0%</td>
                     </tr>
@@ -2434,12 +2403,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="not-conformant tooltip">
-                            Unsupported
-                            <ul class="notes">
-                                <li>Does not support PEP 800 disjoint-base semantics.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -2533,7 +2497,7 @@
                         <td>10 / 11 • 90.9%</td>
                         <td>11 / 11 • 100.0%</td>
                         <td>11 / 11 • 100.0%</td>
-                        <td>10 / 11 • 90.9%</td>
+                        <td>11 / 11 • 100.0%</td>
                         <td>11 / 11 • 100.0%</td>
                         <td>11 / 11 • 100.0%</td>
                     </tr>
@@ -2573,12 +2537,12 @@
                 <tfoot>
                     <tr>
                         <td></td>
-                        <td>109.5 / 146 • 75.0%</td>
+                        <td>110 / 146 • 75.3%</td>
                         <td>138.5 / 146 • 94.9%</td>
+                        <td>142 / 146 • 97.3%</td>
+                        <td>140.5 / 146 • 96.2%</td>
                         <td>141 / 146 • 96.6%</td>
-                        <td>136 / 146 • 93.2%</td>
-                        <td>139.5 / 146 • 95.5%</td>
-                        <td>146 / 146 • 100.0%</td>
+                        <td>145.5 / 146 • 99.7%</td>
                     </tr>
                 </tfoot>
             </table>

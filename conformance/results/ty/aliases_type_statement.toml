@@ -7,19 +7,19 @@ aliases_type_statement.py:19:1: error[call-non-callable] Object of type `TypeAli
 aliases_type_statement.py:23:7: error[unresolved-attribute] Object of type `TypeAliasType` has no attribute `other_attrib`
 aliases_type_statement.py:26:18: error[invalid-base] Invalid class base with type `TypeAliasType`
 aliases_type_statement.py:31:22: error[invalid-argument-type] Argument to function `isinstance` is incorrect: Expected `_ClassInfo`, found `TypeAliasType`
-aliases_type_statement.py:37:22: error[invalid-type-form] Function calls are not allowed in type alias values
-aliases_type_statement.py:38:22: error[invalid-type-form] List literals are not allowed in this context in a type alias value
-aliases_type_statement.py:39:22: error[invalid-type-form] Tuple literals are not allowed in this context in a type alias value
-aliases_type_statement.py:40:22: error[invalid-type-form] List comprehensions are not allowed in type alias values
-aliases_type_statement.py:41:22: error[invalid-type-form] Dict literals are not allowed in type alias values
-aliases_type_statement.py:42:22: error[invalid-type-form] Function calls are not allowed in type alias values
-aliases_type_statement.py:43:22: error[invalid-type-form] Only simple names and dotted names can be subscripted in type alias values
-aliases_type_statement.py:44:22: error[invalid-type-form] `if` expressions are not allowed in type alias values
-aliases_type_statement.py:45:22: error[invalid-type-form] Variable of type `Literal[1]` is not allowed in a type alias value
-aliases_type_statement.py:46:23: error[invalid-type-form] Boolean literals are not allowed in this context in a type alias value: Did you mean `typing.Literal[True]`?
-aliases_type_statement.py:47:23: error[invalid-type-form] Int literals are not allowed in this context in a type alias value: Did you mean `typing.Literal[1]`?
-aliases_type_statement.py:48:23: error[invalid-type-form] Boolean operations are not allowed in type alias values
-aliases_type_statement.py:49:23: error[invalid-type-form] F-strings are not allowed in type alias values
+aliases_type_statement.py:37:22: error[invalid-type-form] Function calls are not allowed in type alias definitions
+aliases_type_statement.py:38:22: error[invalid-type-form] List literals are not allowed in this context in a type alias definition
+aliases_type_statement.py:39:22: error[invalid-type-form] Tuple literals are not allowed in this context in a type alias definition
+aliases_type_statement.py:40:22: error[invalid-type-form] List comprehensions are not allowed in type alias definitions
+aliases_type_statement.py:41:22: error[invalid-type-form] Dict literals are not allowed in type alias definitions
+aliases_type_statement.py:42:22: error[invalid-type-form] Function calls are not allowed in type alias definitions
+aliases_type_statement.py:43:22: error[invalid-type-form] Only simple names and dotted names can be subscripted in type alias definitions
+aliases_type_statement.py:44:22: error[invalid-type-form] `if` expressions are not allowed in type alias definitions
+aliases_type_statement.py:45:22: error[invalid-type-form] Variable `var1` cannot be used as a type: Variable of type `Literal[1]` is not allowed in a type alias definition
+aliases_type_statement.py:46:23: error[invalid-type-form] Boolean literals are not allowed in this context in a type alias definition: Did you mean `typing.Literal[True]`?
+aliases_type_statement.py:47:23: error[invalid-type-form] Int literals are not allowed in this context in a type alias definition: Did you mean `typing.Literal[1]`?
+aliases_type_statement.py:48:23: error[invalid-type-form] Boolean operations are not allowed in type alias definitions
+aliases_type_statement.py:49:23: error[invalid-type-form] F-strings are not allowed in type alias definitions
 aliases_type_statement.py:53:23: error[unbound-type-variable] Type variable `V` is not bound to any outer generic context
 aliases_type_statement.py:58:17: error[unbound-type-variable] Type variable `T1` is not bound to any outer generic context
 aliases_type_statement.py:68:27: error[invalid-type-arguments] Type `str` is not assignable to upper bound `int` of type variable `S@RecursiveTypeAlias2`
