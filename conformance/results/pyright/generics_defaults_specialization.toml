@@ -1,6 +1,10 @@
 conformant = "Pass"
 output = """
 generics_defaults_specialization.py:30:15 - error: Too many type arguments provided for "MyAlias[DefaultStrT@MyAlias]"; expected 1 but received 2 (reportInvalidTypeForm)
+generics_defaults_specialization.py:48:22 - error: Type "type[Bar[DefaultStrT@Bar]]" is not assignable to declared type "type[Bar[int]]"
+  "type[Bar[str]]" is not assignable to "type[Bar[int]]"
+  Type "type[Bar[DefaultStrT@Bar]]" is not assignable to type "type[Bar[int]]"
+    Type parameter "DefaultStrT@Bar" is invariant, but "str" is not the same as "int" (reportAssignmentType)
 generics_defaults_specialization.py:58:5 - error: Expected no type arguments for class "Foo" (reportInvalidTypeArguments)
 """
 conformance_automated = "Pass"
