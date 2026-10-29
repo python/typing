@@ -886,7 +886,7 @@ defeating the purpose of using aliases.  Example:
     def fun() -> AliasType:
         ...
 
-    OIntVec = Optional[Vec[int]]
+    type OIntVec = Vec[int] | None
 
 Using type variable bounds or values in generic aliases has the same effect
 as in generic classes/functions.
