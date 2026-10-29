@@ -85,7 +85,7 @@ can be used as base classes for other classes (generic or non-generic). For exam
 
 .. code-block:: python
 
-    from typing import Mapping, Iterator
+    from collection.abc import Mapping, Iterator
 
     # This is a generic subclass of Mapping
     class MyMap[KT, VT](Mapping[KT, VT]):
