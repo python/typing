@@ -85,7 +85,7 @@ can be used as base classes for other classes (generic or non-generic). For exam
 
 .. code-block:: python
 
-    from collection.abc import Mapping, Iterator
+    from collections.abc import Mapping, Iterator
 
     # This is a generic subclass of Mapping
     class MyMap[KT, VT](Mapping[KT, VT]):
@@ -145,7 +145,7 @@ where the types of the arguments or return value have some relationship:
 
 .. code-block:: python
 
-   from collection.abc import Sequence
+   from collections.abc import Sequence
 
    # A generic function!
    def first[T](seq: Sequence[T]) -> T:
@@ -172,7 +172,7 @@ functions do not share any typing relationship to each other:
 
 .. code-block:: python
 
-   from typing import Sequence
+   from collections.abc import Sequence
 
    def first[T](seq: Sequence[T]) -> T:
        return seq[0]
@@ -243,8 +243,6 @@ Other uses are factory methods, such as copy and deserialization.
 For class methods, you can also define generic ``cls``, using :py:class:`type`:
 
 .. code-block:: python
-
-   from typing import Optional
 
    class Friend:
        other: "Friend | None" = None
@@ -591,7 +589,8 @@ Here's how one could annotate the decorator:
 
 .. code-block:: python
 
-   from typing import Any, Callable, cast
+   from collections.abc import Callable
+   from typing import Any, cast
 
    # A decorator that preserves the signature.
    def printing_decorator[F: Callable[..., Any]](func: F) -> F:
@@ -622,7 +621,7 @@ for a more faithful type annotation:
 
 .. code-block:: python
 
-   from typing import Callable
+   from collections.abc import Callable
 
    def printing_decorator[**P, T](func: Callable[P, T]) -> Callable[P, T]:
        def wrapper(*args: P.args, **kwds: P.kwargs) -> T:
@@ -640,7 +639,7 @@ alter the signature of the input function:
 
 .. code-block:: python
 
-   from typing import Callable
+   from collections.abc import Callable
 
    # We reuse 'P' in the return type, but replace 'T' with 'str'
    def stringify[**P, T](func: Callable[P, T]) -> Callable[P, str]:
@@ -660,7 +659,8 @@ Or insert an argument:
 
 .. code-block:: python
 
-    from typing import Callable, Concatenate
+    from collections.abc import Callable
+    from typing import Concatenate
 
     def printing_decorator[**P, T](
         func: Callable[P, T],
