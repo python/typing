@@ -850,7 +850,7 @@ variables replaced with ``Any``. Examples (following :pep:`PEP 484: Type aliases
     from typing import Iterable, Union, Callable
 
     type TInt[S] = tuple[int, S]
-    type UInt[S] = Union[S, int]
+    type UInt[S] = S | int
     type CBack[S] = Callable[..., S]
 
     def response(query: str) -> UInt[str]:  # Same as Union[str, int]
