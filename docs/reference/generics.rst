@@ -718,7 +718,7 @@ achieved by combining with :py:func:`@overload <typing.overload>`:
     def atomic[F: Callable[..., Any]](*, savepoint: bool = True) -> Callable[[F], F]: ...
 
     # Implementation
-    def atomic(__func: Optional[Callable[..., Any]] = None, *, savepoint: bool = True):
+    def atomic(__func: Callable[..., Any] | None = None, *, savepoint: bool = True):
         def decorator(func: Callable[..., Any]):
             ...  # Code goes here
         if __func is not None:
