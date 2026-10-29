@@ -849,7 +849,7 @@ variables replaced with ``Any``. Examples (following :pep:`PEP 484: Type aliases
 
 .. code-block:: python
 
-    from typing import Iterable, Union, Callable
+    from collections.abc import Callable, Iterable
 
     type TInt[S] = tuple[int, S]
     type UInt[S] = S | int
