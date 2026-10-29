@@ -145,7 +145,7 @@ where the types of the arguments or return value have some relationship:
 
 .. code-block:: python
 
-   from typing import Sequence
+   from collection.abc import Sequence
 
    # A generic function!
    def first[T](seq: Sequence[T]) -> T:
