@@ -708,7 +708,8 @@ achieved by combining with :py:func:`@overload <typing.overload>`:
 
 .. code-block:: python
 
-    from typing import Any, Callable, Optional, overload
+    from collections.abc import Callable
+    from typing import Any, overload
 
     # Bare decorator usage
     @overload
