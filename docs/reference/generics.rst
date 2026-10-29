@@ -694,7 +694,8 @@ similarly supported via generics:
 
 .. code-block:: python
 
-    from typing import Any, Callable
+    from collections.abc import Callable
+    from typing import Any
 
     def route[F: Callable[..., Any]](url: str) -> Callable[[F], F]:
         ...
