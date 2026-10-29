@@ -247,7 +247,7 @@ For class methods, you can also define generic ``cls``, using :py:class:`type`:
    from typing import Optional
 
    class Friend:
-       other: Optional["Friend"] = None
+       other: "Friend | None" = None
 
        @classmethod
        def make_pair[T: Friend](cls: type[T]) -> tuple[T, T]:
@@ -412,9 +412,9 @@ are used. When using Python 3.12 type parameter syntax, type checkers
 infer the variance automatically based on how the type parameter is
 used in the class body.
 
-Explicit variance annotations are only needed when using the legacy
-``TypeVar`` syntax with the ``covariant`` or ``contravariant``
-arguments. For example:
+When using the legacy ``TypeVar`` syntax, variance can be declared
+explicitly using the ``covariant=True`` or ``contravariant=True``
+keyword arguments, or inferred using ``infer_variance=True``. For example:
 
 .. code-block:: python
 
@@ -494,9 +494,6 @@ after the ``:`` in the type parameter list:
    def concat[AnyStr: (str, bytes)](x: AnyStr, y: AnyStr) -> AnyStr:
        return x + y
 
-:py:data:`~typing.AnyStr` is also available as a predefined type variable in
-:py:mod:`typing`, defined using the legacy ``TypeVar`` syntax.
-
 We can use this function to concatenate two strings or bytes objects, but it
 can't be called with other argument types:
 
@@ -545,11 +542,6 @@ instance of exactly ``str`` in the above example:
 
     >>> print(type(ss))
     <class 'str'>
-
-You can also use a :py:class:`~typing.TypeVar` with a restricted set of possible
-values when defining a generic class. For example, you can use the type
-:py:class:`Pattern[AnyStr] <typing.Pattern>` for the return value of :py:func:`re.compile`,
-since regular expressions can be based on a string or a bytes pattern.
 
 A type variable may not have both a value restriction (see
 :ref:`type-variable-upper-bound`) and an upper bound.
@@ -783,9 +775,10 @@ return type, but the type variable is invariant:
    class ReadOnlyBox(Protocol[T]):  # error: Invariant type variable "T" used in protocol where covariant one is expected
        def content(self) -> T: ...
 
-With PEP 695 syntax, type checkers infer the variance automatically
-based on how the type parameter is used. Since ``T`` only appears in
-covariant position (return type), this is accepted:
+With the Python 3.12 type parameter syntax, type checkers infer the
+variance automatically based on how the type parameter is used.
+Since ``T`` only appears in covariant position (return type), this
+is accepted:
 
 .. code-block:: python
 
@@ -844,8 +837,7 @@ Type aliases can be generic. In this case they can be used in two ways:
 Subscripted aliases are equivalent to original types with substituted type
 variables, so the number of type arguments must match the number of free type variables
 in the generic type alias. Unsubscripted aliases are treated as original types with free
-variables replaced with ``Any``. Examples (following :pep:`PEP 484: Type aliases
-<484#type-aliases>`):
+variables replaced with ``Any``. Examples:
 
 .. code-block:: python
 
