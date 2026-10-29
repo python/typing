@@ -333,7 +333,8 @@ Let us illustrate this by few simple examples:
 
 .. code-block:: python
 
-   from typing import Sequence, Union, Callable
+   from collections.abc import Callable, Sequence
+   from typing import Union
 
    # We'll use these classes in the examples below
    class Shape: ...
