@@ -878,7 +878,6 @@ defeating the purpose of using aliases.  Example:
 
 .. code-block:: python
 
-    from typing import Optional
     from example1 import AliasType
     from example2 import Vec
 
