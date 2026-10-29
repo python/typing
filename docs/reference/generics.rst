@@ -119,8 +119,8 @@ can be used as base classes for other classes (generic or non-generic). For exam
     protocols like :py:class:`~typing.Iterable`, which use
     :ref:`structural subtyping <protocol-types>`.
 
-When using the new syntax, the order of type parameters is determined
-by their order in the class definition's type parameter list. For example:
+When using the ``class Foo[T, S]`` type parameter list syntax, the order of
+type parameters is determined by their order in the parameter list. For example:
 
 .. code-block:: python
 
@@ -409,9 +409,10 @@ Let us illustrate this by few simple examples:
 
 The variance of user-defined generics depends on how type parameters
 are used. When using Python 3.12 type parameter syntax, type checkers
-can infer the variance automatically.
+infer the variance automatically based on how the type parameter is
+used in the class body.
 
-Explicit variance annotations are mainly needed when using legacy
+Explicit variance annotations are only needed when using the legacy
 ``TypeVar`` syntax with the ``covariant`` or ``contravariant``
 arguments. For example:
 
@@ -455,7 +456,7 @@ Such a type is called the upper bound of the type parameter. In modern Python
     from typing import SupportsAbs
 
     def largest_in_absolute_value[T: SupportsAbs[float]](*xs: T) -> T:
-        return max(xs, key=abs)
+        return max(xs, key=abs)  # Okay, because T is a subtype of SupportsAbs[float].
 
 In the definition of a generic function that uses such a type variable
 ``T``, the type represented by ``T`` is assumed to be a subtype of
@@ -484,33 +485,22 @@ In some cases, it can be useful to restrict the values that a type variable can 
 exactly a specific set of types. This feature is a little complex and should
 be avoided if an upper bound can be made to work instead, as above.
 
-An example is a type variable that can only have values ``str`` and ``bytes``:
-
-.. note::
-
-   Constrained type variables defined with :py:class:`~typing.TypeVar` have
-   slightly different semantics from bounded type parameters (see below), so
-   the legacy ``TypeVar`` syntax is still commonly used for this pattern.
+An example is a type variable that can only have values ``str`` and ``bytes``.
+With the Python 3.12 type parameter syntax, constraints are written as a tuple
+after the ``:`` in the type parameter list:
 
 .. code-block:: python
 
-   from typing import TypeVar
-
-   AnyStr = TypeVar('AnyStr', str, bytes)
-
-This is actually such a common type variable that :py:data:`~typing.AnyStr` is
-defined in :py:mod:`typing`.
-
-We can use :py:data:`~typing.AnyStr` to define a function that can concatenate
-two strings or bytes objects, but it can't be called with other
-argument types:
-
-.. code-block:: python
-
-   from typing import AnyStr
-
-   def concat(x: AnyStr, y: AnyStr) -> AnyStr:
+   def concat[AnyStr: (str, bytes)](x: AnyStr, y: AnyStr) -> AnyStr:
        return x + y
+
+:py:data:`~typing.AnyStr` is also available as a predefined type variable in
+:py:mod:`typing`, defined using the legacy ``TypeVar`` syntax.
+
+We can use this function to concatenate two strings or bytes objects, but it
+can't be called with other argument types:
+
+.. code-block:: python
 
    concat('a', 'b')    # Okay
    concat(b'a', b'b')  # Okay
@@ -609,13 +599,10 @@ Here's how one could annotate the decorator:
 
 .. code-block:: python
 
-   from typing import Any, Callable, TypeVar, cast
-
-   # Legacy approach using TypeVar; see ParamSpec below for a better alternative.
-   F = TypeVar('F', bound=Callable[..., Any])
+   from typing import Any, Callable, cast
 
    # A decorator that preserves the signature.
-   def printing_decorator(func: F) -> F:
+   def printing_decorator[F: Callable[..., Any]](func: F) -> F:
        def wrapper(*args, **kwds):
            print("Calling", func)
            return func(*args, **kwds)
@@ -705,19 +692,11 @@ Decorator factories
 Functions that take arguments and return a decorator (also called second-order decorators), are
 similarly supported via generics:
 
-.. note::
-
-   The following examples use legacy ``TypeVar`` syntax because
-   decorator factories using :py:func:`~typing.overload` do not yet
-   have a concise PEP 695 equivalent.
-
 .. code-block:: python
 
-    from typing import Any, Callable, TypeVar
+    from typing import Any, Callable
 
-    F = TypeVar('F', bound=Callable[..., Any])
-
-    def route(url: str) -> Callable[[F], F]:
+    def route[F: Callable[..., Any]](url: str) -> Callable[[F], F]:
         ...
 
     @route(url='/')
@@ -729,16 +708,14 @@ achieved by combining with :py:func:`@overload <typing.overload>`:
 
 .. code-block:: python
 
-    from typing import Any, Callable, Optional, TypeVar, overload
-
-    F = TypeVar('F', bound=Callable[..., Any])
+    from typing import Any, Callable, Optional, overload
 
     # Bare decorator usage
     @overload
-    def atomic(__func: F) -> F: ...
+    def atomic[F: Callable[..., Any]](__func: F) -> F: ...
     # Decorator with arguments
     @overload
-    def atomic(*, savepoint: bool = True) -> Callable[[F], F]: ...
+    def atomic[F: Callable[..., Any]](*, savepoint: bool = True) -> Callable[[F], F]: ...
 
     # Implementation
     def atomic(__func: Optional[Callable[..., Any]] = None, *, savepoint: bool = True):
@@ -788,9 +765,6 @@ Example:
    x: Box[float] = ...
    y: Box[int] = ...
    x = y  # Error -- Box is invariant
-
-Note that ``class ClassName(Protocol[T])`` is allowed as a shorthand for
-``class ClassName(Protocol, Generic[T])``, as per :pep:`PEP 544: Generic protocols <544#generic-protocols>`,
 
 The main difference between generic protocols and ordinary generic classes is
 that the declared variances of generic type variables in a protocol are checked
@@ -911,12 +885,6 @@ defeating the purpose of using aliases.  Example:
     # AliasType and Vec are type aliases (Vec as defined above)
 
     def fun() -> AliasType:
-        ...
-
-    class NewVec[T](Vec[T]):
-        ...
-
-    for i, j in NewVec[int]():
         ...
 
     OIntVec = Optional[Vec[int]]
