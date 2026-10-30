@@ -91,6 +91,32 @@ To add a new test, create a new ".py" file in the `tests` directory. Its name mu
 
 If a test is updated (augmented or fixed), the process is similar to when adding a new test. Run the conformance test tool to generate new results and manually examine the output of each supported type checker. Then update the conformance status accordingly. Once the conformance status has been updated, rerun the conformance test tool to regenerate the summary report.
 
+## Version and Platform Checking Tests
+
+The version and implementation checks use the suite's Python 3.12 CPython target,
+with no implementation override. Tests cover both reachable and unreachable
+branches: intentional errors in reachable branches must be reported, errors in
+unreachable branches must be suppressed, and `assert_type` checks verify branch
+selection. Existing three-element version comparisons and `os.name` checks remain
+optional; tuple, set, and list membership checks are required.
+
+Platform tests use nonexistent platform names for portable nonmatches and guard
+positive Linux membership checks with `sys.platform == "linux"`. Tagged errors in
+the outer `else` branch keep the expectations valid on non-Linux targets. Run on a
+Linux target to exercise the positive membership cases. Prefix checks include the
+empty prefix (always a match) and a nonexistent prefix (never a match). A guarded
+`freebsd13` scenario tests a matching `freebsd` prefix and a nonmatching `linux`
+prefix; run with a `freebsd13` target to exercise these branches.
+
+The ordinary suite does not validate all target configuration mechanisms. Separate
+targeted runs are needed for Windows/Linux selection, the versioned FreeBSD
+scenario, and non-CPython implementation versions distinct from the language version.
+The current runner has no target-scenario matrix, and the checker CLIs examined
+for this change expose language-version/platform options but no implementation-name
+or implementation-version options. Non-CPython configuration coverage is therefore
+deferred until suitable checker support is available; missing implementation-check
+support is still recorded in the ordinary conformance results.
+
 ## Updating a Type Checker
 
 Type checker versions are locked in `uv.lock`.
