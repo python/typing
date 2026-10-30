@@ -1,0 +1,25 @@
+conformant = "Unsupported"
+notes = """
+Does not prune branches for sys.implementation.version comparisons using the CPython target version.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Unexpected errors ['directives_implementation_version.py:21: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 23: Unexpected errors ['directives_implementation_version.py:23: error: Expression is of type "int | str", not "int"  [assert-type]']
+Line 27: Unexpected errors ['directives_implementation_version.py:27: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 32: Unexpected errors ['directives_implementation_version.py:32: error: Expression is of type "int | str", not "int"  [assert-type]']
+Line 37: Unexpected errors ['directives_implementation_version.py:37: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+Line 39: Unexpected errors ['directives_implementation_version.py:39: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]']
+"""
+output = """
+directives_implementation_version.py:18: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_implementation_version.py:21: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_implementation_version.py:23: error: Expression is of type "int | str", not "int"  [assert-type]
+directives_implementation_version.py:27: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_implementation_version.py:30: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_implementation_version.py:32: error: Expression is of type "int | str", not "int"  [assert-type]
+directives_implementation_version.py:35: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_implementation_version.py:37: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_implementation_version.py:39: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+directives_implementation_version.py:41: error: Incompatible types in assignment (expression has type "str", variable has type "int")  [assignment]
+"""

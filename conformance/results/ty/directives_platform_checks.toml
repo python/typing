@@ -1,0 +1,27 @@
+conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not prune branches for set or list membership and nonmembership checks; tuple checks pass.
+"""
+errors_diff = """
+"""
+output = """
+directives_platform_checks.py:18:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:24:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:36:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:48:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:65:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:66:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:78:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:84:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:94:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:100:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:113:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:119:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:128:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:134:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:147:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:153:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:162:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_platform_checks.py:168:21: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+"""
