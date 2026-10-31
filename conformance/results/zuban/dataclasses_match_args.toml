@@ -1,12 +1,6 @@
-conformant = "Partial"
-notes = """
-Incorrect type for __match_args__
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 49: Unexpected errors ['dataclasses_match_args.py:49: error: Expression is of type "tuple[Literal[\\'x\\']]", not "tuple[()]"  [misc]']
 """
 output = """
 dataclasses_match_args.py:42: error: "type[DC4]" has no attribute "__match_args__"  [attr-defined]
-dataclasses_match_args.py:49: error: Expression is of type "tuple[Literal['x']]", not "tuple[()]"  [misc]
 """
