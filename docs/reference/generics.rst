@@ -19,11 +19,7 @@ Here is a very simple generic class that represents a stack:
 
 .. code-block:: python
 
-   from typing import TypeVar, Generic
-
-   T = TypeVar('T')
-
-   class Stack(Generic[T]):
+   class Stack[T]:
        def __init__(self) -> None:
            # Create an empty list with items of type T
            self.items: list[T] = []
@@ -36,6 +32,21 @@ Here is a very simple generic class that represents a stack:
 
        def empty(self) -> bool:
            return not self.items
+
+.. note::
+
+   The type parameter syntax (for example, ``class Foo[T]:``) is available in
+   Python 3.12 and newer. For earlier Python versions, use the legacy
+   ``TypeVar`` and ``Generic`` syntax shown below.
+
+.. code-block:: python
+
+   from typing import TypeVar, Generic
+
+   T = TypeVar('T')
+
+   class Stack(Generic[T]):
+       ...
 
 The ``Stack`` class can be used to represent a stack of any type:
 ``Stack[int]``, ``Stack[tuple[int, str]]``, etc.
@@ -56,7 +67,7 @@ construction of the instance will be type checked correspondingly.
 
 .. code-block:: python
 
-   class Box(Generic[T]):
+   class Box[T]:
        def __init__(self, content: T) -> None:
            self.content = content
 
@@ -70,17 +81,14 @@ Defining subclasses of generic classes
 **************************************
 
 User-defined generic classes and generic classes defined in :py:mod:`typing`
-can be used as a base class for another class (generic or non-generic). For example:
+can be used as base classes for other classes (generic or non-generic). For example:
 
 .. code-block:: python
 
-    from typing import Generic, TypeVar, Mapping, Iterator
-
-    KT = TypeVar('KT')
-    VT = TypeVar('VT')
+    from collections.abc import Mapping, Iterator
 
     # This is a generic subclass of Mapping
-    class MyMap(Mapping[KT, VT]):
+    class MyMap[KT, VT](Mapping[KT, VT]):
         def __getitem__(self, k: KT) -> VT: ...
         def __iter__(self) -> Iterator[KT]: ...
         def __len__(self) -> int: ...
@@ -96,12 +104,12 @@ can be used as a base class for another class (generic or non-generic). For exam
     data: StrDict[int, int]  # error: "StrDict" expects no type arguments, but 2 given
     data2: StrDict  # OK
 
-   # This is a user-defined generic class
-   class Receiver(Generic[T]):
-       def accept(self, value: T) -> None: ...
+    # This is a user-defined generic class
+    class Receiver[T]:
+        def accept(self, value: T) -> None: ...
 
-   # This is a generic subclass of Receiver
-   class AdvancedReceiver(Receiver[T]): ...
+    # This is a generic subclass of Receiver
+    class AdvancedReceiver[T](Receiver[T]): ...
 
 .. note::
 
@@ -111,36 +119,21 @@ can be used as a base class for another class (generic or non-generic). For exam
     protocols like :py:class:`~typing.Iterable`, which use
     :ref:`structural subtyping <protocol-types>`.
 
-:py:class:`Generic <typing.Generic>` can be omitted from bases if there are
-other base classes that include type variables, such as ``Mapping[KT, VT]``
-in the above example. If you include ``Generic[...]`` in bases, then
-it should list all type variables present in other bases (or more,
-if needed). The order of type variables is defined by the following
-rules:
-
-* If ``Generic[...]`` is present, then the order of variables is
-  always determined by their order in ``Generic[...]``.
-* If there are no ``Generic[...]`` in bases, then all type variables
-  are collected in the lexicographic order (i.e. by first appearance).
-
-For example:
+When using the ``class Foo[T, S]`` type parameter list syntax, the order of
+type parameters is determined by their order in the parameter list. For example:
 
 .. code-block:: python
 
-   from typing import Generic, TypeVar, Any
+   from typing import Any
 
-   T = TypeVar('T')
-   S = TypeVar('S')
-   U = TypeVar('U')
+   class One[T]: ...
+   class Another[T]: ...
 
-   class One(Generic[T]): ...
-   class Another(Generic[T]): ...
-
-   class First(One[T], Another[S]): ...
-   class Second(One[T], Another[S], Generic[S, U, T]): ...
+   class First[T, S](One[T], Another[S]): ...
+   class Second[S, U, T](One[T], Another[S]): ...
 
    x: First[int, str]        # Here T is bound to int, S is bound to str
-   y: Second[int, str, Any]  # Here T is Any, S is int, and U is str
+   y: Second[int, str, Any]  # Here S is int, U is str, and T is Any
 
 .. _generic-functions:
 
@@ -152,12 +145,10 @@ where the types of the arguments or return value have some relationship:
 
 .. code-block:: python
 
-   from typing import TypeVar, Sequence
-
-   T = TypeVar('T')
+   from collections.abc import Sequence
 
    # A generic function!
-   def first(seq: Sequence[T]) -> T:
+   def first[T](seq: Sequence[T]) -> T:
        return seq[0]
 
 As with generic classes, the type variable can be replaced with any
@@ -181,18 +172,16 @@ functions do not share any typing relationship to each other:
 
 .. code-block:: python
 
-   from typing import TypeVar, Sequence
+   from collections.abc import Sequence
 
-   T = TypeVar('T')
-
-   def first(seq: Sequence[T]) -> T:
+   def first[T](seq: Sequence[T]) -> T:
        return seq[0]
 
-   def last(seq: Sequence[T]) -> T:
+   def last[T](seq: Sequence[T]) -> T:
        return seq[-1]
 
-Variables should not have a type variable in their type unless the type variable
-is bound by a containing generic class, generic function or generic alias.
+Variables should not have a type parameter in their type unless the type parameter
+is bound by a containing generic class, generic function, or generic alias.
 
 .. _generic-methods-and-generic-self:
 
@@ -205,16 +194,16 @@ the class definition.
 
 .. code-block:: python
 
-    # T is the type variable bound by this class
-    class PairedBox(Generic[T]):
+    # T is the type parameter bound by this class
+    class PairedBox[T]:
         def __init__(self, content: T) -> None:
             self.content = content
 
-        # S is a type variable bound only in this method
-        def first(self, x: list[S]) -> S:
+        # S is a type parameter bound only in this method
+        def first[S](self, x: list[S]) -> S:
             return x[0]
 
-        def pair_with_first(self, x: list[S]) -> tuple[S, T]:
+        def pair_with_first[S](self, x: list[S]) -> tuple[S, T]:
             return (x[0], self.content)
 
     box = PairedBox("asdf")
@@ -228,12 +217,8 @@ methods:
 
 .. code-block:: python
 
-   from typing import TypeVar
-
-   T = TypeVar('T', bound='Shape')
-
    class Shape:
-       def set_scale(self: T, scale: float) -> T:
+       def set_scale[T: Shape](self: T, scale: float) -> T:
            self.scale = scale
            return self
 
@@ -259,15 +244,11 @@ For class methods, you can also define generic ``cls``, using :py:class:`type`:
 
 .. code-block:: python
 
-   from typing import Optional, TypeVar, Type
-
-   T = TypeVar('T', bound='Friend')
-
    class Friend:
-       other: Optional["Friend"] = None
+       other: "Friend | None" = None
 
        @classmethod
-       def make_pair(cls: type[T]) -> tuple[T, T]:
+       def make_pair[T: Friend](cls: type[T]) -> tuple[T, T]:
            a, b = cls(), cls()
            a.other = b
            b.other = a
@@ -352,10 +333,13 @@ Let us illustrate this by few simple examples:
 
 .. code-block:: python
 
-    # We'll use these classes in the examples below
-    class Shape: ...
-    class Triangle(Shape): ...
-    class Square(Shape): ...
+   from collections.abc import Callable, Sequence
+   from typing import Union
+
+   # We'll use these classes in the examples below
+   class Shape: ...
+   class Triangle(Shape): ...
+   class Square(Shape): ...
 
 * Most immutable containers, such as :py:class:`~typing.Sequence` and
   :py:class:`~typing.FrozenSet` are covariant. :py:data:`~typing.Union` is
@@ -422,10 +406,14 @@ Let us illustrate this by few simple examples:
   Another example of an invariant type is :py:class:`~typing.Dict`. Most mutable containers
   are invariant.
 
-By default, all user-defined generics are invariant.
-To declare a given generic class as covariant or contravariant use
-type variables defined with special keyword arguments ``covariant`` or
-``contravariant``. For example:
+The variance of user-defined generics depends on how type parameters
+are used. When using Python 3.12 type parameter syntax, type checkers
+infer the variance automatically based on how the type parameter is
+used in the class body.
+
+When using the legacy ``TypeVar`` syntax, variance can be declared
+explicitly using the ``covariant=True`` or ``contravariant=True``
+keyword arguments, or inferred using ``infer_variance=True``. For example:
 
 .. code-block:: python
 
@@ -458,24 +446,21 @@ It's therefore often useful to be able to limit the types that a type
 variable can take on, for instance, by restricting it to values that are
 subtypes of a specific type.
 
-Such a type is called the upper bound of the type variable, and is specified
-with the ``bound=...`` keyword argument to :py:class:`~typing.TypeVar`.
+Such a type is called the upper bound of the type parameter. In modern Python
+(3.12+), this can be expressed directly in the type parameter list using
+``[T: Bound]`` syntax.
 
 .. code-block:: python
 
-    from typing import TypeVar, SupportsAbs
+    from typing import SupportsAbs
 
-    T = TypeVar('T', bound=SupportsAbs[float])
+    def largest_in_absolute_value[T: SupportsAbs[float]](*xs: T) -> T:
+        return max(xs, key=abs)  # Okay, because T is a subtype of SupportsAbs[float].
 
 In the definition of a generic function that uses such a type variable
 ``T``, the type represented by ``T`` is assumed to be a subtype of
 its upper bound, so the function can use methods of the upper bound on
 values of type ``T``.
-
-.. code-block:: python
-
-    def largest_in_absolute_value(*xs: T) -> T:
-        return max(xs, key=abs)  # Okay, because T is a subtype of SupportsAbs[float].
 
 In a call to such a function, the type ``T`` must be replaced by a
 type that is a subtype of its upper bound. Continuing the example
@@ -499,27 +484,19 @@ In some cases, it can be useful to restrict the values that a type variable can 
 exactly a specific set of types. This feature is a little complex and should
 be avoided if an upper bound can be made to work instead, as above.
 
-An example is a type variable that can only have values ``str`` and ``bytes``:
+An example is a type variable that can only have values ``str`` and ``bytes``.
+With the Python 3.12 type parameter syntax, constraints are written as a tuple
+after the ``:`` in the type parameter list:
 
 .. code-block:: python
 
-   from typing import TypeVar
-
-   AnyStr = TypeVar('AnyStr', str, bytes)
-
-This is actually such a common type variable that :py:data:`~typing.AnyStr` is
-defined in :py:mod:`typing`.
-
-We can use :py:data:`~typing.AnyStr` to define a function that can concatenate
-two strings or bytes objects, but it can't be called with other
-argument types:
-
-.. code-block:: python
-
-   from typing import AnyStr
-
-   def concat(x: AnyStr, y: AnyStr) -> AnyStr:
+   def concat[AnyStr: (str, bytes)](x: AnyStr, y: AnyStr) -> AnyStr:
        return x + y
+
+We can use this function to concatenate two strings or bytes objects, but it
+can't be called with other argument types:
+
+.. code-block:: python
 
    concat('a', 'b')    # Okay
    concat(b'a', b'b')  # Okay
@@ -564,11 +541,6 @@ instance of exactly ``str`` in the above example:
 
     >>> print(type(ss))
     <class 'str'>
-
-You can also use a :py:class:`~typing.TypeVar` with a restricted set of possible
-values when defining a generic class. For example, you can use the type
-:py:class:`Pattern[AnyStr] <typing.Pattern>` for the return value of :py:func:`re.compile`,
-since regular expressions can be based on a string or a bytes pattern.
 
 A type variable may not have both a value restriction (see
 :ref:`type-variable-upper-bound`) and an upper bound.
@@ -618,12 +590,11 @@ Here's how one could annotate the decorator:
 
 .. code-block:: python
 
-   from typing import Any, Callable, TypeVar, cast
-
-   F = TypeVar('F', bound=Callable[..., Any])
+   from collections.abc import Callable
+   from typing import Any, cast
 
    # A decorator that preserves the signature.
-   def printing_decorator(func: F) -> F:
+   def printing_decorator[F: Callable[..., Any]](func: F) -> F:
        def wrapper(*args, **kwds):
            print("Calling", func)
            return func(*args, **kwds)
@@ -651,12 +622,9 @@ for a more faithful type annotation:
 
 .. code-block:: python
 
-   from typing import Callable, ParamSpec, TypeVar
+   from collections.abc import Callable
 
-   P = ParamSpec('P')
-   T = TypeVar('T')
-
-   def printing_decorator(func: Callable[P, T]) -> Callable[P, T]:
+   def printing_decorator[**P, T](func: Callable[P, T]) -> Callable[P, T]:
        def wrapper(*args: P.args, **kwds: P.kwargs) -> T:
            print("Calling", func)
            return func(*args, **kwds)
@@ -672,13 +640,10 @@ alter the signature of the input function:
 
 .. code-block:: python
 
-   from typing import Callable, ParamSpec, TypeVar
-
-   P = ParamSpec('P')
-   T = TypeVar('T')
+   from collections.abc import Callable
 
    # We reuse 'P' in the return type, but replace 'T' with 'str'
-   def stringify(func: Callable[P, T]) -> Callable[P, str]:
+   def stringify[**P, T](func: Callable[P, T]) -> Callable[P, str]:
        def wrapper(*args: P.args, **kwds: P.kwargs) -> str:
            return str(func(*args, **kwds))
        return wrapper
@@ -695,12 +660,12 @@ Or insert an argument:
 
 .. code-block:: python
 
-    from typing import Callable, Concatenate, ParamSpec, TypeVar
+    from collections.abc import Callable
+    from typing import Concatenate
 
-    P = ParamSpec('P')
-    T = TypeVar('T')
-
-    def printing_decorator(func: Callable[P, T]) -> Callable[Concatenate[str, P], T]:
+    def printing_decorator[**P, T](
+        func: Callable[P, T],
+    ) -> Callable[Concatenate[str, P], T]:
         def wrapper(msg: str, /, *args: P.args, **kwds: P.kwargs) -> T:
             print("Calling", func, "with", msg)
             return func(*args, **kwds)
@@ -722,11 +687,10 @@ similarly supported via generics:
 
 .. code-block:: python
 
-    from typing import Any, Callable, TypeVar
+    from collections.abc import Callable
+    from typing import Any
 
-    F = TypeVar('F', bound=Callable[..., Any])
-
-    def route(url: str) -> Callable[[F], F]:
+    def route[F: Callable[..., Any]](url: str) -> Callable[[F], F]:
         ...
 
     @route(url='/')
@@ -738,19 +702,18 @@ achieved by combining with :py:func:`@overload <typing.overload>`:
 
 .. code-block:: python
 
-    from typing import Any, Callable, Optional, TypeVar, overload
-
-    F = TypeVar('F', bound=Callable[..., Any])
+    from collections.abc import Callable
+    from typing import Any, overload
 
     # Bare decorator usage
     @overload
-    def atomic(__func: F) -> F: ...
+    def atomic[F: Callable[..., Any]](__func: F) -> F: ...
     # Decorator with arguments
     @overload
-    def atomic(*, savepoint: bool = True) -> Callable[[F], F]: ...
+    def atomic[F: Callable[..., Any]](*, savepoint: bool = True) -> Callable[[F], F]: ...
 
     # Implementation
-    def atomic(__func: Optional[Callable[..., Any]] = None, *, savepoint: bool = True):
+    def atomic(__func: Callable[..., Any] | None = None, *, savepoint: bool = True):
         def decorator(func: Callable[..., Any]):
             ...  # Code goes here
         if __func is not None:
@@ -776,11 +739,9 @@ Example:
 
 .. code-block:: python
 
-   from typing import Protocol, TypeVar
+   from typing import Protocol
 
-   T = TypeVar('T')
-
-   class Box(Protocol[T]):
+   class Box[T](Protocol):
        content: T
 
    def do_stuff(one: Box[str], other: Box[bytes]) -> None:
@@ -800,9 +761,6 @@ Example:
    y: Box[int] = ...
    x = y  # Error -- Box is invariant
 
-Note that ``class ClassName(Protocol[T])`` is allowed as a shorthand for
-``class ClassName(Protocol, Generic[T])``, as per :pep:`PEP 544: Generic protocols <544#generic-protocols>`,
-
 The main difference between generic protocols and ordinary generic classes is
 that the declared variances of generic type variables in a protocol are checked
 against how they are used in the protocol definition.  The protocol in this
@@ -818,7 +776,24 @@ return type, but the type variable is invariant:
    class ReadOnlyBox(Protocol[T]):  # error: Invariant type variable "T" used in protocol where covariant one is expected
        def content(self) -> T: ...
 
-This example correctly uses a covariant type variable:
+With the Python 3.12 type parameter syntax, type checkers infer the
+variance automatically based on how the type parameter is used.
+Since ``T`` only appears in covariant position (return type), this
+is accepted:
+
+.. code-block:: python
+
+   from typing import Protocol
+
+   class ReadOnlyBox[T](Protocol):  # OK -- T inferred as covariant
+       def content(self) -> T: ...
+
+   ax: ReadOnlyBox[float] = ...
+   ay: ReadOnlyBox[int] = ...
+   ax = ay  # OK -- ReadOnlyBox is covariant
+
+With the legacy ``TypeVar`` syntax, covariance must be declared
+explicitly using ``covariant=True``:
 
 .. code-block:: python
 
@@ -839,9 +814,9 @@ Generic protocols can also be recursive. Example:
 
 .. code-block:: python
 
-   T = TypeVar('T')
+   from typing import Protocol
 
-   class Linked(Protocol[T]):
+   class Linked[T](Protocol):
        val: T
        def next(self) -> 'Linked[T]': ...
 
@@ -849,7 +824,7 @@ Generic protocols can also be recursive. Example:
        val: int
        def next(self) -> 'L': ...
 
-   def last(seq: Linked[T]) -> T: ...
+   def last[T](seq: Linked[T]) -> T: ...
 
    result = last(L())
    reveal_type(result)  # Revealed type is "builtins.int"
@@ -863,33 +838,28 @@ Type aliases can be generic. In this case they can be used in two ways:
 Subscripted aliases are equivalent to original types with substituted type
 variables, so the number of type arguments must match the number of free type variables
 in the generic type alias. Unsubscripted aliases are treated as original types with free
-variables replaced with ``Any``. Examples (following :pep:`PEP 484: Type aliases
-<484#type-aliases>`):
+variables replaced with ``Any``. Examples:
 
 .. code-block:: python
 
-    from typing import TypeVar, Iterable, Union, Callable
+    from collections.abc import Callable, Iterable
 
-    S = TypeVar('S')
-
-    TInt = tuple[int, S]
-    UInt = Union[S, int]
-    CBack = Callable[..., S]
+    type TInt[S] = tuple[int, S]
+    type UInt[S] = S | int
+    type CBack[S] = Callable[..., S]
 
     def response(query: str) -> UInt[str]:  # Same as Union[str, int]
         ...
-    def activate(cb: CBack[S]) -> S:        # Same as Callable[..., S]
+    def activate[S](cb: CBack[S]) -> S:     # Same as Callable[..., S]
         ...
     table_entry: TInt  # Same as tuple[int, Any]
 
-    T = TypeVar('T', int, float, complex)
+    type Vec[T: (int, float, complex)] = Iterable[tuple[T, T]]
 
-    Vec = Iterable[tuple[T, T]]
-
-    def inproduct(v: Vec[T]) -> T:
+    def inproduct[T: (int, float, complex)](v: Vec[T]) -> T:
         return sum(x*y for x, y in v)
 
-    def dilate(v: Vec[T], scale: T) -> Vec[T]:
+    def dilate[T: (int, float, complex)](v: Vec[T], scale: T) -> Vec[T]:
         return ((x * scale, y * scale) for x, y in v)
 
     v1: Vec[int] = []      # Same as Iterable[tuple[int, int]]
@@ -903,7 +873,6 @@ defeating the purpose of using aliases.  Example:
 
 .. code-block:: python
 
-    from typing import TypeVar, Generic, Optional
     from example1 import AliasType
     from example2 import Vec
 
@@ -912,15 +881,7 @@ defeating the purpose of using aliases.  Example:
     def fun() -> AliasType:
         ...
 
-    T = TypeVar('T')
-
-    class NewVec(Vec[T]):
-        ...
-
-    for i, j in NewVec[int]():
-        ...
-
-    OIntVec = Optional[Vec[int]]
+    type OIntVec = Vec[int] | None
 
 Using type variable bounds or values in generic aliases has the same effect
 as in generic classes/functions.
@@ -931,7 +892,9 @@ Generic class internals
 
 You may wonder what happens at runtime when you index a generic class.
 Indexing returns a *generic alias* to the original class that returns instances
-of the original class on instantiation:
+of the original class on instantiation. The following example uses the legacy
+syntax for illustration, but the runtime behavior is identical for classes
+defined with the new ``class Stack[T]:`` syntax:
 
 .. code-block:: python
 
