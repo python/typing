@@ -79,9 +79,13 @@ Discussions and Support
 =======================
 
 * `User help forum <https://github.com/python/typing/discussions>`_
-* `User chat on Gitter <http://gitter.im/python/typing>`_
 * `Developer forum <https://discuss.python.org/c/typing/32>`_
-* `Developer mailing list (archived) <https://mail.python.org/archives/list/typing-sig@python.org/>`_
+* The `#type-hinting channel <https://discord.com/channels/267624335836053506/891788761371906108>`_
+  on the `Python Discord server <https://discord.com/invite/python>`_
+
+The former developer mailing list has been archived:
+
+* `Archive of typing-sig <https://mail.python.org/archives/list/typing-sig@python.org/>`_
 
 Typing-related Tools
 ====================
