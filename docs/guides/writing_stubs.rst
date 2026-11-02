@@ -805,6 +805,7 @@ reasons can include:
 
 * Using :ref:`Any` as a type argument for a generic with invariant type variables
   to say "any object of this type is allowed", e.g. ``Future[Any]``.
+* Using the expression ``Callable[..., Any]`` to say "any callable".
 * Using ``dict[str, Any]`` or ``Mapping[str, Any]`` when the value types
   depend on the keys. But consider using :ref:`TypedDict` or
   ``dict[str, Incomplete]`` (temporarily) when the keys of the dictionary are
