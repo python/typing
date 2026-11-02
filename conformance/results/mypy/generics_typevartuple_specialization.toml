@@ -4,7 +4,6 @@ Incorrectly specializes generic alias that includes a `TypeVar` and `TypeVarTupl
 Rejects specialization of generic type alias defined as a tuple containing a `TypeVar`.
 """
 output = """
-generics_typevartuple_specialization.py:85: error: Argument 1 to "takes_float_array_with_specific_shape" has incompatible type "Array2[float, *tuple[Any, ...]]"; expected "Array2[float, Height, Width]"  [arg-type]
 generics_typevartuple_specialization.py:108: error: Type application is only supported for generic classes  [misc]
 generics_typevartuple_specialization.py:109: error: Type application is only supported for generic classes  [misc]
 generics_typevartuple_specialization.py:109: error: Unpack is only valid in a variadic position  [valid-type]
@@ -17,6 +16,5 @@ generics_typevartuple_specialization.py:163: error: TypeVarTuple cannot be split
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 85: Unexpected errors ['generics_typevartuple_specialization.py:85: error: Argument 1 to "takes_float_array_with_specific_shape" has incompatible type "Array2[float, *tuple[Any, ...]]"; expected "Array2[float, Height, Width]"  [arg-type]']
 Line 108: Unexpected errors ['generics_typevartuple_specialization.py:108: error: Type application is only supported for generic classes  [misc]']
 """

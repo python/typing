@@ -6,7 +6,7 @@ output = """
 callables_kwargs.py:46: error: Missing named argument "v1" for "func1"  [call-arg]
 callables_kwargs.py:46: error: Missing named argument "v3" for "func1"  [call-arg]
 callables_kwargs.py:51: error: Unexpected keyword argument "v4" for "func1"  [call-arg]
-callables_kwargs.py:52: error: Too many positional arguments for "func1"  [misc]
+callables_kwargs.py:52: error: Too many positional arguments for "func1"  [call-arg]
 callables_kwargs.py:58: error: Argument 1 to "func1" has incompatible type "**dict[str, str]"; expected "int"  [arg-type]
 callables_kwargs.py:61: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "int"  [arg-type]
 callables_kwargs.py:61: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "str"  [arg-type]

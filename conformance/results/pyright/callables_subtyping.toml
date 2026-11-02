@@ -23,14 +23,14 @@ callables_subtyping.py:52:21 - error: Type "KwOnly2" is not assignable to declar
   "KwOnly2" is incompatible with protocol "Standard2"
     "__call__" is an incompatible type
       Type "(*, b: int, a: int) -> None" is not assignable to type "(a: int, b: int) -> None"
-        Function accepts too many positional parameters; expected 0 but received 2
-          Extra parameter "b"
-          Extra parameter "a" (reportAssignmentType)
+        Function accepts too few positional parameters; expected 2 but received 0
+          Parameter "b" is missing default argument
+          Parameter "a" is missing default argument (reportAssignmentType)
 callables_subtyping.py:55:20 - error: Type "KwOnly2" is not assignable to declared type "PosOnly2"
   "KwOnly2" is incompatible with protocol "PosOnly2"
     "__call__" is an incompatible type
       Type "(*, b: int, a: int) -> None" is not assignable to type "(b: int, a: int, /) -> None"
-        Function accepts too many positional parameters; expected 0 but received 2
+        Function accepts too few positional parameters; expected 2 but received 0
           Extra parameter "b"
           Extra parameter "a" (reportAssignmentType)
 callables_subtyping.py:58:19 - error: Type "PosOnly2" is not assignable to declared type "KwOnly2"
@@ -38,7 +38,7 @@ callables_subtyping.py:58:19 - error: Type "PosOnly2" is not assignable to decla
     "__call__" is an incompatible type
       Type "(b: int, a: int, /) -> None" is not assignable to type "(*, b: int, a: int) -> None"
         Position-only parameter mismatch; expected 2 but received 0
-        Function accepts too few positional parameters; expected 2 but received 0
+        Function accepts too many positional parameters; expected 0 but received 2
         Missing keyword parameter "b"
         Missing keyword parameter "a" (reportAssignmentType)
 callables_subtyping.py:82:20 - error: Type "NoArgs3" is not assignable to declared type "IntArgs3"
@@ -161,13 +161,13 @@ callables_subtyping.py:196:22 - error: Type "IntStrKwargs6" is not assignable to
   "IntStrKwargs6" is incompatible with protocol "Standard6"
     "__call__" is an incompatible type
       Type "(**kwargs: int | str) -> None" is not assignable to type "(a: int, b: str) -> None"
-        Function accepts too many positional parameters; expected 0 but received 2 (reportAssignmentType)
+        Function accepts too few positional parameters; expected 2 but received 0 (reportAssignmentType)
 callables_subtyping.py:197:22 - error: Type "StrKwargs6" is not assignable to declared type "Standard6"
   "StrKwargs6" is incompatible with protocol "Standard6"
     "__call__" is an incompatible type
       Type "(*, a: int, **kwargs: str) -> None" is not assignable to type "(a: int, b: str) -> None"
-        Function accepts too many positional parameters; expected 0 but received 2
-          Extra parameter "a" (reportAssignmentType)
+        Function accepts too few positional parameters; expected 2 but received 0
+          Parameter "a" is missing default argument (reportAssignmentType)
 callables_subtyping.py:236:23 - error: Type "NoDefaultArg8" is not assignable to declared type "DefaultArg8"
   "NoDefaultArg8" is incompatible with protocol "DefaultArg8"
     "__call__" is an incompatible type
@@ -177,12 +177,12 @@ callables_subtyping.py:237:23 - error: Type "NoX8" is not assignable to declared
   "NoX8" is incompatible with protocol "DefaultArg8"
     "__call__" is an incompatible type
       Type "() -> None" is not assignable to type "(x: int = 0) -> None"
-        Function accepts too many positional parameters; expected 0 but received 1 (reportAssignmentType)
+        Function accepts too few positional parameters; expected 1 but received 0 (reportAssignmentType)
 callables_subtyping.py:240:25 - error: Type "NoX8" is not assignable to declared type "NoDefaultArg8"
   "NoX8" is incompatible with protocol "NoDefaultArg8"
     "__call__" is an incompatible type
       Type "() -> None" is not assignable to type "(x: int) -> None"
-        Function accepts too many positional parameters; expected 0 but received 1 (reportAssignmentType)
+        Function accepts too few positional parameters; expected 1 but received 0 (reportAssignmentType)
 callables_subtyping.py:243:16 - error: Type "NoDefaultArg8" is not assignable to declared type "NoX8"
   "NoDefaultArg8" is incompatible with protocol "NoX8"
     "__call__" is an incompatible type
@@ -197,6 +197,6 @@ callables_subtyping.py:297:24 - error: Type "StrArg10" is not assignable to decl
     "__call__" is an incompatible type
       One or more overloads of "__call__" is not assignable
         Type "(x: str) -> complex" is not assignable to type "(x: int, y: str) -> float"
-          Function accepts too many positional parameters; expected 1 but received 2 (reportAssignmentType)
+          Function accepts too few positional parameters; expected 2 but received 1 (reportAssignmentType)
 """
 conformance_automated = "Pass"

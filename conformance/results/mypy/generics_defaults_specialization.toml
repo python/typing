@@ -1,12 +1,8 @@
-conformant = "Partial"
-notes = """
-Does not correctly resolve defaults when classes are used directly.
-"""
+conformant = "Pass"
 output = """
 generics_defaults_specialization.py:30: error: Bad number of arguments for type alias, expected between 0 and 1, given 2  [type-arg]
-generics_defaults_specialization.py:56: error: The type "type[Foo]" is not generic and not indexable  [misc]
+generics_defaults_specialization.py:58: error: The type "type[Foo]" is not generic and not indexable  [misc]
 """
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 46: Expected 1 errors
 """

@@ -1,11 +1,5 @@
-conformant = "Partial"
-notes = """
-Does not error when a ParamSpec is used in a position that violates its explicit variance.
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 117: Expected 1 errors
-Line 126: Expected 1 errors
 """
 output = """
 generics_paramspec_variance.py:14:42: error[invalid-assignment] Object of type `InvariantParamSpec[(int, /)]` is not assignable to `InvariantParamSpec[(object, /)]`
@@ -24,7 +18,9 @@ generics_paramspec_variance.py:101:9: error[invalid-paramspec] A `ParamSpec` can
 generics_paramspec_variance.py:102:9: error[invalid-paramspec] A `ParamSpec` cannot specify variance when `infer_variance=True`
 generics_paramspec_variance.py:110:14: error[invalid-assignment] Object of type `InvariantParamSpecOld[(bool, /)]` is not assignable to `InvariantParamSpecOld[(int, /)]`
 generics_paramspec_variance.py:111:14: error[invalid-assignment] Object of type `InvariantParamSpecOld[(object, /)]` is not assignable to `InvariantParamSpecOld[(int, /)]`
+generics_paramspec_variance.py:117:25: error[invalid-generic-class] Variance of type variable `InP` is incompatible with method `out_f`
 generics_paramspec_variance.py:121:49: error[invalid-assignment] Object of type `ContravariantParamSpecOld[(int, /)]` is not assignable to `ContravariantParamSpecOld[(object, /)]`
+generics_paramspec_variance.py:126:23: error[invalid-generic-class] Variance of type variable `OutP` is incompatible with method `in_f`
 generics_paramspec_variance.py:132:43: error[invalid-assignment] Object of type `CovariantParamSpecOld[(object, /)]` is not assignable to `CovariantParamSpecOld[(int, /)]`
 generics_paramspec_variance.py:142:63: error[invalid-assignment] Object of type `InferredContravariantParamSpecOld[(int, /)]` is not assignable to `InferredContravariantParamSpecOld[(object, /)]`
 generics_paramspec_variance.py:151:57: error[invalid-assignment] Object of type `InferredCovariantParamSpecOld[(object, /)]` is not assignable to `InferredCovariantParamSpecOld[(int, /)]`

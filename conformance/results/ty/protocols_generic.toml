@@ -1,10 +1,10 @@
 conformance_automated = "Fail"
 conformant = "Partial"
 notes = """
-Only partially supports `@property` protocol members.
+Does not reject incompatible non-generic implementations of generic protocol methods.
 """
 errors_diff = """
-Line 144: Unexpected errors ['protocols_generic.py:144:25: error[invalid-assignment] Object of type `ConcreteHasProperty1` is not assignable to `HasPropertyProto`']
+Line 153: Expected 1 errors
 """
 output = """
 protocols_generic.py:40:24: error[invalid-assignment] Object of type `Concrete1` is not assignable to `Proto1[int, str]`
@@ -13,8 +13,6 @@ protocols_generic.py:56:20: error[invalid-assignment] Object of type `Box[float]
 protocols_generic.py:66:25: error[invalid-assignment] Object of type `Sender[int]` is not assignable to `Sender[float]`
 protocols_generic.py:74:28: error[invalid-assignment] Object of type `AttrProto[int]` is not assignable to `AttrProto[float]`
 protocols_generic.py:75:26: error[invalid-assignment] Object of type `AttrProto[float]` is not assignable to `AttrProto[int]`
-protocols_generic.py:144:25: error[invalid-assignment] Object of type `ConcreteHasProperty1` is not assignable to `HasPropertyProto`
-protocols_generic.py:145:25: error[invalid-assignment] Object of type `ConcreteHasProperty2` is not assignable to `HasPropertyProto`
-protocols_generic.py:146:25: error[invalid-assignment] Object of type `ConcreteHasProperty3` is not assignable to `HasPropertyProto`
-protocols_generic.py:147:25: error[invalid-assignment] Object of type `ConcreteHasProperty4` is not assignable to `HasPropertyProto`
+protocols_generic.py:133:26: error[invalid-assignment] Object of type `InvalidParentProperty` is not assignable to `HasParentProperty`
+protocols_generic.py:185:23: error[invalid-assignment] Object of type `InvalidGreaterThan` is not assignable to `HasGreaterThan`
 """

@@ -1,0 +1,13 @@
+conformant = "Partial"
+notes = """
+Prefers to resolve forward references in classes outside of the class instead of end-of-scope
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 37: Expected 1 errors
+Line 39: Expected 1 errors
+Line 44: Expected 1 errors
+Line 46: Expected 1 errors
+"""
+output = """
+"""

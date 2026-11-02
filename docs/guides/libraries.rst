@@ -568,10 +568,10 @@ type annotation would be redundant.
    COLOR_FORMAT_RGB: Literal["rgb"] = "rgb"
    LATEST_VERSION: tuple[int, int] = (4, 5)
 
-   # Final variable with inferred type
+   # Bare Final variable with inferred type
    ColorFormatRgb: Final = "rgb"
 
-   # Final variable with explicit type
+   # Explicitly typed Final variable
    ColorFormatRgb: Final[Literal["rgb"]] = "rgb"
    LATEST_VERSION: Final[tuple[int, int]] = (4, 5)
 

@@ -2,12 +2,12 @@ conformant = "Pass"
 output = """
 generics_syntax_scoping.py:14:20 - error: TypeVar constraint type cannot be generic (reportGeneralTypeIssues)
 generics_syntax_scoping.py:18:17 - error: TypeVar constraint type cannot be generic (reportGeneralTypeIssues)
-generics_syntax_scoping.py:35:7 - error: "T" is not defined (reportUndefinedVariable)
-generics_syntax_scoping.py:44:17 - error: "T" is not defined (reportUndefinedVariable)
-generics_syntax_scoping.py:92:17 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
-generics_syntax_scoping.py:95:17 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
-generics_syntax_scoping.py:98:17 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
-generics_syntax_scoping.py:98:29 - warning: TypeVar "T" appears only once in generic function signature
+generics_syntax_scoping.py:26:7 - error: "T" is not defined (reportUndefinedVariable)
+generics_syntax_scoping.py:35:17 - error: "T" is not defined (reportUndefinedVariable)
+generics_syntax_scoping.py:83:17 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
+generics_syntax_scoping.py:86:17 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
+generics_syntax_scoping.py:89:17 - error: TypeVar "T" is already in use by an outer scope (reportGeneralTypeIssues)
+generics_syntax_scoping.py:89:29 - warning: TypeVar "T" appears only once in generic function signature
   Use "object" instead (reportInvalidTypeVarUse)
 """
 conformance_automated = "Pass"

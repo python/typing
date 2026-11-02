@@ -4,6 +4,7 @@ Does not support assigning `Union` and `GenericAlias` objects to their runtime t
 """
 conformance_automated = "Fail"
 errors_diff = """
+Line 71: Expected 1 errors
 Line 46: Unexpected errors ['typeforms_typeform.py:46: error: Incompatible types in assignment (expression has type "UnionType | type[str]", variable has type "UnionType")  [assignment]']
 Line 49: Unexpected errors ['typeforms_typeform.py:49: error: Incompatible types in assignment (expression has type "type[list[int]]", variable has type "GenericAlias")  [assignment]']
 """
@@ -17,7 +18,6 @@ typeforms_typeform.py:67: error: Incompatible types in assignment (expression ha
 typeforms_typeform.py:68: error: Incompatible types in assignment (expression has type "tuple[int, int]", variable has type "TypeForm[Any]")  [assignment]
 typeforms_typeform.py:69: error: Incompatible types in assignment (expression has type "int", variable has type "TypeForm[Any]")  [assignment]
 typeforms_typeform.py:70: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
-typeforms_typeform.py:71: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
 typeforms_typeform.py:72: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
 typeforms_typeform.py:73: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
 typeforms_typeform.py:74: error: Incompatible types in assignment (expression has type "<typing special form>", variable has type "TypeForm[Any]")  [assignment]
