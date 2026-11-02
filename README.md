@@ -11,10 +11,8 @@ Improvements to the type system should be discussed on
 tracked in the [issues](https://github.com/python/typing/issues) in this
 repository.
 
-For conversations that are more suitable to a chat platform, you can use one of the following:
-
-- [gitter](https://gitter.im/python/typing)
-- [discord](https://discord.com/invite/python) [#type-hinting](https://discord.com/channels/267624335836053506/891788761371906108) channel
+For conversations that are more suitable to a chat platform, you can use the
+[#type-hinting](https://discord.com/channels/267624335836053506/891788761371906108) channel of the [Python Discord server](https://discord.com/invite/python).
 
 ## Repository Content
 
