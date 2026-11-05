@@ -94,7 +94,7 @@ def get_expected_errors(test_case: Path) -> tuple[
 
         (
             {1: (1, 0), 2: (0, 1)},
-            {"final": ([3, 4], False)}
+            {"final": ([3, 4], ErrorMultiplicity.SINGLE)}
         )
     """
     with open(test_case, "r", encoding="utf-8") as f:
@@ -131,7 +131,7 @@ def get_expected_errors(test_case: Path) -> tuple[
                 if groups[tag][1] != multiplicity:
                     raise ValueError(f"Error group {tag} has inconsistent multiplicity value in {test_case}")
                 groups[tag][0].append(i)
-    for group, linenos in groups.items():
+    for group, (linenos, _) in groups.items():
         if len(linenos) == 1:
             raise ValueError(f"Error group {group} only appears on a single line in {test_case}")
     return output, groups
