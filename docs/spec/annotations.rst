@@ -37,15 +37,6 @@ instance and class methods (conventionally named ``self`` or ``cls``),
 which type checkers should assume to have an appropriate type, as per
 :ref:`annotating-methods`.
 
-(Note that the return type of ``__init__`` ought to be annotated with
-``-> None``.  The reason for this is subtle.  If ``__init__`` assumed
-a return annotation of ``-> None``, would that mean that an
-argument-less, un-annotated ``__init__`` method should still be
-type-checked?  Rather than leaving this ambiguous or introducing an
-exception to the exception, we simply say that ``__init__`` ought to
-have a return annotation; the default behavior is thus the same as for
-other methods.)
-
 A type checker is expected to check the body of a checked function for
 consistency with the given annotations.  The annotations may also be
 used to check correctness of calls appearing in other checked functions.
