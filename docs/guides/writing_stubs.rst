@@ -648,7 +648,7 @@ No::
     def bar(y: str = None) -> None: ...
 
 *Exception:* If ``X`` is ``Incomplete`` and has a ``None`` default, leave the
-argument unannotated::
+argument unannotated.
 
 Yes::
 
