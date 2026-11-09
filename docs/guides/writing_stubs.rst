@@ -237,7 +237,7 @@ annotated with ``_typeshed.Incomplete`` (`documentation <https://github.com/pyth
 
 ``_typeshed.Incomplete`` can also be used for partially known types::
 
-    def foo(x: Incomplete | None = None) -> list[Incomplete]: ...
+    def foo(x: Incomplete | None) -> list[Incomplete]: ...
 
 Partial stubs can be useful, especially for larger packages, but they should
 follow the following guidelines:
@@ -647,6 +647,18 @@ No::
     def foo(x: X = X()) -> None: ...
     def bar(y: str = None) -> None: ...
 
+*Exception:* If ``X`` is ``Incomplete`` and has a ``None`` default, leave the
+argument unannotated::
+
+Yes::
+
+    def incomplete1(z: Incomplete | None) -> None: ...
+    def incomplete2(z=None) -> None: ...
+
+No::
+
+    def incomplete(z: Incomplete | None = None): ...
+
 Do not annotate ``self`` and ``cls`` in method definitions unless an explicit
 annotation is needed to constrain or relax the receiver type.
 
@@ -690,11 +702,9 @@ No::
     def to_int3(x: str) -> int: pass
 
 Avoid invariant collection types (``list``, ``dict``) for function parameters,
-in favor of covariant types like ``Mapping`` or ``Sequence``.
+in favor of covariant protocols and other types like ``Iterable`` or ``Mapping``.
 
 Avoid union return types. See https://github.com/python/mypy/issues/1693
-
-Use ``float`` instead of ``int | float`` for parameter annotations. See :pep:`484` for more details.
 
 Language Features
 -----------------
