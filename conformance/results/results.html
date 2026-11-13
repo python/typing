@@ -1730,27 +1730,11 @@
                     </tr>
                     <tr>
                         <th scope="row">dataclasses_descriptors</th>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Assumes descriptor behavior only when field is assigned in class body.</li>
-                                <li>Does not correctly evaluate type of descriptor access.</li>
-                            </ul>
-                        </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Conformance suite is questionable; see <a href="https://github.com/python/typing/issues/2259">https://github.com/python/typing/issues/2259</a></li>
-                            </ul>
-                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Only infers a descriptor <code>__get__</code> method as being called when a descriptor attribute is accessed on an instance if the descriptor attribute is present in the class namespace.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1929,11 +1913,11 @@
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>11.5 / 16 • 71.9%</td>
-                        <td>15.5 / 16 • 96.9%</td>
+                        <td>12 / 16 • 75.0%</td>
                         <td>16 / 16 • 100.0%</td>
                         <td>16 / 16 • 100.0%</td>
-                        <td>15.5 / 16 • 96.9%</td>
+                        <td>16 / 16 • 100.0%</td>
+                        <td>16 / 16 • 100.0%</td>
                         <td>16 / 16 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -2526,11 +2510,11 @@
                 <tfoot>
                     <tr>
                         <td></td>
-                        <td>110 / 146 • 75.3%</td>
-                        <td>138.5 / 146 • 94.9%</td>
+                        <td>110.5 / 146 • 75.7%</td>
+                        <td>139 / 146 • 95.2%</td>
                         <td>142.5 / 146 • 97.6%</td>
                         <td>140.5 / 146 • 96.2%</td>
-                        <td>141 / 146 • 96.6%</td>
+                        <td>141.5 / 146 • 96.9%</td>
                         <td>146 / 146 • 100.0%</td>
                     </tr>
                 </tfoot>
