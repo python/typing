@@ -1,12 +1,5 @@
-conformant = "Partial"
-notes = """
-Assumes descriptor behavior only when field is assigned in class body
-Doesn't allow non-data descriptors or data descriptors with differing `__get__` and `__set__` types
-"""
-conformance_automated = "Fail"
+conformance_automated = "Pass"
 errors_diff = """
-Line 58: Unexpected errors ['Cannot set field `z` to non-data descriptor `Desc2` [bad-dataclass-descriptor]']
 """
 output = """
-ERROR dataclasses_descriptors.py:58:5-6: Cannot set field `z` to non-data descriptor `Desc2` [bad-dataclass-descriptor]
 """
