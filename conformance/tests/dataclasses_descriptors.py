@@ -55,7 +55,7 @@ class Desc2(Generic[T]):
 class DC2:
     x: Desc2[int]
     y: Desc2[str]
-    z: Desc2[str] = Desc2()
+    z: Desc2[str] = Desc2()  # E?: a non-data descriptor default may be rejected
 
 
 assert_type(DC2.x, list[int])
