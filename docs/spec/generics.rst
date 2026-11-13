@@ -166,16 +166,16 @@ thus invalid::
 
   T = TypeVar('T')
 
-  class Pair(Generic[T, T]):   # INVALID
+  class Pair(Generic[T, T]):   # static error
       ...
 
 All arguments to ``Generic`` or ``Protocol`` must be type variables::
 
   from typing import Generic, Protocol
 
-  class Bad1(Generic[int]):   # INVALID
+  class Bad1(Generic[int]):   # static error
       ...
-  class Bad2(Protocol[int]):   # INVALID
+  class Bad2(Protocol[int]):   # static error
       ...
 
 When a ``Generic`` or parameterized ``Protocol`` base class is present, all type
@@ -190,9 +190,9 @@ elsewhere in the base class list::
   T = TypeVar('T')
   S = TypeVar('S')
 
-  class Bad1(Iterable[T], Generic[S]):   # INVALID
+  class Bad1(Iterable[T], Generic[S]):   # static error
       ...
-  class Bad2(Iterable[T], Protocol[S]):   # INVALID
+  class Bad2(Iterable[T], Protocol[S]):   # static error
       ...
 
 Note that the above rule does not apply to a bare ``Protocol`` base class. This
@@ -331,7 +331,7 @@ rules are more subtle and complex:
     S = TypeVar('S')
 
     class Outer(Generic[T]):
-        class Bad(Iterable[T]):       # Error
+        class Bad(Iterable[T]):       # static error
             ...
         class AlsoBad:
             x: list[T]  # Also an error
@@ -381,8 +381,8 @@ Alternatively, you can instantiate a specific concrete type, e.g.::
   # (continued from previous example)
   p = Node[int]()
   q = Node[str]()
-  r = Node[int]('')  # Error
-  s = Node[str](0)   # Error
+  r = Node[int]('')  # static error
+  s = Node[str](0)   # static error
 
 Note that the runtime type (class) of ``p`` and ``q`` is still just ``Node``
 -- ``Node[int]`` and ``Node[str]`` are distinguishable class objects, but
@@ -396,10 +396,10 @@ cannot be assigned, and can only be looked up by accessing it through a
 class instance that does not have an instance attribute with the same name::
 
   # (continued from previous example)
-  Node[int].x = 1  # Error
-  Node[int].x      # Error
-  Node.x = 1       # Error
-  Node.x           # Error
+  Node[int].x = 1  # static error
+  Node[int].x      # static error
+  Node.x = 1       # static error
+  Node.x           # static error
   p.x              # Ok (evaluates to int)
   Node[int]().x    # Ok (evaluates to int)
   p.x = 1          # Ok, but assigning to instance attribute
@@ -517,7 +517,7 @@ inconsistent::
       ...
   class Parent(Grandparent[T1, T2]):
       ...
-  class Child(Parent[T1, T2], Grandparent[T2, T1]):   # INVALID
+  class Child(Parent[T1, T2], Grandparent[T2, T1]):   # static error
       ...
 
 Abstract generic types
@@ -674,7 +674,7 @@ Prior to 3.12, the ``ParamSpec`` constructor can be used.
 
    from typing import ParamSpec
    P = ParamSpec("P")         # Accepted
-   P = ParamSpec("WrongName") # Rejected because P =/= WrongName
+   P = ParamSpec("WrongName") # static error because P =/= WrongName
 
 The runtime should accept ``bound``\ s and ``covariant`` and ``contravariant``
 arguments in the declaration just as ``typing.TypeVar`` does.
@@ -714,10 +714,10 @@ places where a type is expected
 
 .. code-block::
 
-   def foo[**P](x: P) -> P: ...                           # Rejected
-   def foo[**P](x: Concatenate[int, P]) -> int: ...       # Rejected
-   def foo[**P](x: list[P]) -> None: ...                  # Rejected
-   def foo[**P](x: Callable[[int, str], P]) -> None: ...  # Rejected
+   def foo[**P](x: P) -> P: ...                           # static error
+   def foo[**P](x: Concatenate[int, P]) -> int: ...       # static error
+   def foo[**P](x: list[P]) -> None: ...                  # static error
+   def foo[**P](x: Callable[[int, str], P]) -> None: ...  # static error
 
 
 User-Defined Generic Classes
@@ -740,7 +740,7 @@ specification.
    def accept_concatenate[**P](x: X[int, Concatenate[int, P]]) -> str: ...  # Accepted
    def accept_concrete(x: X[int, [int, bool]]) -> str: ...                  # Accepted
    def accept_unspecified(x: X[int, ...]) -> str: ...                       # Accepted
-   def reject_bad(x: X[int, int]) -> str: ...                               # Rejected
+   def reject_bad(x: X[int, int]) -> str: ...                               # static error
 
 By the rules defined above, spelling a concrete instance of a class generic
 with respect to only a single ``ParamSpec`` would require unsightly double
@@ -776,10 +776,10 @@ evaluating ones with ``TypeVar``\ s.
 
    f("A", True)               # Accepted
    f(a="A", b=True)           # Accepted
-   f("A", "A")                # Rejected
+   f("A", "A")                # static error
 
    expects_str(f("A", True))  # Accepted
-   expects_int(f("A", True))  # Rejected
+   expects_int(f("A", True))  # static error
 
 Just as with traditional ``TypeVars``\ , a user may include the same
 ``ParamSpec`` multiple times in the arguments of the same function,
@@ -806,7 +806,7 @@ but is not obligated to do so.
 
    def keyword_only_x(*, x: int) -> int: ...
    def keyword_only_y(*, y: int) -> int: ...
-   foo(keyword_only_x, keyword_only_y) # Rejected
+   foo(keyword_only_x, keyword_only_y) # static error
 
 The constructors of user-defined classes generic on ``ParamSpec``\ s should be
 evaluated in the same way.
@@ -858,13 +858,13 @@ their first position with a ``X`` can satisfy
 
    def expects_int_first[**P](x: Callable[Concatenate[int, P], int]) -> None: ...
 
-   @expects_int_first # Rejected
+   @expects_int_first # static error
    def one(x: str) -> int: ...
 
-   @expects_int_first # Rejected
+   @expects_int_first # static error
    def two(*, x: int) -> int: ...
 
-   @expects_int_first # Rejected
+   @expects_int_first # static error
    def three(**kwargs: int) -> int: ...
 
    @expects_int_first # Accepted
@@ -903,13 +903,13 @@ These "properties" can only be used as the annotated types for
      def inner(*args: P.args, **kwargs: P.kwargs) -> None:      # Accepted
        pass
 
-     def mixed_up(*args: P.kwargs, **kwargs: P.args) -> None:   # Rejected
+     def mixed_up(*args: P.kwargs, **kwargs: P.args) -> None:   # static error
        pass
 
-     def misplaced(x: P.args) -> None:                          # Rejected
+     def misplaced(x: P.args) -> None:                          # static error
        pass
 
-   def p_not_in_scope(*args: P.args, **kwargs: P.kwargs) -> None: # Rejected
+   def p_not_in_scope(*args: P.args, **kwargs: P.kwargs) -> None: # static error
      pass
 
 
@@ -924,14 +924,14 @@ together, so that our usage is valid for all possible partitions.
 
    def p_in_scope[**P](f: Callable[P, int]) -> None:
 
-     stored_args: P.args                           # Rejected
+     stored_args: P.args                           # static error
 
-     stored_kwargs: P.kwargs                       # Rejected
+     stored_kwargs: P.kwargs                       # static error
 
-     def just_args(*args: P.args) -> None:         # Rejected
+     def just_args(*args: P.args) -> None:         # static error
        pass
 
-     def just_kwargs(**kwargs: P.kwargs) -> None:  # Rejected
+     def just_kwargs(**kwargs: P.kwargs) -> None:  # static error
        pass
 
 
@@ -968,9 +968,9 @@ parameter preserving decorators.
 
        f(*args, **kwargs)    # Accepted, should resolve to int
 
-       f(*kwargs, **args)    # Rejected
+       f(*kwargs, **args)    # static error
 
-       f(1, *args, **kwargs) # Rejected
+       f(1, *args, **kwargs) # static error
 
      return foo              # Accepted
 
@@ -992,7 +992,7 @@ To extend this to include ``Concatenate``, we declare the following properties:
      def foo(s: str, *args: P.args, **kwargs: P.kwargs) -> None:  # Accepted
        pass
 
-     def bar(*args: P.args, s: str, **kwargs: P.kwargs) -> None:  # Rejected
+     def bar(*args: P.args, s: str, **kwargs: P.kwargs) -> None:  # static error
        pass
 
      return foo                                                   # Accepted
@@ -1003,9 +1003,9 @@ To extend this to include ``Concatenate``, we declare the following properties:
      def foo(*args: P.args, **kwargs: P.kwargs) -> None:
        f(1, *args, **kwargs) # Accepted
 
-       f(*args, 1, **kwargs) # Rejected
+       f(*args, 1, **kwargs) # static error
 
-       f(*args, **kwargs)    # Rejected
+       f(*args, **kwargs)    # static error
 
      return foo
 
@@ -1021,7 +1021,7 @@ these parameters can not be addressed via a named argument:
 
      def bar(*args: P.args, **kwargs: P.kwargs) -> None:
        foo(1, *args, **kwargs)   # Accepted
-       foo(x=1, *args, **kwargs) # Rejected
+       foo(x=1, *args, **kwargs) # static error
 
      return bar
 
@@ -1068,7 +1068,7 @@ outer ``Callable``.  This has the following semantics:
 
    twice(a_int_b_str, b="A", a=1)   # Accepted
 
-   twice(a_int_b_str, "A", 1)       # Rejected
+   twice(a_int_b_str, "A", 1)       # static error
 
 .. _`typevartuple`:
 
@@ -1216,7 +1216,7 @@ would for normal ``TypeVar``\ s. The exact inference behavior is not specified.
 
 All usages of the ``TypeVarTuple`` must match in length, however::
 
-  foo((1,), (2, 3))  # Error: Expected a tuple of length 1 for arg2, but got a tuple of length 2.
+  foo((1,), (2, 3))  # static error: Expected a tuple of length 1 for arg2, but got a tuple of length 2.
 
 
 Multiple Type Variable Tuples: Not Allowed
@@ -1226,7 +1226,7 @@ Only a single type variable tuple may appear in a type parameter list:
 
 ::
 
-    class Array[*Ts1, *Ts2]: ...  # Error
+    class Array[*Ts1, *Ts2]: ...  # static error
 
 The reason is that multiple type variable tuples make it ambiguous
 which parameters get bound to which type variable tuple: ::
@@ -1297,7 +1297,7 @@ unnecessary ``TypeVarTuple``:
     y: Array[Batch, Channels]
     process_batch_channels(y)  # OK
     z: Array[Batch]
-    process_batch_channels(z)  # Error: Expected Channels.
+    process_batch_channels(z)  # static error: Expected Channels.
 
 
 We can also pass a ``*tuple[Any, ...]`` wherever a ``*Ts`` is
@@ -1413,7 +1413,7 @@ instance is *not* allowed:
 
 ::
 
-    def foo(*args: Ts): ...  # NOT valid
+    def foo(*args: Ts): ...  # static error
 
 ``*args`` is the only case where an argument can be annotated as ``*Ts`` directly;
 other arguments should use ``*Ts`` to parameterize something else, e.g. ``tuple[*Ts]``.
@@ -1425,8 +1425,8 @@ all arguments must be a ``tuple`` parameterized with the same types.
     def foo(*args: tuple[*Ts]): ...
 
     foo((0,), (1,))    # Valid
-    foo((0,), (1, 2))  # Error
-    foo((0,), ('1',))  # Error
+    foo((0,), (1, 2))  # static error
+    foo((0,), ('1',))  # static error
 
 Finally, note that a type variable tuple may *not* be used as the type of
 ``**kwargs``. (We do not yet know of a use case for this feature, so we prefer
@@ -1434,7 +1434,7 @@ to leave the ground fresh for a potential future PEP.)
 
 ::
 
-    # NOT valid
+    # static error
     def foo(**kwargs: *Ts): ...
 
 Type Variable Tuples with ``Callable``
@@ -1455,7 +1455,7 @@ Type variable tuples can also be used in the arguments section of a
     def func(arg1: int, arg2: str) -> None: ...
 
     Process(target=func, args=(0, 'foo'))  # Valid
-    Process(target=func, args=('foo', 0))  # Error
+    Process(target=func, args=('foo', 0))  # static error
 
 Other types and normal type variables can also be prefixed/suffixed
 to the type variable tuple:
@@ -1638,8 +1638,8 @@ themselves variadic. For example:
     type IntTuple[T] = tuple[int, T]
 
     IntTuple[str]                 # Valid
-    IntTuple[*Ts]                 # NOT valid
-    IntTuple[*tuple[float, ...]]  # NOT valid
+    IntTuple[*Ts]                 # static error
+    IntTuple[*tuple[float, ...]]  # static error
 
 Here, ``IntTuple`` is a *non*-variadic generic alias that takes exactly one
 type argument. Hence, it cannot accept ``*Ts`` or ``*tuple[float, ...]`` as type
@@ -1698,7 +1698,7 @@ the number of ``TypeVar``\s:
 
 ::
 
-    Shrubbery[int]  # Not valid; Shrubbery needs at least two type arguments
+    Shrubbery[int]  # static error; Shrubbery needs at least two type arguments
 
 
 Splitting Arbitrary-Length Tuples
@@ -1758,7 +1758,7 @@ true of ``TypeVarTuple``\s in the argument list:
 
     type Camelot[T, *Ts] = tuple[T, *Ts]
     Camelot[int, *tuple[str, ...]]  # Valid
-    Camelot[*tuple[str, ...]]       # NOT valid
+    Camelot[*tuple[str, ...]]       # static error
 
 This is not possible because, unlike in the case of an unpacked arbitrary-length
 tuple, there is no way to 'peer inside' the ``TypeVarTuple`` to see what its
@@ -1819,7 +1819,7 @@ and a type checker should flag this as an error.
    T = TypeVar("T")
    T2 = TypeVar("T2")
 
-   class NonDefaultFollowsDefault(Generic[DefaultStrT, T]): ...  # Invalid: non-default TypeVars cannot follow ones with defaults
+   class NonDefaultFollowsDefault(Generic[DefaultStrT, T]): ...  # static error: non-default TypeVars cannot follow ones with defaults
 
 
    class NoNonDefaults(Generic[DefaultStrT, DefaultIntT]): ...
@@ -1842,7 +1842,7 @@ and a type checker should flag this as an error.
 
    reveal_type(AllTheDefaults)                  # type is type[AllTheDefaults[T1, T2, DefaultStrT = str, DefaultIntT = int, DefaultBoolT = bool]]
    reveal_type(AllTheDefaults[int, complex]())  # type is AllTheDefaults[int, complex, str, int, bool]
-   AllTheDefaults[int]  # Invalid: expected 2 arguments to AllTheDefaults
+   AllTheDefaults[int]  # static error: expected 2 arguments to AllTheDefaults
    (
        AllTheDefaults[int, complex] ==
        AllTheDefaults[int, complex, str] ==
@@ -1918,8 +1918,8 @@ a ``TypeVar``, etc.).
        def __init__(self, a: DefaultStrT, b: T2) -> None: ...
 
    reveal_type(Foo(1, ""))  # type is Foo[int, str]
-   Foo[int](1, "")          # Invalid: Foo[int, str] cannot be assigned to self: Foo[int, int] in Foo.__init__
-   Foo[int]("", 1)          # Invalid: Foo[str, int] cannot be assigned to self: Foo[int, int] in Foo.__init__
+   Foo[int](1, "")          # static error: Foo[int, str] cannot be assigned to self: Foo[int, int] in Foo.__init__
+   Foo[int]("", 1)          # static error: Foo[str, int] cannot be assigned to self: Foo[int, int] in Foo.__init__
 
 When using a type parameter as the default to another type parameter, the
 following rules apply, where ``T1`` is the default for ``T2``.
@@ -1938,14 +1938,14 @@ Scoping Rules
    StartT = TypeVar("StartT", default="StopT")  # Swapped defaults around from previous example
    StopT = TypeVar("StopT", default=int)
    class slice(Generic[StartT, StopT, StepT]): ...
-                     # ^^^^^^ Invalid: ordering does not allow StopT to be bound
+                     # ^^^^^^ static error: ordering does not allow StopT to be bound
 
 Using a type parameter from an outer scope as a default is not supported.
 
 ::
 
    class Foo(Generic[T1]):
-       class Bar(Generic[T2]): ...   # Type Error
+       class Bar(Generic[T2]): ...   # static error
 
 Bound Rules
 ^^^^^^^^^^^
@@ -1957,7 +1957,7 @@ Bound Rules
    T1 = TypeVar("T1", bound=int)
    TypeVar("Ok", default=T1, bound=float)     # Valid
    TypeVar("AlsoOk", default=T1, bound=int)   # Valid
-   TypeVar("Invalid", default=T1, bound=str)  # Invalid: int is not assignable to str
+   TypeVar("Invalid", default=T1, bound=str)  # static error: int is not assignable to str
 
 Constraint Rules
 ^^^^^^^^^^^^^^^^
@@ -1967,11 +1967,11 @@ The constraints of ``T2`` must be a superset of the constraints of ``T1``.
 ::
 
    T1 = TypeVar("T1", bound=int)
-   TypeVar("Invalid", float, str, default=T1)         # Invalid: upper bound int is incompatible with constraints float or str
+   TypeVar("Invalid", float, str, default=T1)         # static error: upper bound int is incompatible with constraints float or str
 
    T1 = TypeVar("T1", int, str)
    TypeVar("AlsoOk", int, str, bool, default=T1)      # Valid
-   TypeVar("AlsoInvalid", bool, complex, default=T1)  # Invalid: {bool, complex} is not a superset of {int, str}
+   TypeVar("AlsoInvalid", bool, complex, default=T1)  # static error: {bool, complex} is not a superset of {int, str}
 
 
 Type Parameters as Parameters to Generics
@@ -2013,7 +2013,7 @@ be treated like it was substituted into the type alias.
    reveal_type(MyAlias)          # type is type[SomethingWithNoDefaults[int, DefaultStrT]]
    reveal_type(MyAlias[bool]())  # type is SomethingWithNoDefaults[int, bool]
 
-   MyAlias[bool, int]  # Invalid: too many arguments passed to MyAlias
+   MyAlias[bool, int]  # static error: too many arguments passed to MyAlias
 
 Subclassing
 """""""""""
@@ -2036,7 +2036,7 @@ normal subscription rules, non-overridden defaults should be substituted.
 
    reveal_type(Foo().x)  # type is str
 
-   Foo[str]  # Invalid: Foo cannot be further subscripted
+   Foo[str]  # static error: Foo cannot be further subscripted
 
    class Baz(Generic[DefaultIntT, DefaultStrT]): ...
 
@@ -2053,7 +2053,7 @@ error.
 ::
 
    TypeVar("Ok", bound=float, default=int)     # Valid
-   TypeVar("Invalid", bound=str, default=int)  # Invalid: the bound and default are incompatible
+   TypeVar("Invalid", bound=str, default=int)  # static error: the bound and default are incompatible
 
 Constraints
 """""""""""
@@ -2065,7 +2065,7 @@ subtype of one of the constraints.
 ::
 
    TypeVar("Ok", float, str, default=float)     # Valid
-   TypeVar("Invalid", float, str, default=int)  # Invalid: expected one of float or str got int
+   TypeVar("Invalid", float, str, default=int)  # static error: expected one of float or str got int
 
 Function Defaults
 """""""""""""""""
@@ -2092,7 +2092,7 @@ should be bound to the ``TypeVarTuple`` or the defaulted ``TypeVar``.
 
 ::
 
-   class Foo[*Ts, T = bool]: ...  # Type checker error
+   class Foo[*Ts, T = bool]: ...  # static error
 
    # Could be reasonably interpreted as either Ts = (int, str, float), T = bool
    # or Ts = (int, str), T = float
@@ -2217,7 +2217,7 @@ value of type ``Shape``, when in fact it should be ``Circle``:
     # => *Shape*, not Circle
 
     circle.circumference()
-    # Error: `Shape` has no attribute `circumference`
+    # static error: `Shape` has no attribute `circumference`
 
 
 The current workaround for this is unintuitive and error-prone:
@@ -2303,7 +2303,7 @@ class.
 
     # OK
     LinkedList[int](value=1, next=LinkedList[int](value=2))
-    # Not OK
+    # static error
     LinkedList[int](value=1, next=LinkedList[str](value="hello"))
 
 
@@ -2342,11 +2342,11 @@ This constraint can be expressed using ``next: Self | None``:
             return as_ordinal(self.value)
 
     xs = OrdinalLinkedList(value=1, next=LinkedList[int](value=2))
-    # Type error: Expected OrdinalLinkedList, got LinkedList[int].
+    # static error: Expected OrdinalLinkedList, got LinkedList[int].
 
     if xs.next is not None:
         xs.next = OrdinalLinkedList(value=3, next=None)  # OK
-        xs.next = LinkedList[int](value=3, next=None)  # Not OK
+        xs.next = LinkedList[int](value=3, next=None)  # static error
 
 
 
@@ -2437,7 +2437,7 @@ and introduces unnecessary complexity:
     class Container(Generic[T]):
         def foo(
             self, other: Self[int], other2: Self,
-        ) -> Self[str]:  # Rejected
+        ) -> Self[str]:  # static error
             ...
 
 In such cases, we recommend using an explicit type for ``self``:
@@ -2540,8 +2540,8 @@ below:
 
         accepts_shape(return_self_shape)  # OK
         accepts_shape(return_concrete_shape)  # OK
-        accepts_shape(bad_return_type)  # Not OK
-        # Not OK because it returns a non-subclass.
+        accepts_shape(bad_return_type)  # static error
+        # static error because it returns a non-subclass.
         accepts_shape(return_different_class)
 
 
@@ -2615,17 +2615,17 @@ The following uses of ``Self`` are rejected.
 
 ::
 
-    def foo(bar: Self) -> Self: ...  # Rejected (not within a class)
+    def foo(bar: Self) -> Self: ...  # static error (not within a class)
 
-    bar: Self  # Rejected (not within a class)
+    bar: Self  # static error (not within a class)
 
     class Foo:
-        # Rejected (Self is treated as unknown).
+        # static error (Self is treated as unknown).
         def has_existing_self_annotation(self: T) -> Self: ...
 
     class Foo:
         def return_concrete_type(self) -> Self:
-            return Foo()  # Rejected (see FooChild below for rationale)
+            return Foo()  # static error (see FooChild below for rationale)
 
     class FooChild(Foo):
         child_value: int = 42
@@ -2640,7 +2640,7 @@ The following uses of ``Self`` are rejected.
     class Bar(Generic[T]):
         def bar(self) -> T: ...
 
-    class Baz(Bar[Self]): ...  # Rejected
+    class Baz(Bar[Self]): ...  # static error
 
 We reject type aliases containing ``Self``. Supporting ``Self``
 outside class definitions can require a lot of special-handling in
@@ -2650,10 +2650,10 @@ convenience of aliases is not worth it:
 
 ::
 
-    TupleSelf = Tuple[Self, Self]  # Rejected
+    TupleSelf = Tuple[Self, Self]  # static error
 
     class Alias:
-        def return_tuple(self) -> TupleSelf:  # Rejected
+        def return_tuple(self) -> TupleSelf:  # static error
             return (self, self)
 
 Note that we reject ``Self`` in staticmethods. ``Self`` does not add much
@@ -2665,11 +2665,11 @@ passed in as a parameter. These don’t seem worth the additional complexity.
 
     class Base:
         @staticmethod
-        def make() -> Self:  # Rejected
+        def make() -> Self:  # static error
             ...
 
         @staticmethod
-        def return_parameter(foo: Self) -> Self:  # Rejected
+        def return_parameter(foo: Self) -> Self:  # static error
             ...
 
 Likewise, we reject ``Self`` in metaclasses. ``Self`` consistently refers to the
@@ -2683,10 +2683,10 @@ avoid confusion, we reject this edge case.
 ::
 
     class MyMetaclass(type):
-        def __new__(cls, *args: Any) -> Self:  # Rejected
+        def __new__(cls, *args: Any) -> Self:  # static error
             return super().__new__(cls, *args)
 
-        def __mul__(cls, count: int) -> list[Self]:  # Rejected
+        def __mul__(cls, count: int) -> list[Self]:  # static error
             return [cls()] * count
 
     class Foo(metaclass=MyMetaclass): ...
@@ -2838,7 +2838,7 @@ new-style type parameters must come from an outer scope in this case.
 
     K = TypeVar("K")
 
-    class ClassA[V](dict[K, V]): ...  # Type checker error
+    class ClassA[V](dict[K, V]): ...  # static error
 
     class ClassB[K, V](dict[K, V]): ...  # OK
 
