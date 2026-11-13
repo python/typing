@@ -11,5 +11,7 @@ constructors_call_init.py:21:13: error[invalid-argument-type] Argument to `Class
 constructors_call_init.py:56:1: error[invalid-argument-type] Argument to `Class4.__init__` is incorrect: Expected `Class4[int]`, found `Class4[str]`
 constructors_call_init.py:107:32: error[invalid-init-type-variable] First parameter of `__init__` cannot use type variable `T2` from an outer scope
 constructors_call_init.py:107:36: error[invalid-init-type-variable] First parameter of `__init__` cannot use type variable `T1` from an outer scope
-constructors_call_init.py:130:9: error[too-many-positional-arguments] Too many positional arguments to `object.__init__`: expected 1, got 2
+constructors_call_init.py:145:1: error[invalid-argument-type] Argument to `Class12.__init__` is incorrect: Expected `Class12[int, str]`, found `Class15[str]`
+constructors_call_init.py:157:9: error[invalid-argument-type] Argument to `Class16.__init__` is incorrect: Expected `str`, found `Literal[1]`
+constructors_call_init.py:179:9: error[too-many-positional-arguments] Too many positional arguments to `object.__init__`: expected 1, got 2
 """

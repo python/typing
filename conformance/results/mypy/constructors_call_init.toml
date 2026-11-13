@@ -2,16 +2,23 @@ conformant = "Partial"
 notes = """
 Does not report errors during binding to self parameter of `__init__` method.
 Does not reject use of class-scoped type variables in annotation of self parameter in `__init__` method.
+Does not solve a subclass's type parameters from the self annotation of an inherited `__init__` method.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 56: Expected 1 errors
 Line 107: Expected 1 errors
+Line 145: Expected 1 errors
+Line 157: Expected 1 errors
 Line 73: Unexpected errors ['constructors_call_init.py:73: error: Expression is of type "Class5[list[int]]", not "Class5[int]"  [assert-type]']
+Line 127: Unexpected errors ['constructors_call_init.py:127: error: Expression is of type "Class13[Never, Never]", not "Class13[int, str]"  [assert-type]']
+Line 134: Unexpected errors ['constructors_call_init.py:134: error: Expression is of type "Class14[Never, Never, Never]", not "Class14[Any, str, int]"  [assert-type]']
 """
 output = """
 constructors_call_init.py:21: error: Argument 1 to "Class1" has incompatible type "float"; expected "int"  [arg-type]
 constructors_call_init.py:42: error: Argument 1 to "Class3" has incompatible type "Class2[Never]"; expected "Class3 | None"  [arg-type]
 constructors_call_init.py:73: error: Expression is of type "Class5[list[int]]", not "Class5[int]"  [assert-type]
-constructors_call_init.py:130: error: Too many arguments for "Class11"  [call-arg]
+constructors_call_init.py:127: error: Expression is of type "Class13[Never, Never]", not "Class13[int, str]"  [assert-type]
+constructors_call_init.py:134: error: Expression is of type "Class14[Never, Never, Never]", not "Class14[Any, str, int]"  [assert-type]
+constructors_call_init.py:179: error: Too many arguments for "Class11"  [call-arg]
 """

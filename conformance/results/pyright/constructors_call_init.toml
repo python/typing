@@ -1,6 +1,13 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not solve a subclass's type parameters from the self annotation of an inherited `__init__` method.
+Does not report an error when a subclass's specialization of a base class is not assignable to the self annotation of an inherited `__init__` method.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 145: Expected 1 errors
+Line 127: Unexpected errors ['constructors_call_init.py:127:13 - error: "assert_type" mismatch: expected "Class13[int, str]" but received "Class13[Unknown, Unknown]" (reportAssertTypeFailure)']
+Line 134: Unexpected errors ['constructors_call_init.py:134:13 - error: "assert_type" mismatch: expected "Class14[Any, str, int]" but received "Class14[Unknown, Unknown, Unknown]" (reportAssertTypeFailure)']
 """
 output = """
 constructors_call_init.py:21:13 - error: Argument of type "float" cannot be assigned to parameter "x" of type "int" in function "__init__"
@@ -14,5 +21,9 @@ constructors_call_init.py:56:1 - error:
     "Class4[str]" is not assignable to "Class4[int]"
       Type parameter "T@Class4" is invariant, but "str" is not the same as "int" (reportGeneralTypeIssues)
 constructors_call_init.py:107:24 - warning: Type annotation for "self" parameter of "__init__" method cannot contain class-scoped type variables (reportInvalidTypeVarUse)
-constructors_call_init.py:130:9 - error: Expected 0 positional arguments (reportCallIssue)
+constructors_call_init.py:127:13 - error: "assert_type" mismatch: expected "Class13[int, str]" but received "Class13[Unknown, Unknown]" (reportAssertTypeFailure)
+constructors_call_init.py:134:13 - error: "assert_type" mismatch: expected "Class14[Any, str, int]" but received "Class14[Unknown, Unknown, Unknown]" (reportAssertTypeFailure)
+constructors_call_init.py:157:9 - error: Argument of type "Literal[1]" cannot be assigned to parameter "value" of type "str" in function "__init__"
+  "Literal[1]" is not assignable to "str" (reportArgumentType)
+constructors_call_init.py:179:9 - error: Expected 0 positional arguments (reportCallIssue)
 """

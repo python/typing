@@ -273,6 +273,29 @@ within a type annotation for the ``self`` parameter in an ``__init__`` method.
         # The ``self`` annotation should result in a type error
         def __init__(self: "MyClass4[T2, T1]") -> None: ...
 
+When the class being constructed is not explicitly specialized and inherits an
+``__init__`` method whose ``self`` annotation names a specialization of a base
+class, type checkers should solve the type parameters the class passes to that
+base class from the annotation. If the class's specialization of that base
+class is not assignable to the annotation, binding fails.
+
+  ::
+
+    class MyClass5[T1, T2]:
+        def __init__(self: "MyClass5[int, str]") -> None: ...
+
+    class MyClass6[T1, T2](MyClass5[T1, T2]): ...
+
+    assert_type(MyClass6(), MyClass6[int, str])
+
+    class MyClass7[T1, T2, T3](MyClass5[T3, T2]): ...
+
+    assert_type(MyClass7(), MyClass7[Any, str, int])
+
+    class MyClass8[T](MyClass5[list[T], T]): ...
+
+    MyClass8()  # Type error
+
 
 Classes Without ``__new__`` and ``__init__`` Methods
 ----------------------------------------------------
@@ -284,11 +307,11 @@ does not inherit either of these methods from a base class other than
 
   ::
 
-    class MyClass5:
+    class MyClass9:
         pass
 
-    MyClass5()  # OK
-    MyClass5(1)  # Type error
+    MyClass9()  # OK
+    MyClass9(1)  # Type error
 
 
 Constructor Calls for type[T]

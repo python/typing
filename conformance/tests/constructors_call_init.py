@@ -108,6 +108,55 @@ class Class8(Generic[T1, T2]):
         pass
 
 
+# > When the class being constructed is not explicitly specialized and inherits
+# > an __init__ method whose self annotation names a specialization of a base
+# > class, type checkers should solve the type parameters the class passes to
+# > that base class from the annotation.
+
+T3 = TypeVar("T3")
+
+
+class Class12(Generic[T1, T2]):
+    def __init__(self: "Class12[int, str]") -> None: ...
+
+
+class Class13(Class12[T1, T2]):
+    pass
+
+
+assert_type(Class13(), Class13[int, str])
+
+
+class Class14(Class12[T3, T2], Generic[T1, T2, T3]):
+    pass
+
+
+assert_type(Class14(), Class14[Any, str, int])
+
+
+# > If the class's specialization of that base class is not assignable to the
+# > annotation, binding fails.
+
+
+class Class15(Class12[list[T], T]):
+    pass
+
+
+Class15()  # E
+
+
+class Class16(Generic[T]):
+    def __init__(self: "Class16[V1]", value: V1) -> None: ...
+
+
+class Class17(Class16[str]):
+    pass
+
+
+Class17("")  # OK
+Class17(1)  # E
+
+
 # > If a class does not define a __new__ method or __init__ method and does
 # > not inherit either of these methods from a base class other than object,
 # > a type checker should evaluate the argument list using the __new__ and
