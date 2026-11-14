@@ -5,7 +5,8 @@ method defined.
 
 # Specification: https://typing.readthedocs.io/en/latest/spec/constructors.html#init-method
 
-from typing import Any, Generic, Self, TypeVar, assert_type, overload
+from typing import Any, Generic, Literal, Self, assert_type, overload
+from typing_extensions import TypeVar
 
 T = TypeVar("T")
 
@@ -106,6 +107,86 @@ assert_type(Class7[str, int](0, ""), Class7[str, int])
 class Class8(Generic[T1, T2]):
     def __init__(self: "Class8[T2, T1]") -> None:  # E
         pass
+
+
+# > When the class being constructed inherits an __init__ method whose self
+# > annotation names a specialization of a base class, a type checker should
+# > bind the class's specialization of that base class to the annotation.
+# > Type parameters of the class that are not specialized explicitly or via
+# > the __new__ method return type should be solved from the annotation.
+
+T3 = TypeVar("T3")
+
+
+class Class12(Generic[T1, T2]):
+    def __init__(self: "Class12[int, str]") -> None: ...
+
+
+class Class13(Class12[T1, T2]):
+    pass
+
+
+assert_type(Class13(), Class13[int, str])
+
+
+class Class14(Class12[T3, T2], Generic[T1, T2, T3]):
+    pass
+
+
+assert_type(Class14(), Class14[Any, str, int])
+
+
+# > If the resulting specialization is not assignable to the annotation,
+# > binding fails.
+
+
+class Class15(Class12[list[T], T]):
+    pass
+
+
+Class15()  # E
+
+
+class Class16(Generic[T]):
+    def __init__(self: "Class16[V1]", value: V1) -> None: ...
+
+
+class Class17(Class16[str]):
+    pass
+
+
+Class17("")  # OK
+Class17(1)  # E
+
+
+class Class18(Class12[T1, T2]):
+    def __new__(cls) -> "Class18[str, str]":
+        raise NotImplementedError
+
+
+Class18()  # E
+
+
+# Only the selected __init__ overload solves the subclass's type parameters.
+
+T4 = TypeVar("T4", default=int)
+
+
+class Class19(Generic[T]):
+    @overload
+    def __init__(self, *, null: Literal[False] = ...) -> None: ...
+    @overload
+    def __init__(self: "Class19[int | None]", *, null: Literal[True]) -> None: ...
+    def __init__(self, *, null: bool = False) -> None: ...
+
+
+class Class20(Class19[T4]):
+    pass
+
+
+assert_type(Class20(), Class20[int])
+assert_type(Class20(null=False), Class20[int])
+assert_type(Class20(null=True), Class20[int | None])
 
 
 # > If a class does not define a __new__ method or __init__ method and does

@@ -1503,18 +1503,42 @@
                             <ul class="notes">
                                 <li>Does not report errors during binding to self parameter of <code>__init__</code> method.</li>
                                 <li>Does not reject use of class-scoped type variables in annotation of self parameter in <code>__init__</code> method.</li>
+                                <li>Does not solve a subclass's type parameters from the self annotation of an inherited <code>__init__</code> method.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not solve a subclass's type parameters from the self annotation of an inherited <code>__init__</code> method.</li>
+                                <li>Does not report errors during binding to the self parameter of an inherited <code>__init__</code> method.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not report errors during binding to the self parameter of an inherited <code>__init__</code> method when the class is specialized via the <code>__new__</code> method return type.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not solve a subclass's type parameters from the self annotation of an inherited <code>__init__</code> method.</li>
+                                <li>Does not report an error when a subclass's specialization of a base class is not assignable to the self annotation of an inherited <code>__init__</code> method.</li>
+                            </ul>
+                        </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
                                 <li>Does not reject invalid argument types to an inherited constructor in a specialized subclass of a generic superclass.</li>
+                                <li>Does not report errors during binding to the self parameter of an inherited <code>__init__</code> method when the class is specialized via the <code>__new__</code> method return type.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not report errors during binding to the self parameter of an inherited <code>__init__</code> method when the class is specialized via the <code>__new__</code> method return type.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">constructors_call_metaclass</th>
@@ -1569,20 +1593,42 @@
                                 <li>Does not generate a union type for <code>__new__</code> and <code>__init__</code> when converting class to callable.</li>
                                 <li>Does not ignore <code>__init__</code> based on <code>__new__</code> return type when converting class to callable.</li>
                                 <li>Does not support <code>__new__</code> return type that is different from class being constructed.</li>
+                                <li>Does not solve a subclass's type parameters from the self annotation of an inherited <code>__init__</code> method when converting class to callable.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not solve a subclass's type parameters from the self annotation of an inherited <code>__init__</code> method when converting class to callable.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Returns the base class from the self annotation of an inherited <code>__init__</code> method when converting class to callable.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Returns the base class from the self annotation of an inherited <code>__init__</code> method when converting class to callable.</li>
+                            </ul>
+                        </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
                                 <li>Does not include <code>__init__</code> when <code>__new__</code> returns <code>Self</code>.</li>
                                 <li>Does not ignore <code>__init__</code> when <code>__new__</code> returns <code>Any</code>.</li>
                                 <li>Unions overload return types.</li>
+                                <li>Returns the base class from the self annotation of an inherited <code>__init__</code> method when converting class to callable.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Returns the base class from the self annotation of an inherited <code>__init__</code> method when converting class to callable.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">constructors_consistency</th>
@@ -1601,11 +1647,11 @@
                     <tr class="summary">
                         <td></td>
                         <td>3 / 6 • 50.0%</td>
-                        <td>6 / 6 • 100.0%</td>
-                        <td>6 / 6 • 100.0%</td>
-                        <td>6 / 6 • 100.0%</td>
                         <td>5 / 6 • 83.3%</td>
-                        <td>6 / 6 • 100.0%</td>
+                        <td>5 / 6 • 83.3%</td>
+                        <td>5 / 6 • 83.3%</td>
+                        <td>5 / 6 • 83.3%</td>
+                        <td>5 / 6 • 83.3%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2511,11 +2557,11 @@
                     <tr>
                         <td></td>
                         <td>110.5 / 146 • 75.7%</td>
-                        <td>139 / 146 • 95.2%</td>
-                        <td>142.5 / 146 • 97.6%</td>
-                        <td>140.5 / 146 • 96.2%</td>
+                        <td>138 / 146 • 94.5%</td>
                         <td>141.5 / 146 • 96.9%</td>
-                        <td>146 / 146 • 100.0%</td>
+                        <td>139.5 / 146 • 95.5%</td>
+                        <td>141.5 / 146 • 96.9%</td>
+                        <td>145 / 146 • 99.3%</td>
                     </tr>
                 </tfoot>
             </table>

@@ -3,6 +3,7 @@ notes = """
 Does not generate a union type for `__new__` and `__init__` when converting class to callable.
 Does not ignore `__init__` based on `__new__` return type when converting class to callable.
 Does not support `__new__` return type that is different from class being constructed.
+Does not solve a subclass's type parameters from the self annotation of an inherited `__init__` method when converting class to callable.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -14,6 +15,8 @@ Line 107: Unexpected errors ['constructors_callable.py:107: error: Expression is
 Line 118: Unexpected errors ['constructors_callable.py:118: error: Incompatible return type for "__new__" (returns "Class6Proxy", but must return a subtype of "Class6")  [misc]']
 Line 128: Unexpected errors ['constructors_callable.py:128: error: Expression is of type "Class6", not "Class6Proxy"  [assert-type]', 'constructors_callable.py:128: error: Too few arguments  [call-arg]']
 Line 145: Unexpected errors ['constructors_callable.py:145: error: Expression is of type "Class6Any", not "Any"  [assert-type]', 'constructors_callable.py:145: error: Too few arguments  [call-arg]']
+Line 219: Unexpected errors ['constructors_callable.py:219: error: Need type annotation for "r11"  [var-annotated]']
+Line 221: Unexpected errors ['constructors_callable.py:221: error: Expression is of type "Class11[Any, Any]", not "Class11[int, str]"  [assert-type]']
 """
 output = """
 constructors_callable.py:36: note: Revealed type is "def (x: int) -> constructors_callable.Class1"
@@ -46,4 +49,7 @@ constructors_callable.py:187: error: Cannot infer function type argument  [misc]
 constructors_callable.py:196: note: Revealed type is "def [T] (x: list[T], y: list[T]) -> constructors_callable.Class9"
 constructors_callable.py:197: error: Argument 2 has incompatible type "str"; expected "list[str]"  [arg-type]
 constructors_callable.py:199: error: Cannot infer function type argument  [misc]
+constructors_callable.py:219: error: Need type annotation for "r11"  [var-annotated]
+constructors_callable.py:220: note: Revealed type is "def () -> constructors_callable.Class11[Any, Any]"
+constructors_callable.py:221: error: Expression is of type "Class11[Any, Any]", not "Class11[int, str]"  [assert-type]
 """

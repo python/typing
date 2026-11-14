@@ -273,6 +273,35 @@ within a type annotation for the ``self`` parameter in an ``__init__`` method.
         # The ``self`` annotation should result in a type error
         def __init__(self: "MyClass4[T2, T1]") -> None: ...
 
+When the class being constructed inherits an ``__init__`` method whose
+``self`` annotation names a specialization of a base class, a type checker
+should bind the class's specialization of that base class to the annotation.
+Type parameters of the class that are not specialized explicitly or via the
+``__new__`` method return type should be solved from the annotation. If the
+resulting specialization is not assignable to the annotation, binding fails.
+
+  ::
+
+    class MyClass5[T1, T2]:
+        def __init__(self: "MyClass5[int, str]") -> None: ...
+
+    class MyClass6[T1, T2](MyClass5[T1, T2]): ...
+
+    assert_type(MyClass6(), MyClass6[int, str])
+
+    class MyClass7[T1, T2, T3](MyClass5[T3, T2]): ...
+
+    assert_type(MyClass7(), MyClass7[Any, str, int])
+
+    class MyClass8[T](MyClass5[list[T], T]): ...
+
+    MyClass8()  # Type error
+
+    class MyClass9[T1, T2](MyClass5[T1, T2]):
+        def __new__(cls) -> "MyClass9[str, str]": ...
+
+    MyClass9()  # Type error
+
 
 Classes Without ``__new__`` and ``__init__`` Methods
 ----------------------------------------------------
@@ -284,11 +313,11 @@ does not inherit either of these methods from a base class other than
 
   ::
 
-    class MyClass5:
+    class MyClass10:
         pass
 
-    MyClass5()  # OK
-    MyClass5(1)  # Type error
+    MyClass10()  # OK
+    MyClass10(1)  # Type error
 
 
 Constructor Calls for type[T]
@@ -400,7 +429,10 @@ constructor calls:
    from a base class other than ``object``, a callable type should be synthesized
    from the parameters of the ``__init__`` method after it is bound to the class
    instance resulting from step 2. The return type of this synthesized callable
-   should be the concrete value of ``Self``.
+   should be the concrete value of ``Self``. If the ``__init__`` method is
+   inherited and its ``self`` annotation names a specialization of a base
+   class, the return type is the class being constructed, specialized with the
+   type arguments solved from that annotation, not the base class.
 
 5. If step 2 and 4 both produce no result because the class does not define or
    inherit a ``__new__`` or ``__init__`` method from a class other than ``object``,
