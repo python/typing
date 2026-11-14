@@ -5,17 +5,24 @@ Does not report errors during binding to the self parameter of an inherited `__i
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 145: Expected 1 errors
-Line 157: Expected 1 errors
-Line 127: Unexpected errors ['./constructors_call_init.py:127:12:   ./constructors_call_init.py.Class13~[Any[generic_argument], Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class13[int, str]']
-Line 134: Unexpected errors ['./constructors_call_init.py:134:12:   ./constructors_call_init.py.Class14~[Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class14[Any[explicit], str, int]']
+Line 147: Expected 1 errors
+Line 159: Expected 1 errors
+Line 167: Expected 1 errors
+Line 129: Unexpected errors ['./constructors_call_init.py:129:12:   ./constructors_call_init.py.Class13~[Any[generic_argument], Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class13[int, str]']
+Line 136: Unexpected errors ['./constructors_call_init.py:136:12:   ./constructors_call_init.py.Class14~[Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class14[Any[explicit], str, int]']
+Line 187: Unexpected errors ['./constructors_call_init.py:187:12:   ./constructors_call_init.py.Class20~[Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class20[int]']
+Line 188: Unexpected errors ['./constructors_call_init.py:188:12:   ./constructors_call_init.py.Class20~[Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class20[int]']
+Line 189: Unexpected errors ['./constructors_call_init.py:189:12:   ./constructors_call_init.py.Class20~[Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class20[int | None]']
 """
 output = """
-./constructors_call_init.py:21:12: Incompatible argument type for x: expected int but got Literal[1.0] [incompatible_argument]
-./constructors_call_init.py:42:7: Incompatible argument type for x: expected ./constructors_call_init.py.Class3 | None but got ./constructors_call_init.py.Class2 [incompatible_argument]
-./constructors_call_init.py:56:0: Missing required positional argument '%self' [incompatible_call]
-./constructors_call_init.py:107:17: Class-scoped type variables are not allowed in __init__ self annotation [invalid_self_usage]
-./constructors_call_init.py:127:12:   ./constructors_call_init.py.Class13~[Any[generic_argument], Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class13[int, str]
-./constructors_call_init.py:134:12:   ./constructors_call_init.py.Class14~[Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class14[Any[explicit], str, int]
-./constructors_call_init.py:179:0: Takes 0 positional arguments but 1 were given [incompatible_call]
+./constructors_call_init.py:22:12: Incompatible argument type for x: expected int but got Literal[1.0] [incompatible_argument]
+./constructors_call_init.py:43:7: Incompatible argument type for x: expected ./constructors_call_init.py.Class3 | None but got ./constructors_call_init.py.Class2 [incompatible_argument]
+./constructors_call_init.py:57:0: Missing required positional argument '%self' [incompatible_call]
+./constructors_call_init.py:108:17: Class-scoped type variables are not allowed in __init__ self annotation [invalid_self_usage]
+./constructors_call_init.py:129:12:   ./constructors_call_init.py.Class13~[Any[generic_argument], Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class13[int, str]
+./constructors_call_init.py:136:12:   ./constructors_call_init.py.Class14~[Any[generic_argument], Any[generic_argument], Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class14[Any[explicit], str, int]
+./constructors_call_init.py:187:12:   ./constructors_call_init.py.Class20~[Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class20[int]
+./constructors_call_init.py:188:12:   ./constructors_call_init.py.Class20~[Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class20[int]
+./constructors_call_init.py:189:12:   ./constructors_call_init.py.Class20~[Any[generic_argument]] is not equivalent to ./constructors_call_init.py.Class20[int | None]
+./constructors_call_init.py:211:0: Takes 0 positional arguments but 1 were given [incompatible_call]
 """

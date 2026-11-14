@@ -1,6 +1,10 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Returns the base class from the self annotation of an inherited `__init__` method when converting class to callable.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 221: Unexpected errors ['assert_type(Class10[int, str], Class11[int, str]) failed [assert-type]']
 """
 output = """
 ERROR constructors_callable.py:38:3-5: Missing argument `x` [missing-argument]
@@ -20,4 +24,5 @@ ERROR constructors_callable.py:185:10-22: Argument `Literal['not a list']` is no
 ERROR constructors_callable.py:187:9-13: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` [bad-argument-type]
 ERROR constructors_callable.py:197:10-22: Argument `Literal['not a list']` is not assignable to parameter `y` with type `list[str]` [bad-argument-type]
 ERROR constructors_callable.py:199:9-13: Argument `list[str]` is not assignable to parameter `y` with type `list[int]` [bad-argument-type]
+ERROR constructors_callable.py:221:12-38: assert_type(Class10[int, str], Class11[int, str]) failed [assert-type]
 """

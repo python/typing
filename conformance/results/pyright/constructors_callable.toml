@@ -1,5 +1,10 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Returns the base class from the self annotation of an inherited `__init__` method when converting class to callable.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 221: Unexpected errors ['constructors_callable.py:221:13 - error: "assert_type" mismatch: expected "Class11[int, str]" but received "Class10[int, str]" (reportAssertTypeFailure)']
 """
 output = """
 constructors_callable.py:36:13 - information: Type of "r1" is "(x: int) -> Class1"
@@ -33,4 +38,6 @@ constructors_callable.py:197:10 - error: Argument of type "Literal['not a list']
   "Literal['not a list']" is not assignable to "list[str]" (reportArgumentType)
 constructors_callable.py:199:10 - error: Argument of type "list[str]" cannot be assigned to parameter "y" of type "list[T@__init__]"
   "Literal['']" is not assignable to "int" (reportArgumentType)
+constructors_callable.py:220:13 - information: Type of "r11" is "() -> Class10[int, str]"
+constructors_callable.py:221:13 - error: "assert_type" mismatch: expected "Class11[int, str]" but received "Class10[int, str]" (reportAssertTypeFailure)
 """

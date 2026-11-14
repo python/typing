@@ -197,3 +197,25 @@ reveal_type(r9)  # `def [T] (x: list[T], y: list[T]) -> Class9`
 r9([""], "not a list")  # E: no assignment of T makes the second argument valid
 assert_type(r9([""], [""]), Class9)
 r9([1], [""])  # E?: T = int | str is a potential solution
+
+
+# > If the __init__ method is inherited and its self annotation names a
+# > specialization of a base class, the return type is the class being
+# > constructed, specialized with the type arguments solved from that
+# > annotation, not the base class.
+
+T1 = TypeVar("T1")
+T2 = TypeVar("T2")
+
+
+class Class10(Generic[T1, T2]):
+    def __init__(self: "Class10[int, str]") -> None: ...
+
+
+class Class11(Class10[T1, T2]):
+    pass
+
+
+r11 = accepts_callable(Class11)
+reveal_type(r11)  # `def () -> Class11[int, str]`
+assert_type(r11(), Class11[int, str])

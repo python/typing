@@ -1,5 +1,10 @@
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Returns the base class from the self annotation of an inherited `__init__` method when converting class to callable.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 221: Unexpected errors ['constructors_callable.py:221: error: Expression is of type "Class10[int, str]", not "Class11[int, str]"  [misc]']
 """
 output = """
 constructors_callable.py:36: note: Revealed type is "def (x: builtins.int) -> tests.constructors_callable.Class1"
@@ -26,4 +31,6 @@ constructors_callable.py:187: error: List item 0 has incompatible type "str"; ex
 constructors_callable.py:196: note: Revealed type is "def [T] (x: builtins.list[T], y: builtins.list[T]) -> tests.constructors_callable.Class9"
 constructors_callable.py:197: error: Argument 2 has incompatible type "str"; expected "list[str]"  [arg-type]
 constructors_callable.py:199: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
+constructors_callable.py:220: note: Revealed type is "def () -> tests.constructors_callable.Class10[builtins.int, builtins.str]"
+constructors_callable.py:221: error: Expression is of type "Class10[int, str]", not "Class11[int, str]"  [misc]
 """

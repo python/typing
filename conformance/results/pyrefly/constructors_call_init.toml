@@ -1,13 +1,17 @@
-conformant = "Pass"
-conformance_automated = "Pass"
+conformant = "Partial"
+notes = """
+Does not report errors during binding to the self parameter of an inherited `__init__` method when the class is specialized via the `__new__` method return type.
+"""
+conformance_automated = "Fail"
 errors_diff = """
+Line 167: Expected 1 errors
 """
 output = """
-ERROR constructors_call_init.py:21:13-16: Argument `float` is not assignable to parameter `x` with type `int` in function `Class1.__init__` [bad-argument-type]
-ERROR constructors_call_init.py:42:8-20: Argument `Class2[@_]` is not assignable to parameter `x` with type `Class3 | None` in function `Class2.__init__` [bad-argument-type]
-ERROR constructors_call_init.py:56:12-14: Argument `Class4[str]` is not assignable to parameter `self` with type `Class4[int]` in function `Class4.__init__` [bad-argument-type]
-ERROR constructors_call_init.py:107:9-17: `__init__` method self type cannot reference class type parameters `T2`, `T1` [invalid-annotation]
-ERROR constructors_call_init.py:145:8-10: Argument `Class15[@_]` is not assignable to parameter `self` with type `Class12[int, str]` in function `Class12.__init__` [bad-argument-type]
-ERROR constructors_call_init.py:157:9-10: Argument `Literal[1]` is not assignable to parameter `value` with type `str` in function `Class16.__init__` [bad-argument-type]
-ERROR constructors_call_init.py:179:9-10: Expected 0 positional arguments, got 1 in function `object.__init__` [bad-argument-count]
+ERROR constructors_call_init.py:22:13-16: Argument `float` is not assignable to parameter `x` with type `int` in function `Class1.__init__` [bad-argument-type]
+ERROR constructors_call_init.py:43:8-20: Argument `Class2[@_]` is not assignable to parameter `x` with type `Class3 | None` in function `Class2.__init__` [bad-argument-type]
+ERROR constructors_call_init.py:57:12-14: Argument `Class4[str]` is not assignable to parameter `self` with type `Class4[int]` in function `Class4.__init__` [bad-argument-type]
+ERROR constructors_call_init.py:108:9-17: `__init__` method self type cannot reference class type parameters `T2`, `T1` [invalid-annotation]
+ERROR constructors_call_init.py:147:8-10: Argument `Class15[@_]` is not assignable to parameter `self` with type `Class12[int, str]` in function `Class12.__init__` [bad-argument-type]
+ERROR constructors_call_init.py:159:9-10: Argument `Literal[1]` is not assignable to parameter `value` with type `str` in function `Class16.__init__` [bad-argument-type]
+ERROR constructors_call_init.py:211:9-10: Expected 0 positional arguments, got 1 in function `object.__init__` [bad-argument-count]
 """
