@@ -8,11 +8,20 @@ from typing import TYPE_CHECKING, assert_type
 
 
 if not TYPE_CHECKING:
-    a: int = "" # This should not generate an error
+    a: int = ""  # E? Many type checkers suppress all errors in `if not TYPE_CHECKING` blocks, though this is not currently specified
 
 if TYPE_CHECKING:
-    b: list[int] = [1, 2, 3]
+    x: list[int] = ["foo"]  # E: In a `if TYPE_CHECKING` block, type checkers should report all errors as normal
 else:
-    b: list[str] = ["a", "b", "c"]
+    x: list[str] = [42]  # E? Many type checkers suppress all errors in `else` blocks of `if TYPE_CHECKING`, though this is not currently specified
 
-assert_type(b, list[int])
+
+def foo(x: list[int], y: list[str]) -> None:
+    z: list[int] | list[str]
+
+    if TYPE_CHECKING:
+        z = x
+    else:
+        z = y
+
+    assert_type(z, list[int])

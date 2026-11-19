@@ -2,4 +2,5 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
+directives_type_checking.py:14: error: List item 0 has incompatible type "str"; expected "int"  [list-item]
 """
