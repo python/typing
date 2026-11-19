@@ -7,6 +7,7 @@ output = """
  WARN directives_deprecated.py:24:1-23: `_directives_deprecated_library.norwegian_blue` is deprecated [deprecated]
  WARN directives_deprecated.py:25:5-27: `_directives_deprecated_library.norwegian_blue` is deprecated [deprecated]
  WARN directives_deprecated.py:30:12-15: Call to deprecated overload `_directives_deprecated_library.foo` [deprecated]
+ WARN directives_deprecated.py:34:7-10: `_directives_deprecated_library.Ham` is deprecated [deprecated]
  WARN directives_deprecated.py:41:5-13: `+` is not supported between `Spam` and `Literal[1]` [deprecated]
  WARN directives_deprecated.py:42:1-10: `+=` is not supported between `Spam` and `Literal[1]` [deprecated]
  WARN directives_deprecated.py:44:1-12: `_directives_deprecated_library.Spam.greasy` is deprecated [deprecated]
