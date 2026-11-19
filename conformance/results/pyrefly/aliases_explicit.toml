@@ -19,6 +19,7 @@ ERROR aliases_explicit.py:84:21-36: Function call cannot be used in annotations 
 ERROR aliases_explicit.py:85:21-29: Invalid subscript expression cannot be used in annotations [invalid-annotation]
 ERROR aliases_explicit.py:86:21-42: If expression cannot be used in annotations [invalid-annotation]
 ERROR aliases_explicit.py:87:21-25: Expected `BadTypeAlias9` to be a type alias, got `Literal[3]` [invalid-type-alias]
+ERROR aliases_explicit.py:87:21-25: `var1` is not a valid type alias: Number literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_explicit.py:88:22-26: Bool literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_explicit.py:89:22-23: Number literal cannot be used in annotations [invalid-annotation]
 ERROR aliases_explicit.py:90:22-33: Boolean operation cannot be used in annotations [invalid-annotation]

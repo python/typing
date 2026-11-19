@@ -1,15 +1,6 @@
-conformant = "Unsupported"
-conformance_automated = "Fail"
+conformant = "Pass"
+conformance_automated = "Pass"
 errors_diff = """
-Line 117: Expected 1 errors
-Line 126: Expected 1 errors
-Line 97: Unexpected errors ['Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]']
-Line 98: Unexpected errors ['Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]']
-Line 99: Unexpected errors ['Unexpected keyword argument `infer_variance` to ParamSpec [invalid-param-spec]']
-Line 122: Unexpected errors ['`ContravariantParamSpecOld[[object]]` is not assignable to `ContravariantParamSpecOld[[int]]` [bad-assignment]']
-Line 133: Unexpected errors ['`CovariantParamSpecOld[[int]]` is not assignable to `CovariantParamSpecOld[[object]]` [bad-assignment]']
-Line 143: Unexpected errors ['`InferredContravariantParamSpecOld[[object]]` is not assignable to `InferredContravariantParamSpecOld[[int]]` [bad-assignment]']
-Line 152: Unexpected errors ['`InferredCovariantParamSpecOld[[int]]` is not assignable to `InferredCovariantParamSpecOld[[object]]` [bad-assignment]']
 """
 output = """
 ERROR generics_paramspec_variance.py:14:42-67: `InvariantParamSpec[[int]]` is not assignable to `InvariantParamSpec[[object]]` [bad-assignment]
@@ -23,23 +14,15 @@ ERROR generics_paramspec_variance.py:69:12-22: `InitP[[a: int, b: str]]` is not 
 ERROR generics_paramspec_variance.py:88:13-24: `OutitP[[b: int]]` is not assignable to attribute `t` with type `OutitP[[a: int]]` [bad-assignment]
 ERROR generics_paramspec_variance.py:90:13-26: `OutitP[[a: int = 1]]` is not assignable to attribute `t` with type `OutitP[[a: int]]` [bad-assignment]
 ERROR generics_paramspec_variance.py:92:13-24: `OutitP[[a: int, b: str]]` is not assignable to attribute `t` with type `OutitP[[a: int]]` [bad-assignment]
-ERROR generics_paramspec_variance.py:97:24-42: Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:98:26-40: Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:99:30-49: Unexpected keyword argument `infer_variance` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:100:28-42: Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:100:44-62: Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:101:28-42: Unexpected keyword argument `covariant` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:101:44-63: Unexpected keyword argument `infer_variance` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:102:28-46: Unexpected keyword argument `contravariant` to ParamSpec [invalid-param-spec]
-ERROR generics_paramspec_variance.py:102:48-67: Unexpected keyword argument `infer_variance` to ParamSpec [invalid-param-spec]
+ERROR generics_paramspec_variance.py:100:44-62: Contradictory variance specifications [invalid-param-spec]
+ERROR generics_paramspec_variance.py:101:44-63: Contradictory variance specifications [invalid-param-spec]
+ERROR generics_paramspec_variance.py:102:48-67: Contradictory variance specifications [invalid-param-spec]
 ERROR generics_paramspec_variance.py:110:14-43: `InvariantParamSpecOld[[bool]]` is not assignable to variable `in_out_old` with type `InvariantParamSpecOld[[int]]` [bad-assignment]
 ERROR generics_paramspec_variance.py:111:14-45: `InvariantParamSpecOld[[object]]` is not assignable to variable `in_out_old` with type `InvariantParamSpecOld[[int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:117:9-14: Type variable `InP` is contravariant but is used in covariant position [invalid-variance]
 ERROR generics_paramspec_variance.py:121:49-81: `ContravariantParamSpecOld[[int]]` is not assignable to `ContravariantParamSpecOld[[object]]` [bad-assignment]
-ERROR generics_paramspec_variance.py:122:46-81: `ContravariantParamSpecOld[[object]]` is not assignable to `ContravariantParamSpecOld[[int]]` [bad-assignment]
+ERROR generics_paramspec_variance.py:126:9-13: Type variable `OutP` is covariant but is used in contravariant position [invalid-variance]
 ERROR generics_paramspec_variance.py:132:43-74: `CovariantParamSpecOld[[object]]` is not assignable to `CovariantParamSpecOld[[int]]` [bad-assignment]
-ERROR generics_paramspec_variance.py:133:46-74: `CovariantParamSpecOld[[int]]` is not assignable to `CovariantParamSpecOld[[object]]` [bad-assignment]
 ERROR generics_paramspec_variance.py:142:63-103: `InferredContravariantParamSpecOld[[int]]` is not assignable to `InferredContravariantParamSpecOld[[object]]` [bad-assignment]
-ERROR generics_paramspec_variance.py:143:60-103: `InferredContravariantParamSpecOld[[object]]` is not assignable to `InferredContravariantParamSpecOld[[int]]` [bad-assignment]
 ERROR generics_paramspec_variance.py:151:57-96: `InferredCovariantParamSpecOld[[object]]` is not assignable to `InferredCovariantParamSpecOld[[int]]` [bad-assignment]
-ERROR generics_paramspec_variance.py:152:60-96: `InferredCovariantParamSpecOld[[int]]` is not assignable to `InferredCovariantParamSpecOld[[object]]` [bad-assignment]
 """

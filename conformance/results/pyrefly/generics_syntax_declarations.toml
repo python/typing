@@ -11,6 +11,7 @@ ERROR generics_syntax_declarations.py:48:17-27: Expected a type form, got instan
 ERROR generics_syntax_declarations.py:60:17-19: Expected at least 2 constraints in TypeVar `T`, got 0 [invalid-type-var]
 ERROR generics_syntax_declarations.py:64:17-23: Expected at least 2 constraints in TypeVar `T`, got 1 [invalid-type-var]
 ERROR generics_syntax_declarations.py:71:17-19: Expected a type form, got instance of `tuple[type[bytes], type[str]]` [not-a-type]
+ERROR generics_syntax_declarations.py:71:17-19: `t1` is not a valid type alias: Tuple literal cannot be used in annotations [invalid-annotation]
 ERROR generics_syntax_declarations.py:75:18-19: Expected a type form, got instance of `Literal[3]` [not-a-type]
 ERROR generics_syntax_declarations.py:79:23-24: Could not find name `S` [unknown-name]
 """
