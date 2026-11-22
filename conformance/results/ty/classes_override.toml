@@ -7,6 +7,6 @@ classes_override.py:65:9: error[invalid-explicit-override] Method `method4` is d
 classes_override.py:79:9: error[invalid-explicit-override] Method `static_method1` is decorated with `@override` but does not override anything
 classes_override.py:84:9: error[invalid-explicit-override] Method `class_method1` is decorated with `@override` but does not override anything
 classes_override.py:89:9: error[invalid-explicit-override] Method `property1` is decorated with `@override` but does not override anything
-classes_override.py:135:9: error[invalid-method-override] Invalid override of method `__init__`: Definition is incompatible with `ParentC.__init__`
-classes_override.py:138:9: error[invalid-method-override] Invalid override of method `__new__`: Definition is incompatible with `ParentC.__new__`
+classes_override.py:135:9: error[incompatible-method-override] Invalid override of method `__init__`: Definition is incompatible with `ParentC.__init__`
+classes_override.py:138:9: error[incompatible-method-override] Invalid override of method `__new__`: Definition is incompatible with `ParentC.__new__`
 """

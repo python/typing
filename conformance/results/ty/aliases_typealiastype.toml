@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-aliases_typealiastype.py:32:7: error[unresolved-attribute] Object of type `TypeAliasType` has no attribute `other_attrib`
+aliases_typealiastype.py:32:7: error[missing-attribute] Object of type `TypeAliasType` has no attribute `other_attrib`
 aliases_typealiastype.py:40:21: error[invalid-type-arguments] Type `int` is not assignable to upper bound `str` of type variable `TStr@GoodAlias5`
 aliases_typealiastype.py:43:40: error[invalid-type-alias-type] Type parameter `S` used in the alias value must be included in `type_params`
 aliases_typealiastype.py:44:40: error[invalid-type-alias-type] Type parameter `S` used in the alias value must be included in `type_params`
