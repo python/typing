@@ -9,4 +9,7 @@ output = """
 ./directives_version_platform.py:67:21: val11 may be used uninitialized [possibly_undefined_name]
 ./directives_version_platform.py:74:21: val12 may be used uninitialized [possibly_undefined_name]
 ./directives_version_platform.py:75:18: val13 may be used uninitialized [possibly_undefined_name]
+./directives_version_platform.py:84:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform.py:96:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_version_platform.py:111:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
 """

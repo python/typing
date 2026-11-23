@@ -1,0 +1,71 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not prune branches for startswith or tuple, set, or list membership and nonmembership checks.
+"""
+errors_diff = """
+Line 39: Unexpected errors ["./directives_platform_checks.py:39:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 41: Unexpected errors ['./directives_platform_checks.py:41:16:   int | str is not equivalent to int']
+Line 45: Unexpected errors ["./directives_platform_checks.py:45:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 50: Unexpected errors ['./directives_platform_checks.py:50:16:   str | int is not equivalent to int']
+Line 75: Unexpected errors ["./directives_platform_checks.py:75:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 80: Unexpected errors ['./directives_platform_checks.py:80:16:   str | int is not equivalent to int']
+Line 87: Unexpected errors ["./directives_platform_checks.py:87:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 89: Unexpected errors ['./directives_platform_checks.py:89:16:   int | str is not equivalent to int']
+Line 96: Unexpected errors ["./directives_platform_checks.py:96:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 98: Unexpected errors ["./directives_platform_checks.py:98:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 110: Unexpected errors ["./directives_platform_checks.py:110:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 115: Unexpected errors ['./directives_platform_checks.py:115:16:   str | int is not equivalent to int']
+Line 122: Unexpected errors ["./directives_platform_checks.py:122:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 124: Unexpected errors ['./directives_platform_checks.py:124:16:   int | str is not equivalent to int']
+Line 130: Unexpected errors ["./directives_platform_checks.py:130:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 132: Unexpected errors ["./directives_platform_checks.py:132:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 144: Unexpected errors ["./directives_platform_checks.py:144:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 149: Unexpected errors ['./directives_platform_checks.py:149:16:   str | int is not equivalent to int']
+Line 156: Unexpected errors ["./directives_platform_checks.py:156:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 158: Unexpected errors ['./directives_platform_checks.py:158:16:   int | str is not equivalent to int']
+Line 164: Unexpected errors ["./directives_platform_checks.py:164:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+Line 166: Unexpected errors ["./directives_platform_checks.py:166:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]"]
+"""
+output = """
+./directives_platform_checks.py:18:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:24:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:36:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:39:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:41:16:   int | str is not equivalent to int
+./directives_platform_checks.py:45:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:48:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:50:16:   str | int is not equivalent to int
+./directives_platform_checks.py:65:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:66:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:75:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:78:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:80:16:   str | int is not equivalent to int
+./directives_platform_checks.py:84:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:87:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:89:16:   int | str is not equivalent to int
+./directives_platform_checks.py:94:12: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:96:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:98:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:100:12: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:110:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:113:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:115:16:   str | int is not equivalent to int
+./directives_platform_checks.py:119:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:122:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:124:16:   int | str is not equivalent to int
+./directives_platform_checks.py:128:12: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:130:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:132:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:134:12: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:144:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:147:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:149:16:   str | int is not equivalent to int
+./directives_platform_checks.py:153:8: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:156:8: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:158:16:   int | str is not equivalent to int
+./directives_platform_checks.py:162:12: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+./directives_platform_checks.py:164:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:166:12: Incompatible assignment: expected int, got Literal['unreachable'] [incompatible_assignment]
+./directives_platform_checks.py:168:12: Incompatible assignment: expected int, got Literal['reachable'] [incompatible_assignment]
+"""

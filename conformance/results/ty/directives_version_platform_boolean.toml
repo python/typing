@@ -1,0 +1,34 @@
+conformance_automated = "Fail"
+conformant = "Partial"
+notes = """
+Does not prune branches for combinations involving implementation checks.
+"""
+errors_diff = """
+Line 115: Unexpected errors ['directives_version_platform_boolean.py:115:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 118: Unexpected errors ['directives_version_platform_boolean.py:118:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 120: Unexpected errors ['directives_version_platform_boolean.py:120:5: error[type-assertion-failure] Type `int | str` does not match asserted type `int`']
+Line 123: Unexpected errors ['directives_version_platform_boolean.py:123:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+Line 129: Unexpected errors ['directives_version_platform_boolean.py:129:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`']
+"""
+output = """
+directives_version_platform_boolean.py:17:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:27:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:30:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:40:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:50:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:54:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:58:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:68:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:73:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:77:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:81:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:95:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:110:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:115:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:118:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:120:5: error[type-assertion-failure] Type `int | str` does not match asserted type `int`
+directives_version_platform_boolean.py:123:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:125:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:129:17: error[invalid-assignment] Object of type `Literal["unreachable"]` is not assignable to `int`
+directives_version_platform_boolean.py:131:17: error[invalid-assignment] Object of type `Literal["reachable"]` is not assignable to `int`
+"""
