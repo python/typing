@@ -4,7 +4,7 @@ errors_diff = """
 output = """
 generics_basic.py:40:5: error[invalid-argument-type] Argument to function `concat` is incorrect: Inferred lower bound `str | bytes` does not satisfy constraints (`str`, `bytes`) of type variable `AnyStr`
 generics_basic.py:41:5: error[invalid-argument-type] Argument to function `concat` is incorrect: Inferred lower bound `bytes | str` does not satisfy constraints (`str`, `bytes`) of type variable `AnyStr`
-generics_basic.py:49:44: error[invalid-legacy-type-variable] A `TypeVar` cannot have exactly one constraint
+generics_basic.py:49:44: error[invalid-type-variable-constraints] A `TypeVar` cannot have exactly one constraint
 generics_basic.py:55:53: error[invalid-type-variable-constraints] TypeVar constraint cannot be generic
 generics_basic.py:69:5: error[invalid-argument-type] Argument to function `concat` is incorrect: Inferred lower bound `MyStr | bytes` does not satisfy constraints (`str`, `bytes`) of type variable `AnyStr`
 generics_basic.py:121:13: error[invalid-generic-class] Type parameter `T` cannot appear multiple times in `Generic` subscription

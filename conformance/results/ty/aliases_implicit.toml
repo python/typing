@@ -22,6 +22,6 @@ aliases_implicit.py:116:10: error[invalid-type-form] Variable `BadTypeAlias11` c
 aliases_implicit.py:117:10: error[invalid-type-form] Variable `BadTypeAlias12` cannot be used as a type
 aliases_implicit.py:118:10: error[invalid-type-form] Variable `BadTypeAlias13` cannot be used as a type: Variable of type `Literal["int"]` is not allowed in a parameter annotation
 aliases_implicit.py:119:10: error[invalid-type-form] Variable of type `Literal["int | str"]` is not allowed in a parameter annotation
-aliases_implicit.py:133:6: error[call-non-callable] Object of type `UnionType` is not callable
+aliases_implicit.py:133:6: error[not-callable] Object of type `UnionType` is not callable
 aliases_implicit.py:135:5: error[not-subscriptable] Cannot subscript non-generic type `list[Unknown] | set[Unknown]`
 """

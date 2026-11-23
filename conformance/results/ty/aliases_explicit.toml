@@ -21,6 +21,6 @@ aliases_explicit.py:89:22: error[invalid-type-form] Int literals are not allowed
 aliases_explicit.py:90:22: error[invalid-type-form] Boolean operations are not allowed in type alias definitions
 aliases_explicit.py:91:22: error[invalid-type-form] F-strings are not allowed in type alias definitions
 aliases_explicit.py:100:5: error[not-subscriptable] Cannot subscript non-generic type `list[Unknown]`
-aliases_explicit.py:101:6: error[call-non-callable] Object of type `UnionType` is not callable
+aliases_explicit.py:101:6: error[not-callable] Object of type `UnionType` is not callable
 aliases_explicit.py:102:5: error[not-subscriptable] Cannot subscript non-generic type `list[Unknown] | set[Unknown]`
 """

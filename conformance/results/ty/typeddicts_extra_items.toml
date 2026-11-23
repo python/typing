@@ -24,9 +24,9 @@ typeddicts_extra_items.py:242:19: error[invalid-assignment] Object of type `Movi
 typeddicts_extra_items.py:256:13: error[invalid-assignment] Object of type `MovieExtraStr` is not assignable to `MovieExtraInt`
 typeddicts_extra_items.py:257:13: error[invalid-assignment] Object of type `MovieExtraInt` is not assignable to `MovieExtraStr`
 typeddicts_extra_items.py:268:14: error[invalid-assignment] Object of type `MovieNotClosed` is not assignable to `MovieExtraInt`
-typeddicts_extra_items.py:278:47: error[invalid-key] Unknown key "year" for TypedDict `NonClosedMovie`
+typeddicts_extra_items.py:278:47: error[unknown-typed-dict-constructor-key] Unknown key "year" for TypedDict `NonClosedMovie`
 typeddicts_extra_items.py:285:52: error[invalid-argument-type] Invalid argument to key "language" with declared type `int` on TypedDict `ExtraMovie`: value of type `Literal["English"]`
-typeddicts_extra_items.py:293:44: error[invalid-key] Unknown key "year" for TypedDict `ClosedMovie`
+typeddicts_extra_items.py:293:44: error[unknown-typed-dict-constructor-key] Unknown key "year" for TypedDict `ClosedMovie`
 typeddicts_extra_items.py:303:34: error[invalid-assignment] Object of type `MovieExtraInt` is not assignable to `Mapping[str, int]`
 typeddicts_extra_items.py:352:25: error[invalid-assignment] Object of type `dict[str, int]` is not assignable to `IntDict`
 """

@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-protocols_subtyping.py:16:6: error[call-non-callable] Cannot instantiate class `Proto1`: This call will raise `TypeError` at runtime
+protocols_subtyping.py:16:6: error[abstract-class-instantiation] Cannot instantiate class `Proto1`: This call will raise `TypeError` at runtime
 protocols_subtyping.py:38:21: error[invalid-assignment] Object of type `Proto2` is not assignable to `Concrete2`
 protocols_subtyping.py:55:18: error[invalid-assignment] Object of type `Proto2` is not assignable to `Proto3`
 protocols_subtyping.py:79:30: error[invalid-assignment] Object of type `Proto5[int]` is not assignable to `Proto4[int, float]`
