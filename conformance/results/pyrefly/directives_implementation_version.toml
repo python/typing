@@ -1,0 +1,25 @@
+conformant = "Unsupported"
+notes = """
+Does not prune branches for sys.implementation.version comparisons using the CPython target version.
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 21: Unexpected errors ["`Literal['unreachable']` is not assignable to variable `error` with type `int` [bad-assignment]"]
+Line 23: Unexpected errors ['assert_type(int | str, int) failed [assert-type]']
+Line 27: Unexpected errors ["`Literal['unreachable']` is not assignable to variable `error` with type `int` [bad-assignment]"]
+Line 32: Unexpected errors ['assert_type(int | str, int) failed [assert-type]']
+Line 37: Unexpected errors ["`Literal['unreachable']` is not assignable to variable `error` with type `int` [bad-assignment]"]
+Line 39: Unexpected errors ["`Literal['unreachable']` is not assignable to variable `error` with type `int` [bad-assignment]"]
+"""
+output = """
+ERROR directives_implementation_version.py:18:17-28: `Literal['reachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+ERROR directives_implementation_version.py:21:17-30: `Literal['unreachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+ERROR directives_implementation_version.py:23:16-34: assert_type(int | str, int) failed [assert-type]
+ERROR directives_implementation_version.py:27:17-30: `Literal['unreachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+ERROR directives_implementation_version.py:30:17-28: `Literal['reachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+ERROR directives_implementation_version.py:32:16-37: assert_type(int | str, int) failed [assert-type]
+ERROR directives_implementation_version.py:35:17-28: `Literal['reachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+ERROR directives_implementation_version.py:37:17-30: `Literal['unreachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+ERROR directives_implementation_version.py:39:17-30: `Literal['unreachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+ERROR directives_implementation_version.py:41:17-28: `Literal['reachable']` is not assignable to variable `error` with type `int` [bad-assignment]
+"""
