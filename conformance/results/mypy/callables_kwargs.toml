@@ -1,7 +1,7 @@
 conformant = "Partial"
 notes = """
 Allows callable without kwargs to be assigned to callable with unpacked kwargs.
-Does not support the `closed` and `extra_items` TypedDict class arguments.
+Does not support the `extra_items` TypedDict class argument.
 Does not reject unpacking an open TypedDict in a call to a callable that has no `**kwargs`.
 Does not reject unpacking an open TypedDict in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
 Does not check the type of an unpacked TypedDict's extra items against the target callable's `**kwargs` annotation.
@@ -10,12 +10,11 @@ Does not reject unpacking a TypedDict that sets `extra_items` in a call to a cal
 Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
 """
 output = """
-callables_kwargs.py:23: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
 callables_kwargs.py:27: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 callables_kwargs.py:55: error: Missing named argument "v1" for "func1"  [call-arg]
 callables_kwargs.py:55: error: Missing named argument "v3" for "func1"  [call-arg]
 callables_kwargs.py:60: error: Unexpected keyword argument "v4" for "func1"  [call-arg]
-callables_kwargs.py:61: error: Too many positional arguments for "func1"  [misc]
+callables_kwargs.py:61: error: Too many positional arguments for "func1"  [call-arg]
 callables_kwargs.py:67: error: Argument 1 to "func1" has incompatible type "**dict[str, str]"; expected "int"  [arg-type]
 callables_kwargs.py:70: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "int"  [arg-type]
 callables_kwargs.py:70: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "str"  [arg-type]
@@ -31,8 +30,6 @@ callables_kwargs.py:123: error: Incompatible types in assignment (expression has
 callables_kwargs.py:123: note: "TDProtocol5.__call__" has type "def __call__(self, v1: int, v3: str) -> None"
 callables_kwargs.py:131: error: Overlap between parameter names and ** TypedDict items: "v1"  [misc]
 callables_kwargs.py:142: error: Unpack item in ** parameter must be a TypedDict  [misc]
-callables_kwargs.py:166: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
-callables_kwargs.py:170: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]
 callables_kwargs.py:174: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 callables_kwargs.py:178: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 callables_kwargs.py:182: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
@@ -60,10 +57,7 @@ Line 270: Expected 1 errors
 Line 271: Expected 1 errors
 Line 272: Expected 1 errors
 Line 273: Expected 1 errors
-Line 23: Unexpected errors ['callables_kwargs.py:23: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 27: Unexpected errors ['callables_kwargs.py:27: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 166: Unexpected errors ['callables_kwargs.py:166: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 170: Unexpected errors ['callables_kwargs.py:170: error: Unexpected keyword argument "closed" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 174: Unexpected errors ['callables_kwargs.py:174: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 178: Unexpected errors ['callables_kwargs.py:178: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 Line 182: Unexpected errors ['callables_kwargs.py:182: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']

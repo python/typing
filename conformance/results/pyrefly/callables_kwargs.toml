@@ -2,11 +2,7 @@ conformant = "Partial"
 notes = """
 Does not reject unpacking an open TypedDict in a call to a callable that has no `**kwargs`.
 Does not reject unpacking an open TypedDict in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
-Does not check the type of an unpacked TypedDict's extra items against the target callable's `**kwargs` annotation.
-Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.
-Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable that has no `**kwargs`.
-Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
-Incorrectly rejects assigning a callable without `**kwargs` to a callable whose `**kwargs` is typed with a TypedDict that sets `extra_items=Never`.
+Does not treat an open TypedDict as having extra items of type `object` when checking against the target callable's `**kwargs` annotation.
 """
 conformance_automated = "Fail"
 errors_diff = """
@@ -22,15 +18,6 @@ Line 241: Expected 1 errors
 Line 243: Expected 1 errors
 Line 244: Expected 1 errors
 Line 245: Expected 1 errors
-Line 264: Expected 1 errors
-Line 265: Expected 1 errors
-Line 267: Expected 1 errors
-Line 268: Expected 1 errors
-Line 270: Expected 1 errors
-Line 271: Expected 1 errors
-Line 272: Expected 1 errors
-Line 273: Expected 1 errors
-Line 156: Unexpected errors ["`(*, v1: int, v3: str, v2: str = '') -> None` is not assignable to `TDProtocol8` [bad-assignment]"]
 """
 output = """
 ERROR callables_kwargs.py:55:10-12: Missing argument `v1` in function `func1` [missing-argument]
@@ -50,5 +37,12 @@ ERROR callables_kwargs.py:123:19-24: `(**kwargs: Unpack[TD2]) -> None` is not as
 ERROR callables_kwargs.py:131:20-41: TypedDict key 'v1' in **kwargs overlaps with parameter 'v1' [bad-function-definition]
 ERROR callables_kwargs.py:142:21-30: `Unpack` in **kwargs annotation must be used only with a `TypedDict` [invalid-annotation]
 ERROR callables_kwargs.py:154:19-24: `(*, v1: int, v3: str, v2: str = '') -> None` is not assignable to `TDProtocol6` [bad-assignment]
-ERROR callables_kwargs.py:156:19-24: `(*, v1: int, v3: str, v2: str = '') -> None` is not assignable to `TDProtocol8` [bad-assignment]
+ERROR callables_kwargs.py:264:16-23: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_name` [unexpected-keyword]
+ERROR callables_kwargs.py:265:27-34: Extra items of type `int` are not assignable to parameter `kwargs` with type `str` in function `takes_name_str_kwargs` [bad-argument-type]
+ERROR callables_kwargs.py:267:16-24: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_name` [unexpected-keyword]
+ERROR callables_kwargs.py:268:27-35: Extra items of type `int` are not assignable to parameter `kwargs` with type `str` in function `takes_name_str_kwargs` [bad-argument-type]
+ERROR callables_kwargs.py:270:18-25: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_closed` [unexpected-keyword]
+ERROR callables_kwargs.py:271:18-26: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_closed` [unexpected-keyword]
+ERROR callables_kwargs.py:272:37-44: Extra items of type `int` are not assignable to parameter `label` with type `str` in function `takes_optional_label_int_kwargs` [bad-argument-type]
+ERROR callables_kwargs.py:273:37-45: Extra items of type `int` are not assignable to parameter `label` with type `str` in function `takes_optional_label_int_kwargs` [bad-argument-type]
 """
