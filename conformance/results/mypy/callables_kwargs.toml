@@ -30,35 +30,40 @@ callables_kwargs.py:123: error: Incompatible types in assignment (expression has
 callables_kwargs.py:123: note: "TDProtocol5.__call__" has type "def __call__(self, v1: int, v3: str) -> None"
 callables_kwargs.py:131: error: Overlap between parameter names and ** TypedDict items: "v1"  [misc]
 callables_kwargs.py:142: error: Unpack item in ** parameter must be a TypedDict  [misc]
-callables_kwargs.py:174: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
-callables_kwargs.py:178: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
-callables_kwargs.py:182: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
+callables_kwargs.py:210: error: Incompatible types in assignment (expression has type "def func8(**kwargs: **TDBase) -> None", variable has type "TDProtocol10")  [assignment]
+callables_kwargs.py:210: note: "TDProtocol10.__call__" has type "def __call__(self, **kwargs: **TDChild) -> None"
+callables_kwargs.py:228: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
+callables_kwargs.py:232: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
+callables_kwargs.py:236: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 154: Expected 1 errors
-Line 223: Expected 1 errors
-Line 225: Expected 1 errors
-Line 226: Expected 1 errors
-Line 228: Expected 1 errors
-Line 229: Expected 1 errors
-Line 230: Expected 1 errors
-Line 238: Expected 1 errors
-Line 240: Expected 1 errors
-Line 241: Expected 1 errors
-Line 243: Expected 1 errors
-Line 244: Expected 1 errors
-Line 245: Expected 1 errors
-Line 264: Expected 1 errors
-Line 265: Expected 1 errors
-Line 267: Expected 1 errors
-Line 268: Expected 1 errors
-Line 270: Expected 1 errors
-Line 271: Expected 1 errors
-Line 272: Expected 1 errors
-Line 273: Expected 1 errors
+Line 174: Expected 1 errors
+Line 209: Expected 1 errors
+Line 277: Expected 1 errors
+Line 279: Expected 1 errors
+Line 280: Expected 1 errors
+Line 282: Expected 1 errors
+Line 283: Expected 1 errors
+Line 284: Expected 1 errors
+Line 292: Expected 1 errors
+Line 294: Expected 1 errors
+Line 295: Expected 1 errors
+Line 297: Expected 1 errors
+Line 298: Expected 1 errors
+Line 299: Expected 1 errors
+Line 318: Expected 1 errors
+Line 319: Expected 1 errors
+Line 321: Expected 1 errors
+Line 322: Expected 1 errors
+Line 324: Expected 1 errors
+Line 325: Expected 1 errors
+Line 326: Expected 1 errors
+Line 327: Expected 1 errors
 Line 27: Unexpected errors ['callables_kwargs.py:27: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 174: Unexpected errors ['callables_kwargs.py:174: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 178: Unexpected errors ['callables_kwargs.py:178: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
-Line 182: Unexpected errors ['callables_kwargs.py:182: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
+Line 210: Unexpected errors ['callables_kwargs.py:210: error: Incompatible types in assignment (expression has type "def func8(**kwargs: **TDBase) -> None", variable has type "TDProtocol10")  [assignment]']
+Line 228: Unexpected errors ['callables_kwargs.py:228: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
+Line 232: Unexpected errors ['callables_kwargs.py:232: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
+Line 236: Unexpected errors ['callables_kwargs.py:236: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 """

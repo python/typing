@@ -264,6 +264,27 @@ assignable::
     accept_animal = accept_dog  # WRONG! Expression of type Animal
                                 # cannot be assigned to a variable of type Dog.
 
+This also applies when the source function's ``TypedDict`` only adds
+:term:`non-required` keys. Because an :term:`open` ``TypedDict`` is
+treated as having read-only :term:`extra items` of type ``object`` for the
+purposes of :ref:`assignability <typeddict-assignability>`, a callable whose
+``**kwargs`` is typed with an open ``TypedDict`` may be called with additional
+keyword arguments of any type::
+
+    class Base(TypedDict):
+        x: int
+
+    class Child(Base, total=False):
+        y: int
+
+    def accept_base(**kwargs: Unpack[Base]): ...
+    def accept_child(**kwargs: Unpack[Child]): ...
+
+    accept_child = accept_base  # OK!
+
+    accept_base = accept_child  # WRONG! accept_base may be called with
+                                # y="a string", which accept_child rejects.
+
 .. _PEP 692 assignment dest no kwargs:
 
 Source contains ``**kwargs`` and destination doesn't
@@ -365,6 +386,22 @@ traditionally typed ``**kwargs`` aren't checked for keyword names.
 
 To summarize, function parameters should behave contravariantly and function
 return types should behave covariantly.
+
+Method overrides
+""""""""""""""""
+
+The rules above also apply when checking whether a method that overrides a
+method in a base class is compatible with it. As with
+:ref:`@override <override>`, the overriding method must be :term:`assignable`
+to the overridden method::
+
+    class Base:
+        def method(self, **kwargs: Unpack[Animal]): ...
+
+    class Sub(Base):
+        def method(self, *, name: str): ...  # WRONG! Animal is not closed,
+                                             # so Base.method may be called
+                                             # with additional keyword arguments.
 
 Unpacking a TypedDict as keyword arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

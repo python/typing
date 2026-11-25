@@ -37,33 +37,48 @@ callables_kwargs.py:142:21 - error: Expected TypedDict type argument for Unpack 
 callables_kwargs.py:154:19 - error: Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to declared type "TDProtocol6"
   Type "(*, v1: int, v3: str, v2: str = "") -> None" is not assignable to type "(**kwargs: **TD2) -> None"
     Parameter "**kwargs" has no corresponding parameter (reportAssignmentType)
-callables_kwargs.py:225:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:174:9 - error: Method "method" overrides class "BaseUnpacked" in an incompatible manner
+  Keyword parameter "extra" type mismatch: base parameter is type "*TDPerson", override parameter is type "bool"
+  Parameter "**kwargs" has no corresponding parameter
+    "*TDPerson" is not assignable to "bool" (reportIncompatibleMethodOverride)
+callables_kwargs.py:209:20 - error: Type "(**kwargs: **TDChild) -> None" is not assignable to declared type "TDProtocol9"
+  Type "(**kwargs: **TDChild) -> None" is not assignable to type "(**kwargs: **TDBase) -> None"
+    Parameter 1: type "*TDBase" is incompatible with type "int"
+      "*TDBase" is not assignable to "int"
+    Parameter 1: type "*TDBase" is incompatible with type "*TDChild"
+      "y" is missing from "*TDBase" (reportAssignmentType)
+callables_kwargs.py:210:21 - error: Type "(**kwargs: **TDBase) -> None" is not assignable to declared type "TDProtocol10"
+  Type "(**kwargs: **TDBase) -> None" is not assignable to type "(**kwargs: **TDChild) -> None"
+    Parameter 1: type "int" is incompatible with type "*TDBase"
+      "int" is not assignable to "*TDBase" (reportAssignmentType)
+callables_kwargs.py:279:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "object" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:228:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:282:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "object" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:240:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:294:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "object" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:243:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:297:29 - error: Argument of type "object" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "object" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:265:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:319:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "int" is not assignable to "str" (reportArgumentType)
-callables_kwargs.py:268:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
+callables_kwargs.py:322:29 - error: Argument of type "int" cannot be assigned to parameter "kwargs" of type "str" in function "takes_name_str_kwargs"
   "int" is not assignable to "str" (reportArgumentType)
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 223: Expected 1 errors
-Line 226: Expected 1 errors
-Line 229: Expected 1 errors
-Line 230: Expected 1 errors
-Line 238: Expected 1 errors
-Line 241: Expected 1 errors
-Line 244: Expected 1 errors
-Line 245: Expected 1 errors
-Line 264: Expected 1 errors
-Line 267: Expected 1 errors
-Line 270: Expected 1 errors
-Line 271: Expected 1 errors
-Line 272: Expected 1 errors
-Line 273: Expected 1 errors
+Line 277: Expected 1 errors
+Line 280: Expected 1 errors
+Line 283: Expected 1 errors
+Line 284: Expected 1 errors
+Line 292: Expected 1 errors
+Line 295: Expected 1 errors
+Line 298: Expected 1 errors
+Line 299: Expected 1 errors
+Line 318: Expected 1 errors
+Line 321: Expected 1 errors
+Line 324: Expected 1 errors
+Line 325: Expected 1 errors
+Line 326: Expected 1 errors
+Line 327: Expected 1 errors
+Line 210: Unexpected errors ['callables_kwargs.py:210:21 - error: Type "(**kwargs: **TDBase) -> None" is not assignable to declared type "TDProtocol10"']
 """

@@ -156,6 +156,60 @@ v8: TDProtocol7 = func7  # OK, unpacked TypedDict has closed=True
 v9: TDProtocol8 = func7  # OK, unpacked TypedDict has extra_items=Never
 
 
+# An override without **kwargs is not compatible with a base method
+# whose **kwargs is an unpacked open TypedDict.
+
+
+class TDPerson(TypedDict):
+    name: str
+    age: int
+
+
+class BaseUnpacked:
+    def method(self, **kwargs: Unpack[TDPerson]) -> None:
+        ...
+
+
+class SubNoKwargs(BaseUnpacked):
+    def method(self, *, name: str, age: int, extra: bool = False) -> None:  # E: source does not have kwargs
+        ...
+
+
+# An open TypedDict used to annotate **kwargs is treated as having extra items
+# of type `object`, so a callable that accepts additional non-required keys
+# cannot be assigned to one that only accepts the base TypedDict's keys.
+
+
+class TDBase(TypedDict):
+    x: int
+
+
+class TDChild(TDBase, total=False):
+    y: int
+
+
+class TDProtocol9(Protocol):
+    def __call__(self, **kwargs: Unpack[TDBase]) -> None:
+        ...
+
+
+class TDProtocol10(Protocol):
+    def __call__(self, **kwargs: Unpack[TDChild]) -> None:
+        ...
+
+
+def func8(**kwargs: Unpack[TDBase]) -> None:
+    ...
+
+
+def func9(**kwargs: Unpack[TDChild]) -> None:
+    ...
+
+
+v10: TDProtocol9 = func9  # E: `y` may be passed as an extra item of type `object`
+v11: TDProtocol10 = func8  # OK
+
+
 # Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#unpacking-a-typeddict-as-keyword-arguments
 
 
