@@ -235,10 +235,10 @@ type may be passed to the function::
     f(name="No Country for Old Men", year=2007) # Not OK. Unrecognized item
     g(name="No Country for Old Men", year=2007) # OK
 
-Assignment
-^^^^^^^^^^
+Assignment and Override
+^^^^^^^^^^^^^^^^^^^^^^^
 
-Assignments of a function typed with ``**kwargs: Unpack[Movie]`` and another
+Assignments and overrides of a function typed with ``**kwargs: Unpack[Movie]`` and another
 callable type should pass type checking only for the scenarios described below.
 
 Source and destination contain ``**kwargs``
@@ -386,22 +386,6 @@ traditionally typed ``**kwargs`` aren't checked for keyword names.
 
 To summarize, function parameters should behave contravariantly and function
 return types should behave covariantly.
-
-Method overrides
-""""""""""""""""
-
-The rules above also apply when checking whether a method that overrides a
-method in a base class is compatible with it. As with
-:ref:`@override <override>`, the overriding method must be :term:`assignable`
-to the overridden method::
-
-    class Base:
-        def method(self, **kwargs: Unpack[Animal]): ...
-
-    class Sub(Base):
-        def method(self, *, name: str): ...  # WRONG! Animal is not closed,
-                                             # so Base.method may be called
-                                             # with additional keyword arguments.
 
 Unpacking a TypedDict as keyword arguments
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
