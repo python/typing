@@ -84,8 +84,8 @@ However, Literal **must** be parameterized with at least one type.
 Types like ``Literal[]`` or ``Literal`` are illegal.
 
 
-Legal and illegal parameterizations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Legal parameterizations
+^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes what exactly constitutes a legal ``Literal[...]`` type:
 what values may and may not be used as parameters.
@@ -95,8 +95,8 @@ expressions, and nothing else.
 
 .. _literal-legal-parameters:
 
-Legal parameters for ``Literal`` at type check time
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+Legal parameters for ``Literal``
+""""""""""""""""""""""""""""""""
 
 ``Literal`` may be parameterized with literal ``int``, ``str``, ``bytes``,
 and ``bool`` objects, instances of ``enum.Enum`` subclasses, and ``None``. So for example, all of
@@ -117,9 +117,16 @@ the following would be legal::
    Literal[Color.RED]
    Literal[None]
 
+The only exceptions to this rule are the unary ``-`` (minus) and unary
+``+`` (plus) for ints: types like ``Literal[-5]`` and ``Literal[+1]``
+are *accepted*.
+
 **Note:** Since the type ``None`` is inhabited by just a single
 value, the types ``None`` and ``Literal[None]`` are exactly equivalent.
 Type checkers may simplify ``Literal[None]`` into just ``None``.
+
+Arbitrary expressions like ``Literal[3 + 4]`` or
+``Literal["foo".replace("o", "b")]`` are not allowed.
 
 ``Literal`` may also be parameterized by other literal types, or type aliases
 to other literal types. For example, the following is legal::
