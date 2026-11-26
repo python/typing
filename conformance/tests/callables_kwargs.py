@@ -114,7 +114,7 @@ class TDProtocol8(Protocol):
         ...
 
 
-# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#assignment
+# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#assignment-and-override
 
 v1: TDProtocol1 = func1  # OK
 v2: TDProtocol2 = func1  # OK
@@ -143,8 +143,8 @@ def func6(**kwargs: Unpack[T]) -> None:  # E: unpacked value must be a TypedDict
     ...
 
 # > The situation where the destination callable contains **kwargs: Unpack[TypedDict] and
-# > the source callable doesn’t contain **kwargs should be disallowed, if the TypedDict is not :term:`closed`.
-# > This is because we cannot be sure that additional keyword arguments are not being passed in when an instance of a subclass
+# > the source callable doesn’t contain **kwargs should be disallowed if the TypedDict is not :term:`closed`.
+# > This is because additional keyword arguments could be passed in when an instance of a subclass
 # > had been assigned to a variable with a base class type and then unpacked in the destination callable invocation
 
 def func7(*, v1: int, v3: str, v2: str = "") -> None:
@@ -270,8 +270,13 @@ def takes_extra_items_object(**kwargs: Unpack[TDExtraItemsObject]) -> None:
     ...
 
 
+# Equivalent to `def takes_extra_items_int(*, name: str, **kwargs: int)`.
+def takes_extra_items_int(**kwargs: Unpack[TDExtraItems]) -> None:
+    ...
+
+
 # > It is only safe to unpack a non-:term:`closed` TypedDict in a function call if that function has
-# > ``**kwargs`` in its signature, and any :term:`extra items` are assignable to the type of ``**kwargs``.
+# > ``**kwargs`` in its signature, and all :term:`extra items` are assignable to the type of ``**kwargs``.
 
 def open_implicit(value: TDOpenImplicit, **kwargs: Unpack[TDOpenImplicit]) -> None:
     takes_name(**value)  # E: a subtype may contain unknown keys
@@ -286,6 +291,8 @@ def open_implicit(value: TDOpenImplicit, **kwargs: Unpack[TDOpenImplicit]) -> No
     takes_name_object_kwargs(**kwargs)
     takes_extra_items_object(**value)
     takes_extra_items_object(**kwargs)
+    takes_extra_items_int(**value)  # E: extra items type is not compatible
+    takes_extra_items_int(**kwargs)  # E: extra items type is not compatible
 
 
 def open_explicit(value:TDOpenExplicit, **kwargs: Unpack[TDOpenExplicit]) -> None:
@@ -301,6 +308,8 @@ def open_explicit(value:TDOpenExplicit, **kwargs: Unpack[TDOpenExplicit]) -> Non
     takes_name_object_kwargs(**kwargs)
     takes_extra_items_object(**value)
     takes_extra_items_object(**kwargs)
+    takes_extra_items_int(**value)  # E: extra items type is not compatible
+    takes_extra_items_int(**kwargs)  # E: extra items type is not compatible
 
 
 def kwargs_closed(value: TDClosed, **kwargs: Unpack[TDClosed]) -> None:
@@ -327,6 +336,8 @@ def kwargs_extra_items(value: TDExtraItems, **kwargs: Unpack[TDExtraItems]) -> N
     takes_optional_label_int_kwargs(**kwargs)  # E: extra items type is not compatible w/ `label` param
     takes_extra_items_object(**value)
     takes_extra_items_object(**kwargs)
+    takes_extra_items_int(**value)
+    takes_extra_items_int(**kwargs)
 
 
 def kwargs_extra_items_never(value: TDExtraItemsNever, **kwargs: Unpack[TDExtraItemsNever]) -> None:

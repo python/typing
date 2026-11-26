@@ -3,22 +3,27 @@ notes = """
 Does not reject unpacking an open TypedDict in a call to a callable that has no `**kwargs`.
 Does not reject unpacking an open TypedDict in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
 Does not treat an open TypedDict as having extra items of type `object` when checking against the target callable's `**kwargs` annotation.
+Incorrectly allows a callable taking `**kwargs: Unpack[Child]` to stand in for one taking `**kwargs: Unpack[Base]` when `Base` is open and `Child` adds a non-required `int` key.
 """
 conformance_automated = "Fail"
 errors_diff = """
 Line 209: Expected 1 errors
-Line 277: Expected 1 errors
-Line 279: Expected 1 errors
-Line 280: Expected 1 errors
 Line 282: Expected 1 errors
-Line 283: Expected 1 errors
 Line 284: Expected 1 errors
-Line 292: Expected 1 errors
+Line 285: Expected 1 errors
+Line 287: Expected 1 errors
+Line 288: Expected 1 errors
+Line 289: Expected 1 errors
 Line 294: Expected 1 errors
 Line 295: Expected 1 errors
-Line 297: Expected 1 errors
-Line 298: Expected 1 errors
 Line 299: Expected 1 errors
+Line 301: Expected 1 errors
+Line 302: Expected 1 errors
+Line 304: Expected 1 errors
+Line 305: Expected 1 errors
+Line 306: Expected 1 errors
+Line 311: Expected 1 errors
+Line 312: Expected 1 errors
 """
 output = """
 ERROR callables_kwargs.py:55:10-12: Missing argument `v1` in function `func1` [missing-argument]
@@ -39,12 +44,12 @@ ERROR callables_kwargs.py:131:20-41: TypedDict key 'v1' in **kwargs overlaps wit
 ERROR callables_kwargs.py:142:21-30: `Unpack` in **kwargs annotation must be used only with a `TypedDict` [invalid-annotation]
 ERROR callables_kwargs.py:154:19-24: `(*, v1: int, v3: str, v2: str = '') -> None` is not assignable to `TDProtocol6` [bad-assignment]
 ERROR callables_kwargs.py:174:9-15: Class member `SubNoKwargs.method` overrides parent class `BaseUnpacked` in an inconsistent manner [bad-override]
-ERROR callables_kwargs.py:318:16-23: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_name` [unexpected-keyword]
-ERROR callables_kwargs.py:319:27-34: Extra items of type `int` are not assignable to parameter `kwargs` with type `str` in function `takes_name_str_kwargs` [bad-argument-type]
-ERROR callables_kwargs.py:321:16-24: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_name` [unexpected-keyword]
-ERROR callables_kwargs.py:322:27-35: Extra items of type `int` are not assignable to parameter `kwargs` with type `str` in function `takes_name_str_kwargs` [bad-argument-type]
-ERROR callables_kwargs.py:324:18-25: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_closed` [unexpected-keyword]
-ERROR callables_kwargs.py:325:18-26: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_closed` [unexpected-keyword]
-ERROR callables_kwargs.py:326:37-44: Extra items of type `int` are not assignable to parameter `label` with type `str` in function `takes_optional_label_int_kwargs` [bad-argument-type]
-ERROR callables_kwargs.py:327:37-45: Extra items of type `int` are not assignable to parameter `label` with type `str` in function `takes_optional_label_int_kwargs` [bad-argument-type]
+ERROR callables_kwargs.py:327:16-23: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_name` [unexpected-keyword]
+ERROR callables_kwargs.py:328:27-34: Extra items of type `int` are not assignable to parameter `kwargs` with type `str` in function `takes_name_str_kwargs` [bad-argument-type]
+ERROR callables_kwargs.py:330:16-24: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_name` [unexpected-keyword]
+ERROR callables_kwargs.py:331:27-35: Extra items of type `int` are not assignable to parameter `kwargs` with type `str` in function `takes_name_str_kwargs` [bad-argument-type]
+ERROR callables_kwargs.py:333:18-25: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_closed` [unexpected-keyword]
+ERROR callables_kwargs.py:334:18-26: `TDExtraItems` may contain extra items of type `int`, which cannot be unpacked into a callable that accepts no extra keyword arguments in function `takes_closed` [unexpected-keyword]
+ERROR callables_kwargs.py:335:37-44: Extra items of type `int` are not assignable to parameter `label` with type `str` in function `takes_optional_label_int_kwargs` [bad-argument-type]
+ERROR callables_kwargs.py:336:37-45: Extra items of type `int` are not assignable to parameter `label` with type `str` in function `takes_optional_label_int_kwargs` [bad-argument-type]
 """
