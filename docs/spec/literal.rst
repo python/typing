@@ -84,8 +84,8 @@ However, Literal **must** be parameterized with at least one type.
 Types like ``Literal[]`` or ``Literal`` are illegal.
 
 
-Legal and illegal parameterizations
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Legal parameterizations
+^^^^^^^^^^^^^^^^^^^^^^^
 
 This section describes what exactly constitutes a legal ``Literal[...]`` type:
 what values may and may not be used as parameters.
@@ -95,8 +95,8 @@ expressions, and nothing else.
 
 .. _literal-legal-parameters:
 
-Legal parameters for ``Literal`` at type check time
-"""""""""""""""""""""""""""""""""""""""""""""""""""
+Legal parameters for ``Literal``
+""""""""""""""""""""""""""""""""
 
 ``Literal`` may be parameterized with literal ``int``, ``str``, ``bytes``,
 and ``bool`` objects, instances of ``enum.Enum`` subclasses, and ``None``. So for example, all of
@@ -117,9 +117,16 @@ the following would be legal::
    Literal[Color.RED]
    Literal[None]
 
+The only exceptions to this rule are the unary ``-`` (minus) and unary
+``+`` (plus) for ints: types like ``Literal[-5]`` and ``Literal[+1]``
+are *accepted*.
+
 **Note:** Since the type ``None`` is inhabited by just a single
 value, the types ``None`` and ``Literal[None]`` are exactly equivalent.
 Type checkers may simplify ``Literal[None]`` into just ``None``.
+
+Arbitrary expressions like ``Literal[3 + 4]`` or
+``Literal["foo".replace("o", "b")]`` are not allowed.
 
 ``Literal`` may also be parameterized by other literal types, or type aliases
 to other literal types. For example, the following is legal::
@@ -147,76 +154,6 @@ This should be exactly equivalent to the following type::
 ...and also to the following type::
 
     Literal[1, 2, 3, "foo", 5] | None
-
-Illegal parameters for ``Literal`` at type check time
-"""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-The following parameters are intentionally disallowed by design:
-
-- Arbitrary expressions like ``Literal[3 + 4]`` or
-  ``Literal["foo".replace("o", "b")]``.
-
-  - Rationale: Literal types are meant to be a
-    minimal extension to the typing ecosystem and requiring type
-    checkers to interpret potentially expressions inside types adds too
-    much complexity.
-
-  - As a consequence, complex numbers like ``Literal[4 + 3j]`` and
-    ``Literal[-4 + 2j]`` are also prohibited. For consistency, literals like
-    ``Literal[4j]`` that contain just a single complex number are also
-    prohibited.
-
-  - The only exceptions to this rule are the unary ``-`` (minus) and unary ``+`` (plus) for ints: types
-    like ``Literal[-5]`` and ``Literal[+1]`` are *accepted*.
-
--  Tuples containing valid literal types like ``Literal[(1, "foo", "bar")]``.
-   The user could always express this type as
-   ``tuple[Literal[1], Literal["foo"], Literal["bar"]]`` instead. Also,
-   tuples are likely to be confused with the ``Literal[1, 2, 3]``
-   shortcut.
-
--  Mutable literal data structures like dict literals, list literals, or
-   set literals: literals are always implicitly final and immutable. So,
-   ``Literal[{"a": "b", "c": "d"}]`` is illegal.
-
--  Any other types: for example, ``Literal[Path]``, or
-   ``Literal[some_object_instance]`` are illegal. This includes typevars: if
-   ``T`` is a typevar,  ``Literal[T]`` is not allowed. Typevars can vary over
-   only types, never over values.
-
-The following are provisionally disallowed for simplicity. We can consider
-allowing them in the future.
-
--  Floats: e.g. ``Literal[3.14]``. Representing Literals of infinity or NaN
-   in a clean way is tricky; real-world APIs are unlikely to vary their
-   behavior based on a float parameter.
-
--  Any: e.g. ``Literal[Any]``. ``Any`` is a type, and ``Literal[...]`` is
-   meant to contain values only. It is also unclear what ``Literal[Any]``
-   would actually semantically mean.
-
-Parameters at runtime
-"""""""""""""""""""""
-
-Although the set of parameters ``Literal[...]`` may contain at type check time
-is very small, the actual implementation of ``typing.Literal`` will not perform
-any checks at runtime. For example::
-
-   def my_function(x: Literal[1 + 2]) -> int:
-       return x * 3
-
-   x: Literal = 3
-   y: Literal[my_function] = my_function
-
-The type checker should reject this program: all three uses of
-``Literal`` are *invalid* according to this spec. However, Python itself
-should execute this program with no errors.
-
-This is partly to help us preserve flexibility in case we want to expand the
-scope of what ``Literal`` can be used for in the future, and partly because
-it is not possible to detect all illegal parameters at runtime to begin with.
-For example, it is impossible to distinguish between ``Literal[1 + 2]`` and
-``Literal[3]`` at runtime.
 
 Literals, enums, and forward references
 """""""""""""""""""""""""""""""""""""""
