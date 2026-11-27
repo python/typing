@@ -2,7 +2,7 @@ conformance_automated = "Pass"
 errors_diff = """
 """
 output = """
-ERROR qualifiers_final_annotation.py:23:12-31: assert_type(int, Literal[3]) failed [assert-type]
+ERROR qualifiers_final_annotation.py:24:12-24: assert_type(Literal[3], int) failed [assert-type]
 ERROR qualifiers_final_annotation.py:36:7-12: Expected a type argument for `Final` [invalid-annotation]
 ERROR qualifiers_final_annotation.py:38:7-22: Expected 1 type argument for `Final`, got 2 [invalid-annotation]
 ERROR qualifiers_final_annotation.py:54:5-8: Final attribute declared in class body must be initialized with a value or in `__init__` [invalid-annotation]
