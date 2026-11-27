@@ -105,7 +105,7 @@ assignments::
     x = 0  # type: int
     x = ...  # type: int
 
-The :ref:`Literal shortcut using a bare Final <literal-final-interactions>`
+The :ref:`Literal shortcut using a bare Final <final-inference>`
 should be supported::
 
     x: Final = 0  # type is Literal[0]
