@@ -220,7 +220,7 @@ If the ``TypedDict`` used for annotating ``**kwargs`` is defined to allow
 type may be passed to the function. If the ``TypedDict`` is :term:`closed`, type checkers
 should emit an error if an unrecognized argument is provided. If the ``TypedDict`` is :term:`open`,
 type checkers may emit an error if the argument is provided explicitly, but should not emit an 
-error if the argument is supplied via unpacking.::
+error if the argument is supplied via unpacking::
 
     class MovieOpen(TypedDict):
         name: str
@@ -239,233 +239,41 @@ error if the argument is supplied via unpacking.::
     g(name="No Country for Old Men", year=2007) # OK
     h(name="No Country for Old Men", year=2007) # Unrecognized item, error
 
-Assignment and Override
-^^^^^^^^^^^^^^^^^^^^^^^
+Assignability for ``Unpack`` keyword arguments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Assignments and overrides of a function typed with ``**kwargs: Unpack[Movie]`` and another
-callable type should pass type checking only for the scenarios described below.
+For purposes of assignability and override checks, ``**kwargs`` that are annotated
+with ``Unpack`` can be desugared into regular keyword arguments using the following rules.
 
-Source and destination contain ``**kwargs``
-"""""""""""""""""""""""""""""""""""""""""""
+1. All :term:`required` fields are turned into required keyword-only parameters of the same type.
+2. All :term:`non-required` fields are turned into optional keyword-only parameters of the same type.
+3. An explicit, non-``Never`` :term:`extra items` is turned into ``**kwargs`` of the same type.
+4. If the ``TypedDict`` is :term:`open` and does not specify :term:`extra items`, add ``**kwargs: object``
 
-Both destination and source functions have a ``**kwargs: Unpack[TypedDict]``
-parameter and the destination function's ``TypedDict`` is :term:`assignable` to
-the source function's ``TypedDict`` and the rest of the parameters are
-assignable::
+For example::
 
-    class Animal(TypedDict):
+    class MovieOpen(TypedDict):
         name: str
+        year: NotRequired[int]
 
-    class Dog(Animal):
-        breed: str
-
-    def accept_animal(**kwargs: Unpack[Animal]): ...
-    def accept_dog(**kwargs: Unpack[Dog]): ...
-
-    accept_dog = accept_animal  # OK! Expression of type Dog can be
-                                # assigned to a variable of type Animal.
-
-    accept_animal = accept_dog  # WRONG! Expression of type Animal
-                                # cannot be assigned to a variable of type Dog.
-
-This also applies when the source function's ``TypedDict`` only adds
-:term:`non-required` keys. Because an :term:`open` ``TypedDict`` is
-treated as having read-only (thus covariant) :term:`extra items` of type ``object`` for the
-purposes of :ref:`assignability <typeddict-assignability>`, a callable whose
-``**kwargs`` is typed with an open ``TypedDict`` may be called with additional
-keyword arguments of any type::
-
-    class Base(TypedDict):
-        x: int
-
-    class Child(Base, total=False):
-        y: int
-
-    def accept_base(**kwargs: Unpack[Base]): ...
-    def accept_child(**kwargs: Unpack[Child]): ...
-
-    accept_child = accept_base  # OK!
-
-    accept_base = accept_child  # WRONG! accept_base may be called with
-                                # y="a string", which accept_child rejects.
-
-.. _PEP 692 assignment dest no kwargs:
-
-Source contains ``**kwargs`` and destination doesn't
-""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-The destination callable doesn't contain ``**kwargs``, the source callable
-contains ``**kwargs: Unpack[TypedDict]`` and the destination function's keyword
-arguments are :term:`assignable` to the corresponding keys in source function's
-``TypedDict``. Moreover, not required keys should correspond to optional
-function arguments, whereas required keys should correspond to required
-function arguments. Again, the rest of the parameters have to be assignable.
-Continuing the previous example::
-
-    class Example(TypedDict):
-        animal: Animal
-        string: str
-        number: NotRequired[int]
-
-    def src(**kwargs: Unpack[Example]): ...
-    def dest(*, animal: Dog, string: str, number: int = ...): ...
-
-    dest = src  # OK!
-
-It is worth pointing out that the destination function's parameters that are to
-be assignable to the keys and values from the ``TypedDict`` must be keyword
-only::
-
-    def dest(dog: Dog, string: str, number: int = ...): ...
-
-    dog: Dog = {"name": "Daisy", "breed": "labrador"}
-
-    dest(dog, "some string")  # OK!
-
-    dest = src                # Type checker error!
-    dest(dog, "some string")  # The same call fails at
-                              # runtime now because 'src' expects
-                              # keyword arguments.
-
-The reverse situation where the destination callable contains
-``**kwargs: Unpack[TypedDict]`` and the source callable doesn't contain
-``**kwargs`` should be disallowed if the TypedDict is not :term:`closed`. This is because
-additional keyword arguments could be passed in when an instance of a
-subclass had been assigned to a variable with a base class type and then
-unpacked in the destination callable invocation::
-
-    def dest(**kwargs: Unpack[Animal]): ...
-    def src(name: str): ...
-
-    dog: Dog = {"name": "Daisy", "breed": "Labrador"}
-    animal: Animal = dog
-
-    dest = src      # WRONG!
-    dest(**animal)  # Fails at runtime.
-
-A similar situation can happen even without inheritance as :term:`assignability
-<assignable>` between ``TypedDict``\s is :term:`structural`.
-
-Source contains untyped ``**kwargs``
-""""""""""""""""""""""""""""""""""""
-
-The destination callable contains ``**kwargs: Unpack[TypedDict]`` and the
-source callable contains untyped ``**kwargs``::
-
-    def src(**kwargs): ...
-    def dest(**kwargs: Unpack[Movie]): ...
-
-    dest = src  # OK!
-
-Source contains traditionally typed ``**kwargs: T``
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-
-The destination callable contains ``**kwargs: Unpack[TypedDict]``, the source
-callable contains traditionally typed ``**kwargs: T`` and each of the
-destination function ``TypedDict``'s fields is :term:`assignable` to a variable
-of type ``T``::
-
-    class Vehicle:
-        ...
-
-    class Car(Vehicle):
-        ...
-
-    class Motorcycle(Vehicle):
-        ...
-
-    class Vehicles(TypedDict):
-        car: Car
-        moto: Motorcycle
-
-    def dest(**kwargs: Unpack[Vehicles]): ...
-    def src(**kwargs: Vehicle): ...
-
-    dest = src  # OK!
-
-On the other hand, if the destination callable contains either untyped or
-traditionally typed ``**kwargs: T`` and the source callable is typed using
-``**kwargs: Unpack[TypedDict]`` then an error should be generated, because
-traditionally typed ``**kwargs`` aren't checked for keyword names.
-
-To summarize, function parameters should behave contravariantly and function
-return types should behave covariantly.
-
-Unpacking a TypedDict as keyword arguments
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-:ref:`A previous point <PEP 692 assignment dest no kwargs>`
-mentions the problem of possibly passing additional keyword arguments by
-assigning a subclass instance to a variable that has a base class type. Let's
-consider the following example::
-
-    class Animal(TypedDict):
+    class MovieClosed(TypedDict, closed=True):
         name: str
+        year: NotRequired[int]
 
-    class Dog(Animal):
-        breed: str
+    class MovieExtra(TypedDict, extra_items=int):
+        name: str
+        year: NotRequired[int]
 
-    def takes_name(name: str): ...
+    def f(**kwargs: Unpack[MovieOpen]) -> None: ...
+    def g(**kwargs: Unpack[MovieExtra]) -> None: ...
+    def h(**kwargs: Unpack[MovieClosed]) -> None: ...
 
-    dog: Dog = {"name": "Daisy", "breed": "Labrador"}
-    animal: Animal = dog
+    # These desugar to:
+    def f(*, name: str, year: int = ..., **kwargs: object) -> None: ...
+    def g(*, name: str, year: int = ..., **kwargs: int) -> None: ...
+    def h(*, name: str, year: int = ...) -> None: ...
 
-    def foo(**kwargs: Unpack[Animal]):
-        print(kwargs["name"].capitalize())
-
-    def bar(**kwargs: Unpack[Animal]):
-        takes_name(**kwargs)
-
-    def baz(animal: Animal):
-        takes_name(**animal)
-
-    def spam(**kwargs: Unpack[Animal]):
-        baz(kwargs)
-
-    foo(**animal)   # OK! foo only expects and uses keywords of 'Animal'.
-
-    bar(**animal)   # WRONG! This will fail at runtime because 'breed' keyword
-                    # will be passed to 'takes_name' as well.
-
-    spam(**animal)  # WRONG! Again, 'breed' keyword will be eventually passed
-                    # to 'takes_name'.
-
-In the example above, the call to ``foo`` will not cause any issues at
-runtime. Even though ``foo`` expects ``kwargs`` of type ``Animal`` it doesn't
-matter if it receives additional arguments because it only reads and uses what
-it needs completely ignoring any additional values.
-
-The calls to ``bar`` and ``spam`` will fail because an unexpected keyword
-argument will be passed to the ``takes_name`` function.
-
-Therefore, it is only safe to unpack a non-:term:`closed` TypedDict in a function call
-if that function has ``**kwargs`` in its signature, and all :term:`extra items` are
-assignable to the type of ``**kwargs``.
-For these rules, :term:`open` TypedDicts are treated as having read-only (thus
-covariant) :term:`extra items` of type ``object``.
-
-- If the callee has a non-unpacked ``**kwargs`` type, checkers should error if the
-  ``TypedDict``'s :term:`extra items` are not assignable to the type of ``**kwargs``.
-- If the callee has an unpacked ``**kwargs`` type (``**kwargs: Unpack[TD]``), checkers should
-  error if the ``TypedDict``'s :term:`extra items` are not assignable to ``TD``'s extra
-  items, treating a :term:`closed` ``TD`` as accepting no extra items.
-- If the callee does not have ``**kwargs``, checkers should error if the ``TypedDict`` is
-  :term:`open`, and should error if the ``TypedDict`` declares non-``Never``
-  :term:`extra items`.
-
-Additionally, the type of :term:`extra items` must be assignable to any keyword parameters
-the function call does not provide.
-
-In cases similar to the ``bar`` function above the problem could be worked
-around by marking ``Animal`` with ``closed=True`` (which also prevents subclasses
-such as ``Dog`` from adding items like ``breed``), or by explicitly dereferencing
-desired fields and using them as arguments to perform the function call. Unlike
-closing ``Animal``, this still allows a ``Dog`` to be passed to ``bar``::
-
-    def bar(**kwargs: Unpack[Animal]):
-        name = kwargs["name"]
-        takes_name(name)
-
+After desugaring, the normal callable assignability rules should be applied.
 
 Using ``Unpack`` with types other than ``TypedDict``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
