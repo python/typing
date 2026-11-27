@@ -121,7 +121,7 @@ This second usage is described in this section. The following example::
 
     from typing import TypedDict, Unpack
 
-    class Movie(TypedDict):
+    class Movie(TypedDict, closed=True):
         name: str
         year: int
 
@@ -215,25 +215,29 @@ However, it *will* prevent the item from being modified in the body of the funct
 Extra items
 ^^^^^^^^^^^
 
-If the TypedDict used for annotating ``**kwargs`` is defined to allow
+If the ``TypedDict`` used for annotating ``**kwargs`` is defined to allow
 :term:`extra items`, arbitrary additional keyword arguments of the right
-type may be passed to the function::
+type may be passed to the function. If the ``TypedDict`` is :term:`closed`, type checkers
+should emit an error if an unrecognized argument is provided. If the ``TypedDict`` is :term:`open`,
+type checkers may emit an error if the argument is provided explicitly, but should not emit an 
+error if the argument is supplied via unpacking.::
 
-    class MovieNoExtra(TypedDict):
+    class MovieOpen(TypedDict):
+        name: str
+
+    class MovieClosed(TypedDict, closed=True):
         name: str
 
     class MovieExtra(TypedDict, extra_items=int):
         name: str
 
-    def f(**kwargs: Unpack[MovieNoExtra]) -> None: ...
+    def f(**kwargs: Unpack[MovieOpen]) -> None: ...
     def g(**kwargs: Unpack[MovieExtra]) -> None: ...
+    def h(**kwargs: Unpack[MovieClosed]) -> None: ...
 
-    # Should be equivalent to:
-    def f(*, name: str) -> None: ...
-    def g(*, name: str, **kwargs: int) -> None: ...
-
-    f(name="No Country for Old Men", year=2007) # Not OK. Unrecognized item
+    f(name="No Country for Old Men", year=2007) # Unrecognized item, maybe error
     g(name="No Country for Old Men", year=2007) # OK
+    h(name="No Country for Old Men", year=2007) # Unrecognized item, error
 
 Assignment and Override
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -461,6 +465,7 @@ closing ``Animal``, this still allows a ``Dog`` to be passed to ``bar``::
     def bar(**kwargs: Unpack[Animal]):
         name = kwargs["name"]
         takes_name(name)
+
 
 Using ``Unpack`` with types other than ``TypedDict``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
