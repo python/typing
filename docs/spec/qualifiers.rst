@@ -81,28 +81,26 @@ variable or attribute should not be reassigned, redefined, or overridden.
 Syntax
 ^^^^^^
 
-``Final`` may be used in one of several forms:
+``Final`` may be used in one of two forms:
 
-* With an explicit type, using the syntax ``Final[<type>]``. Example::
+* As an :term:`explicitly typed Final`, using the syntax ``Final[<type>]``.
+  Example::
 
     ID: Final[float] = 1
 
-* With no type annotation. Example::
+  In class bodies and stub files the right hand side can be omitted::
+
+    ID: Final[float]
+
+* As a :term:`bare Final`, without a type argument. Example::
 
     ID: Final = 1
 
-  Note that unlike for
+  Bare ``Final`` annotations must have an assigned value.
+
+  The typechecker should apply its usual type inference mechanisms to
+  determine the type of ``ID`` (here, likely, ``int``). Note that unlike for
   generic classes this is *not* the same as ``Final[Any]``.
-
-* In class bodies and stub files you can omit the right hand side and just write
-  ``ID: Final[float]``.  If the right hand side is omitted, there must
-  be an explicit type argument to ``Final``.
-
-* Finally, as ``self.id: Final = 1`` (also optionally with a type in
-  square brackets). This is allowed *only* in ``__init__`` methods, so
-  that the final instance attribute is assigned only once when an
-  instance is created.
-
 
 Semantics and examples
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -155,8 +153,8 @@ be initialized in the ``__init__`` method (except in stub files)::
            self.x = 1  # Good
 
 The generated ``__init__`` method of :doc:`dataclasses` qualifies for this
-requirement: a bare ``x: Final[int]`` is permitted in a dataclass body, because
-the generated ``__init__`` will initialize ``x``.
+requirement: an ``x: Final[int]`` without an initializer is permitted in a
+dataclass body, because the generated ``__init__`` will initialize ``x``.
 
 ``Final`` may only be used in assignments or variable annotations. Using it in
 any other position is an error. In particular, ``Final`` can't be used in
@@ -184,9 +182,9 @@ with ``Final`` to prevent mutating such values::
    z: Final = ('a', 'b')  # Also works
 
 
-Type checkers should treat uses of a name annotated with bare ``Final`` and initialized
-with a literal as if it was replaced by the literal. For example, the
-following should be allowed::
+Type checkers should treat uses of names declared with a :term:`bare Final`
+that was initialized with a literal as if it was replaced by the literal. For
+example, the following should be allowed::
 
    from typing import NamedTuple, Final
 

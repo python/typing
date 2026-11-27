@@ -1,15 +1,11 @@
-conformance_automated = "Fail"
-conformant = "Partial"
-notes = """
-Does not reject access of generic instance variable from the class object.
-"""
+conformance_automated = "Pass"
 errors_diff = """
-Line 42: Expected 1 errors
-Line 43: Expected 1 errors
-Line 44: Expected 1 errors
-Line 45: Expected 1 errors
 """
 output = """
 generics_type_erasure.py:38:16: error[invalid-argument-type] Argument to `Node.__init__` is incorrect: Expected `int | None`, found `Literal[""]`
 generics_type_erasure.py:40:16: error[invalid-argument-type] Argument to `Node.__init__` is incorrect: Expected `str | None`, found `Literal[0]`
+generics_type_erasure.py:42:1: error[invalid-attribute-access] Cannot access generic instance attribute `label` through a class
+generics_type_erasure.py:43:1: error[invalid-attribute-access] Cannot access generic instance attribute `label` through a class
+generics_type_erasure.py:44:1: error[invalid-attribute-access] Cannot access generic instance attribute `label` through a class
+generics_type_erasure.py:45:1: error[invalid-attribute-access] Cannot access generic instance attribute `label` through a class
 """

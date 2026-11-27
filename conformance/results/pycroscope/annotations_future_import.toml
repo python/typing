@@ -1,0 +1,27 @@
+conformant = "Partial"
+notes = """
+Forward references to nested classes are not resolved
+Nested classes are resolved, but its type is Any
+Resolves some class annotations to outer names instead of shadowing class bindings
+"""
+conformance_automated = "Fail"
+errors_diff = """
+Line 37: Expected 1 errors
+Line 39: Expected 1 errors
+Line 26: Unexpected errors ['./annotations_future_import.py:26:12: Undefined name: ClassInner [undefined_name]']
+Line 27: Unexpected errors ['./annotations_future_import.py:27:12: Undefined name: ClassInner [undefined_name]']
+Line 55: Unexpected errors ['./annotations_future_import.py:55:16:   Any[inference] is not equivalent to annotations_future_import.ClassB.ClassInner']
+Line 56: Unexpected errors ['./annotations_future_import.py:56:16:   Any[inference] is not equivalent to annotations_future_import.ClassB.ClassInner']
+Line 57: Unexpected errors ['./annotations_future_import.py:57:16:   Any[inference] is not equivalent to annotations_future_import.ClassB.ClassInner']
+Line 58: Unexpected errors ['./annotations_future_import.py:58:16:   Any[inference] is not equivalent to annotations_future_import.ClassB.ClassInner']
+"""
+output = """
+./annotations_future_import.py:26:12: Undefined name: ClassInner [undefined_name]
+./annotations_future_import.py:27:12: Undefined name: ClassInner [undefined_name]
+./annotations_future_import.py:44:7: Invalid type annotation <function ClassB.int at 0x...> [invalid_annotation]
+./annotations_future_import.py:46:7: Invalid type annotation <function ClassB.int at 0x...> [invalid_annotation]
+./annotations_future_import.py:55:16:   Any[inference] is not equivalent to annotations_future_import.ClassB.ClassInner
+./annotations_future_import.py:56:16:   Any[inference] is not equivalent to annotations_future_import.ClassB.ClassInner
+./annotations_future_import.py:57:16:   Any[inference] is not equivalent to annotations_future_import.ClassB.ClassInner
+./annotations_future_import.py:58:16:   Any[inference] is not equivalent to annotations_future_import.ClassB.ClassInner
+"""

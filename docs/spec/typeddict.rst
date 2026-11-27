@@ -143,6 +143,7 @@ expression contains a :term:`type expression`, optionally qualified with one of 
 :term:`type qualifiers <type qualifier>` ``Required``, ``NotRequired``, or ``ReadOnly``.
 These type qualifiers may be nested arbitrarily or wrapped in ``Annotated[]``. It is
 an error to use both ``Required`` and ``NotRequired`` in the same item definition.
+It is also an error to nest a qualifier within itself (e.g., ``Required[Required[T]]``).
 An item is :term:`read-only` if and only if the ``ReadOnly`` qualifier is used.
 
 To determine whether an item is :term:`required` or :term:`non-required`, the following
@@ -732,8 +733,8 @@ certain items. For example, ``d['x'] = 1`` should generate a type check error
 if ``'x'`` is not a valid key for ``d`` (which is assumed to be a TypedDict
 type), unless ``d`` has mutable :term:`extra items` of a compatible type.
 
-Type checkers should allow :ref:`final names <uppercase-final>` with
-string values to be used instead of string literals in operations on
+Type checkers should allow names declared with a :term:`bare Final` and a
+string value to be used instead of string literals in operations on
 TypedDict objects.  For example, this is valid::
 
    YEAR: Final = 'year'

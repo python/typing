@@ -264,12 +264,12 @@
                 <thead>
                     <tr>
                         <th scope="col"></th>
-                        <th scope="col">mypy 2.1.0</th>
+                        <th scope="col">mypy 2.4.0</th>
                         <th scope="col">pycroscope 0.5.0</th>
-                        <th scope="col">pyrefly 1.3.0-dev.1</th>
-                        <th scope="col">pyright 1.1.410</th>
-                        <th scope="col">ty 0.0.75</th>
-                        <th scope="col">zuban 0.9.2</th>
+                        <th scope="col">pyrefly 1.5.0</th>
+                        <th scope="col">pyright 1.1.414</th>
+                        <th scope="col">ty 0.0.108</th>
+                        <th scope="col">zuban 0.10.2</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -294,36 +294,52 @@
                             <ul class="notes">
                                 <li>Does not report error for a forward reference that is not enclosed in quotes.</li>
                                 <li>Does not report error for use of quoted type with <code>|</code> operator (runtime error).</li>
-                                <li>Incorrectly generates error for quoted type defined in class scope.</li>
+                                <li>Resolves some forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
                                 <li>Fails to reject <code>"x" | int</code> annotations that fail at runtime.</li>
+                                <li>Resolves forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
                                 <li>Rejects some valid quoted annotations.</li>
-                            </ul>
-                        </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Types in quotes incorrectly refer to shadowing class member.</li>
-                                <li>Does not reject some type forms that require quotes.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Resolves references in type annotations as referring to end-of-scope types (<a href="https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439">https://discuss.python.org/t/annotation-string-references-in-class-scope-in-conformance-tests/105439</a>, <a href="https://github.com/python/typing/pull/2144">https://github.com/python/typing/pull/2144</a>)</li>
+                                <li>Prefers to resolve forward references in classes outside of the class instead of end-of-scope</li>
+                            </ul>
+                        </td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">annotations_future_import</th>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Resolves some forward references in type annotations in classes at the point of definition instead of end-of-scope</li>
                             </ul>
                         </td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Incorrectly generates error for quoted type defined in class scope.</li>
+                                <li>Forward references to nested classes are not resolved</li>
+                                <li>Nested classes are resolved, but its type is Any</li>
+                                <li>Resolves some class annotations to outer names instead of shadowing class bindings</li>
                             </ul>
                         </td>
+                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Prefers to resolve forward references in classes outside of the class instead of end-of-scope</li>
+                            </ul>
+                        </td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
                     </tr>
                     <tr>
                         <th scope="row">annotations_generators</th>
@@ -374,12 +390,12 @@
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>4 / 5 • 80.0%</td>
-                        <td>4 / 5 • 80.0%</td>
-                        <td>4.5 / 5 • 90.0%</td>
-                        <td>5 / 5 • 100.0%</td>
-                        <td>4.5 / 5 • 90.0%</td>
-                        <td>4.5 / 5 • 90.0%</td>
+                        <td>4.5 / 6 • 75.0%</td>
+                        <td>4.5 / 6 • 75.0%</td>
+                        <td>6 / 6 • 100.0%</td>
+                        <td>5 / 6 • 83.3%</td>
+                        <td>6 / 6 • 100.0%</td>
+                        <td>6 / 6 • 100.0%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -403,7 +419,7 @@
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
-                        <td class="not-conformant">Unsupported</td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -412,7 +428,7 @@
                         <td>0.5 / 1 • 50.0%</td>
                         <td>0.5 / 1 • 50.0%</td>
                         <td>1 / 1 • 100.0%</td>
-                        <td>0 / 1 • 0.0%</td>
+                        <td>1 / 1 • 100.0%</td>
                         <td>1 / 1 • 100.0%</td>
                         <td>1 / 1 • 100.0%</td>
                     </tr>
@@ -467,7 +483,7 @@
                     </tr>
                     <tr>
                         <th scope="row">specialtypes_sentinels</th>
-                        <td class="not-conformant">Unsupported</td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
@@ -495,7 +511,6 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Allows arbitrary attributes to be accessed on <code>TA</code> where <code>TA = typing.Type[typing.Any]</code> or <code>TA = type[typing.Any]</code>.</li>
                                 <li>Treats <code>type</code> equivalently to <code>type[object]</code> rather than <code>type[typing.Any]</code>.</li>
                             </ul>
                         </td>
@@ -503,7 +518,7 @@
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>4.5 / 6 • 75.0%</td>
+                        <td>5.5 / 6 • 91.7%</td>
                         <td>5.5 / 6 • 91.7%</td>
                         <td>6 / 6 • 100.0%</td>
                         <td>5.5 / 6 • 91.7%</td>
@@ -537,12 +552,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Incorrectly allows constrained type variables to be solved to a union of their constraints.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -557,14 +567,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not forbid a <code>TypeVar</code> immediately following a <code>TypeVarTuple</code> in a parameter list from having a default.</li>
-                                <li>Does not accept a <code>TypeVarTuple</code> default that unpacks another in-scope <code>TypeVarTuple</code>.</li>
-                                <li>Does not correctly specialize a generic that combines a <code>TypeVarTuple</code> with a defaulted <code>ParamSpec</code>.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -583,20 +586,10 @@
                     </tr>
                     <tr>
                         <th scope="row">generics_defaults_specialization</th>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not correctly resolve defaults when classes are used directly.</li>
-                            </ul>
-                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Allows incorrect assignment to <code>type[]</code>.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -604,7 +597,7 @@
                         <th scope="row">generics_mixed_variance_inference</th>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="not-conformant">Unsupported</td>
+                        <td class="conformant">Pass</td>
                         <td class="not-conformant">Unsupported</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -654,14 +647,9 @@
                         <th scope="row">generics_paramspec_variance</th>
                         <td class="not-conformant">Unsupported</td>
                         <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
                         <td class="not-conformant">Unsupported</td>
-                        <td class="not-conformant">Unsupported</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not error when a ParamSpec is used in a position that violates its explicit variance.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -670,13 +658,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject <code>list[T]()</code> in the global scope, where <code>T</code> is an unbound type variable.</li>
-                                <li>Does not reject <code>alias: TypeAlias = list[T]</code> in the body scope of a class generic over a type variable <code>T</code>.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -748,7 +730,12 @@
                     </tr>
                     <tr>
                         <th scope="row">generics_syntax_declarations</th>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Doesn't flag TypeVar with empty constraints.</li>
+                            </ul>
+                        </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
@@ -794,12 +781,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject access of generic instance variable from the class object.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -812,12 +794,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not correctly solve <code>TypeVarTuple</code> with heterogeneous bounds.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -831,12 +808,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not correctly solve <code>TypeVarTuple</code> with heterogeneous bounds.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -895,14 +867,9 @@
                         <th scope="row">generics_typevartuple_variance</th>
                         <td class="not-conformant">Unsupported</td>
                         <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
                         <td class="not-conformant">Unsupported</td>
-                        <td class="not-conformant">Unsupported</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not error when a TypeVarTuple is used in a position that violates its explicit variance.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -953,9 +920,9 @@
                         <td></td>
                         <td>23.5 / 33 • 71.2%</td>
                         <td>33 / 33 • 100.0%</td>
+                        <td>33 / 33 • 100.0%</td>
                         <td>30 / 33 • 90.9%</td>
-                        <td>28.5 / 33 • 86.4%</td>
-                        <td>30 / 33 • 90.9%</td>
+                        <td>33 / 33 • 100.0%</td>
                         <td>33 / 33 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1071,13 +1038,7 @@
                                 <li>the incompatible constructor overrides in <code>ChildC2</code> are not flagged.</li>
                             </ul>
                         </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not honor <code>@override</code> compatibility checks for <code>__init__</code> and <code>__new__</code>:</li>
-                                <li>the incompatible constructor overrides in <code>ChildC2</code> are not flagged.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr class="summary">
@@ -1086,7 +1047,7 @@
                         <td>2 / 2 • 100.0%</td>
                         <td>2 / 2 • 100.0%</td>
                         <td>1.5 / 2 • 75.0%</td>
-                        <td>1.5 / 2 • 75.0%</td>
+                        <td>2 / 2 • 100.0%</td>
                         <td>2 / 2 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1107,12 +1068,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not emit a diagnostic if a type alias to a union, in which every element of the union is implicitly specialized with <code>Unknown</code>, is invalidly specialized again.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1127,13 +1083,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject variables with <code>Any</code> or <code>Unknown</code> types when used as implicit type aliases.</li>
-                                <li>Falls short on full syntactic validation of type aliases.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1156,7 +1106,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="not-conformant">Unsupported</td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1171,12 +1121,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject a generic type alias that recursively specializes itself with different type arguments.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1191,12 +1136,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject cyclically defined <code>TypeAliasType</code> aliases.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1214,7 +1154,7 @@
                         <td>6 / 7 • 85.7%</td>
                         <td>7 / 7 • 100.0%</td>
                         <td>7 / 7 • 100.0%</td>
-                        <td>4 / 7 • 57.1%</td>
+                        <td>7 / 7 • 100.0%</td>
                         <td>7 / 7 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1342,11 +1282,11 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="not-conformant tooltip">
-                            Unsupported
+                        <td class="partially-conformant tooltip">
+                            Partial
                             <ul class="notes">
-                                <li>Allows implicitly abstract protocol methods to be called via <code>super()</code> on a protocol subclass.</li>
-                                <li>Allows instantiation of abstract subclasses of protocol classes.</li>
+                                <li>Allows abstract protocol methods with no default implementation to be called via <code>super()</code> on a protocol subclass.</li>
+                                <li>Allows instantiation of protocol subclasses with uninitialized <code>ClassVar</code> members.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1365,7 +1305,7 @@
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
-                                <li>Only partially supports <code>@property</code> protocol members.</li>
+                                <li>Does not reject incompatible non-generic implementations of generic protocol methods.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1376,12 +1316,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not reject attempted instantiation of abstract subclasses of protocols.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1453,12 +1388,7 @@
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Doesn't support variance keywords to ParamSpec</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="partially-conformant tooltip">
                             Partial
                             <ul class="notes">
@@ -1472,9 +1402,9 @@
                         <td></td>
                         <td>9.5 / 11 • 86.4%</td>
                         <td>10 / 11 • 90.9%</td>
+                        <td>11 / 11 • 100.0%</td>
                         <td>10.5 / 11 • 95.5%</td>
-                        <td>10.5 / 11 • 95.5%</td>
-                        <td>7.5 / 11 • 68.2%</td>
+                        <td>8.5 / 11 • 77.3%</td>
                         <td>11 / 11 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -1563,7 +1493,6 @@
                             Partial
                             <ul class="notes">
                                 <li>Does not reject invalid argument types to an inherited constructor in a specialized subclass of a generic superclass.</li>
-                                <li>Does not reject class-scoped type variables used in the <code>self</code> annotation.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
@@ -1730,18 +1659,12 @@
                                 <li>Does not expand boolean arguments to <code>Literal[True]</code> and <code>Literal[False]</code>.</li>
                                 <li>Does not expand enum arguments to literal variants.</li>
                                 <li>Does not expand tuple arguments to possible combinations.</li>
-                                <li>Does not evaluate <code>Any</code> in some cases where overload is ambiguous.</li>
                                 <li>Evaluates <code>Any</code> in some cases where overload is not ambiguous.</li>
                             </ul>
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not evaluate <code>Any</code> in some cases where overload is ambiguous.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -1750,7 +1673,7 @@
                         <td>3.5 / 5 • 70.0%</td>
                         <td>3.5 / 5 • 70.0%</td>
                         <td>5 / 5 • 100.0%</td>
-                        <td>4.5 / 5 • 90.0%</td>
+                        <td>5 / 5 • 100.0%</td>
                         <td>5 / 5 • 100.0%</td>
                         <td>5 / 5 • 100.0%</td>
                     </tr>
@@ -1788,33 +1711,11 @@
                     </tr>
                     <tr>
                         <th scope="row">dataclasses_descriptors</th>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Assumes descriptor behavior only when field is assigned in class body.</li>
-                                <li>Does not correctly evaluate type of descriptor access.</li>
-                            </ul>
-                        </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Conformance suite is questionable; see <a href="https://github.com/python/typing/issues/2259">https://github.com/python/typing/issues/2259</a></li>
-                            </ul>
-                        </td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Assumes descriptor behavior only when field is assigned in class body</li>
-                                <li>Doesn't allow non-data descriptors or data descriptors with differing <code>__get__</code> and <code>__set__</code> types</li>
-                            </ul>
-                        </td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Only infers a descriptor <code>__get__</code> method as being called when a descriptor attribute is accessed on an instance if the descriptor attribute is present in the class namespace.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -1993,11 +1894,11 @@
                     </tr>
                     <tr class="summary">
                         <td></td>
-                        <td>11.5 / 16 • 71.9%</td>
-                        <td>15.5 / 16 • 96.9%</td>
-                        <td>15.5 / 16 • 96.9%</td>
+                        <td>12 / 16 • 75.0%</td>
                         <td>16 / 16 • 100.0%</td>
-                        <td>15.5 / 16 • 96.9%</td>
+                        <td>16 / 16 • 100.0%</td>
+                        <td>16 / 16 • 100.0%</td>
+                        <td>16 / 16 • 100.0%</td>
                         <td>16 / 16 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -2031,12 +1932,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not support version-conditional items in <code>TypedDict</code> definitions.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -2166,7 +2062,7 @@
                         <td>11.5 / 14 • 82.1%</td>
                         <td>14 / 14 • 100.0%</td>
                         <td>14 / 14 • 100.0%</td>
-                        <td>13.5 / 14 • 96.4%</td>
+                        <td>14 / 14 • 100.0%</td>
                         <td>14 / 14 • 100.0%</td>
                         <td>14 / 14 • 100.0%</td>
                     </tr>
@@ -2322,12 +2218,7 @@
                         </td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not treat a complete union of all literal members as equivalent to the enum type.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -2389,7 +2280,7 @@
                         <td>4.5 / 6 • 75.0%</td>
                         <td>6 / 6 • 100.0%</td>
                         <td>6 / 6 • 100.0%</td>
-                        <td>5.5 / 6 • 91.7%</td>
+                        <td>6 / 6 • 100.0%</td>
                         <td>6 / 6 • 100.0%</td>
                         <td>6 / 6 • 100.0%</td>
                     </tr>
@@ -2458,14 +2349,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="partially-conformant tooltip">
-                            Partial
-                            <ul class="notes">
-                                <li>Does not detect calls to deprecated overloads.</li>
-                                <li>Does not detect implicit calls to deprecated dunder methods, for example via operators.</li>
-                                <li>Does not detect accesses of, or attempts to set, deprecated properties.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
                     <tr>
@@ -2473,12 +2357,7 @@
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
-                        <td class="not-conformant tooltip">
-                            Unsupported
-                            <ul class="notes">
-                                <li>Does not support PEP 800 disjoint-base semantics.</li>
-                            </ul>
-                        </td>
+                        <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                         <td class="conformant">Pass</td>
                     </tr>
@@ -2572,8 +2451,8 @@
                         <td>10 / 11 • 90.9%</td>
                         <td>11 / 11 • 100.0%</td>
                         <td>11 / 11 • 100.0%</td>
-                        <td>10 / 11 • 90.9%</td>
-                        <td>10.5 / 11 • 95.5%</td>
+                        <td>11 / 11 • 100.0%</td>
+                        <td>11 / 11 • 100.0%</td>
                         <td>11 / 11 • 100.0%</td>
                     </tr>
                 </tbody>
@@ -2612,12 +2491,12 @@
                 <tfoot>
                     <tr>
                         <td></td>
-                        <td>108.5 / 145 • 74.8%</td>
-                        <td>137.5 / 145 • 94.8%</td>
-                        <td>140.5 / 145 • 96.9%</td>
-                        <td>135.5 / 145 • 93.4%</td>
-                        <td>132 / 145 • 91.0%</td>
-                        <td>144.5 / 145 • 99.7%</td>
+                        <td>110.5 / 146 • 75.7%</td>
+                        <td>139 / 146 • 95.2%</td>
+                        <td>146 / 146 • 100.0%</td>
+                        <td>140.5 / 146 • 96.2%</td>
+                        <td>142 / 146 • 97.3%</td>
+                        <td>146 / 146 • 100.0%</td>
                     </tr>
                 </tfoot>
             </table>

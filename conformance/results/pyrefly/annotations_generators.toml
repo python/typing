@@ -7,7 +7,6 @@ ERROR annotations_generators.py:51:21-39: Function declared to return `C`, but o
 ERROR annotations_generators.py:54:16-21: Returned type `Literal[False]` is not assignable to declared return type `C` [bad-return]
 ERROR annotations_generators.py:57:15-16: Yielded type `Literal[3]` is not assignable to declared yield type `A` [invalid-yield]
 ERROR annotations_generators.py:66:15-16: Yielded type `Literal[3]` is not assignable to declared yield type `A` [invalid-yield]
-ERROR annotations_generators.py:71:12-16: Returned type `Literal[True]` is not assignable to declared return type `None` [bad-return]
 ERROR annotations_generators.py:75:11-14: Yielded type `B` is not assignable to declared yield type `A` [invalid-yield]
 ERROR annotations_generators.py:86:21-24: Generator function should return `Generator` [bad-return]
 ERROR annotations_generators.py:91:27-30: Async generator function should return `AsyncGenerator` [bad-return]

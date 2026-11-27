@@ -11,8 +11,7 @@ protocols_class_objects.py:58:16 - error: Type "type[ConcreteA]" is not assignab
     Type "(self: ConcreteA, x: int) -> int" is not assignable to type "(x: int) -> int"
       Parameter name mismatch: "x" versus "self"
       Parameter 1: type "int" is incompatible with type "ConcreteA"
-        "int" is not assignable to "ConcreteA"
-      Extra parameter "x" (reportAssignmentType)
+        "int" is not assignable to "ConcreteA" (reportAssignmentType)
 protocols_class_objects.py:74:16 - error: Type "type[ConcreteB]" is not assignable to declared type "ProtoB1"
   "prop1" is an incompatible type
     "property" is not assignable to "int" (reportAssignmentType)

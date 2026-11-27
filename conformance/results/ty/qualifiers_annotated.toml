@@ -19,7 +19,7 @@ qualifiers_annotated.py:71:24: error[invalid-assignment] Object of type `<specia
 qualifiers_annotated.py:72:24: error[invalid-assignment] Object of type `<special-form 'typing.Annotated[int, <metadata>]'>` is not assignable to `type[Any]`
 qualifiers_annotated.py:79:7: error[invalid-argument-type] Argument to function `func4` is incorrect: Expected `type[Unknown]`, found `<special-form 'typing.Annotated[str, <metadata>]'>`
 qualifiers_annotated.py:80:7: error[invalid-argument-type] Argument to function `func4` is incorrect: Expected `type[Unknown]`, found `<special-form 'typing.Annotated[int, <metadata>]'>`
-qualifiers_annotated.py:86:1: error[call-non-callable] Object of type `<special-form 'typing.Annotated'>` is not callable
-qualifiers_annotated.py:87:1: error[call-non-callable] Object of type `GenericAlias` is not callable
-qualifiers_annotated.py:88:1: error[call-non-callable] Object of type `GenericAlias` is not callable
+qualifiers_annotated.py:86:1: error[not-callable] Object of type `<special-form 'typing.Annotated'>` is not callable
+qualifiers_annotated.py:87:1: error[not-callable] Object of type `GenericAlias` is not callable
+qualifiers_annotated.py:88:1: error[not-callable] Object of type `GenericAlias` is not callable
 """

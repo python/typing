@@ -13,7 +13,7 @@ typeforms_typeform.py:71:18: error[invalid-type-form] Type qualifier `typing.Cla
 typeforms_typeform.py:72:18: error[invalid-type-form] Type qualifier `typing.Final` is not allowed in type expressions (only in annotation expressions)
 typeforms_typeform.py:73:18: error[invalid-type-form] `Unpack` is not allowed in type expressions
 typeforms_typeform.py:74:18: error[invalid-type-form] `typing.Optional` requires exactly one argument when used in a type expression
-typeforms_typeform.py:75:19: error[invalid-type-form] Invalid binary operator `+` in type annotation
+typeforms_typeform.py:75:19: error[invalid-type-form] Invalid binary operator `+` in a type expression
 typeforms_typeform.py:86:16: error[invalid-type-form] Function calls are not allowed in type expressions
 typeforms_typeform.py:88:15: error[invalid-type-form] Function calls are not allowed in type expressions
 typeforms_typeform.py:98:21: error[invalid-assignment] Object of type `TypeForm[int]` is not assignable to `TypeForm[str]`

@@ -6,18 +6,16 @@ Does not fully support defaults on `TypeVarTuple` and `ParamSpec`.
 output = """
 generics_defaults.py:24: error: "T" cannot appear after "DefaultStrT" in type parameter list because it has no default type  [misc]
 generics_defaults.py:66: error: "AllTheDefaults" expects between 2 and 5 type arguments, but 1 given  [type-arg]
-generics_defaults.py:139: error: Expression is of type "tuple[*tuple[str, int], ...]", not "tuple[str, int]"  [assert-type]
 generics_defaults.py:152: error: TypeVar default must be a subtype of the bound type  [misc]
 generics_defaults.py:159: error: TypeVar default must be one of the constraint types  [misc]
 generics_defaults.py:177: error: Expression is of type "int", not "Any"  [assert-type]
+generics_defaults.py:188: error: A type variable with default cannot follow TypeVarTuple  [type-var]
 generics_defaults.py:203: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [valid-type]
 generics_defaults.py:204: error: Expression is of type "tuple[Any, ...]", not "tuple[int, str]"  [assert-type]
 generics_defaults.py:205: error: Expression is of type "def (*Any, **Any) -> None", not "Callable[[float, bool], None]"  [assert-type]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 188: Expected 1 errors
-Line 139: Unexpected errors ['generics_defaults.py:139: error: Expression is of type "tuple[*tuple[str, int], ...]", not "tuple[str, int]"  [assert-type]']
 Line 203: Unexpected errors ['generics_defaults.py:203: error: Can only replace ParamSpec with a parameter types list or another ParamSpec, got "str"  [valid-type]']
 Line 204: Unexpected errors ['generics_defaults.py:204: error: Expression is of type "tuple[Any, ...]", not "tuple[int, str]"  [assert-type]']
 Line 205: Unexpected errors ['generics_defaults.py:205: error: Expression is of type "def (*Any, **Any) -> None", not "Callable[[float, bool], None]"  [assert-type]']

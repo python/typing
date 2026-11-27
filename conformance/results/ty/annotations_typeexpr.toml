@@ -10,7 +10,7 @@ annotations_typeexpr.py:92:9: error[invalid-type-form] Dict literals are not all
 annotations_typeexpr.py:93:9: error[invalid-type-form] Function calls are not allowed in parameter annotations
 annotations_typeexpr.py:94:9: error[invalid-type-form] Only simple names and dotted names can be subscripted in parameter annotations
 annotations_typeexpr.py:95:9: error[invalid-type-form] `if` expressions are not allowed in parameter annotations
-annotations_typeexpr.py:96:9: error[invalid-type-form] Variable of type `Literal[3]` is not allowed in a parameter annotation
+annotations_typeexpr.py:96:9: error[invalid-type-form] Variable `var1` cannot be used as a type: Variable of type `Literal[3]` is not allowed in a parameter annotation
 annotations_typeexpr.py:97:10: error[invalid-type-form] Boolean literals are not allowed in this context in a parameter annotation: Did you mean `typing.Literal[True]`?
 annotations_typeexpr.py:98:10: error[invalid-type-form] Int literals are not allowed in this context in a parameter annotation: Did you mean `typing.Literal[1]`?
 annotations_typeexpr.py:99:10: error[invalid-type-form] Unary operations are not allowed in parameter annotations

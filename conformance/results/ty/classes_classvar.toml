@@ -16,7 +16,7 @@ classes_classvar.py:72:12: error[invalid-type-form] `ClassVar` is only allowed i
 classes_classvar.py:73:18: error[invalid-type-form] `ClassVar` annotations are not allowed for non-name targets
 classes_classvar.py:75:26: error[invalid-type-form] Type qualifier `typing.ClassVar` is not allowed in return type annotations
 classes_classvar.py:79:8: error[invalid-type-form] `ClassVar` is only allowed in class bodies
-classes_classvar.py:80:20: error[invalid-type-form] Type qualifier `typing.ClassVar` is not allowed in type alias values
+classes_classvar.py:80:20: error[invalid-type-form] Type qualifier `typing.ClassVar` is not allowed in type alias definitions
 classes_classvar.py:89:8: error[invalid-type-form] `ClassVar` is not allowed in TypedDict fields
 classes_classvar.py:94:5: error[invalid-named-tuple] Type qualifier `ClassVar` is not allowed on NamedTuple field `b`
 classes_classvar.py:127:1: error[invalid-attribute-access] Cannot assign to ClassVar `stats` from an instance of type `Starship`

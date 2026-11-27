@@ -349,8 +349,8 @@ still recommended to separately define known attributes.
 Constants
 ---------
 
-When the value of a constant is important,  mark it as ``Final`` and assign it
-to its value.
+When the value of a constant is important, mark it as a :term:`bare Final` and
+assign it to its value.
 
 Yes::
 
@@ -647,24 +647,29 @@ No::
     def foo(x: X = X()) -> None: ...
     def bar(y: str = None) -> None: ...
 
-Do not annotate ``self`` and ``cls`` in method definitions, except when
-referencing a type variable.
+Do not annotate ``self`` and ``cls`` in method definitions unless an explicit
+annotation is needed to constrain or relax the receiver type.
 
 Yes::
-
-    _T = TypeVar("_T")
 
     class Foo:
         def bar(self) -> None: ...
         @classmethod
-        def create(cls: type[_T]) -> _T: ...
+        def create(cls) -> Self: ...
+
+    _T = TypeVar("_T")
+
+    class Box(Generic[_T]):
+        # This method is only available on boxes containing strings.
+        def upper(self: Box[str]) -> str: ...
 
 No::
 
     class Foo:
-        def bar(self: Foo) -> None: ...
+        def bar1(self: Self) -> None: ...
+        def bar2(self: Foo) -> None: ...
         @classmethod
-        def baz(cls: type[Foo]) -> int: ...
+        def create(cls: type[Self]) -> Self: ...
 
 The bodies of functions and methods should consist of only the ellipsis
 literal ``...`` on the same line as the closing parenthesis and colon.
@@ -800,6 +805,7 @@ reasons can include:
 
 * Using :ref:`Any` as a type argument for a generic with invariant type variables
   to say "any object of this type is allowed", e.g. ``Future[Any]``.
+* Using the expression ``Callable[..., Any]`` to say "any callable".
 * Using ``dict[str, Any]`` or ``Mapping[str, Any]`` when the value types
   depend on the keys. But consider using :ref:`TypedDict` or
   ``dict[str, Incomplete]`` (temporarily) when the keys of the dictionary are

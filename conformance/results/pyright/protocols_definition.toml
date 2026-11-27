@@ -65,9 +65,9 @@ protocols_definition.py:287:22 - error: Type "Concrete5_Bad3" is not assignable 
   "Concrete5_Bad3" is incompatible with protocol "Template5"
     "method1" is an incompatible type
       Type "(*, a: int, b: int) -> float" is not assignable to type "(a: int, b: int) -> float"
-        Function accepts too many positional parameters; expected 0 but received 2
-          Extra parameter "a"
-          Extra parameter "b" (reportAssignmentType)
+        Function accepts too few positional parameters; expected 2 but received 0
+          Parameter "a" is missing default argument
+          Parameter "b" is missing default argument (reportAssignmentType)
 protocols_definition.py:288:22 - error: Type "Concrete5_Bad4" is not assignable to declared type "Template5"
   "Concrete5_Bad4" is incompatible with protocol "Template5"
     "method1" is an incompatible type
@@ -82,8 +82,7 @@ protocols_definition.py:289:22 - error: Type "Concrete5_Bad5" is not assignable 
     "method1" is an incompatible type
       Type "(self: Unknown, a: int, b: int) -> float" is not assignable to type "(a: int, b: int) -> float"
         Parameter name mismatch: "a" versus "self"
-        Parameter name mismatch: "b" versus "a"
-        Extra parameter "b" (reportAssignmentType)
+        Parameter name mismatch: "b" versus "a" (reportAssignmentType)
 protocols_definition.py:339:22 - error: Type "Concrete6_Bad1" is not assignable to declared type "Template6"
   "Concrete6_Bad1" is incompatible with protocol "Template6"
     "val1" is an incompatible type

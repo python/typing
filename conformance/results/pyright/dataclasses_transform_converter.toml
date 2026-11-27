@@ -5,17 +5,17 @@ errors_diff = """
 output = """
 dataclasses_transform_converter.py:48:31 - error: Argument of type "() -> int" is not a valid converter for field "field1" of type "int"
   Type "() -> int" is not assignable to type "(__converterInput) -> int"
-    Function accepts too many positional parameters; expected 0 but received 1 (reportGeneralTypeIssues)
+    Function accepts too few positional parameters; expected 1 but received 0 (reportGeneralTypeIssues)
 dataclasses_transform_converter.py:48:41 - error: Argument of type "() -> int" cannot be assigned to parameter "converter" of type "(S@model_field) -> T@model_field" in function "model_field"
   Type "() -> int" is not assignable to type "(S@model_field) -> int"
-    Function accepts too many positional parameters; expected 0 but received 1 (reportArgumentType)
+    Function accepts too few positional parameters; expected 1 but received 0 (reportArgumentType)
 dataclasses_transform_converter.py:49:31 - error: Argument of type "(*, x: int) -> int" is not a valid converter for field "field2" of type "int"
   Type "(*, x: int) -> int" is not assignable to type "(__converterInput) -> int"
-    Function accepts too many positional parameters; expected 0 but received 1
+    Function accepts too few positional parameters; expected 1 but received 0
       Extra parameter "x" (reportGeneralTypeIssues)
 dataclasses_transform_converter.py:49:41 - error: Argument of type "(*, x: int) -> int" cannot be assigned to parameter "converter" of type "(S@model_field) -> T@model_field" in function "model_field"
   Type "(*, x: int) -> int" is not assignable to type "(S@model_field) -> int"
-    Function accepts too many positional parameters; expected 0 but received 1
+    Function accepts too few positional parameters; expected 1 but received 0
       Extra parameter "x" (reportArgumentType)
 dataclasses_transform_converter.py:107:5 - error: Argument of type "Literal[1]" cannot be assigned to parameter "field0" of type "str" in function "__init__"
   "Literal[1]" is not assignable to "str" (reportArgumentType)
