@@ -169,6 +169,17 @@ is a subtype of ``str``, because ``MyStr`` represents a subset of the values
 represented by ``str``. Such types can be called "nominal types" and this is
 "nominal subtyping."
 
+.. _`concrete-type`:
+
+Concrete types
+--------------
+
+A **concrete type** is a type specified by the name of a Python class, for
+example, ``int``, ``str``, ``list``, or any user-defined class. Concrete types
+represent actual Python objects and are distinct from protocols, type
+variables, or type forms. They are used in type annotations where a specific
+class is intended.
+
 Other types (e.g. :ref:`Protocols` and :ref:`TypedDict`) instead describe a set
 of values by the types of their attributes and methods, or the types of their
 dictionary keys and values. These are called "structural types". A structural
