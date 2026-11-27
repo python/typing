@@ -201,11 +201,11 @@ an error at runtime.
 Inference Rules
 ^^^^^^^^^^^^^^^
 
-Type checkers should use the following inference rules for ``Final`` with no
-type annotation:
+Type checkers should use the following inference rules for :term:`bare Final`
+annotations:
 
-* If the value would be a valid parameter for
-  ``Literal[...]``, type checkers should infer that ``Literal``. For example::
+* If the value would be a valid parameter for ``Literal[...]``, type checkers
+  should infer that ``Literal``. For example::
 
     bare1: Final = 3  # infer bare1 as Literal[3]
 
@@ -220,8 +220,8 @@ type annotation:
 
     bare3: Final = [1]  # infer bare3 as list[int]
 
-Type checkers should use the following inference rules for ``Final`` with an
-explicit type:
+Type checkers should use the following inference rules for
+:term:`explicitly typed Final` annotations:
 
 * If the right hand side is missing, type checkers should use the explicit
   type::
