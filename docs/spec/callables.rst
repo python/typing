@@ -239,8 +239,8 @@ error if the argument is supplied via unpacking::
     g(name="No Country for Old Men", year=2007) # OK
     h(name="No Country for Old Men", year=2007) # Unrecognized item, error
 
-Assignability for ``Unpack`` keyword arguments
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Assignability for ``Unpack`` keyword argument types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For purposes of assignability and override checks, ``**kwargs`` that are annotated
 with ``Unpack`` can be desugared into regular keyword arguments using the following rules.
