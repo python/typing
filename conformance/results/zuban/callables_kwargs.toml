@@ -6,18 +6,18 @@ Does not reject unpacking an open TypedDict in a call to a callable whose `**kwa
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 282: Expected 1 errors
+Line 278: Expected 1 errors
+Line 281: Expected 1 errors
+Line 284: Expected 1 errors
 Line 285: Expected 1 errors
-Line 288: Expected 1 errors
-Line 289: Expected 1 errors
-Line 294: Expected 1 errors
+Line 290: Expected 1 errors
+Line 291: Expected 1 errors
 Line 295: Expected 1 errors
-Line 299: Expected 1 errors
+Line 298: Expected 1 errors
+Line 301: Expected 1 errors
 Line 302: Expected 1 errors
-Line 305: Expected 1 errors
-Line 306: Expected 1 errors
-Line 311: Expected 1 errors
-Line 312: Expected 1 errors
+Line 307: Expected 1 errors
+Line 308: Expected 1 errors
 """
 output = """
 callables_kwargs.py:55: error: Missing named argument "v1" for "func1"  [call-arg]
@@ -39,23 +39,23 @@ callables_kwargs.py:122: error: Incompatible types in assignment (expression has
 callables_kwargs.py:123: error: Incompatible types in assignment (expression has type "def func1(**kwargs: Unpack[TD2]) -> None", variable has type "TDProtocol5")  [assignment]
 callables_kwargs.py:131: error: Overlap between parameter names and ** TypedDict items: "v1"  [misc]
 callables_kwargs.py:142: error: Unpack item in ** parameter must be a TypedDict  [misc]
-callables_kwargs.py:154: error: Incompatible types in assignment (expression has type "def func7(*, v1: int, v3: str, v2: str = ...) -> None", variable has type "TDProtocol6")  [assignment]
-callables_kwargs.py:174: error: Signature of "method" incompatible with supertype "BaseUnpacked"  [override]
-callables_kwargs.py:174: note:      Superclass:
-callables_kwargs.py:174: note:          def method(self, **kwargs: Unpack[TDPerson]) -> None
-callables_kwargs.py:174: note:      Subclass:
-callables_kwargs.py:174: note:          def method(self, *, name: str, age: int, extra: bool = ...) -> None
-callables_kwargs.py:209: error: Incompatible types in assignment (expression has type "def func9(**kwargs: Unpack[TDChild]) -> None", variable has type "TDProtocol9")  [assignment]
-callables_kwargs.py:284: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenImplicit"; expected "str"  [arg-type]
-callables_kwargs.py:287: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenImplicit"; expected "str"  [arg-type]
-callables_kwargs.py:301: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenExplicit"; expected "str"  [arg-type]
-callables_kwargs.py:304: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenExplicit"; expected "str"  [arg-type]
-callables_kwargs.py:327: error: Too many arguments for "takes_name"  [call-arg]
-callables_kwargs.py:328: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
-callables_kwargs.py:330: error: Too many arguments for "takes_name"  [call-arg]
-callables_kwargs.py:331: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
-callables_kwargs.py:333: error: Argument 1 to "takes_closed" has incompatible type "**TDExtraItems"; expected "Never"  [arg-type]
-callables_kwargs.py:334: error: Argument 1 to "takes_closed" has incompatible type "**TDExtraItems"; expected "Never"  [arg-type]
-callables_kwargs.py:335: error: Argument 1 to "takes_optional_label_int_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
-callables_kwargs.py:336: error: Argument 1 to "takes_optional_label_int_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
+callables_kwargs.py:150: error: Incompatible types in assignment (expression has type "def func7(*, v1: int, v3: str, v2: str = ...) -> None", variable has type "TDProtocol6")  [assignment]
+callables_kwargs.py:170: error: Signature of "method" incompatible with supertype "BaseUnpacked"  [override]
+callables_kwargs.py:170: note:      Superclass:
+callables_kwargs.py:170: note:          def method(self, **kwargs: Unpack[TDPerson]) -> None
+callables_kwargs.py:170: note:      Subclass:
+callables_kwargs.py:170: note:          def method(self, *, name: str, age: int, extra: bool = ...) -> None
+callables_kwargs.py:205: error: Incompatible types in assignment (expression has type "def func9(**kwargs: Unpack[TDChild]) -> None", variable has type "TDProtocol9")  [assignment]
+callables_kwargs.py:280: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenImplicit"; expected "str"  [arg-type]
+callables_kwargs.py:283: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenImplicit"; expected "str"  [arg-type]
+callables_kwargs.py:297: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenExplicit"; expected "str"  [arg-type]
+callables_kwargs.py:300: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDOpenExplicit"; expected "str"  [arg-type]
+callables_kwargs.py:323: error: Too many arguments for "takes_name"  [call-arg]
+callables_kwargs.py:324: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
+callables_kwargs.py:326: error: Too many arguments for "takes_name"  [call-arg]
+callables_kwargs.py:327: error: Argument 1 to "takes_name_str_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
+callables_kwargs.py:329: error: Argument 1 to "takes_closed" has incompatible type "**TDExtraItems"; expected "Never"  [arg-type]
+callables_kwargs.py:330: error: Argument 1 to "takes_closed" has incompatible type "**TDExtraItems"; expected "Never"  [arg-type]
+callables_kwargs.py:331: error: Argument 1 to "takes_optional_label_int_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
+callables_kwargs.py:332: error: Argument 1 to "takes_optional_label_int_kwargs" has incompatible type "**TDExtraItems"; expected "str"  [arg-type]
 """
