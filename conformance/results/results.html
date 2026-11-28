@@ -1430,13 +1430,58 @@
                             Partial
                             <ul class="notes">
                                 <li>Allows callable without kwargs to be assigned to callable with unpacked kwargs.</li>
+                                <li>Does not support the <code>extra_items</code> TypedDict class argument.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
+                                <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's <code>**kwargs</code> annotation.</li>
+                                <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
+                                <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
+                                <li>When <code>Base</code> is open and <code>Child</code> adds a non-required <code>int</code> key, incorrectly allows a callable taking <code>**kwargs: Unpack[Child]</code> to stand in for one taking <code>**kwargs: Unpack[Base]</code> and rejects the reverse assignment.</li>
                             </ul>
                         </td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
-                        <td class="conformant">Pass</td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
+                                <li>Does not treat an open TypedDict as having extra items of type <code>object</code> when checking against the target callable's <code>**kwargs</code> annotation.</li>
+                                <li>Incorrectly allows a callable taking <code>**kwargs: Unpack[Child]</code> to stand in for one taking <code>**kwargs: Unpack[Base]</code> when <code>Base</code> is open and <code>Child</code> adds a non-required <code>int</code> key.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
+                                <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking a TypedDict that sets <code>extra_items</code> in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
+                                <li>Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.</li>
+                                <li>Incorrectly rejects assigning a callable taking <code>**kwargs: Unpack[Base]</code> to one taking <code>**kwargs: Unpack[Child]</code> when <code>Base</code> is open and <code>Child</code> adds a non-required <code>int</code> key.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
+                            </ul>
+                        </td>
+                        <td class="partially-conformant tooltip">
+                            Partial
+                            <ul class="notes">
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable that has no <code>**kwargs</code>.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a closed TypedDict.</li>
+                                <li>Does not reject unpacking an open TypedDict in a call to a callable whose <code>**kwargs</code> is typed with a TypedDict whose <code>extra_items</code> type is narrower than <code>object</code>.</li>
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <th scope="row">callables_protocol</th>
@@ -1459,11 +1504,11 @@
                     <tr class="summary">
                         <td></td>
                         <td>3 / 4 • 75.0%</td>
-                        <td>4 / 4 • 100.0%</td>
-                        <td>4 / 4 • 100.0%</td>
-                        <td>4 / 4 • 100.0%</td>
-                        <td>4 / 4 • 100.0%</td>
-                        <td>4 / 4 • 100.0%</td>
+                        <td>3.5 / 4 • 87.5%</td>
+                        <td>3.5 / 4 • 87.5%</td>
+                        <td>3.5 / 4 • 87.5%</td>
+                        <td>3.5 / 4 • 87.5%</td>
+                        <td>3.5 / 4 • 87.5%</td>
                     </tr>
                 </tbody>
                 <tbody>
@@ -2487,11 +2532,11 @@
                     <tr>
                         <td></td>
                         <td>110.5 / 146 • 75.7%</td>
-                        <td>139 / 146 • 95.2%</td>
-                        <td>146 / 146 • 100.0%</td>
-                        <td>140.5 / 146 • 96.2%</td>
-                        <td>142 / 146 • 97.3%</td>
-                        <td>146 / 146 • 100.0%</td>
+                        <td>138.5 / 146 • 94.9%</td>
+                        <td>145.5 / 146 • 99.7%</td>
+                        <td>140 / 146 • 95.9%</td>
+                        <td>141.5 / 146 • 96.9%</td>
+                        <td>145.5 / 146 • 99.7%</td>
                     </tr>
                 </tfoot>
             </table>

@@ -7,7 +7,8 @@ Tests the use of an unpacked TypedDict for annotating **kwargs.
 # This sample tests the handling of Unpack[TypedDict] when used with
 # a **kwargs parameter in a function signature.
 
-from typing import Protocol, TypeVar, TypedDict, NotRequired, Required, Unpack, assert_type
+from typing import Protocol, TypeVar, Never, NotRequired, Required, Unpack, assert_type
+from typing_extensions import TypedDict  # for the `closed` and `extra_items` arguments
 
 
 class TD1(TypedDict):
@@ -16,6 +17,14 @@ class TD1(TypedDict):
 
 
 class TD2(TD1):
+    v3: Required[str]
+
+
+class TD3(TD1, closed=True):
+    v3: Required[str]
+
+
+class TD4(TD1, extra_items=Never):
     v3: Required[str]
 
 
@@ -94,7 +103,18 @@ class TDProtocol6(Protocol):
     def __call__(self, **kwargs: Unpack[TD2]) -> None:
         ...
 
-# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#assignment
+
+class TDProtocol7(Protocol):
+    def __call__(self, **kwargs: Unpack[TD3]) -> None:
+        ...
+
+
+class TDProtocol8(Protocol):
+    def __call__(self, **kwargs: Unpack[TD4]) -> None:
+        ...
+
+
+# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#unpack-kwargs-assignability
 
 v1: TDProtocol1 = func1  # OK
 v2: TDProtocol2 = func1  # OK
@@ -122,13 +142,206 @@ T = TypeVar("T", bound=TD2)
 def func6(**kwargs: Unpack[T]) -> None:  # E: unpacked value must be a TypedDict, not a TypeVar bound to TypedDict.
     ...
 
-# > The situation where the destination callable contains **kwargs: Unpack[TypedDict] and
-# > the source callable doesn’t contain **kwargs should be disallowed. This is because,
-# > we cannot be sure that additional keyword arguments are not being passed in when an instance of a subclass
-# > had been assigned to a variable with a base class type and then unpacked in the destination callable invocation
 
 def func7(*, v1: int, v3: str, v2: str = "") -> None:
     ...
 
 
 v7: TDProtocol6 = func7  # E: source does not have kwargs
+v8: TDProtocol7 = func7  # OK, unpacked TypedDict has closed=True
+v9: TDProtocol8 = func7  # OK, unpacked TypedDict has extra_items=Never
+
+
+# An override without **kwargs is not compatible with a base method
+# whose **kwargs is an unpacked open TypedDict.
+
+
+class TDPerson(TypedDict):
+    name: str
+    age: int
+
+
+class BaseUnpacked:
+    def method(self, **kwargs: Unpack[TDPerson]) -> None:
+        ...
+
+
+class SubNoKwargs(BaseUnpacked):
+    def method(self, *, name: str, age: int, extra: bool = False) -> None:  # E: source does not have kwargs
+        ...
+
+
+# An open TypedDict used to annotate **kwargs is treated as having extra items
+# of type `object`, so a callable that accepts additional non-required keys
+# cannot be assigned to one that only accepts the base TypedDict's keys.
+
+
+class TDBase(TypedDict):
+    x: int
+
+
+class TDChild(TDBase, total=False):
+    y: int
+
+
+class TDProtocol9(Protocol):
+    def __call__(self, **kwargs: Unpack[TDBase]) -> None:
+        ...
+
+
+class TDProtocol10(Protocol):
+    def __call__(self, **kwargs: Unpack[TDChild]) -> None:
+        ...
+
+
+def func8(**kwargs: Unpack[TDBase]) -> None:
+    ...
+
+
+def func9(**kwargs: Unpack[TDChild]) -> None:
+    ...
+
+
+v10: TDProtocol9 = func9  # E: `y` may be passed as an extra item of type `object`
+v11: TDProtocol10 = func8  # OK
+
+
+# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#unpacking-a-typeddict-as-keyword-argument-types
+
+
+class TDOpenImplicit(TypedDict):
+    name: str
+
+
+class TDOpenExplicit(TypedDict, closed=False):
+    name: str
+
+
+class TDClosed(TypedDict, closed=True):
+    name: str
+
+
+class TDExtraItems(TypedDict, extra_items=int):
+    name: str
+
+
+class TDExtraItemsNever(TypedDict, extra_items=Never):
+    name: str
+
+
+class TDExtraItemsObject(TypedDict, extra_items=object):
+    name: str
+
+
+def takes_name(name: str) -> None:
+    ...
+
+
+def takes_name_kwargs(name: str, **kwargs) -> None:
+    ...
+
+
+def takes_name_object_kwargs(name: str, **kwargs: object) -> None:
+    ...
+
+
+def takes_name_str_kwargs(name: str, **kwargs: str) -> None:
+    ...
+
+
+def takes_name_int_kwargs(name: str, **kwargs: int) -> None:
+    ...
+
+
+def takes_optional_label_int_kwargs(name: str, *, label: str = "", **kwargs: int) -> None:
+    ...
+
+
+def takes_closed(**kwargs: Unpack[TDClosed]) -> None:
+    ...
+
+
+# Equivalent to `def takes_extra_items_object(*, name: str, **kwargs: object)`.
+def takes_extra_items_object(**kwargs: Unpack[TDExtraItemsObject]) -> None:
+    ...
+
+
+# Equivalent to `def takes_extra_items_int(*, name: str, **kwargs: int)`.
+def takes_extra_items_int(**kwargs: Unpack[TDExtraItems]) -> None:
+    ...
+
+
+# > Type checkers should treat the :term:`extra items` of an unpacked ``TypedDict`` (of type ``object`` if it is :term:`open`) as additional keyword arguments of that
+# > type, and report an error unless the callee accepts them: the extra items type must be assignable to the callee's ``**kwargs`` type, and to any keyword parameter [...]
+
+def open_implicit(value: TDOpenImplicit, **kwargs: Unpack[TDOpenImplicit]) -> None:
+    takes_name(**value)  # E: a subtype may contain unknown keys
+    takes_name_kwargs(**value)
+    takes_name_str_kwargs(**value) # E: extra items type is not compatible
+    takes_name(**kwargs)  # E: a subtype may contain unknown keys
+    takes_name_kwargs(**kwargs)
+    takes_name_str_kwargs(**kwargs) # E: extra items type is not compatible
+    takes_closed(**value)  # E: a subtype may contain unknown keys
+    takes_closed(**kwargs)  # E: a subtype may contain unknown keys
+    takes_name_object_kwargs(**value)
+    takes_name_object_kwargs(**kwargs)
+    takes_extra_items_object(**value)
+    takes_extra_items_object(**kwargs)
+    takes_extra_items_int(**value)  # E: extra items type is not compatible
+    takes_extra_items_int(**kwargs)  # E: extra items type is not compatible
+
+
+def open_explicit(value:TDOpenExplicit, **kwargs: Unpack[TDOpenExplicit]) -> None:
+    takes_name(**value)  # E: a subtype may contain unknown keys
+    takes_name_kwargs(**value)
+    takes_name_str_kwargs(**value) # E: extra items type is not compatible
+    takes_name(**kwargs)  # E: a subtype may contain unknown keys
+    takes_name_kwargs(**kwargs)
+    takes_name_str_kwargs(**kwargs) # E: extra items type is not compatible
+    takes_closed(**value)  # E: a subtype may contain unknown keys
+    takes_closed(**kwargs)  # E: a subtype may contain unknown keys
+    takes_name_object_kwargs(**value)
+    takes_name_object_kwargs(**kwargs)
+    takes_extra_items_object(**value)
+    takes_extra_items_object(**kwargs)
+    takes_extra_items_int(**value)  # E: extra items type is not compatible
+    takes_extra_items_int(**kwargs)  # E: extra items type is not compatible
+
+
+def kwargs_closed(value: TDClosed, **kwargs: Unpack[TDClosed]) -> None:
+    takes_name(**value)
+    takes_name_kwargs(**value)
+    takes_name_str_kwargs(**value)
+    takes_name(**kwargs)
+    takes_name_kwargs(**kwargs)
+    takes_name_str_kwargs(**kwargs)
+    takes_closed(**value)
+    takes_closed(**kwargs)
+
+
+def kwargs_extra_items(value: TDExtraItems, **kwargs: Unpack[TDExtraItems]) -> None:
+    takes_name(**value)  # E: extra items may be present
+    takes_name_str_kwargs(**value)  # E: extra items type is not compatible
+    takes_name_int_kwargs(**value)
+    takes_name(**kwargs)  # E: extra items may be present
+    takes_name_str_kwargs(**kwargs)  # E: extra items type is not compatible
+    takes_name_int_kwargs(**kwargs)
+    takes_closed(**value) # E: extra items may be present
+    takes_closed(**kwargs) # E: extra items may be present
+    takes_optional_label_int_kwargs(**value)  # E: extra items type is not compatible w/ `label` param
+    takes_optional_label_int_kwargs(**kwargs)  # E: extra items type is not compatible w/ `label` param
+    takes_extra_items_object(**value)
+    takes_extra_items_object(**kwargs)
+    takes_extra_items_int(**value)
+    takes_extra_items_int(**kwargs)
+
+
+def kwargs_extra_items_never(value: TDExtraItemsNever, **kwargs: Unpack[TDExtraItemsNever]) -> None:
+    takes_name(**value)
+    takes_name_kwargs(**value)
+    takes_name_str_kwargs(**value)
+    takes_name(**kwargs)
+    takes_name_kwargs(**kwargs)
+    takes_name_str_kwargs(**kwargs)
+    takes_closed(**value)
+    takes_closed(**kwargs)

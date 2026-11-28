@@ -1,29 +1,74 @@
 conformant = "Partial"
 notes = """
 Allows callable without kwargs to be assigned to callable with unpacked kwargs.
+Does not support the `extra_items` TypedDict class argument.
+Does not reject unpacking an open TypedDict in a call to a callable that has no `**kwargs`.
+Does not reject unpacking an open TypedDict in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
+Does not check the type of an unpacked TypedDict's extra items against the target callable's `**kwargs` annotation.
+Does not check the type of an unpacked TypedDict's extra items against the target callable's named keyword parameters.
+Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable that has no `**kwargs`.
+Does not reject unpacking a TypedDict that sets `extra_items` in a call to a callable whose `**kwargs` is typed with a closed TypedDict.
+When `Base` is open and `Child` adds a non-required `int` key, incorrectly allows a callable taking `**kwargs: Unpack[Child]` to stand in for one taking `**kwargs: Unpack[Base]` and rejects the reverse assignment.
 """
 output = """
-callables_kwargs.py:46: error: Missing named argument "v1" for "func1"  [call-arg]
-callables_kwargs.py:46: error: Missing named argument "v3" for "func1"  [call-arg]
-callables_kwargs.py:51: error: Unexpected keyword argument "v4" for "func1"  [call-arg]
-callables_kwargs.py:52: error: Too many positional arguments for "func1"  [call-arg]
-callables_kwargs.py:58: error: Argument 1 to "func1" has incompatible type "**dict[str, str]"; expected "int"  [arg-type]
-callables_kwargs.py:61: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "int"  [arg-type]
-callables_kwargs.py:61: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "str"  [arg-type]
-callables_kwargs.py:63: error: "func1" gets multiple values for keyword argument "v1"  [misc]
-callables_kwargs.py:64: error: "func2" gets multiple values for keyword argument "v3"  [misc]
-callables_kwargs.py:64: error: Argument 1 to "func2" has incompatible type "int"; expected "str"  [arg-type]
-callables_kwargs.py:65: error: "func2" gets multiple values for keyword argument "v1"  [misc]
-callables_kwargs.py:101: error: Incompatible types in assignment (expression has type "def func1(**kwargs: **TD2) -> None", variable has type "TDProtocol3")  [assignment]
-callables_kwargs.py:101: note: "TDProtocol3.__call__" has type "def __call__(self, *, v1: int, v2: int, v3: str) -> None"
-callables_kwargs.py:102: error: Incompatible types in assignment (expression has type "def func1(**kwargs: **TD2) -> None", variable has type "TDProtocol4")  [assignment]
-callables_kwargs.py:102: note: "TDProtocol4.__call__" has type "def __call__(self, *, v1: int) -> None"
-callables_kwargs.py:103: error: Incompatible types in assignment (expression has type "def func1(**kwargs: **TD2) -> None", variable has type "TDProtocol5")  [assignment]
-callables_kwargs.py:103: note: "TDProtocol5.__call__" has type "def __call__(self, v1: int, v3: str) -> None"
-callables_kwargs.py:111: error: Overlap between parameter names and ** TypedDict items: "v1"  [misc]
-callables_kwargs.py:122: error: Unpack item in ** parameter must be a TypedDict  [misc]
+callables_kwargs.py:27: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
+callables_kwargs.py:55: error: Missing named argument "v1" for "func1"  [call-arg]
+callables_kwargs.py:55: error: Missing named argument "v3" for "func1"  [call-arg]
+callables_kwargs.py:60: error: Unexpected keyword argument "v4" for "func1"  [call-arg]
+callables_kwargs.py:61: error: Too many positional arguments for "func1"  [call-arg]
+callables_kwargs.py:67: error: Argument 1 to "func1" has incompatible type "**dict[str, str]"; expected "int"  [arg-type]
+callables_kwargs.py:70: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "int"  [arg-type]
+callables_kwargs.py:70: error: Argument 1 to "func1" has incompatible type "**dict[str, object]"; expected "str"  [arg-type]
+callables_kwargs.py:72: error: "func1" gets multiple values for keyword argument "v1"  [misc]
+callables_kwargs.py:73: error: "func2" gets multiple values for keyword argument "v3"  [misc]
+callables_kwargs.py:73: error: Argument 1 to "func2" has incompatible type "int"; expected "str"  [arg-type]
+callables_kwargs.py:74: error: "func2" gets multiple values for keyword argument "v1"  [misc]
+callables_kwargs.py:121: error: Incompatible types in assignment (expression has type "def func1(**kwargs: **TD2) -> None", variable has type "TDProtocol3")  [assignment]
+callables_kwargs.py:121: note: "TDProtocol3.__call__" has type "def __call__(self, *, v1: int, v2: int, v3: str) -> None"
+callables_kwargs.py:122: error: Incompatible types in assignment (expression has type "def func1(**kwargs: **TD2) -> None", variable has type "TDProtocol4")  [assignment]
+callables_kwargs.py:122: note: "TDProtocol4.__call__" has type "def __call__(self, *, v1: int) -> None"
+callables_kwargs.py:123: error: Incompatible types in assignment (expression has type "def func1(**kwargs: **TD2) -> None", variable has type "TDProtocol5")  [assignment]
+callables_kwargs.py:123: note: "TDProtocol5.__call__" has type "def __call__(self, v1: int, v3: str) -> None"
+callables_kwargs.py:131: error: Overlap between parameter names and ** TypedDict items: "v1"  [misc]
+callables_kwargs.py:142: error: Unpack item in ** parameter must be a TypedDict  [misc]
+callables_kwargs.py:206: error: Incompatible types in assignment (expression has type "def func8(**kwargs: **TDBase) -> None", variable has type "TDProtocol10")  [assignment]
+callables_kwargs.py:206: note: "TDProtocol10.__call__" has type "def __call__(self, **kwargs: **TDChild) -> None"
+callables_kwargs.py:224: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
+callables_kwargs.py:228: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
+callables_kwargs.py:232: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]
 """
 conformance_automated = "Fail"
 errors_diff = """
-Line 134: Expected 1 errors
+Line 150: Expected 1 errors
+Line 170: Expected 1 errors
+Line 205: Expected 1 errors
+Line 278: Expected 1 errors
+Line 280: Expected 1 errors
+Line 281: Expected 1 errors
+Line 283: Expected 1 errors
+Line 284: Expected 1 errors
+Line 285: Expected 1 errors
+Line 290: Expected 1 errors
+Line 291: Expected 1 errors
+Line 295: Expected 1 errors
+Line 297: Expected 1 errors
+Line 298: Expected 1 errors
+Line 300: Expected 1 errors
+Line 301: Expected 1 errors
+Line 302: Expected 1 errors
+Line 307: Expected 1 errors
+Line 308: Expected 1 errors
+Line 323: Expected 1 errors
+Line 324: Expected 1 errors
+Line 326: Expected 1 errors
+Line 327: Expected 1 errors
+Line 329: Expected 1 errors
+Line 330: Expected 1 errors
+Line 331: Expected 1 errors
+Line 332: Expected 1 errors
+Line 27: Unexpected errors ['callables_kwargs.py:27: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
+Line 206: Unexpected errors ['callables_kwargs.py:206: error: Incompatible types in assignment (expression has type "def func8(**kwargs: **TDBase) -> None", variable has type "TDProtocol10")  [assignment]']
+Line 224: Unexpected errors ['callables_kwargs.py:224: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
+Line 228: Unexpected errors ['callables_kwargs.py:228: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
+Line 232: Unexpected errors ['callables_kwargs.py:232: error: Unexpected keyword argument "extra_items" for "__init_subclass__" of "TypedDict"  [call-arg]']
 """
