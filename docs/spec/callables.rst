@@ -239,8 +239,10 @@ error if the argument is supplied via unpacking::
     g(name="No Country for Old Men", year=2007) # OK
     h(name="No Country for Old Men", year=2007) # Unrecognized item, error
 
-Assignability for ``Unpack`` keyword argument types
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. _unpack-kwargs-assignability:
+
+Assignability for ``Unpack`` keyword arguments
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For purposes of assignability and override checks, ``**kwargs`` that are annotated
 with ``Unpack`` can be desugared into regular keyword arguments using the following rules.
@@ -274,6 +276,42 @@ For example::
     def h(*, name: str, year: int = ...) -> None: ...
 
 After desugaring, the normal callable assignability rules should be applied.
+
+Unpacking a TypedDict as keyword argument types
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A ``TypedDict`` that is not :term:`closed` may hold items beyond those it declares,
+for example when a subclass instance is assigned to a variable of the base class
+type. Unpacking it in a call passes those items as extra keyword arguments::
+
+    class Animal(TypedDict):
+        name: str
+
+    class Dog(Animal):
+        breed: str
+
+    def takes_name(name: str): ...
+
+    def foo(**kwargs: Unpack[Animal]):
+        print(kwargs["name"].capitalize())
+
+    def bar(**kwargs: Unpack[Animal]):
+        takes_name(**kwargs)  # Error: kwargs may contain other keys
+
+    animal: Animal = Dog(name="Daisy", breed="Labrador")
+    foo(**animal)  # OK: foo ignores "breed"
+    bar(**animal)  # Fails at runtime: "breed" is passed to takes_name
+
+Type checkers should treat the :term:`extra items` of an unpacked ``TypedDict``
+(of type ``object`` if it is :term:`open`) as additional keyword arguments of that
+type, and report an error unless the callee accepts them: the extra items type must
+be assignable to the callee's ``**kwargs`` type, and to any keyword parameter the
+call does not otherwise provide. A callee without ``**kwargs`` cannot accept them.
+A callee with ``**kwargs: Unpack[TD]`` is first desugared as described in
+:ref:`unpack-kwargs-assignability`.
+
+To avoid the error in ``bar``, users should mark ``Animal`` with ``closed=True`` or pass the
+needed items explicitly, e.g. ``takes_name(name=kwargs["name"])``.
 
 Using ``Unpack`` with types other than ``TypedDict``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
