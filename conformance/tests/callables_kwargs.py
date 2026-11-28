@@ -114,7 +114,7 @@ class TDProtocol8(Protocol):
         ...
 
 
-# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#assignment-and-override
+# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#unpack-kwargs-assignability
 
 v1: TDProtocol1 = func1  # OK
 v2: TDProtocol2 = func1  # OK
@@ -142,10 +142,6 @@ T = TypeVar("T", bound=TD2)
 def func6(**kwargs: Unpack[T]) -> None:  # E: unpacked value must be a TypedDict, not a TypeVar bound to TypedDict.
     ...
 
-# > The situation where the destination callable contains **kwargs: Unpack[TypedDict] and
-# > the source callable doesn’t contain **kwargs should be disallowed if the TypedDict is not :term:`closed`.
-# > This is because additional keyword arguments could be passed in when an instance of a subclass
-# > had been assigned to a variable with a base class type and then unpacked in the destination callable invocation
 
 def func7(*, v1: int, v3: str, v2: str = "") -> None:
     ...
@@ -210,7 +206,7 @@ v10: TDProtocol9 = func9  # E: `y` may be passed as an extra item of type `objec
 v11: TDProtocol10 = func8  # OK
 
 
-# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#unpacking-a-typeddict-as-keyword-arguments
+# Specification: https://typing.readthedocs.io/en/latest/spec/callables.html#unpacking-a-typeddict-as-keyword-argument-types
 
 
 class TDOpenImplicit(TypedDict):
@@ -275,8 +271,8 @@ def takes_extra_items_int(**kwargs: Unpack[TDExtraItems]) -> None:
     ...
 
 
-# > It is only safe to unpack a non-:term:`closed` TypedDict in a function call if that function has
-# > ``**kwargs`` in its signature, and all :term:`extra items` are assignable to the type of ``**kwargs``.
+# > Type checkers should treat the :term:`extra items` of an unpacked ``TypedDict`` (of type ``object`` if it is :term:`open`) as additional keyword arguments of that
+# > type, and report an error unless the callee accepts them: the extra items type must be assignable to the callee's ``**kwargs`` type, and to any keyword parameter [...]
 
 def open_implicit(value: TDOpenImplicit, **kwargs: Unpack[TDOpenImplicit]) -> None:
     takes_name(**value)  # E: a subtype may contain unknown keys
